@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/0b46b86b-6f07-4580-8408-70fe8f410313>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 0f2da56f-e508-47da-b6ad-0c91ba8d11b6
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 0f2da56f-e508-47da-b6ad-0c91ba8d11b6
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 1b4a2ddb-32b0-4cff-be1a-780a6f545c64
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/1b4a2ddb-32b0-4cff-be1a-780a6f545c64>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: a6dde490-0861-49b1-bbef-2138926c84ff
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cardSizeCm: false
+    popupSeconds: false
+    selectable: false
+    tableNumber: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - tableNumber: !<float> 8.000000
+      selectable: true
+      cardSizeCm: !<Vec2> {x: 15.000000, y: 10.000000}
+      popupSeconds: !<float> 4.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwTableCardUI – table number card (+ translation pop-up)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float tableNumber = 8 {"hint":"Table number shown on the card"}'
+    - '// @input bool selectable = true {"hint":"Empty table: the card is a selectable button. Occupied: plain card."}'
+    - '// @input vec2 cardSizeCm = {15,10} {"hint":"Card size in cm (brief: about 15 x 10 cm)"}'
+    - '// @input float popupSeconds = 4 {"hint":"Seconds the translation pop-up stays visible", "widget":"slider", "min":1, "max":10, "step":0.5}'
+    - '// @ui {"widget":"group_end"}'

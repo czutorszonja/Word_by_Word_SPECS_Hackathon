@@ -1,0 +1,56 @@
+- !<AssetImportMetadata/fb20b230-3ad0-4dc2-ad95-150a54ef4e9c>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> e22e1e4b-25aa-416d-be09-012dea1913c7
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> e22e1e4b-25aa-416d-be09-012dea1913c7
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> b74d8ded-3723-4711-899e-e091eb6522ac
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/b74d8ded-3723-4711-899e-e091eb6522ac>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 183181a1-ea89-4983-8159-eac2c66735ea
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    boardSizeCm: false
+    matchedColor: false
+    viewDistanceCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - boardSizeCm: !<Vec2> {x: 45.000000, y: 30.000000}
+      viewDistanceCm: !<float> 55.000000
+      matchedColor: !<Vec4> {x: 0.200000, y: 0.620000, z: 0.320000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwPracticeBoardUI – matching board (4 HU + 4 EN cards)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input vec2 boardSizeCm = {38,28} {"hint":"Board size in cm (brief: about 45 x 30 cm)"}'
+    - '// @input float viewDistanceCm = 65 {"hint":"Viewing distance the text is sized for (cm) — brief: 50–60 cm", "widget":"slider", "min":40, "max":100, "step":5}'
+    - '// @input vec4 matchedColor = {0.2,0.62,0.32,1} {"hint":"Colour of a matched pair", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

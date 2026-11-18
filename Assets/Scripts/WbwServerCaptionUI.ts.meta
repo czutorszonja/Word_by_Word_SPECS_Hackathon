@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/7fb56da4-019c-40e6-819e-bfd742f7a2f6>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 3479d95f-fcf7-47ee-a0f0-c9176b38abc6
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 3479d95f-fcf7-47ee-a0f0-c9176b38abc6
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 1b9659f2-ae80-4f40-aaf8-e444d3a3d66f
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/1b9659f2-ae80-4f40-aaf8-e444d3a3d66f>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 8c82a549-39b5-4b8d-9740-13ed7ce1dce7
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    showEnglish: false
+    viewDistanceCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - viewDistanceCm: !<float> 150.000000
+      showEnglish: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwServerCaptionUI – server speech caption (HU + EN)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float viewDistanceCm = 150 {"hint":"Viewing distance the text is sized for (cm) — the server is ~150 cm away", "widget":"slider", "min":80, "max":250, "step":5}'
+    - '// @input bool showEnglish = true {"hint":"Show the English translation under the Hungarian line"}'
+    - '// @ui {"widget":"group_end"}'

@@ -1,0 +1,78 @@
+- !<AssetImportMetadata/de71198e-54cd-4e62-a736-44b89f9f9bc4>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 10b499d3-51e3-4a48-9ff5-4146031faf63
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 10b499d3-51e3-4a48-9ff5-4146031faf63
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> f246cc11-81d4-4ff8-874b-eacd52d6ef49
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/f246cc11-81d4-4ff8-874b-eacd52d6ef49>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: f79fb34c-05d4-45eb-8bc5-8456f1b43482
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    alignToUserHeight: false
+    alignToUserPosition: false
+    coffeeArea: false
+    colliderPaddingCm: false
+    debugColliders: false
+    eyeHeightCm: false
+    pastryDisplay: false
+    sandwichCounter: false
+    seating: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - sandwichCounter: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      pastryDisplay: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      coffeeArea: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      seating: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      eyeHeightCm: !<float> 160.000000
+      alignToUserHeight: true
+      alignToUserPosition: true
+      colliderPaddingCm: 1.500000
+      debugColliders: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwCafeBuilder – floor snap + learnable colliders for the authored café</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject sandwichCounter {"hint":"Authored unit root: sandwich counter (front edge ~100 cm ahead)"}'
+    - '// @input SceneObject pastryDisplay {"hint":"Authored unit root: pastry display (left of the sandwich counter)"}'
+    - '// @input SceneObject coffeeArea {"hint":"Authored unit root: coffee area (right of the sandwich counter)"}'
+    - '// @input SceneObject seating {"hint":"Authored unit root: seating area; children named Table_<n>"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - "// @input float eyeHeightCm = 160 {\"hint\":\"Keep the café floor this far below the user's eyes (cm). The preview camera height can differ between runs.\", \"widget\":\"slider\", \"min\":120, \"max\":190, \"step\":1}"
+    - '// @input bool alignToUserHeight = true {"hint":"Snap the café floor to (user eye height - eyeHeightCm) during the first seconds"}'
+    - "// @input bool alignToUserPosition = true {\"hint\":\"Also centre the café on the user's start spot (x/z) — the brief starts the user at the counter. The preview can remember a moved head position between runs.\"}"
+    - "// @input float colliderPaddingCm = 1.5 {\"hint\":\"Extra margin added around each learnable's mesh for its hit box (cm)\", \"widget\":\"slider\", \"min\":0, \"max\":6, \"step\":0.5}"
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Debug"}'
+    - '// @input bool debugColliders {"hint":"Draw learnable colliders as wireframes (takes effect on preview restart)"}'
+    - '// @ui {"widget":"group_end"}'

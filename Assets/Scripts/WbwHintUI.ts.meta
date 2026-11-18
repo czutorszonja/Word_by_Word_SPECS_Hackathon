@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/6f904929-9e95-4938-a34a-9dc22ddbc1ab>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 1631aa91-065a-4e58-ad85-a28ae6434b16
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 1631aa91-065a-4e58-ad85-a28ae6434b16
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 5e40f818-b13f-4b3a-a85c-600009601057
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/5e40f818-b13f-4b3a-a85c-600009601057>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: db4d47dc-c76c-4b1c-9034-b47f587e79e8
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    arrowColor: false
+    arrowRadiusCm: false
+    followDistanceCm: false
+    hintOffsetUpCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - followDistanceCm: !<float> 62.000000
+      hintOffsetUpCm: !<float> -9.000000
+      arrowRadiusCm: !<float> 14.000000
+      arrowColor: !<Vec4> {x: 1.000000, y: 0.820000, z: 0.300000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwHintUI – hint line + attention arrow</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float followDistanceCm = 62 {"hint":"Distance in front of the user (cm)", "widget":"slider", "min":40, "max":100, "step":1}'
+    - '// @input float hintOffsetUpCm = -9 {"hint":"Vertical offset of the hint line from the view centre (cm)", "widget":"slider", "min":-30, "max":20, "step":0.5}'
+    - '// @input float arrowRadiusCm = 14 {"hint":"How far from the view centre the edge arrow sits (cm)", "widget":"slider", "min":6, "max":25, "step":0.5}'
+    - '// @input vec4 arrowColor = {1,0.82,0.3,1} {"hint":"Arrow colour", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

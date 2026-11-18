@@ -1,0 +1,48 @@
+{
+  "modify": {
+    "@sceneObject:WordByWord": {
+      "components.ScriptComponent.setupPanel": "@component:SetupPanelRoot/WbwSetupPanelUI",
+      "components.ScriptComponent.toast": "@component:ToastRoot/WbwToastUI",
+      "components.ScriptComponent.hud": "@component:HudRoot/WbwHudUI",
+      "components.ScriptComponent.modeMenu": "@component:ModeMenuRoot/WbwModeMenuUI",
+      "components.ScriptComponent.cafe": "@component:Cafe/WbwCafeBuilder",
+      "components.ScriptComponent.learn": "@component:LearnController/WbwLearnController",
+      "components.ScriptComponent.order": "@component:OrderController/WbwOrderController",
+      "components.ScriptComponent.practice": "@component:PracticeController/WbwPracticeController",
+      "components.ScriptComponent.audio": "@component:AudioController/WbwAudioController"
+    },
+    "@sceneObject:Cafe": {
+      "components.ScriptComponent.sandwichCounter": "@sceneObject:SandwichCounter",
+      "components.ScriptComponent.pastryDisplay": "@sceneObject:PastryDisplay",
+      "components.ScriptComponent.coffeeArea": "@sceneObject:CoffeeArea",
+      "components.ScriptComponent.seating": "@sceneObject:Seating",
+      "components.ScriptComponent.lounge": "@sceneObject:Lounge",
+      "components.ScriptComponent.neonWall": "@sceneObject:NeonSign",
+      "components.ScriptComponent.chalkboard": "@sceneObject:Chalkboard"
+    },
+    "@sceneObject:Signage": {
+      "components.ScriptComponent.neonAnchor": "@sceneObject:NeonSign",
+      "components.ScriptComponent.chalkboardAnchor": "@sceneObject:Chalkboard"
+    },
+    "@sceneObject:LearnController": {
+      "components.ScriptComponent.wordCard": "@component:WordCardRoot/WbwWordCardUI"
+    },
+    "@sceneObject:OrderController": {
+      "components.ScriptComponent.caption": "@component:ServerCaptionRoot/WbwServerCaptionUI",
+      "components.ScriptComponent.phrases": "@component:PhraseChoicesRoot/WbwPhraseChoicesUI",
+      "components.ScriptComponent.hint": "@component:HintRoot/WbwHintUI",
+      "components.ScriptComponent.server": "@component:ServerSpot/WbwServerCharacter",
+      "components.ScriptComponent.seating": "@sceneObject:Seating"
+    },
+    "@sceneObject:PracticeController": {
+      "components.ScriptComponent.board": "@component:PracticeBoardRoot/WbwPracticeBoardUI"
+    },
+    "@sceneObject:TableCard_2": {"components.ScriptComponent.tableNumber": 2, "components.ScriptComponent.selectable": false},
+    "@sceneObject:TableCard_4": {"components.ScriptComponent.tableNumber": 4, "components.ScriptComponent.selectable": true},
+    "@sceneObject:TableCard_5": {"components.ScriptComponent.tableNumber": 5, "components.ScriptComponent.selectable": false},
+    "@sceneObject:TableCard_7": {"components.ScriptComponent.tableNumber": 7, "components.ScriptComponent.selectable": false},
+    "@sceneObject:TableCard_8": {"components.ScriptComponent.tableNumber": 8, "components.ScriptComponent.selectable": true},
+    "@sceneObject:TableCard_10": {"components.ScriptComponent.tableNumber": 10, "components.ScriptComponent.selectable": false},
+    "@sceneObject:TableCard_12": {"components.ScriptComponent.tableNumber": 12, "components.ScriptComponent.selectable": true}
+  }
+}

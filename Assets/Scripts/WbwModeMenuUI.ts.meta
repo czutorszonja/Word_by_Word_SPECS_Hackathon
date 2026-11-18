@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/ade22acd-4d1b-4d6b-a04b-ff6ed6bc3b65>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> aeef6a3c-4248-4a42-96c2-7137c5c2118a
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> aeef6a3c-4248-4a42-96c2-7137c5c2118a
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> a246ba44-7c33-4e43-aecb-2019432d12a9
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/a246ba44-7c33-4e43-aecb-2019432d12a9>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 0cb39f31-da05-4743-97db-71b9dda440d1
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    buttonWidthCm: false
+    viewDistanceCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - viewDistanceCm: !<float> 55.000000
+      buttonWidthCm: !<float> 18.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwModeMenuUI – Learn / Practice / Use it live</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float viewDistanceCm = 55 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":100, "step":5}'
+    - '// @input float buttonWidthCm = 18 {"hint":"Width of each mode button (cm)", "widget":"slider", "min":12, "max":30, "step":0.5}'
+    - '// @ui {"widget":"group_end"}'

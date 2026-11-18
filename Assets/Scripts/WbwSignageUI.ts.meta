@@ -1,0 +1,64 @@
+- !<AssetImportMetadata/31ba86bb-555a-450b-995a-89f0a3d51c0f>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> bc674540-50fe-4a2d-bbc2-bb9c6a0997d8
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> bc674540-50fe-4a2d-bbc2-bb9c6a0997d8
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 0dd58f36-63bd-4fb7-a2eb-3fba2e5fb17a
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/0dd58f36-63bd-4fb7-a2eb-3fba2e5fb17a>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: a9301a20-c46b-47d0-8748-3ad09386531d
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    chalkText: false
+    chalkboardAnchor: false
+    neonAnchor: false
+    neonColor: false
+    neonText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - neonAnchor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      chalkboardAnchor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      neonColor: !<Vec4> {x: 1.000000, y: 0.420000, z: 0.550000, w: 1.000000}
+      neonText: COFFEE
+      chalkText: SZENDVICS|KÁVÉ · TEA|SÜTEMÉNY
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwSignageUI – neon COFFEE sign + chalkboard menu</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject neonAnchor {"hint":"Where the neon sign hangs (on the white tiles above the coffee bar)"}'
+    - '// @input SceneObject chalkboardAnchor {"hint":"Where the chalkboard menu text sits (on the chalkboard)"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input vec4 neonColor = {1,0.42,0.55,1} {"hint":"Neon colour (pink-red, kept bright for the additive display)", "widget":"color"}'
+    - '// @input string neonText = "COFFEE" {"hint":"Neon word"}'
+    - '// @input string chalkText = "SZENDVICS|KÁVÉ · TEA|SÜTEMÉNY" {"hint":"Chalkboard menu lines, separated by |"}'
+    - '// @ui {"widget":"group_end"}'

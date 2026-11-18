@@ -1,0 +1,65 @@
+- !<AssetImportMetadata/817e2934-4d79-408e-b1c8-848cd5c63aa4>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 54a49f19-3e08-48cf-be27-56ecb070ac05
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 54a49f19-3e08-48cf-be27-56ecb070ac05
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 38b2083a-4a63-4f8d-a58d-a2ff4359476e
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/38b2083a-4a63-4f8d-a58d-a2ff4359476e>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 21085d8d-33b2-4788-98f8-f6a92f00eb4d
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    followDistanceCm: false
+    followSpeed: false
+    lookDownDeg: false
+    offsetRightCm: false
+    offsetUpCm: false
+    offsetUpLookingDownCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - followDistanceCm: !<float> 60.000000
+      offsetRightCm: !<float> -15.000000
+      offsetUpCm: !<float> -17.000000
+      offsetUpLookingDownCm: !<float> 11.000000
+      lookDownDeg: !<float> 9.000000
+      followSpeed: !<float> 5.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwHudUI – Menu stand-in button + saved counter</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float followDistanceCm = 60 {"hint":"Distance in front of the user (cm)", "widget":"slider", "min":40, "max":100, "step":1}'
+    - '// @input float offsetRightCm = -4 {"hint":"Sideways offset from the view centre (cm, negative = left)", "widget":"slider", "min":-30, "max":30, "step":0.5}'
+    - '// @input float offsetUpCm = -17 {"hint":"Vertical offset from eye level (cm, negative = low)", "widget":"slider", "min":-35, "max":10, "step":0.5}'
+    - '// @input float offsetUpLookingDownCm = 7 {"hint":"Vertical offset used while the user looks down (e.g. at the phrase cards on the counter) — sits above the gaze so it never covers what they look at (cm)", "widget":"slider", "min":-10, "max":30, "step":0.5}'
+    - '// @input float lookDownDeg = 20 {"hint":"Head pitch below the horizon (degrees) at which the HUD switches to the looking-down offset", "widget":"slider", "min":3, "max":30, "step":1}'
+    - '// @input float followSpeed = 5 {"hint":"How quickly the HUD catches up with head movement (higher = snappier)", "widget":"slider", "min":1, "max":15, "step":0.5}'
+    - '// @ui {"widget":"group_end"}'

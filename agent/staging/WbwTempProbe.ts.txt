@@ -1,0 +1,210 @@
+// TEMPORARY verification probe — drives the flow to a given stage for screenshots / checks.
+// Remove before finishing the build.
+import {WbwMain} from "./WbwMain"
+import {camPos, camLook} from "./WbwSpatial"
+
+@component
+export class WbwTempProbe extends BaseScriptComponent {
+  @input main!: WbwMain
+  @input @hint("setup | wordcard | phrases | phrases2 | practice | flow") stage: string = "setup"
+
+  onAwake(): void {
+    const ev = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
+    ev.bind(() => this.run())
+    ev.reset(1.5)
+  }
+
+  private later(t: number, f: () => void): void {
+    const ev = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
+    ev.bind(f)
+    ev.reset(t)
+  }
+
+  private find(so: SceneObject, name: string): SceneObject | null {
+    if (so.name === name) return so
+    for (let i = 0; i < so.getChildrenCount(); i++) {
+      const r = this.find(so.getChild(i), name)
+      if (r) return r
+    }
+    return null
+  }
+
+  private frame(targetName: string, anchorName?: string): void {
+    const cafe = (this.main as any).cafe.getSceneObject() as SceneObject
+    const ct = cafe.getTransform()
+    const target = this.find(cafe, targetName)
+    const anchor = anchorName ? this.find(cafe, anchorName) : null
+    if (!target) { print(`PROBE view: no ${targetName}`); return }
+    const ap = anchor ? anchor.getTransform().getWorldPosition() : ct.getWorldPosition()
+    const v = target.getTransform().getWorldPosition().sub(ap)
+    const look = camLook()
+    const cur = ct.getWorldRotation()
+    const dYaw = Math.atan2(-look.x, -look.z) - Math.atan2(-v.x, -v.z)
+    const rot = quat.fromEulerAngles(0, dYaw, 0)
+    // rotate the café about the anchor, then move the anchor under the head
+    const p = ct.getWorldPosition()
+    const rel = rot.multiplyVec3(p.sub(ap))
+    ct.setWorldRotation(rot.multiply(cur))
+    const c = camPos()
+    ct.setWorldPosition(new vec3(c.x + rel.x, p.y + rel.y, c.z + rel.z))
+    print(`PROBE view ${targetName} from ${anchorName || "start"} yaw ${(dYaw * 180 / Math.PI).toFixed(0)}`)
+  }
+
+  // Full done-criteria walk-through: setup → toast → menu → Learn → Use it live (7 steps) → Practice.
+  private runFlow(): void {
+    const m = this.main as any
+    const L = m.learn, O = m.order, P = m.practice
+    const R: string[] = []
+    const ok = (name: string, cond: boolean, extra: string = "") => { R.push(`${cond ? "PASS" : "FAIL"} ${name} ${extra}`); print(`PROBE ${cond ? "PASS" : "FAIL"} ${name} ${extra}`) }
+    // C1 setup → toast → mode menu
+    ok("C1.setupVisibleAtStart", !m.setupComplete && m.setupPanel.isVisible !== false)
+    m.confirmSetup()
+    ok("C1.setupComplete", m.setupComplete === true)
+    ok("C1.toastShown", m.toast.isVisible === true)
+    this.later(0.5, () => {
+      m.toggleMenu()
+      ok("C1.menuOpen", m.menuOpen === true)
+      m.selectMode("learn")
+      ok("C1.menuClosedAfterPick", m.menuOpen === false, `mode=${m.currentMode}`)
+      this.frame("SandwichCounter")
+      // C2 Learn
+      this.later(2.0, () => {
+        ok("C2.bracketsShown", L.bracketedIds.length >= 1 && L.bracketedIds.length <= 4, `brackets=${L.bracketedIds}`)
+        const before = m.savedCount
+        ok("C2.selectOlives", L.selectById("olivabogyo") && L.activeCardWordId === "olivabogyo")
+        L.saveCurrent()
+        ok("C2.saveIncrements", m.savedCount === before + 1, `saved=${m.savedCount}`)
+        for (const id of ["sonka", "sajt", "paradicsom"]) { L.selectById(id); L.saveCurrent() }
+        ok("C2.savedFour", m.savedCount >= 4, `saved=${m.savedWords}`)
+        // C3 Use it live
+        m.selectMode("live")
+        const plan: {[k: number]: string[]} = {1: ["jonapot", "szendvicset"], 2: ["sonka_sajt", "kerhetek_oliva", "done"], 3: ["tejes_kave"], 4: ["itt_eszem"], 5: ["nyolcas_asztal"], 6: ["koszonom"]}
+        let tableDone = false, highlightSeen = false, chimeStep = false, lastStep = 0
+        const t0 = getTime()
+        const ev = this.createEvent("UpdateEvent")
+        let nextAct = 0
+        ev.bind(() => {
+          if (getTime() < nextAct) return
+          nextAct = getTime() + 0.6
+          if (O.orderStep !== lastStep) { lastStep = O.orderStep; print(`PROBE step ${O.orderStep} ${O.orderStepName} line="${O.lastServerLine}"`) }
+          if (O.orderStep === 2 && L.highlightIds.length > 0) highlightSeen = true
+          if (O.orderStep === 5) chimeStep = true
+          if (O.waitingFor === "table" && !tableDone) {
+            tableDone = true
+            O.onTable(8)
+            const card = O.tableCards ? O.tableCards[8] : null
+            ok("C3.tableTap8", O.lastTableTapped === 8 && O.chosenTable === 8)
+            return
+          }
+          if (O.waitingFor === "user") {
+            const want = plan[O.orderStep] || []
+            for (const id of want) if (O.offeredPhraseIds.indexOf(id) >= 0 && O.answers.indexOf(id) < 0) { O.pickPhrase(id); return }
+          }
+          if (O.orderStep >= 7 || getTime() - t0 > 90) {
+            ev.enabled = false
+            ok("C3.orderComplete", O.orderStep === 7 && O.waitingFor === "done", `answers=${O.answers}`)
+            ok("C3.ingredientHighlight", highlightSeen)
+            ok("C3.tableStepReached", chimeStep && tableDone)
+            // C4 Practice
+            m.selectMode("practice")
+            this.later(1.5, () => {
+              ok("C4.boardOpen", P.active && P.pairsTotal === 4, `left=${P.leftIds} right=${P.rightIds}`)
+              const wrong = P.leftIds[0] === P.rightIds[0] ? P.rightIds[1] : P.rightIds[0]
+              P.pick("hu", P.leftIds[0]); P.pick("en", wrong === P.leftIds[0] ? P.rightIds[1] : wrong)
+              ok("C4.wrongShowsTryAgain", P.wrongAttempts === 1)
+              const ids = P.leftIds.slice()
+              let i = 0
+              const step = () => {
+                if (i >= ids.length) {
+                  this.later(3.0, () => {
+                    ok("C4.complete", P.complete === true, `matched=${P.pairsMatched}/${P.pairsTotal}`)
+                    // C5 mode switch keeps saved words
+                    const sc = m.savedCount
+                    m.toggleMenu(); m.selectMode("learn")
+                    ok("C5.modeSwitchKeepsSaved", m.savedCount === sc && m.currentMode === "learn", `switches=${m.modeSwitches}`)
+                    print(`PROBE SUMMARY ${R.filter((r) => r.indexOf("PASS") === 0).length}/${R.length} passed`)
+                  })
+                  return
+                }
+                P.pick("hu", ids[i]); P.pick("en", ids[i]); i++
+                this.later(1.6, step)
+              }
+              this.later(0.5, step)
+            })
+          }
+        })
+      })
+    })
+  }
+
+  private run(): void {
+    const m = this.main
+    const L = (m as any).learn, O = (m as any).order, P = (m as any).practice
+    print(`PROBE stage=${this.stage} cam=${camPos()} look=${camLook()}`)
+    if (this.stage === "setup") return
+    if (this.stage.indexOf("view:") === 0) {
+      // screenshot-only: "view:<target>[:<anchor>]" — stand the (fixed) preview head on <anchor>
+      // and turn the café so <target> is straight ahead
+      const parts = this.stage.split(":")
+      ;(m as any).setupPanel.hide()
+      this.later(2.6, () => {
+        this.frame(parts[1], parts[2] || undefined)
+        if (parts[3]) {
+          // optional eye height (cm) — emulates looking down/up with the fixed preview head
+          const ct = (m as any).cafe.getSceneObject().getTransform()
+          const p = ct.getWorldPosition()
+          ct.setWorldPosition(new vec3(p.x, camPos().y - Number(parts[3]), p.z))
+        }
+        if (parts[4]) {
+          // optional head pitch (deg, + = look up): tilt the café around the eye instead
+          const ct = (m as any).cafe.getSceneObject().getTransform()
+          const c = camPos()
+          const lk = camLook()
+          const right = new vec3(-lk.z, 0, lk.x).normalize()
+          const q = quat.angleAxis((-Number(parts[4]) * Math.PI) / 180, right)
+          const rel = ct.getWorldPosition().sub(c)
+          ct.setWorldPosition(c.add(q.multiplyVec3(rel)))
+          ct.setWorldRotation(q.multiply(ct.getWorldRotation()))
+        }
+      })
+      return
+    }
+    if (this.stage === "wordcard") {
+      m.selectMode("learn")
+      this.later(4.5, () => print(`PROBE select olivabogyo -> ${L.selectById("olivabogyo")} card=${L.activeCardWordId} brackets=${L.bracketedIds}`))
+      return
+    }
+    if (this.stage === "phrases" || this.stage === "phrases2") {
+      // screenshot-only hack: turn the café so the counter is where the (moved) preview head looks
+      const look = camLook()
+      const yaw = Math.atan2(-look.x, -look.z)
+      ;(m as any).cafe.getSceneObject().getTransform().setWorldRotation(quat.fromEulerAngles(0, yaw, 0))
+      // the fixed preview head only looks ~13° down; lift the café so the counter tray sits where a user looking down at it would see it
+      ;(m as any).cafe.eyeHeightCm = 138
+      this.later(1.5, () => {
+        const ct = (m as any).cafe.getSceneObject().getTransform()
+        const p = ct.getWorldPosition()
+        ct.setWorldPosition(new vec3(p.x, camPos().y - 138, p.z))
+      })
+      m.selectMode("live")
+      this.later(5, () => {
+        print(`PROBE order step=${O.orderStep} ${O.orderStepName} offered=${O.offeredPhraseIds}`)
+        if (this.stage === "phrases2") {
+          for (const id of ["jonapot", "szendvicset"]) if (O.offeredPhraseIds.indexOf(id) >= 0) print(`PROBE pick ${id} -> ${O.pickPhrase(id)}`)
+          this.later(6, () => print(`PROBE order step=${O.orderStep} ${O.orderStepName} offered=${O.offeredPhraseIds} highlight=${L.highlightIds}`))
+        }
+      })
+      return
+    }
+    if (this.stage === "flow") {
+      this.runFlow()
+      return
+    }
+    if (this.stage === "practice") {
+      for (const id of ["olivabogyo", "sonka", "sajt", "paradicsom"]) (m as any).session.save(id)
+      m.selectMode("practice")
+      this.later(4.5, () => print(`PROBE practice active=${P.active}`))
+      return
+    }
+  }
+}

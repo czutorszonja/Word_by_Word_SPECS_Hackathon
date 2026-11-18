@@ -1,0 +1,64 @@
+- !<AssetImportMetadata/f04cd03c-0388-486b-8f44-4c76bab92d2a>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 1c68c521-0436-490a-aab8-acac7ba2ba78
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 1c68c521-0436-490a-aab8-acac7ba2ba78
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 8fffd1eb-18f9-4afb-91a9-ea222e3b6e74
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/8fffd1eb-18f9-4afb-91a9-ea222e3b6e74>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: e9432a52-1af3-497b-a925-f44430065c40
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    board: false
+    boardAboveTableCm: false
+    boardDistanceCm: false
+    nearTableCm: false
+    pairsPerSet: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - board: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      pairsPerSet: !<float> 4.000000
+      boardAboveTableCm: !<float> 30.000000
+      nearTableCm: !<float> 250.000000
+      boardDistanceCm: !<float> 55.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwPracticeController – matching game with saved words</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input AssignableType_1 board {"hint":"Practice board UI module"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float pairsPerSet = 4 {"hint":"Pairs per set (brief: 4)", "widget":"slider", "min":2, "max":6, "step":1}'
+    - '// @input float boardAboveTableCm = 30 {"hint":"Height of the board centre above the table top (cm)", "widget":"slider", "min":10, "max":60, "step":1}'
+    - '// @input float nearTableCm = 250 {"hint":"If the user is farther than this from their table (cm), the board opens in front of them instead", "widget":"slider", "min":100, "max":600, "step":10}'
+    - '// @input float boardDistanceCm = 65 {"hint":"Distance of the board from the user when it opens in front of them (cm) — brief: 50–60", "widget":"slider", "min":40, "max":90, "step":1}'
+    - '// @ui {"widget":"group_end"}'

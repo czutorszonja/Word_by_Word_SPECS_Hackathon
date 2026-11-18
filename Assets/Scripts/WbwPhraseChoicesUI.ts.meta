@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/12ebb5d5-3071-4548-b863-ea70816036c3>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 701e91c7-5c91-4fc4-a414-46225e8b9c1d
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 701e91c7-5c91-4fc4-a414-46225e8b9c1d
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> ec35963b-fe39-4336-aa2d-0a3ae1df51be
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/ec35963b-fe39-4336-aa2d-0a3ae1df51be>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: ee065647-ad41-4081-8c74-28152883d43f
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cardHeightCm: false
+    cardWidthCm: false
+    showPictures: false
+    viewDistanceCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - cardWidthCm: 10.500000
+      cardHeightCm: 10.500000
+      viewDistanceCm: !<float> 60.000000
+      showPictures: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwPhraseChoicesUI – phrase cards (picture + HU + EN)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float cardWidthCm = 14 {"hint":"Width of one phrase card (cm)", "widget":"slider", "min":8, "max":16, "step":0.5}'
+    - '// @input float cardHeightCm = 13 {"hint":"Height of one phrase card (cm)", "widget":"slider", "min":7, "max":16, "step":0.5}'
+    - '// @input float viewDistanceCm = 125 {"hint":"Viewing distance the text is sized for (cm) — brief: ~60 cm", "widget":"slider", "min":40, "max":100, "step":5}'
+    - '// @input bool showPictures = true {"hint":"Show pictures on phrase cards (the learner will decide after the first run)"}'
+    - '// @ui {"widget":"group_end"}'

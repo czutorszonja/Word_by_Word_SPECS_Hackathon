@@ -1,0 +1,61 @@
+- !<AssetImportMetadata/24c657e3-6cbf-4060-ac6a-5d5df2d2863a>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 2b7e5244-de03-4571-a927-037484e9a939
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 2b7e5244-de03-4571-a927-037484e9a939
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 31c9cc9d-5c16-491c-8ef2-bd2867fa28b2
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/31c9cc9d-5c16-491c-8ef2-bd2867fa28b2>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: d71e8987-2a34-43f3-a7aa-ff1d4aebdd1b
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    apronColor: false
+    bodyModel: false
+    heightCm: false
+    lookAtUser: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - bodyModel: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      heightCm: !<float> 172.000000
+      apronColor: !<Vec4> {x: 0.250000, y: 0.620000, z: 0.420000, w: 1.000000}
+      lookAtUser: 0.700000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwServerCharacter – scripted server (idle + speaking)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject bodyModel {"hint":"Authored character model (child SceneObject) to animate. Empty = primitive stand-in figure."}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float heightCm = 172 {"hint":"Height of the top of the head above the floor (cm)", "widget":"slider", "min":150, "max":195, "step":1}'
+    - '// @input vec4 apronColor = {0.25,0.62,0.42,1} {"hint":"Apron colour", "widget":"color"}'
+    - '// @input float lookAtUser = 0.7 {"hint":"How strongly the server turns their head toward the user (0–1)", "widget":"slider", "min":0, "max":1, "step":0.05}'
+    - '// @ui {"widget":"group_end"}'

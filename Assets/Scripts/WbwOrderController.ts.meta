@@ -1,0 +1,85 @@
+- !<AssetImportMetadata/6d34bae5-47c9-49e0-91e0-5c5582210333>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 4da398ec-80be-443e-85be-ae2c1c199be4
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 4da398ec-80be-443e-85be-ae2c1c199be4
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> a6f844ea-cf3f-4bc0-b10d-fa1c11391f8b
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/a6f844ea-cf3f-4bc0-b10d-fa1c11391f8b>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: ca8ef950-2d2e-4456-afed-29565ce79b67
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    arrowInViewDeg: false
+    caption: false
+    captionLingerSec: false
+    hint: false
+    phraseDistanceCm: false
+    phraseDropCm: false
+    phraseTray: false
+    phrases: false
+    phrasesOnCounter: false
+    replyPauseSec: false
+    seating: false
+    server: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - caption: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      phrases: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      hint: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      server: !<MappingBased.AssignableType_4> 00000000-0000-0000-0000-000000000000
+      seating: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      phraseTray: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      replyPauseSec: 0.600000
+      captionLingerSec: !<float> 4.000000
+      phrasesOnCounter: true
+      phraseDistanceCm: !<float> 60.000000
+      phraseDropCm: !<float> 17.000000
+      arrowInViewDeg: !<float> 24.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwOrderController – Use it live (scripted order + tables)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input AssignableType_1 caption {"hint":"Server caption bubble UI"}'
+    - '// @input AssignableType_2 phrases {"hint":"Phrase cards UI"}'
+    - '// @input AssignableType_3 hint {"hint":"Hint line + edge arrow UI"}'
+    - '// @input AssignableType_4 server {"hint":"The scripted server character"}'
+    - '// @input SceneObject seating {"hint":"Seating root: children Table_<n>, each with a TableCard_<n> child"}'
+    - '// @input SceneObject phraseTray {"hint":"Authored tray on the sandwich counter where the phrase cards lie (tilted toward the user)"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - "// @input float replyPauseSec = 0.6 {\"hint\":\"Pause between the user's answer and the server's next line (s)\", \"widget\":\"slider\", \"min\":0, \"max\":3, \"step\":0.1}"
+    - "// @input float captionLingerSec = 4 {\"hint\":\"Seconds the caption stays after the server's line ends\", \"widget\":\"slider\", \"min\":0, \"max\":10, \"step\":0.5}"
+    - '// @input bool phrasesOnCounter = true {"hint":"Lay the phrase cards on the counter tray (user looks down to pick). Off = float in front of the user."}'
+    - '// @input float phraseDistanceCm = 68 {"hint":"Distance of the phrase cards in front of the user when NOT on the counter (cm)", "widget":"slider", "min":40, "max":90, "step":1}'
+    - '// @input float phraseDropCm = 7 {"hint":"How far below eye level the phrase cards sit (cm)", "widget":"slider", "min":0, "max":40, "step":1}'
+    - "// @input float arrowInViewDeg = 24 {\"hint\":\"Objects within this angle (deg) of the view direction count as 'in view' for the arrow\", \"widget\":\"slider\", \"min\":10, \"max\":45, \"step\":1}"
+    - '// @ui {"widget":"group_end"}'

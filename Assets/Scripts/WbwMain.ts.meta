@@ -1,0 +1,91 @@
+- !<AssetImportMetadata/d23bbb99-e596-42c2-9002-679c0dff0e87>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> ad0319f7-86de-4c1d-8a03-9613d928a3ae
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> ad0319f7-86de-4c1d-8a03-9613d928a3ae
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 11967b45-226d-4543-8920-1a481366cced
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/11967b45-226d-4543-8920-1a481366cced>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 2bcfcfb7-01b3-4204-9228-e2816669d1a7
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    audio: false
+    cafe: false
+    firstMode: false
+    hud: false
+    learn: false
+    modeMenu: false
+    order: false
+    practice: false
+    setupDistanceCm: false
+    setupPanel: false
+    skipSetup: false
+    toast: false
+    toastSeconds: false
+    toastText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - setupPanel: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      toast: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      hud: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      modeMenu: !<MappingBased.AssignableType_4> 00000000-0000-0000-0000-000000000000
+      cafe: !<MappingBased.AssignableType_5> 00000000-0000-0000-0000-000000000000
+      learn: !<MappingBased.AssignableType_6> 00000000-0000-0000-0000-000000000000
+      order: !<MappingBased.AssignableType_7> 00000000-0000-0000-0000-000000000000
+      practice: !<MappingBased.AssignableType_8> 00000000-0000-0000-0000-000000000000
+      audio: !<MappingBased.AssignableType_9> 00000000-0000-0000-0000-000000000000
+      toastText: Café detected (demo)
+      toastSeconds: !<float> 3.000000
+      firstMode: learn
+      setupDistanceCm: !<float> 70.000000
+      skipSetup: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwMain – Word by Word café (setup, menu, modes)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input AssignableType_1 setupPanel {"hint":"Language setup panel"}'
+    - "// @input AssignableType_2 toast {\"hint\":\"'Café detected (demo)' toast\"}"
+    - '// @input AssignableType_3 hud {"hint":"HUD with the ✋ Menu stand-in button"}'
+    - '// @input AssignableType_4 modeMenu {"hint":"Mode menu"}'
+    - '// @input AssignableType_5 cafe {"hint":"Café builder (virtual café stand-in)"}'
+    - '// @input AssignableType_6 learn {"hint":"Learn mode controller"}'
+    - '// @input AssignableType_7 order {"hint":"Use it live controller"}'
+    - '// @input AssignableType_8 practice {"hint":"Practice controller"}'
+    - '// @input AssignableType_9 audio {"hint":"Audio controller"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input string toastText = "Café detected (demo)" {"hint":"Stand-in for location recognition, shown after setup"}'
+    - '// @input float toastSeconds = 3 {"hint":"Seconds the toast stays (brief: about 3 s)", "widget":"slider", "min":1, "max":8, "step":0.5}'
+    - '// @input string firstMode = "learn" {"hint":"Mode entered automatically after setup", "widget":"combobox", "values":[{"label":"Learn", "value":"learn"}, {"label":"Use it live", "value":"live"}, {"label":"Practice", "value":"practice"}, {"label":"None (menu only)", "value":"none"}]}'
+    - '// @input float setupDistanceCm = 70 {"hint":"Distance of the setup panel in front of the user (cm) — brief: ~70 cm", "widget":"slider", "min":40, "max":110, "step":1}'
+    - '// @input bool skipSetup {"hint":"Skip the setup panel and toast (handy while iterating)"}'
+    - '// @ui {"widget":"group_end"}'

@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/870ce261-d514-4cdf-b845-3b0df8119cca>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> e2d36d23-4597-4aa0-af5d-f9387fbc0491
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> e2d36d23-4597-4aa0-af5d-f9387fbc0491
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 223414e1-a90a-423a-b79f-1098dcca9f68
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/223414e1-a90a-423a-b79f-1098dcca9f68>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 1e43d85f-eaa5-4db8-b1ff-979c89876b0b
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cardHeightCm: false
+    cardWidthCm: false
+    flySeconds: false
+    viewDistanceCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - cardWidthCm: !<float> 25.000000
+      cardHeightCm: 19.500000
+      viewDistanceCm: !<float> 70.000000
+      flySeconds: 0.450000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwWordCardUI – word card (illustration, HU, EN, example)</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float cardWidthCm = 25 {"hint":"Card width in cm (brief: about 25 x 18 cm)", "widget":"slider", "min":20, "max":40, "step":0.5}'
+    - '// @input float cardHeightCm = 19.5 {"hint":"Card height in cm", "widget":"slider", "min":15, "max":30, "step":0.5}'
+    - '// @input float viewDistanceCm = 70 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":110, "step":5}'
+    - '// @input float flySeconds = 0.45 {"hint":"Seconds the save fly-to-counter animation takes", "widget":"slider", "min":0.2, "max":1.5, "step":0.05}'
+    - '// @ui {"widget":"group_end"}'

@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/595c9dae-7eb3-4ca2-abb6-e718a47ec323>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 95fd5673-d2d4-4dfd-97ea-19c2e560b74f
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 95fd5673-d2d4-4dfd-97ea-19c2e560b74f
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 6fb46412-899f-489f-9c6d-7ddbb08f331f
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/6fb46412-899f-489f-9c6d-7ddbb08f331f>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 056074af-4471-4aa3-bf52-d5159145a262
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    iconColor: false
+    viewDistanceCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - viewDistanceCm: !<float> 80.000000
+      iconColor: !<Vec4> {x: 1.000000, y: 0.450000, z: 0.450000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwToastUI – transient status toast</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float viewDistanceCm = 80 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":120, "step":5}'
+    - '// @input vec4 iconColor = {1,0.45,0.45,1} {"hint":"Icon tint (location pin)", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

@@ -1,0 +1,37 @@
+// WbwIllustrations.ts — literal requireAsset table for card illustrations (generated list).
+// Owns: key -> Texture. Keys are file base names in Assets/Illustrations/ (procedural
+// flat-cartoon stand-ins; drop a replacement PNG with the same name to swap art).
+
+export const PICTURES: {[key: string]: Texture} = {
+  "asztal": requireAsset("../Illustrations/asztal.png") as Texture,
+  "coffee_milk": requireAsset("../Illustrations/coffee_milk.png") as Texture,
+  "csirke": requireAsset("../Illustrations/csirke.png") as Texture,
+  "done": requireAsset("../Illustrations/done.png") as Texture,
+  "eat_here": requireAsset("../Illustrations/eat_here.png") as Texture,
+  "hagyma": requireAsset("../Illustrations/hagyma.png") as Texture,
+  "ham_cheese": requireAsset("../Illustrations/ham_cheese.png") as Texture,
+  "hello": requireAsset("../Illustrations/hello.png") as Texture,
+  "husgomboc": requireAsset("../Illustrations/husgomboc.png") as Texture,
+  "kave": requireAsset("../Illustrations/kave.png") as Texture,
+  "kenyer": requireAsset("../Illustrations/kenyer.png") as Texture,
+  "kicsi": requireAsset("../Illustrations/kicsi.png") as Texture,
+  "majonez": requireAsset("../Illustrations/majonez.png") as Texture,
+  "nagy": requireAsset("../Illustrations/nagy.png") as Texture,
+  "no_pickles": requireAsset("../Illustrations/no_pickles.png") as Texture,
+  "olivabogyo": requireAsset("../Illustrations/olivabogyo.png") as Texture,
+  "paradicsom": requireAsset("../Illustrations/paradicsom.png") as Texture,
+  "sajt": requireAsset("../Illustrations/sajt.png") as Texture,
+  "salata": requireAsset("../Illustrations/salata.png") as Texture,
+  "sonka": requireAsset("../Illustrations/sonka.png") as Texture,
+  "spenot": requireAsset("../Illustrations/spenot.png") as Texture,
+  "szendvics": requireAsset("../Illustrations/szendvics.png") as Texture,
+  "table12": requireAsset("../Illustrations/table12.png") as Texture,
+  "table4": requireAsset("../Illustrations/table4.png") as Texture,
+  "table8": requireAsset("../Illustrations/table8.png") as Texture,
+  "table_free": requireAsset("../Illustrations/table_free.png") as Texture,
+  "takeaway": requireAsset("../Illustrations/takeaway.png") as Texture,
+  "tej": requireAsset("../Illustrations/tej.png") as Texture,
+  "thanks": requireAsset("../Illustrations/thanks.png") as Texture,
+  "uborka": requireAsset("../Illustrations/uborka.png") as Texture,
+  "viz": requireAsset("../Illustrations/viz.png") as Texture,
+}

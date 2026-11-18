@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/dcea98aa-bdf5-4e5b-95f0-e75d420547bd>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> bd0de456-6cf6-4d01-8b54-1fddaf0537f7
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> bd0de456-6cf6-4d01-8b54-1fddaf0537f7
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 6d90cfa0-4684-41f7-bf78-deb8f52f89c9
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/6d90cfa0-4684-41f7-bf78-deb8f52f89c9>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 914d835a-beb8-401c-bb17-8d438936fd05
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    panelHeightCm: false
+    panelWidthCm: false
+    titleText: false
+    viewDistanceCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - panelWidthCm: !<float> 40.000000
+      panelHeightCm: !<float> 25.000000
+      viewDistanceCm: !<float> 70.000000
+      titleText: Word by Word
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwSetupPanelUI – language setup at first launch</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float panelWidthCm = 38 {"hint":"Panel width in cm (brief: about 40 x 25 cm)", "widget":"slider", "min":30, "max":60, "step":1}'
+    - '// @input float panelHeightCm = 25 {"hint":"Panel height in cm", "widget":"slider", "min":18, "max":40, "step":1}'
+    - '// @input float viewDistanceCm = 70 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":120, "step":5}'
+    - '// @input string titleText = "Word by Word" {"hint":"Title at the top of the panel"}'
+    - '// @ui {"widget":"group_end"}'

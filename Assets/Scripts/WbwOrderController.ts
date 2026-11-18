@@ -205,7 +205,7 @@ export class WbwOrderController extends BaseScriptComponent {
     })
     this.waitingFor = "user"
     this.offeredPhraseIds = list
-    this.phrases.show(cards, multi ? "Pick one or more, then “Kész / Done”" : "Tap a phrase to answer")
+    this.phrases.show(cards, multi ? "Pick any, then Kész" : "Tap your answer")
     if (this.phrasesOnCounter && this.phraseTray) {
       // lying on the counter in front of the user, tilted up toward them (authored tray)
       const tt = this.phraseTray.getTransform(), pt = this.phrases.getSceneObject().getTransform()

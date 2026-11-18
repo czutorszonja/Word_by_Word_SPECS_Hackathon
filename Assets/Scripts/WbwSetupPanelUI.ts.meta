@@ -28,9 +28,8 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    panelHeightCm: false
-    panelWidthCm: false
-    titleText: false
+    comingSoonText: false
+    headingText: false
     viewDistanceCm: false
   ScriptTypesHidden:
     {}
@@ -41,10 +40,9 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - panelWidthCm: !<float> 40.000000
-      panelHeightCm: !<float> 25.000000
-      viewDistanceCm: !<float> 70.000000
-      titleText: Word by Word
+    - viewDistanceCm: !<float> 70.000000
+      headingText: Choose your languages
+      comingSoonText: "More languages soon: Deutsch, Español"
   ScriptTypes:
     -
       {}
@@ -52,8 +50,7 @@
     - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwSetupPanelUI – language setup at first launch</span>"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
-    - '// @input float panelWidthCm = 38 {"hint":"Panel width in cm (brief: about 40 x 25 cm)", "widget":"slider", "min":30, "max":60, "step":1}'
-    - '// @input float panelHeightCm = 25 {"hint":"Panel height in cm", "widget":"slider", "min":18, "max":40, "step":1}'
-    - '// @input float viewDistanceCm = 70 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":120, "step":5}'
-    - '// @input string titleText = "Word by Word" {"hint":"Title at the top of the panel"}'
+    - '// @input float viewDistanceCm = 70 {"hint":"Viewing distance of the panel (cm); text is sized for it", "widget":"slider", "min":40, "max":120, "step":5}'
+    - '// @input string headingText = "Choose your languages" {"hint":"Heading of the panel"}'
+    - '// @input string comingSoonText = "More languages soon: Deutsch, Español" {"hint":"Muted line about languages that are not available yet"}'
     - '// @ui {"widget":"group_end"}'

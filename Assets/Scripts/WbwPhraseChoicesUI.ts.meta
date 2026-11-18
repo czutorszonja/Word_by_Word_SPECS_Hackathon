@@ -28,8 +28,9 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    cardHeightCm: false
-    cardWidthCm: false
+    maxRowWidthCm: false
+    minViewDistanceCm: false
+    pictureSizeCm: false
     showPictures: false
     viewDistanceCm: false
   ScriptTypesHidden:
@@ -41,9 +42,10 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - cardWidthCm: 10.500000
-      cardHeightCm: 10.500000
+    - maxRowWidthCm: !<float> 46.000000
+      pictureSizeCm: 2.800000
       viewDistanceCm: !<float> 60.000000
+      minViewDistanceCm: !<float> 80.000000
       showPictures: true
   ScriptTypes:
     -
@@ -52,8 +54,9 @@
     - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwPhraseChoicesUI – phrase cards (picture + HU + EN)</span>"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
-    - '// @input float cardWidthCm = 14 {"hint":"Width of one phrase card (cm)", "widget":"slider", "min":8, "max":16, "step":0.5}'
-    - '// @input float cardHeightCm = 13 {"hint":"Height of one phrase card (cm)", "widget":"slider", "min":7, "max":16, "step":0.5}'
-    - '// @input float viewDistanceCm = 125 {"hint":"Viewing distance the text is sized for (cm) — brief: ~60 cm", "widget":"slider", "min":40, "max":100, "step":5}'
+    - '// @input float maxRowWidthCm = 50 {"hint":"Widest the card row should get (cm). Wider rows first wrap phrases to two lines, then use slightly smaller text", "widget":"slider", "min":20, "max":70, "step":1}'
+    - '// @input float pictureSizeCm = 3.2 {"hint":"Size of the small picture on each phrase card (cm)", "widget":"slider", "min":1.5, "max":5, "step":0.1}'
+    - '// @input float viewDistanceCm = 100 {"hint":"Distance the card text is sized for (cm). The cards lie ~125 cm away on the counter; sizing for less keeps them compact.", "widget":"slider", "min":60, "max":140, "step":5}'
+    - '// @input float minViewDistanceCm = 80 {"hint":"Smallest text sizing distance used to fit many cards in the row (cm); keeps the English line readable", "widget":"slider", "min":60, "max":120, "step":5}'
     - '// @input bool showPictures = true {"hint":"Show pictures on phrase cards (the learner will decide after the first run)"}'
     - '// @ui {"widget":"group_end"}'

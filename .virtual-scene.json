@@ -4652,6 +4652,13 @@
               "type": "AssignableType_7",
               "uiInfo": "{\"hint\":\"Use it live controller\"}"
             },
+            "raiseHandOpensMenu": {
+              "isScriptInput": true,
+              "value": true,
+              "type": "bool",
+              "uiInfo": "{\"hint\":\"On Specs: raising an open hand (palm toward you) opens the mode menu next to it. The HUD Menu button is the preview stand-in.\"}",
+              "defaultValue": "true"
+            },
             "setupPanel": {
               "isScriptInput": true,
               "value": {
@@ -4690,12 +4697,13 @@
             "inputNames.5": "modeMenu",
             "inputNames.6": "order",
             "inputNames.7": "practice",
-            "inputNames.8": "setupDistanceCm",
-            "inputNames.9": "setupPanel",
-            "inputNames.10": "skipSetup",
-            "inputNames.11": "toast",
-            "inputNames.12": "toastSeconds",
-            "inputNames.13": "toastText",
+            "inputNames.8": "raiseHandOpensMenu",
+            "inputNames.9": "setupDistanceCm",
+            "inputNames.10": "setupPanel",
+            "inputNames.11": "skipSetup",
+            "inputNames.12": "toast",
+            "inputNames.13": "toastSeconds",
+            "inputNames.14": "toastText",
             "name": "WbwMain",
             "enabled": true,
             "sceneObject": "@sceneObject:WordByWord",
@@ -4861,11 +4869,11 @@
       "transform": {
         "position": [
           0,
-          97,
-          24
+          95.5,
+          26
         ],
         "rotation": [
-          -40,
+          -50,
           0,
           0
         ],
@@ -30526,39 +30534,31 @@
           "name": "WbwSetupPanelUI",
           "enabled": true,
           "properties": {
-            "titleText": {
+            "headingText": {
               "isScriptInput": true,
-              "value": "Word by Word",
+              "value": "Choose your languages",
               "type": "string",
-              "uiInfo": "{\"hint\":\"Title at the top of the panel\"}",
-              "defaultValue": "Word by Word"
+              "uiInfo": "{\"hint\":\"Heading of the panel\"}",
+              "defaultValue": "Choose your languages"
             },
-            "panelHeightCm": {
+            "comingSoonText": {
               "isScriptInput": true,
-              "value": 25,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"Panel height in cm\", \"widget\":\"slider\", \"min\":18, \"max\":40, \"step\":1}",
-              "defaultValue": "25"
-            },
-            "panelWidthCm": {
-              "isScriptInput": true,
-              "value": 38,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"Panel width in cm (brief: about 40 x 25 cm)\", \"widget\":\"slider\", \"min\":30, \"max\":60, \"step\":1}",
-              "defaultValue": "38"
+              "value": "More languages soon: Deutsch, Español",
+              "type": "string",
+              "uiInfo": "{\"hint\":\"Muted line about languages that are not available yet\"}",
+              "defaultValue": "More languages soon: Deutsch, Español"
             },
             "viewDistanceCm": {
               "isScriptInput": true,
               "value": 70,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Viewing distance the text is sized for (cm)\", \"widget\":\"slider\", \"min\":40, \"max\":120, \"step\":5}",
+              "uiInfo": "{\"hint\":\"Viewing distance of the panel (cm); text is sized for it\", \"widget\":\"slider\", \"min\":40, \"max\":120, \"step\":5}",
               "defaultValue": "70"
             },
             "scriptAsset": "@asset:Scripts/WbwSetupPanelUI.ts",
-            "inputNames.0": "panelHeightCm",
-            "inputNames.1": "panelWidthCm",
-            "inputNames.2": "titleText",
-            "inputNames.3": "viewDistanceCm",
+            "inputNames.0": "comingSoonText",
+            "inputNames.1": "headingText",
+            "inputNames.2": "viewDistanceCm",
             "name": "WbwSetupPanelUI",
             "enabled": true,
             "sceneObject": "@sceneObject:SetupPanelRoot",
@@ -30658,6 +30658,41 @@
           "name": "WbwHudUI",
           "enabled": true,
           "properties": {
+            "offsetRightCm": {
+              "isScriptInput": true,
+              "value": -4,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Sideways offset from the view centre (cm, negative = left)\", \"widget\":\"slider\", \"min\":-30, \"max\":30, \"step\":0.5}",
+              "defaultValue": "-4"
+            },
+            "chipHeightCm": {
+              "isScriptInput": true,
+              "value": 3.9000000953674316,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Height of the compact Menu chip (cm); keep at least 3.8 cm so it stays easy to pinch\", \"widget\":\"slider\", \"min\":3.8, \"max\":6, \"step\":0.1}",
+              "defaultValue": "3.9"
+            },
+            "chipOffsetRightCm": {
+              "isScriptInput": true,
+              "value": -13,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Use it live: the HUD collapses to a small Menu chip. Sideways offset of the chip (cm, negative = left edge of view)\", \"widget\":\"slider\", \"min\":-30, \"max\":30, \"step\":0.5}",
+              "defaultValue": "-13"
+            },
+            "chipWidthCm": {
+              "isScriptInput": true,
+              "value": 7.400000095367432,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of the compact Menu chip (cm); the whole chip is the button\", \"widget\":\"slider\", \"min\":5, \"max\":12, \"step\":0.1}",
+              "defaultValue": "7.4"
+            },
+            "chipOffsetUpCm": {
+              "isScriptInput": true,
+              "value": -15.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Use it live: vertical offset of the Menu chip (cm, negative = low). Low-left keeps it clear of the server, the caption and the phrase cards\", \"widget\":\"slider\", \"min\":-35, \"max\":10, \"step\":0.5}",
+              "defaultValue": "-15.5"
+            },
             "followDistanceCm": {
               "isScriptInput": true,
               "value": 60,
@@ -30679,34 +30714,15 @@
               "uiInfo": "{\"hint\":\"How quickly the HUD catches up with head movement (higher = snappier)\", \"widget\":\"slider\", \"min\":1, \"max\":15, \"step\":0.5}",
               "defaultValue": "5"
             },
-            "lookDownDeg": {
-              "isScriptInput": true,
-              "value": 20,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"Head pitch below the horizon (degrees) at which the HUD switches to the looking-down offset\", \"widget\":\"slider\", \"min\":3, \"max\":30, \"step\":1}",
-              "defaultValue": "20"
-            },
-            "offsetUpLookingDownCm": {
-              "isScriptInput": true,
-              "value": 7,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"Vertical offset used while the user looks down (e.g. at the phrase cards on the counter) — sits above the gaze so it never covers what they look at (cm)\", \"widget\":\"slider\", \"min\":-10, \"max\":30, \"step\":0.5}",
-              "defaultValue": "7"
-            },
-            "offsetRightCm": {
-              "isScriptInput": true,
-              "value": -4,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"Sideways offset from the view centre (cm, negative = left)\", \"widget\":\"slider\", \"min\":-30, \"max\":30, \"step\":0.5}",
-              "defaultValue": "-4"
-            },
             "scriptAsset": "@asset:Scripts/WbwHudUI.ts",
-            "inputNames.0": "followDistanceCm",
-            "inputNames.1": "followSpeed",
-            "inputNames.2": "lookDownDeg",
-            "inputNames.3": "offsetRightCm",
-            "inputNames.4": "offsetUpCm",
-            "inputNames.5": "offsetUpLookingDownCm",
+            "inputNames.0": "chipHeightCm",
+            "inputNames.1": "chipOffsetRightCm",
+            "inputNames.2": "chipOffsetUpCm",
+            "inputNames.3": "chipWidthCm",
+            "inputNames.4": "followDistanceCm",
+            "inputNames.5": "followSpeed",
+            "inputNames.6": "offsetRightCm",
+            "inputNames.7": "offsetUpCm",
             "name": "WbwHudUI",
             "enabled": true,
             "sceneObject": "@sceneObject:HudRoot",
@@ -30759,12 +30775,20 @@
               "isScriptInput": true,
               "value": 18,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Width of each mode button (cm)\", \"widget\":\"slider\", \"min\":12, \"max\":30, \"step\":0.5}",
-              "defaultValue": "18"
+              "uiInfo": "{\"hint\":\"Width of each mode tile (cm)\", \"widget\":\"slider\", \"min\":12, \"max\":30, \"step\":0.5}",
+              "defaultValue": "15"
+            },
+            "headingText": {
+              "isScriptInput": true,
+              "value": "Choose a mode",
+              "type": "string",
+              "uiInfo": "{\"hint\":\"Heading of the menu\"}",
+              "defaultValue": "Choose a mode"
             },
             "scriptAsset": "@asset:Scripts/WbwModeMenuUI.ts",
             "inputNames.0": "buttonWidthCm",
-            "inputNames.1": "viewDistanceCm",
+            "inputNames.1": "headingText",
+            "inputNames.2": "viewDistanceCm",
             "name": "WbwModeMenuUI",
             "enabled": true,
             "sceneObject": "@sceneObject:ModeMenuRoot",
@@ -30806,25 +30830,11 @@
           "name": "WbwWordCardUI",
           "enabled": true,
           "properties": {
-            "cardHeightCm": {
-              "isScriptInput": true,
-              "value": 19.5,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"Card height in cm\", \"widget\":\"slider\", \"min\":15, \"max\":30, \"step\":0.5}",
-              "defaultValue": "19.5"
-            },
-            "cardWidthCm": {
-              "isScriptInput": true,
-              "value": 25,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"Card width in cm (brief: about 25 x 18 cm)\", \"widget\":\"slider\", \"min\":20, \"max\":40, \"step\":0.5}",
-              "defaultValue": "25"
-            },
             "viewDistanceCm": {
               "isScriptInput": true,
               "value": 70,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Viewing distance the text is sized for (cm)\", \"widget\":\"slider\", \"min\":40, \"max\":110, \"step\":5}",
+              "uiInfo": "{\"hint\":\"Viewing distance the text is sized for (cm) — match the Learn controller's card distance\", \"widget\":\"slider\", \"min\":40, \"max\":110, \"step\":5}",
               "defaultValue": "70"
             },
             "flySeconds": {
@@ -30834,11 +30844,17 @@
               "uiInfo": "{\"hint\":\"Seconds the save fly-to-counter animation takes\", \"widget\":\"slider\", \"min\":0.2, \"max\":1.5, \"step\":0.05}",
               "defaultValue": "0.45"
             },
+            "showExample": {
+              "isScriptInput": true,
+              "value": true,
+              "type": "bool",
+              "uiInfo": "{\"hint\":\"Show the example sentence on the card\"}",
+              "defaultValue": "true"
+            },
             "scriptAsset": "@asset:Scripts/WbwWordCardUI.ts",
-            "inputNames.0": "cardHeightCm",
-            "inputNames.1": "cardWidthCm",
-            "inputNames.2": "flySeconds",
-            "inputNames.3": "viewDistanceCm",
+            "inputNames.0": "flySeconds",
+            "inputNames.1": "showExample",
+            "inputNames.2": "viewDistanceCm",
             "name": "WbwWordCardUI",
             "enabled": true,
             "sceneObject": "@sceneObject:WordCardRoot",
@@ -30938,26 +30954,33 @@
           "name": "WbwPhraseChoicesUI",
           "enabled": true,
           "properties": {
-            "cardHeightCm": {
+            "minViewDistanceCm": {
               "isScriptInput": true,
-              "value": 13,
+              "value": 80,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Height of one phrase card (cm)\", \"widget\":\"slider\", \"min\":7, \"max\":16, \"step\":0.5}",
-              "defaultValue": "13"
+              "uiInfo": "{\"hint\":\"Smallest text sizing distance used to fit many cards in the row (cm); keeps the English line readable\", \"widget\":\"slider\", \"min\":60, \"max\":120, \"step\":5}",
+              "defaultValue": "80"
             },
-            "cardWidthCm": {
+            "maxRowWidthCm": {
               "isScriptInput": true,
-              "value": 14,
+              "value": 50,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Width of one phrase card (cm)\", \"widget\":\"slider\", \"min\":8, \"max\":16, \"step\":0.5}",
-              "defaultValue": "14"
+              "uiInfo": "{\"hint\":\"Widest the card row should get (cm). Wider rows first wrap phrases to two lines, then use slightly smaller text\", \"widget\":\"slider\", \"min\":20, \"max\":70, \"step\":1}",
+              "defaultValue": "50"
+            },
+            "pictureSizeCm": {
+              "isScriptInput": true,
+              "value": 3.200000047683716,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Size of the small picture on each phrase card (cm)\", \"widget\":\"slider\", \"min\":1.5, \"max\":5, \"step\":0.1}",
+              "defaultValue": "3.2"
             },
             "viewDistanceCm": {
               "isScriptInput": true,
-              "value": 125,
+              "value": 100,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Viewing distance the text is sized for (cm) — brief: ~60 cm\", \"widget\":\"slider\", \"min\":40, \"max\":100, \"step\":5}",
-              "defaultValue": "125"
+              "uiInfo": "{\"hint\":\"Distance the card text is sized for (cm). The cards lie ~125 cm away on the counter; sizing for less keeps them compact.\", \"widget\":\"slider\", \"min\":60, \"max\":140, \"step\":5}",
+              "defaultValue": "100"
             },
             "showPictures": {
               "isScriptInput": true,
@@ -30967,10 +30990,11 @@
               "defaultValue": "true"
             },
             "scriptAsset": "@asset:Scripts/WbwPhraseChoicesUI.ts",
-            "inputNames.0": "cardHeightCm",
-            "inputNames.1": "cardWidthCm",
-            "inputNames.2": "showPictures",
-            "inputNames.3": "viewDistanceCm",
+            "inputNames.0": "maxRowWidthCm",
+            "inputNames.1": "minViewDistanceCm",
+            "inputNames.2": "pictureSizeCm",
+            "inputNames.3": "showPictures",
+            "inputNames.4": "viewDistanceCm",
             "name": "WbwPhraseChoicesUI",
             "enabled": true,
             "sceneObject": "@sceneObject:PhraseChoicesRoot",
@@ -31012,13 +31036,6 @@
           "name": "WbwPracticeBoardUI",
           "enabled": true,
           "properties": {
-            "boardSizeCm": {
-              "isScriptInput": true,
-              "value": "{x: 38, y: 28}",
-              "type": "vec2",
-              "uiInfo": "{\"hint\":\"Board size in cm (brief: about 45 x 30 cm)\"}",
-              "defaultValue": "{38,28}"
-            },
             "matchedColor": {
               "isScriptInput": true,
               "value": "{x: 0.2, y: 0.62, z: 0.32, w: 1}",
@@ -31034,9 +31051,8 @@
               "defaultValue": "65"
             },
             "scriptAsset": "@asset:Scripts/WbwPracticeBoardUI.ts",
-            "inputNames.0": "boardSizeCm",
-            "inputNames.1": "matchedColor",
-            "inputNames.2": "viewDistanceCm",
+            "inputNames.0": "matchedColor",
+            "inputNames.1": "viewDistanceCm",
             "name": "WbwPracticeBoardUI",
             "enabled": true,
             "sceneObject": "@sceneObject:PracticeBoardRoot",
@@ -31235,12 +31251,12 @@
           "name": "WbwLearnController",
           "enabled": true,
           "properties": {
-            "walkAwayCm": {
+            "focusColor": {
               "isScriptInput": true,
-              "value": 150,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"The word card hides when the user walks this far away (cm) — brief: ~1.5 m\", \"widget\":\"slider\", \"min\":50, \"max\":300, \"step\":10}",
-              "defaultValue": "150"
+              "value": "{x: 0.45, y: 0.93, z: 1, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Bracket colour while an object is targeted or open on the word card (focus colour)\", \"widget\":\"color\"}",
+              "defaultValue": "{0.45,0.93,1,1}"
             },
             "bracketColor": {
               "isScriptInput": true,
@@ -31263,19 +31279,19 @@
               "uiInfo": "{\"hint\":\"Distance from the user at which the word card opens (cm) — brief: 60–80 cm\", \"widget\":\"slider\", \"min\":50, \"max\":90, \"step\":1}",
               "defaultValue": "68"
             },
+            "savedHoldSec": {
+              "isScriptInput": true,
+              "value": 0.800000011920929,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Seconds the card shows 'Saved ✓' before it flies into the Saved counter\", \"widget\":\"slider\", \"min\":0, \"max\":2, \"step\":0.1}",
+              "defaultValue": "0.8"
+            },
             "maxDistanceCm": {
               "isScriptInput": true,
               "value": 300,
               "type": "float",
               "uiInfo": "{\"hint\":\"Only objects closer than this are bracketed (cm)\", \"widget\":\"slider\", \"min\":100, \"max\":600, \"step\":10}",
               "defaultValue": "300"
-            },
-            "maxCardAngleDeg": {
-              "isScriptInput": true,
-              "value": 12,
-              "type": "float",
-              "uiInfo": "{\"hint\":\"The card never opens farther than this from the view centre (deg) so it stays in view\", \"widget\":\"slider\", \"min\":0, \"max\":30, \"step\":1}",
-              "defaultValue": "8"
             },
             "highlightColor": {
               "isScriptInput": true,
@@ -31291,6 +31307,27 @@
               "uiInfo": "{\"hint\":\"Half-angle (deg) of the 'in view' cone used to pick bracketed objects\", \"widget\":\"slider\", \"min\":15, \"max\":60, \"step\":1}",
               "defaultValue": "38"
             },
+            "viewHalfHeightDeg": {
+              "isScriptInput": true,
+              "value": 19,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Half height of the Specs view (deg)\", \"widget\":\"slider\", \"min\":10, \"max\":30, \"step\":0.5}",
+              "defaultValue": "19"
+            },
+            "viewHalfWidthDeg": {
+              "isScriptInput": true,
+              "value": 16,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Half width of the Specs view (deg) — the word card is kept fully inside it\", \"widget\":\"slider\", \"min\":10, \"max\":30, \"step\":0.5}",
+              "defaultValue": "16"
+            },
+            "walkAwayCm": {
+              "isScriptInput": true,
+              "value": 150,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"The word card hides when the user walks this far away (cm) — brief: ~1.5 m\", \"widget\":\"slider\", \"min\":50, \"max\":300, \"step\":10}",
+              "defaultValue": "150"
+            },
             "wordCard": {
               "isScriptInput": true,
               "value": {
@@ -31303,13 +31340,16 @@
             "scriptAsset": "@asset:Scripts/WbwLearnController.ts",
             "inputNames.0": "bracketColor",
             "inputNames.1": "cardDistanceCm",
-            "inputNames.2": "highlightColor",
-            "inputNames.3": "maxBrackets",
-            "inputNames.4": "maxCardAngleDeg",
+            "inputNames.2": "focusColor",
+            "inputNames.3": "highlightColor",
+            "inputNames.4": "maxBrackets",
             "inputNames.5": "maxDistanceCm",
-            "inputNames.6": "viewConeDeg",
-            "inputNames.7": "walkAwayCm",
-            "inputNames.8": "wordCard",
+            "inputNames.6": "savedHoldSec",
+            "inputNames.7": "viewConeDeg",
+            "inputNames.8": "viewHalfHeightDeg",
+            "inputNames.9": "viewHalfWidthDeg",
+            "inputNames.10": "walkAwayCm",
+            "inputNames.11": "wordCard",
             "name": "WbwLearnController",
             "enabled": true,
             "sceneObject": "@sceneObject:LearnController",
@@ -31805,6 +31845,107 @@
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "94d635b3-a97b-4507-8a6f-24f1311f3c84",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "7545e37e-3d8a-4020-8431-d18235dced0c",
+      "name": "LEAF Plugin Bridge",
+      "enabled": true,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "1e742c63-0c39-43f6-a72f-cb1b0c4a2ac4",
+          "type": "ScriptComponent",
+          "name": "MessagingBridge",
+          "enabled": true,
+          "properties": {
+            "scriptAsset": "@asset:Packages/Leaf.lspkg/Scenarios/scenario/MessagingBridge.ts",
+            "name": "MessagingBridge",
+            "enabled": true,
+            "sceneObject": "@sceneObject:LEAF Plugin Bridge",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "1e742c63-0c39-43f6-a72f-cb1b0c4a2ac4",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c7df44ce-ea10-4b6b-8ee0-d3759c58b4e3",
+      "name": "TEMP_Probe",
+      "enabled": true,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "59389321-c65c-4424-ab1b-2bc8edc678e7",
+          "type": "ScriptComponent",
+          "name": "WbwTempProbe",
+          "enabled": true,
+          "properties": {
+            "main": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "7df6eee8-dc07-45fd-a000-99dab7307422",
+                "name": "WbwMain"
+              },
+              "type": "AssignableType_1"
+            },
+            "stage": {
+              "isScriptInput": true,
+              "value": "live:-13.6:ServerSpot:fillings:sonka_sajt",
+              "type": "string",
+              "uiInfo": "{\"hint\":\"setup | wordcard | phrases | phrases2 | practice | flow\"}",
+              "defaultValue": "setup"
+            },
+            "scriptAsset": "@asset:Scripts/WbwTempProbe.ts",
+            "inputNames.0": "main",
+            "inputNames.1": "stage",
+            "name": "WbwTempProbe",
+            "enabled": true,
+            "sceneObject": "@sceneObject:TEMP_Probe",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "59389321-c65c-4424-ab1b-2bc8edc678e7",
             "type": "ScriptComponent"
           }
         }

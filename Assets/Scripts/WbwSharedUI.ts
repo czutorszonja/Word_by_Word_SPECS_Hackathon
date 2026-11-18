@@ -1,13 +1,17 @@
 // WbwSharedUI.ts — shared UIKit composition helpers for the Wbw*UI.ts modules ONLY.
-// Owns: the type scale (applyTextRole), BackPlate panel scaffold (Canvas → BackPlate →
-//       Content at +0.6 cm → FlexLayout), flex rows/columns with addItems registration,
-//       Text / Image / Button builders (UIKit Button + raw Text label lifted +0.08 cm).
+// Owns: the type scale (applyTextRole), colour roles, the panel scaffold (Canvas → BackPlate
+//       recoloured to a translucent teal → Content at +0.6 cm → FlexLayout), flex rows/columns
+//       with addItems registration, Text / Image / Button builders (UIKit Button styled with
+//       distinct idle / targeted / pressed / selected states + raw Text label).
+// Visual language follows the user's Small Wins project (SmallWinsUIKit.ts).
 // Must NOT: be imported by non-UI scripts (Hard Rule 3), hold state, or set renderOrder.
 import {FlexLayout} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexLayout"
 import {FlexItem} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem"
 import {FlexAlign, FlexAlignSelf, FlexDirection, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 import {BackPlate} from "SpectaclesUIKit.lspkg/Scripts/BackPlate"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
+import {GradientParameters, RoundedRectangle} from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangle"
+import {RoundedRectangleVisual} from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangleVisual"
 
 const imageMaterial = requireAsset("../Materials/ImageMaterial.mat") as Material
 
@@ -23,23 +27,66 @@ const TYPE_SCALE: Record<TextRole, {size: number; weight: number}> = {
   Button: {size: 39, weight: 500}, Callout: {size: 39, weight: 700},
   Body: {size: 39, weight: 500}, Caption: {size: 38, weight: 500},
 }
-export function roleSize(role: TextRole, distanceCm: number = 110): number {
-  return TYPE_SCALE[role].size * FONT_SIZE_SCALE * (distanceCm / 110)
+// The type scale is calibrated for 110 cm. On the narrow Specs display text has to be larger
+// than the plain distance maths suggests: like Small Wins, a panel at ~70 cm sizes its text
+// as if it were READ_BOOST x further away (70 cm -> 140 cm).
+export const READ_BOOST = 2.0
+// Writing straight on a see-through panel is 15 % larger and gets a thin outline in its own
+// colour, so it stays readable over the café behind it.
+const ON_PANEL_SCALE = 1.15
+const ON_PANEL_OUTLINE = 0.12
+export function roleSize(role: TextRole, distanceCm: number = 110, boost: number = READ_BOOST): number {
+  return TYPE_SCALE[role].size * FONT_SIZE_SCALE * ((distanceCm * boost) / 110)
 }
-export function applyTextRole(t: Text, role: TextRole, distanceCm: number = 110): void {
-  t.size = roleSize(role, distanceCm)
+export function applyTextRole(t: Text, role: TextRole, distanceCm: number = 110, boost: number = READ_BOOST): void {
+  t.size = roleSize(role, distanceCm, boost)
   ;(t as Text & {weight?: number}).weight = TYPE_SCALE[role].weight
 }
-/** Rough rendered width (cm) of `chars` characters at a role/distance. */
-export function textWidthCm(chars: number, role: TextRole, distanceCm: number): number {
-  return chars * 0.56 * (roleSize(role, distanceCm) / 43.886)
+/** Rough rendered width (cm) of `chars` characters at a role/distance (on-panel text by default). */
+export function textWidthCm(chars: number, role: TextRole, distanceCm: number, onPanel: boolean = true, boost: number = READ_BOOST): number {
+  return chars * 0.56 * (roleSize(role, distanceCm, boost) / 43.886) * (onPanel ? ON_PANEL_SCALE : 1)
+}
+/** Rough line height (cm) for a role/distance. */
+export function lineHeightCm(role: TextRole, distanceCm: number, onPanel: boolean = true, boost: number = READ_BOOST): number {
+  return 1.45 * (roleSize(role, distanceCm, boost) / 43.886) * (onPanel ? ON_PANEL_SCALE : 1)
 }
 
-export const WHITE = new vec4(1, 1, 1, 1)
-export const SOFT = new vec4(1, 1, 1, 0.78)
-export const GOLD = new vec4(1.0, 0.85, 0.45, 1)
-export const GREEN = new vec4(0.45, 0.92, 0.55, 1)
-export const RED = new vec4(1.0, 0.55, 0.5, 1)
+// ── Colour roles (always paired with a label, icon or state change — never colour alone)
+/** Main text: warm off-white. */
+export const TEXT_LIGHT = new vec4(1, 0.98, 0.9, 1)
+/** Secondary text (translations, hints). */
+export const TEXT_SOFT = new vec4(0.86, 0.95, 0.88, 1)
+/** Unavailable / "coming soon" text. */
+export const MUTED = new vec4(0.72, 0.8, 0.78, 0.7)
+/** Current target / focus / selected. */
+export const CYAN = new vec4(0.45, 0.93, 1.0, 1)
+/** Success (saved, matched) — always with a checkmark or confirmation text. */
+export const GREEN = new vec4(0.5, 0.95, 0.55, 1)
+export const GREEN_FILL = new vec4(0.16, 0.56, 0.3, 1)
+/** Incorrect — always with "Try again". */
+export const AMBER = new vec4(1.0, 0.76, 0.3, 1)
+// legacy names used by the modules
+export const WHITE = TEXT_LIGHT
+export const SOFT = TEXT_SOFT
+export const GOLD = TEXT_LIGHT
+export const RED = AMBER
+
+// ── Panel and button surfaces (Small Wins treatment)
+/** Brighter teal than a dark grey, because the Specs display only adds light: dark panels turn see-through. */
+export const PANEL_TEAL = new vec4(0.1, 0.46, 0.43, 1)
+// Big panels let the café show through (tinted); small message strips stay nearly solid.
+const SEE_THROUGH_FROM_HEIGHT = 10
+export const PANEL_ALPHA_SEE_THROUGH = 0.66
+export const PANEL_ALPHA_STRIP = 0.9
+const BUTTON_TEAL = new vec4(0.12, 0.5, 0.47, 1)
+const BUTTON_PRIMARY = new vec4(0.16, 0.6, 0.55, 1)
+const BUTTON_OUTLINE = new vec4(1, 0.98, 0.9, 1)
+const BUTTON_OUTLINE_SIZE = 0.14
+const BUTTON_HOVER = new vec4(0.17, 0.62, 0.62, 1) // darker than Small Wins so the light label stays readable
+const BUTTON_PRESSED = new vec4(0.3, 0.76, 0.7, 1)
+const BUTTON_FOCUS_OUTLINE_SIZE = 0.3
+const BUTTON_SELECTED = new vec4(0.08, 0.5, 0.62, 1)
+const BUTTON_SELECTED_HOVER = new vec4(0.25, 0.7, 0.8, 1)
 
 export function obj(parent: SceneObject, name: string, pos?: vec3): SceneObject {
   const so = global.scene.createSceneObject(name)
@@ -100,16 +147,42 @@ export interface Panel {
   flex: FlexLayout
 }
 
-/** Canvas + BackPlate (fixed size) + Content(+0.6) with a column FlexLayout. */
-export function panel(host: SceneObject, name: string, w: number, h: number, o?: FlexOpts): Panel {
+/**
+ * Canvas + BackPlate (fixed size) + Content(+0.6) with a column FlexLayout.
+ * The BackPlate's default dark grey is replaced by a translucent teal: on an additive display a
+ * dark, mostly opaque panel hides the virtual café behind it (only a small part of it comes
+ * through) and reads as a see-through hole to the real room (in the preview: the grid).
+ * Teal at ~0.66 alpha keeps a tinted view of the café through the panel.
+ */
+export function panel(host: SceneObject, name: string, w: number, h: number, o?: FlexOpts, solid: boolean = false): Panel {
   const root = obj(host, name)
   root.createComponent("Component.Canvas")
   const plate = root.createComponent(BackPlate.getTypeName()) as BackPlate
   plate.size = new vec2(w, h)
+  tintPanelWhenReady(plate, root, solid || h < SEE_THROUGH_FROM_HEIGHT)
   const content = obj(root, "Content", new vec3(0, 0, 0.6))
   const flex = content.createComponent(FlexLayout.getTypeName()) as FlexLayout
   configureFlex(flex, FlexDirection.Column, w, h, o)
   return {root, plate, content, flex}
+}
+
+function tintPanelWhenReady(plate: BackPlate, root: SceneObject, solid: boolean): void {
+  const apply = (): boolean => {
+    if (isNull(root)) return true
+    const rect = root.getComponent(RoundedRectangle.getTypeName()) as RoundedRectangle | null
+    if (!rect) return false
+    rect.gradient = false
+    rect.backgroundColor = new vec4(PANEL_TEAL.r, PANEL_TEAL.g, PANEL_TEAL.b, solid ? PANEL_ALPHA_STRIP : PANEL_ALPHA_SEE_THROUGH)
+    return true
+  }
+  // BackPlate applies its own (grey) style in its OnStart, so keep re-applying for a few frames
+  apply()
+  const ev = plate.createEvent("UpdateEvent")
+  let frames = 0
+  ev.bind(() => {
+    apply()
+    if (++frames > 4) ev.enabled = false
+  })
 }
 
 /** A nested flex container that is itself an item of `parent`'s layout. */
@@ -129,6 +202,10 @@ export interface TextOpts {
   align?: "left" | "center" | "right"
   wrap?: boolean
   z?: number
+  /** On-panel emphasis (15 % larger + same-colour outline). Default true; button labels pass false. */
+  onPanel?: boolean
+  /** Override READ_BOOST (e.g. 1 for world-space signage at a known distance). */
+  boost?: number
 }
 
 /** Raw Component.Text as a flex item. In columns it stretches; in rows give `w`. */
@@ -137,13 +214,19 @@ export function text(parent: SceneObject, name: string, str: string, role: TextR
   const t = so.createComponent("Component.Text") as Text
   t.text = str
   t.depthTest = true
-  applyTextRole(t, role, dist)
+  const onPanel = o?.onPanel ?? true
+  applyTextRole(t, role, dist, o?.boost ?? READ_BOOST)
+  if (onPanel) {
+    t.size = t.size * ON_PANEL_SCALE
+    t.outlineSettings.enabled = true
+    t.outlineSettings.size = ON_PANEL_OUTLINE
+  }
   const al = o?.align ?? "center"
   t.horizontalAlignment = al === "left" ? HorizontalAlignment.Left : al === "right" ? HorizontalAlignment.Right : HorizontalAlignment.Center
   t.verticalAlignment = VerticalAlignment.Center
   t.horizontalOverflow = o?.wrap ? HorizontalOverflow.Wrap : HorizontalOverflow.Overflow
   t.verticalOverflow = VerticalOverflow.Overflow
-  t.textFill.color = o?.color ?? WHITE
+  setTextColor(t, o?.color ?? TEXT_LIGHT)
   const h = o?.h ?? 2
   if (o?.w) {
     t.layoutRect = Rect.create(-o.w / 2, o.w / 2, -h / 2, h / 2)
@@ -153,6 +236,12 @@ export function text(parent: SceneObject, name: string, str: string, role: TextR
     register(parent, item(so, undefined, h, true))
   }
   return t
+}
+
+/** Text colour (and its same-colour outline). */
+export function setTextColor(t: Text, c: vec4): void {
+  t.textFill.color = c
+  if (t.outlineSettings.enabled) t.outlineSettings.fill.color = c
 }
 
 /** Component.Image with a cloned ImageMaterial (depthTest on, depthWrite off). */
@@ -184,6 +273,8 @@ export interface ButtonOpts {
   iconSize?: number
   role?: TextRole
   toggle?: boolean
+  /** Primary action: slightly brighter idle fill. */
+  primary?: boolean
   column?: boolean       // stack icon above label
   asItem?: boolean       // register as flex item of parent (default true)
   labelColor?: vec4
@@ -210,11 +301,71 @@ export function button(parent: SceneObject, name: string, w: number, h: number, 
   if (label.length > 0) {
     const role = o?.role ?? "Button"
     const lw = o?.column ? w - 0.6 : Math.max(1, w - 0.8 - (icon ? iconSize + 0.5 : 0))
-    lbl = text(face, "Label", label, role, dist, {w: lw, h: Math.min(h, 2.4), color: o?.labelColor})
+    lbl = text(face, "Label", label, role, dist, {w: lw, h: o?.column ? Math.max(1.4, h - iconSize - 1) : Math.min(h, 2.8), color: o?.labelColor, onPanel: false})
   }
   if (o?.asItem !== false) register(parent, item(so, w, h))
+  styleWhenReady(btn, !!o?.primary)
   btn.onTriggerUp.add(() => onClick())
   return {so, btn, face, label: lbl, icon}
+}
+
+function solidGradient(color: vec4): GradientParameters {
+  return {
+    type: "Linear",
+    start: new vec2(-1, 0),
+    end: new vec2(1, 0),
+    stop0: {enabled: true, color, percent: 0},
+    stop1: {enabled: true, color, percent: 1},
+  } as GradientParameters
+}
+
+/** Apply the button style now if UIKit already built the visual, else once it has. */
+export function styleWhenReady(btn: Button, primary: boolean = false): void {
+  if (btn.visual) styleButton(btn, primary)
+  else btn.onInitialized.add(() => styleButton(btn, primary))
+}
+
+/**
+ * Idle = teal + thin cream outline · targeted (hover) = light teal + thick CYAN outline ·
+ * pressed = lightest teal · selected (toggled on) = deep cyan + thick CYAN outline.
+ * In this UIKit style each state's gradient wins over its base colour, so both are set.
+ */
+export function styleButton(btn: Button, primary: boolean = false): void {
+  const v = btn.visual as unknown as RoundedRectangleVisual
+  if (!v) return
+  try {
+    const idle = primary ? BUTTON_PRIMARY : BUTTON_TEAL
+    const anyV = v as unknown as {[k: string]: unknown}
+    anyV["baseDefaultColor"] = idle
+    anyV["baseHoveredColor"] = BUTTON_HOVER
+    anyV["baseTriggeredColor"] = BUTTON_PRESSED
+    v.defaultGradient = solidGradient(idle)
+    v.hoveredGradient = solidGradient(BUTTON_HOVER)
+    v.triggeredGradient = solidGradient(BUTTON_PRESSED)
+    v.toggledDefaultGradient = solidGradient(BUTTON_SELECTED)
+    v.toggledHoveredGradient = solidGradient(BUTTON_SELECTED_HOVER)
+    v.toggledTriggeredGradient = solidGradient(BUTTON_PRESSED)
+    v.borderDefaultGradient = solidGradient(BUTTON_OUTLINE)
+    v.borderHoveredGradient = solidGradient(CYAN)
+    v.borderTriggeredGradient = solidGradient(CYAN)
+    v.borderToggledDefaultGradient = solidGradient(CYAN)
+    v.borderToggledHoveredGradient = solidGradient(CYAN)
+    v.borderToggledTriggeredGradient = solidGradient(CYAN)
+    v.defaultHasBorder = true
+    v.hoveredHasBorder = true
+    v.triggeredHasBorder = true
+    v.toggledDefaultHasBorder = true
+    v.toggledHoveredHasBorder = true
+    v.toggledTriggeredHasBorder = true
+    v.defaultBorderSize = BUTTON_OUTLINE_SIZE
+    v.hoveredBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
+    v.triggeredBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
+    v.toggledDefaultBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
+    v.toggledHoveredBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
+    v.toggledTriggeredBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
+  } catch (e) {
+    print("WbwSharedUI: button style not applied: " + e)
+  }
 }
 
 /** Paint a button's inactive state a solid colour and make it inactive (e.g. matched = green). */

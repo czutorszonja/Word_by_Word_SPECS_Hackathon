@@ -37,7 +37,7 @@ Real-world scale, centimeters. The user starts at the sandwich counter, facing i
   - **Seating area:** behind the user (they turn around to see it), about 2.5 to 4 m away. Six to eight small tables, each with a clear, large number card standing on it (about 15 × 10 cm, readable from about 3 m). Tables **4, 8 and 12 are empty**. The others (e.g. 2, 5, 7, 10 (default)) have seated virtual diners and can't be selected. No table 13.
 - **Highlights (Learn):** subtle brackets or a soft outline drawn around the object itself, staying attached to it as you walk. Only three or four of the nearest learnable objects in view are bracketed at a time.
 - **Word card:** opens next to the object it's about, slightly toward the user, about 60 to 80 cm from the user, about 25 × 18 cm (default). Shows the illustration, the Hungarian word (large), the English word, one example sentence (reusing an ordering phrase, e.g. the pickles card shows "Savanyú uborka nélkül, kérem."), a ▶ play button and a Save button.
-- **Phrase choices (Use it live):** a small row of 2 to 4 phrase cards about 60 cm in front of the user, slightly below eye level, between the user and the server, so the server stays visible above them. Each card shows a picture **and** the Hungarian phrase with the English underneath (first run shows both; the learner will give feedback on whether to keep the pictures).
+- **Phrase choices (Use it live):** a small row of 2 to 4 phrase cards lying on the counter top in front of the user, tilted up toward them, so the user looks down at the counter to pick and the server stays visible above them (changed during the build at the learner's request; first planned as a row floating about 60 cm in front, slightly below eye level). When a phrase names an ingredient, that container on the counter gets a soft highlight. Each card shows a picture **and** the Hungarian phrase with the English underneath (first run shows both; the learner will give feedback on whether to keep the pictures).
 - **Practice board:** a compact panel floating upright just above the user's table, facing them, about 50 to 60 cm away, about 45 × 30 cm (default). Eight face-up cards in two columns: four on the left with an illustration and the Hungarian word, four on the right with the English translations, shuffled, with no illustrations. A progress line on top, e.g. "1 / 4 pairs".
 - **Mode menu:** Learn / Practice / Use it live, plus an indicator of the active mode and a saved-words count. Appears near the raised hand. In the preview it opens from a small clickable "✋ Menu" control kept low at the side of the view (stand-in for the raise-hand gesture).
 
@@ -50,6 +50,26 @@ The learner chose six reference photos, saved in `devpost/references/`. Open the
 - **Seating** (`01`, `03`): a mix of long **rustic wooden tables with tan leather chairs** and a lounge corner with **velvet sofas** (mustard and olive green), colourful cushions and low tables. Lots of hanging and potted plants, and big bright windows.
 - Floors: wooden boards in the seating area, checkerboard at the coffee bar (default split).
 - **Additive-display note:** on the glasses, dark colours look transparent. This virtual café stands in for a real one, so keep it readable in the preview: use the mid-to-light versions of these colours (a brighter green for the tiles, light walls, warm lights) and avoid large near-black areas such as the dark ceiling in `01`. All UI (cards, captions, menu) stays light and high-contrast on top.
+
+## Panels and colour
+Panels are compact and sized around their contents, so the café and the object being learned stay in view. They follow the approach that worked in the learner's earlier Small Wins project: a restrained translucent tint behind the content, strong light text, and buttons with clear outlines and visible states.
+
+- **Hierarchy:** the word or phrase the learner needs is the largest text. The translation and supporting information come second, still comfortably readable. Instructions are short.
+- **Headings:** the app name appears once at launch at most. Working panels use a functional heading: the word being learned, "Practice", or the phrase needed. The setup screen's heading is "Choose your languages"; languages marked "soon" are smaller and clearly unavailable.
+- **Per mode:** Learn shows a few discreet object highlights and one compact word card. Practice shows a stable, readable matching board while seated, which may be larger because the learner has chosen an activity. Use it live shows a short, glanceable phrase prompt on the counter that leaves the counter and the server visible.
+- **Interaction states:** idle, targeted, pressed and selected look different. Pointing at a control highlights it, a pinch (a click in the preview) selects it, and the result is confirmed: Save becomes "Saved" with a checkmark, and Listen shows that audio is playing. Unfamiliar icons keep a short label ("Listen", "Save"), and the whole button surface is selectable.
+
+| Element | Colour treatment |
+|---|---|
+| Main text | Soft white or a similarly clear light tone |
+| Current target or focus | Cyan accent or outline |
+| Successful match or saved word | Green, paired with a checkmark or confirmation text |
+| Incorrect match | Amber, paired with "Try again" |
+| Panel background | A restrained translucent tint, starting from the Small Wins treatment |
+
+Accents are used sparingly and consistently, and colour is always paired with a readable label, icon or other visible state change. In the matching game, colour shows selection and feedback only; it never reveals the correct pairs before the learner works them out.
+
+**Design intention:** the colour system is designed to make text readable, direct attention to the current target and distinguish interaction states. Consistent accents are paired with text and icons so that meaning does not depend on colour alone. The palette supports navigation and feedback; it is not presented as a proven method of improving vocabulary memory.
 
 ## Hands and input
 - **Aim and pinch** for everything: the hand stays relaxed and low (by the waist or on the counter). The hand ray highlights whatever it lands on, and a small pinch selects it. No pointing, no waving, no dragging. Designed so the user doesn't look strange in public. In the preview, mouse click = pinch.

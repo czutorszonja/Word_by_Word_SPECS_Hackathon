@@ -3,10 +3,11 @@
 //       active-mode label. Emits onMenu. The "✋ Menu" button stands in for the raise-hand
 //       gesture (not testable in Preview).
 // Must NOT: own saved words or mode (WbwSession does — pushed in via setters).
-// Stable names: Hud, MenuButton, SavedBadge.
+// Stable names: Hud, MenuButton, SavedBadge, ModeLabel. In Use it live the HUD is a Menu chip only;
+//               SavedBadge/ModeLabel then exist with their Text hidden.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {button, flexBox, panel, retire, text, GOLD, SOFT} from "./WbwSharedUI"
+import {button, flexBox, lineHeightCm, panel, retire, text, textWidthCm, TEXT_SOFT} from "./WbwSharedUI"
 import {camLook, camPos, camRightFlat, faceRotation} from "./WbwSpatial"
 
 const ICON_HAND = requireAsset("../Icons/back_hand.png") as Texture
@@ -32,14 +33,24 @@ export class WbwHudUI extends BaseScriptComponent {
   offsetUpCm: number = -17
 
   @input
-  @hint("Vertical offset used while the user looks down (e.g. at the phrase cards on the counter) — sits above the gaze so it never covers what they look at (cm)")
-  @widget(new SliderWidget(-10, 30, 0.5))
-  offsetUpLookingDownCm: number = 7
+  @hint("Use it live: the HUD collapses to a small Menu chip. Sideways offset of the chip (cm, negative = left edge of view)")
+  @widget(new SliderWidget(-30, 30, 0.5))
+  chipOffsetRightCm: number = -13
 
   @input
-  @hint("Head pitch below the horizon (degrees) at which the HUD switches to the looking-down offset")
-  @widget(new SliderWidget(3, 30, 1))
-  lookDownDeg: number = 20
+  @hint("Use it live: vertical offset of the Menu chip (cm, negative = low). Low-left keeps it clear of the server, the caption and the phrase cards")
+  @widget(new SliderWidget(-35, 10, 0.5))
+  chipOffsetUpCm: number = -15.5
+
+  @input
+  @hint("Width of the compact Menu chip (cm); the whole chip is the button")
+  @widget(new SliderWidget(5, 12, 0.1))
+  chipWidthCm: number = 7.4
+
+  @input
+  @hint("Height of the compact Menu chip (cm); keep at least 3.8 cm so it stays easy to pinch")
+  @widget(new SliderWidget(3.8, 6, 0.1))
+  chipHeightCm: number = 3.9
 
   @input
   @hint("How quickly the HUD catches up with head movement (higher = snappier)")
@@ -56,21 +67,52 @@ export class WbwHudUI extends BaseScriptComponent {
   private _onMenu = new Event<void>()
   get onMenu(): PublicApi<void> { return this._onMenu.publicApi() }
   get isVisible(): boolean { return this.root !== null }
+  /** True while the HUD is collapsed to the small Menu chip (Use it live). */
+  get isCompact(): boolean { return this.compact }
+  private compact = false
 
   onAwake(): void {
     this.createEvent("UpdateEvent").bind(() => this.follow(false))
   }
 
+  /** Use it live: collapse to a small "Menu" chip at the low-left edge of the view so the HUD never
+   *  covers the server, the caption or the phrase cards. Off restores the full strip. */
+  setCompact(on: boolean): void {
+    if (on === this.compact) return
+    this.compact = on
+    if (this.root) this.show()
+  }
+
   show(): void {
     this.hide()
     const d = this.followDistanceCm
-    const p = panel(this.sceneObject, "Hud", 24, 4.6, {justify: FlexJustify.Center, align: FlexAlign.Center})
+    if (this.compact) {
+      // the chip IS the button: same size as its backing plate, so the whole chip is selectable
+      const w = this.chipWidthCm, h = Math.max(3.8, this.chipHeightCm)
+      const p = panel(this.sceneObject, "Hud", w, h, {justify: FlexJustify.Center, align: FlexAlign.Center}, true)
+      this.root = p.root
+      button(p.content, "MenuButton", w, h, "Menu", d, () => this._onMenu.invoke(), {icon: ICON_HAND})
+      // saved count + mode stay as (hidden) text objects so their state is still readable
+      this.savedText = text(p.root, "SavedBadge", "", "Subheadline", d)
+      this.modeText = text(p.root, "ModeLabel", "", "Caption", d)
+      this.savedText.enabled = false
+      this.modeText.enabled = false
+      this.render()
+      this.follow(true)
+      return
+    }
+    // compact strip: Menu stand-in button + saved count + current mode, sized around its text
+    const badgeH = lineHeightCm("Subheadline", d), modeH = lineHeightCm("Caption", d)
+    const colW = Math.max(textWidthCm("Saved: 99".length, "Subheadline", d), textWidthCm("Mode: Use it live".length, "Caption", d)) + 0.4
+    const menuW = 8, rowH = Math.max(4, badgeH + modeH)
+    const W = menuW + 1 + colW + 2.4, H = rowH + 1.4
+    const p = panel(this.sceneObject, "Hud", W, H, {padX: 1.2, padY: 0.7, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
     this.root = p.root
-    const row = flexBox(p.content, "Row", "row", 23, 4, {gap: 0.6, justify: FlexJustify.Center, align: FlexAlign.Center})
-    button(row, "MenuButton", 9, 3.6, "Menu", d, () => this._onMenu.invoke(), {icon: ICON_HAND})
-    const col = flexBox(row, "Status", "column", 12.5, 3.8, {gap: 0.1, justify: FlexJustify.Center, align: FlexAlign.Center})
-    this.savedText = text(col, "SavedBadge", "", "Subheadline", d, {h: 1.8, color: GOLD})
-    this.modeText = text(col, "ModeLabel", "", "Caption", d, {h: 1.5, color: SOFT})
+    const row = flexBox(p.content, "Row", "row", W - 2.4, rowH, {gap: 1, justify: FlexJustify.Center, align: FlexAlign.Center})
+    button(row, "MenuButton", menuW, 4, "Menu", d, () => this._onMenu.invoke(), {icon: ICON_HAND})
+    const col = flexBox(row, "Status", "column", colW, rowH, {gap: 0, justify: FlexJustify.Center, align: FlexAlign.Center})
+    this.savedText = text(col, "SavedBadge", "", "Subheadline", d, {h: badgeH, align: "left"})
+    this.modeText = text(col, "ModeLabel", "", "Caption", d, {h: modeH, color: TEXT_SOFT, align: "left"})
     this.render()
     this.follow(true)
   }
@@ -106,8 +148,8 @@ export class WbwHudUI extends BaseScriptComponent {
   private target(): vec3 {
     const look = camLook()
     return camPos().add(look.uniformScale(this.followDistanceCm))
-      .add(camRightFlat().uniformScale(this.offsetRightCm))
-      .add(new vec3(0, look.y < -Math.sin((this.lookDownDeg * Math.PI) / 180) ? this.offsetUpLookingDownCm : this.offsetUpCm, 0))
+      .add(camRightFlat().uniformScale(this.compact ? this.chipOffsetRightCm : this.offsetRightCm))
+      .add(new vec3(0, this.compact ? this.chipOffsetUpCm : this.offsetUpCm, 0))
   }
 
   private follow(snap: boolean): void {

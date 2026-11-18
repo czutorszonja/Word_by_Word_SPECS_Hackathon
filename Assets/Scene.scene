@@ -1424,17 +1424,15 @@
   Enabled: true
   ScriptAsset: !<reference> e2d36d23-4597-4aa0-af5d-f9387fbc0491
   ScriptInputsDefault:
-    cardWidthCm: true
-    cardHeightCm: true
     viewDistanceCm: true
+    showExample: true
     flySeconds: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
     "":
-      cardWidthCm: !<float> 25.000000
-      cardHeightCm: 19.500000
       viewDistanceCm: !<float> 70.000000
+      showExample: true
       flySeconds: 0.450000
   ScriptTypes:
     "":
@@ -3292,7 +3290,6 @@
     {}
   ScriptInputs:
     "":
-      boardSizeCm: !<Vec2> {x: 38.000000, y: 28.000000}
       viewDistanceCm: !<float> 65.000000
       matchedColor: !<Vec4> {x: 0.200000, y: 0.620000, z: 0.320000, w: 1.000000}
   ScriptTypes:
@@ -4250,8 +4247,8 @@
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 97.000000, z: 24.000000}
-    Rotation: {x: -40.000000, y: 0.000000, z: 0.000000}
+    Position: {x: 0.000000, y: 95.500000, z: 26.000000}
+    Rotation: {x: -50.000000, y: 0.000000, z: 0.000000}
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
   Children:
@@ -4387,12 +4384,14 @@
   ScriptInputsDefault:
     viewDistanceCm: true
     buttonWidthCm: true
+    headingText: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
     "":
       viewDistanceCm: !<float> 55.000000
       buttonWidthCm: !<float> 18.000000
+      headingText: Choose a mode
   ScriptTypes:
     "":
       {}
@@ -6999,8 +6998,11 @@
     maxDistanceCm: true
     walkAwayCm: true
     cardDistanceCm: true
-    maxCardAngleDeg: true
+    viewHalfWidthDeg: true
+    viewHalfHeightDeg: true
+    savedHoldSec: true
     highlightColor: true
+    focusColor: true
     bracketColor: true
   ScriptTypesDefault:
     {}
@@ -7012,8 +7014,11 @@
       maxDistanceCm: !<float> 300.000000
       walkAwayCm: !<float> 150.000000
       cardDistanceCm: !<float> 68.000000
-      maxCardAngleDeg: !<float> 12.000000
+      viewHalfWidthDeg: !<float> 16.000000
+      viewHalfHeightDeg: !<float> 19.000000
+      savedHoldSec: 0.800000
       highlightColor: !<Vec4> {x: 1.000000, y: 0.780000, z: 0.350000, w: 1.000000}
+      focusColor: !<Vec4> {x: 0.450000, y: 0.930000, z: 1.000000, w: 1.000000}
       bracketColor: !<Vec4> {x: 1.000000, y: 0.900000, z: 0.600000, w: 1.000000}
   ScriptTypes:
     "":
@@ -7722,6 +7727,7 @@
     toastSeconds: true
     firstMode: true
     setupDistanceCm: true
+    raiseHandOpensMenu: true
     skipSetup: true
   ScriptTypesDefault:
     {}
@@ -7740,6 +7746,7 @@
       toastSeconds: !<float> 3.000000
       firstMode: learn
       setupDistanceCm: !<float> 70.000000
+      raiseHandOpensMenu: true
       skipSetup: false
   ScriptTypes:
     "":
@@ -8550,6 +8557,9 @@
   ScriptInputsDefault:
     followDistanceCm: true
     offsetUpCm: true
+    chipOffsetUpCm: true
+    chipWidthCm: true
+    chipHeightCm: true
     followSpeed: true
   ScriptTypesDefault:
     {}
@@ -8558,8 +8568,10 @@
       followDistanceCm: !<float> 60.000000
       offsetRightCm: !<float> -4.000000
       offsetUpCm: !<float> -17.000000
-      offsetUpLookingDownCm: !<float> 7.000000
-      lookDownDeg: !<float> 20.000000
+      chipOffsetRightCm: !<float> -13.000000
+      chipOffsetUpCm: -15.500000
+      chipWidthCm: 7.400000
+      chipHeightCm: 3.900000
       followSpeed: !<float> 5.000000
   ScriptTypes:
     "":
@@ -10871,14 +10883,16 @@
   Enabled: true
   ScriptAsset: !<reference> 701e91c7-5c91-4fc4-a414-46225e8b9c1d
   ScriptInputsDefault:
+    minViewDistanceCm: true
     showPictures: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
     "":
-      cardWidthCm: !<float> 14.000000
-      cardHeightCm: !<float> 13.000000
-      viewDistanceCm: !<float> 125.000000
+      maxRowWidthCm: !<float> 50.000000
+      pictureSizeCm: 3.200000
+      viewDistanceCm: !<float> 100.000000
+      minViewDistanceCm: !<float> 80.000000
       showPictures: true
   ScriptTypes:
     "":
@@ -13072,17 +13086,16 @@
   Enabled: true
   ScriptAsset: !<reference> bd0de456-6cf6-4d01-8b54-1fddaf0537f7
   ScriptInputsDefault:
-    panelHeightCm: true
     viewDistanceCm: true
-    titleText: true
+    headingText: true
+    comingSoonText: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
     "":
-      panelWidthCm: !<float> 38.000000
-      panelHeightCm: !<float> 25.000000
       viewDistanceCm: !<float> 70.000000
-      titleText: Word by Word
+      headingText: Choose your languages
+      comingSoonText: "More languages soon: Deutsch, Español"
   ScriptTypes:
     "":
       {}

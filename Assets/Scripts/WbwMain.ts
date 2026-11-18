@@ -16,6 +16,7 @@ import {WbwPracticeController} from "./WbwPracticeController"
 import {WbwAudioController} from "./WbwAudioController"
 import {MODE_LABEL, Mode, WbwSession} from "./WbwSession"
 import {camLook, camPos, camRightFlat, inView, placeFacingUser} from "./WbwSpatial"
+import {WbwRaiseHand} from "./WbwRaiseHand"
 
 @component
 export class WbwMain extends BaseScriptComponent {
@@ -53,11 +54,16 @@ export class WbwMain extends BaseScriptComponent {
   setupDistanceCm: number = 70
 
   @input
+  @hint("On Specs: raising an open hand (palm toward you) opens the mode menu next to it. The HUD Menu button is the preview stand-in.")
+  raiseHandOpensMenu: boolean = true
+
+  @input
   @hint("Skip the setup panel and toast (handy while iterating)")
   skipSetup: boolean = false
   @ui.group_end
 
   private session = new WbwSession()
+  private raiseHand: WbwRaiseHand | null = null
 
   // ── readable state for tests ──
   get currentMode(): string { return this.session.mode }
@@ -92,6 +98,14 @@ export class WbwMain extends BaseScriptComponent {
     this.modeMenu.onPick.add((m) => this.selectMode(m as Mode))
     this.modeMenu.onClose.add(() => this.modeMenu.hide())
     this.setupPanel.onConfirm.add(() => this.confirmSetup())
+    // HUD: in Use it live collapse to a small Menu chip (low-left) so it never covers the server or cards
+    this.createEvent("UpdateEvent").bind(() => {
+      this.hud.setCompact(this.order.active)
+    })
+    if (this.raiseHandOpensMenu) {
+      this.raiseHand = new WbwRaiseHand()
+      this.createEvent("UpdateEvent").bind(() => this.checkRaisedHand())
+    }
     print(`WbwMain: camera start at ${camPos()} looking ${camLook()}`)
     if (this.skipSetup) {
       this.confirmSetup()
@@ -118,17 +132,28 @@ export class WbwMain extends BaseScriptComponent {
     ev.reset(this.toastSeconds + 0.2)
   }
 
+  /** Raised open hand → menu next to the palm. It stays where it opened: the hand can drop. */
+  private checkRaisedHand(): void {
+    if (!this.raiseHand || !this.session.setupComplete) return
+    const palm = this.raiseHand.update()
+    if (!palm || this.modeMenu.isVisible) return
+    this.openMenuAt(palm.add(new vec3(0, 14, 0)).add(camPos().sub(palm).normalize().uniformScale(4)))
+  }
+
   /** Open/close the mode menu (what the "✋ Menu" stand-in does). */
   toggleMenu(): void {
     if (this.modeMenu.isVisible) {
       this.modeMenu.hide()
       return
     }
+    // preview stand-in: just above and inward of the low-side HUD (where a raised hand would be)
+    const hudPos = this.hud.getSceneObject().getTransform().getWorldPosition()
+    this.openMenuAt(hudPos.add(new vec3(0, 18, 0)).add(camRightFlat().uniformScale(6)))
+  }
+
+  private openMenuAt(pos: vec3): void {
     this.audio.playSfx("ToastPop")
     this.modeMenu.show(this.session.mode, MODE_LABEL[this.session.mode], this.session.savedCount)
-    // near the raised hand: just above and inward of the low-side HUD
-    const hudPos = this.hud.getSceneObject().getTransform().getWorldPosition()
-    const pos = hudPos.add(new vec3(0, 18, 0)).add(camRightFlat().uniformScale(6))
     placeFacingUser(this.modeMenu.getSceneObject(), pos)
   }
 

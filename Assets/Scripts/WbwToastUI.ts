@@ -3,7 +3,7 @@
 // Must NOT: decide when to show (WbwMain does) or position itself (caller places root).
 // Stable names: CafeToast.
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {flexBox, image, panel, retire, text, textWidthCm} from "./WbwSharedUI"
+import {flexBox, image, lineHeightCm, panel, retire, text, textWidthCm} from "./WbwSharedUI"
 
 const ICON_PIN = requireAsset("../Icons/location_on.png") as Texture
 
@@ -39,13 +39,15 @@ export class WbwToastUI extends BaseScriptComponent {
     this.hideNow()
     this.lastMessage = message
     const d = this.viewDistanceCm
-    const tw = textWidthCm(message.length, "Subheadline", d) + 1
-    const W = tw + 6
-    const p = panel(this.sceneObject, "CafeToast", W, 4.4, {justify: FlexJustify.Center, align: FlexAlign.Center})
+    const tw = textWidthCm(message.length, "Subheadline", d) + 0.6
+    const th = lineHeightCm("Subheadline", d)
+    const pinS = Math.min(3, th)
+    const W = tw + pinS + 1 + 2.4, H = th + 1.6
+    const p = panel(this.sceneObject, "CafeToast", W, H, {padX: 1.2, padY: 0.8, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
     this.root = p.root
-    const row = flexBox(p.content, "Row", "row", W - 1, 3.6, {gap: 0.6, justify: FlexJustify.Center, align: FlexAlign.Center})
-    image(row, "Pin", ICON_PIN, 2.4, 2.4, this.iconColor)
-    text(row, "Message", message, "Subheadline", d, {w: tw, h: 3})
+    const row = flexBox(p.content, "Row", "row", W - 2.4, th, {gap: 1, justify: FlexJustify.Center, align: FlexAlign.Center})
+    image(row, "Pin", ICON_PIN, pinS, pinS, this.iconColor)
+    text(row, "Message", message, "Subheadline", d, {w: tw, h: th})
     this.sceneObject.getTransform().setLocalScale(vec3.one())
     this.hideAt = getTime() + seconds
     this.fadeT = -1

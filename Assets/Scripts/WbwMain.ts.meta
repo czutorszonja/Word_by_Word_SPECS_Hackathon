@@ -36,6 +36,7 @@
     modeMenu: false
     order: false
     practice: false
+    raiseHandOpensMenu: false
     setupDistanceCm: false
     setupPanel: false
     skipSetup: false
@@ -64,6 +65,7 @@
       toastSeconds: !<float> 3.000000
       firstMode: learn
       setupDistanceCm: !<float> 70.000000
+      raiseHandOpensMenu: true
       skipSetup: false
   ScriptTypes:
     -
@@ -87,5 +89,6 @@
     - '// @input float toastSeconds = 3 {"hint":"Seconds the toast stays (brief: about 3 s)", "widget":"slider", "min":1, "max":8, "step":0.5}'
     - '// @input string firstMode = "learn" {"hint":"Mode entered automatically after setup", "widget":"combobox", "values":[{"label":"Learn", "value":"learn"}, {"label":"Use it live", "value":"live"}, {"label":"Practice", "value":"practice"}, {"label":"None (menu only)", "value":"none"}]}'
     - '// @input float setupDistanceCm = 70 {"hint":"Distance of the setup panel in front of the user (cm) — brief: ~70 cm", "widget":"slider", "min":40, "max":110, "step":1}'
+    - '// @input bool raiseHandOpensMenu = true {"hint":"On Specs: raising an open hand (palm toward you) opens the mode menu next to it. The HUD Menu button is the preview stand-in."}'
     - '// @input bool skipSetup {"hint":"Skip the setup panel and toast (handy while iterating)"}'
     - '// @ui {"widget":"group_end"}'

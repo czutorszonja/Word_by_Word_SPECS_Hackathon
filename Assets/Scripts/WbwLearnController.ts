@@ -57,14 +57,29 @@ export class WbwLearnController extends BaseScriptComponent {
   cardDistanceCm: number = 68
 
   @input
-  @hint("The card never opens farther than this from the view centre (deg) so it stays in view")
-  @widget(new SliderWidget(0, 30, 1))
-  maxCardAngleDeg: number = 8
+  @hint("Half width of the Specs view (deg) — the word card is kept fully inside it")
+  @widget(new SliderWidget(10, 30, 0.5))
+  viewHalfWidthDeg: number = 16
+
+  @input
+  @hint("Half height of the Specs view (deg)")
+  @widget(new SliderWidget(10, 30, 0.5))
+  viewHalfHeightDeg: number = 19
+
+  @input
+  @hint("Seconds the card shows 'Saved ✓' before it flies into the Saved counter")
+  @widget(new SliderWidget(0, 2, 0.1))
+  savedHoldSec: number = 0.8
 
   @input
   @hint("Highlight colour for ingredients named by the offered phrase cards")
   @widget(new ColorWidget())
   highlightColor: vec4 = new vec4(1.0, 0.78, 0.35, 1)
+
+  @input
+  @hint("Bracket colour while an object is targeted or open on the word card (focus colour)")
+  @widget(new ColorWidget())
+  focusColor: vec4 = new vec4(0.45, 0.93, 1.0, 1)
 
   @input
   @hint("Bracket colour (subtle, warm)")
@@ -157,30 +172,54 @@ export class WbwLearnController extends BaseScriptComponent {
     })
     this.activeCardWordId = w.id
     this.activeCardWord = w.hu
-    // next to the object, slightly toward the user, ~cardDistanceCm from the user
+    this.refreshAllTints()
+    // The card opens once and then stays put (no head-follow). It sits just ABOVE the object so the
+    // object stays visible, horizontally toward the object but kept fully inside the narrow view.
     const cam = camPos()
-    const obj = t.l.so.getTransform().getWorldPosition()
-    let dir = obj.sub(cam).normalize()
-    // keep the card inside the (narrow) view: at most maxCardAngleDeg away from the gaze
+    const objT = t.l.so.getTransform().getWorldPosition()
     const look = camLook()
-    const ang = (Math.acos(Math.max(-1, Math.min(1, dir.dot(look)))) * 180) / Math.PI
-    const clamped = ang > this.maxCardAngleDeg
-    if (clamped) dir = vec3.slerp(look, dir, this.maxCardAngleDeg / ang).normalize()
-    const side = new vec3(-flat(dir).z, 0, flat(dir).x) // to the right of the object, seen from the user
-    const pos = cam.add(dir.uniformScale(this.cardDistanceCm)).add(side.uniformScale(clamped ? 0 : 10)).add(new vec3(0, clamped ? 8 : 6, 0))
+    const size = this.wordCard.cardSize
+    const D = this.cardDistanceCm
+    const halfWDeg = (Math.atan2(size.x / 2, D) * 180) / Math.PI
+    const halfHDeg = (Math.atan2(size.y / 2, D) * 180) / Math.PI
+    const maxYaw = Math.max(0, this.viewHalfWidthDeg - halfWDeg - 1)
+    const maxPitch = Math.max(0, this.viewHalfHeightDeg - halfHDeg - 1)
+    const lookYaw = Math.atan2(look.x, -look.z), lookPitch = Math.asin(Math.max(-1, Math.min(1, look.y)))
+    const to = objT.sub(cam).normalize()
+    let yaw = Math.atan2(to.x, -to.z) - lookYaw
+    while (yaw > Math.PI) yaw -= 2 * Math.PI
+    while (yaw < -Math.PI) yaw += 2 * Math.PI
+    // object's top edge, then the card's half height above it
+    const objTopPitch = Math.asin(Math.max(-1, Math.min(1, objT.add(new vec3(0, t.l.size.y / 2 + 1.5, 0)).sub(cam).normalize().y)))
+    let pitch = objTopPitch + ((halfHDeg + 1) * Math.PI) / 180 - lookPitch
+    const clampRad = (v: number, m: number) => Math.max(-(m * Math.PI) / 180, Math.min((m * Math.PI) / 180, v))
+    yaw = clampRad(yaw, maxYaw)
+    pitch = clampRad(pitch, maxPitch)
+    const fy = lookYaw + yaw, fp = lookPitch + pitch
+    const dir = new vec3(Math.sin(fy) * Math.cos(fp), Math.sin(fp), -Math.cos(fy) * Math.cos(fp))
+    const pos = cam.add(dir.uniformScale(D))
     placeFacingUser(this.wordCard.getSceneObject(), pos)
     this.openedAt = cam
-    this.audio.playVoice(w.audio)
+    this.speak(w.audio, "word")
   }
 
   private playWord(): void {
     const w = wordById(this.activeCardWordId)
-    if (w) this.audio.playVoice(w.audio)
+    if (w) this.speak(w.audio, "word")
   }
 
   private playSentence(): void {
     const w = wordById(this.activeCardWordId)
-    if (w && w.exampleAudio) this.audio.playVoice(w.exampleAudio)
+    if (w && w.exampleAudio) this.speak(w.exampleAudio, "sentence")
+  }
+
+  /** Play a clip and show "Playing" on the card's matching button until it ends. */
+  private speak(key: string, kind: string): void {
+    const shownId = this.activeCardWordId
+    this.wordCard.setPlaying(kind)
+    this.audio.playVoice(key, () => {
+      if (this.wordCard.currentWordId === shownId && this.wordCard.playing === kind) this.wordCard.setPlaying("")
+    })
   }
 
   private saveCurrent(): void {
@@ -190,15 +229,24 @@ export class WbwLearnController extends BaseScriptComponent {
     this.audio.playSfx("SaveConfirm")
     this.activeCardWordId = ""
     this.activeCardWord = ""
-    this.wordCard.flyTo(this.hud.getBadgeWorldPos(), () => {
-      if (!isNew) print(`WbwLearn: '${id}' was already saved`)
+    // the control turns into "Saved ✓" first, then the card flies into the Saved counter
+    this.wordCard.setSaved()
+    const shown = this.wordCard.showCount
+    const ev = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
+    ev.bind(() => {
+      if (this.wordCard.showCount !== shown || !this.wordCard.isVisible) return
+      this.wordCard.flyTo(this.hud.getBadgeWorldPos(), () => {
+        if (!isNew) print(`WbwLearn: '${id}' was already saved`)
+      })
     })
+    ev.reset(this.savedHoldSec)
   }
 
   private closeCard(): void {
     if (this.wordCard.isVisible) this.wordCard.hide()
     this.activeCardWordId = ""
     this.activeCardWord = ""
+    this.refreshAllTints()
   }
 
   // ── brackets ──
@@ -214,10 +262,18 @@ export class WbwLearnController extends BaseScriptComponent {
     return root
   }
 
+  /** Idle = discreet warm brackets · targeted (hover) or open on the card = CYAN, slightly larger. */
   private refreshTint(t: Tracked): void {
-    tint(t.bracket, t.hovered ? new vec4(1, 1, 1, 1) : this.bracketColor, true)
+    const focus = t.hovered || (this.activeCardWordId === t.l.id && this.wordCard.isVisible)
+    tint(t.bracket, focus ? this.focusColor : this.bracketColor, true)
+    const s = focus ? 1.08 : 1
+    t.bracket.getTransform().setLocalScale(new vec3(s, s, s))
     if (t.hovered && this.active) t.bracket.enabled = true
     else if (!t.hovered && this.bracketedIds.indexOf(t.l.id) < 0) t.bracket.enabled = false
+  }
+
+  private refreshAllTints(): void {
+    if (this.active) for (const t of this.tracked) this.refreshTint(t)
   }
 
   private tick(): void {

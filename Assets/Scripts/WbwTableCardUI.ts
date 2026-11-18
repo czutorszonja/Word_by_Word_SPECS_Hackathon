@@ -9,7 +9,7 @@ import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 import {BackPlate} from "SpectaclesUIKit.lspkg/Scripts/BackPlate"
-import {obj, panel, retire, text, textWidthCm, GOLD, SOFT} from "./WbwSharedUI"
+import {lineHeightCm, obj, panel, retire, text, textWidthCm, GOLD, SOFT} from "./WbwSharedUI"
 
 const GOLD_BRIGHT = new vec4(1.0, 0.92, 0.6, 1)
 
@@ -54,11 +54,13 @@ export class WbwTableCardUI extends BaseScriptComponent {
   showTranslation(line: string): void {
     this.hideTranslation()
     this.popupText = line
-    const d = 200
-    const W = textWidthCm(line.length, "Title2", d) + 4
-    const p = panel(this.sceneObject, `TableTranslation_${this.tableNumber}`, W, 9, {justify: FlexJustify.Center, align: FlexAlign.Center})
-    p.root.getTransform().setLocalPosition(new vec3(0, this.cardSizeCm.y / 2 + 7, 0.5))
-    text(p.content, "Line", line, "Title2", d, {h: 6, color: GOLD})
+    // world-space popup above a table seen from ~2-3 m: sized for that distance directly (no READ_BOOST)
+    const d = 220
+    const W = textWidthCm(line.length, "Title2", d, true, 1) + 4
+    const H = lineHeightCm("Title2", d, true, 1) + 2.4
+    const p = panel(this.sceneObject, `TableTranslation_${this.tableNumber}`, W, H, {justify: FlexJustify.Center, align: FlexAlign.Center}, true)
+    p.root.getTransform().setLocalPosition(new vec3(0, this.cardSizeCm.y / 2 + H / 2 + 1, 0.5))
+    text(p.content, "Line", line, "Title2", d, {h: H - 2, boost: 1})
     this.popup = p.root
     this.popupHideAt = getTime() + this.popupSeconds
   }

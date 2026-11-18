@@ -197,11 +197,12 @@ export class WbwTester {
     if (this.main.currentMode !== "none") throw new Error(`mode before setup should be 'none', got '${this.main.currentMode}'`)
     // face the counter as a user standing at the start spot would
     await this.faceCounter()
-    await this.tap("SetupSpeakOther")
-    await waitFor(() => (textOf("Status", this.main.setupPanel.getSceneObject()) ?? "").indexOf("coming soon") >= 0, "setup status 'coming soon' after SetupSpeakOther")
+    // UI rework: functional heading; "soon" languages are a small muted line, not selectable buttons
+    await waitFor(() => textOf("Title", this.main.setupPanel.getSceneObject()) === "Choose your languages", "setup heading 'Choose your languages'")
+    await waitFor(() => (textOf("SetupSoon", this.main.setupPanel.getSceneObject()) ?? "").indexOf("soon") >= 0, "muted 'more languages soon' line")
+    if (this.hasEnabledInteractable("SetupSpeakOther")) throw new Error("unavailable languages must not be selectable")
     await this.tap("SetupSpeakEnglish")
     await this.tap("SetupLearnHungarian")
-    await waitFor(() => textOf("Status", this.main.setupPanel.getSceneObject()) === "English → Hungarian selected", "setup status 'English → Hungarian selected'")
     await this.tap("SetupConfirmButton")
     await waitFor(() => this.main.setupComplete, "setupComplete after SetupConfirmButton")
     await waitFor(() => !this.main.setupPanel.isVisible, "setup panel hidden")

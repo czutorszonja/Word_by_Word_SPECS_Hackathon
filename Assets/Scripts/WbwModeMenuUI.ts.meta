@@ -29,6 +29,7 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     buttonWidthCm: false
+    headingText: false
     viewDistanceCm: false
   ScriptTypesHidden:
     {}
@@ -41,6 +42,7 @@
   DefaultScriptInputs:
     - viewDistanceCm: !<float> 55.000000
       buttonWidthCm: !<float> 18.000000
+      headingText: Choose a mode
   ScriptTypes:
     -
       {}
@@ -49,5 +51,6 @@
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input float viewDistanceCm = 55 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":100, "step":5}'
-    - '// @input float buttonWidthCm = 18 {"hint":"Width of each mode button (cm)", "widget":"slider", "min":12, "max":30, "step":0.5}'
+    - '// @input float buttonWidthCm = 15 {"hint":"Width of each mode tile (cm)", "widget":"slider", "min":12, "max":30, "step":0.5}'
+    - '// @input string headingText = "Choose a mode" {"hint":"Heading of the menu"}'
     - '// @ui {"widget":"group_end"}'

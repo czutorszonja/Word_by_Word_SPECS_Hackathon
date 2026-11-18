@@ -28,7 +28,6 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    boardSizeCm: false
     matchedColor: false
     viewDistanceCm: false
   ScriptTypesHidden:
@@ -40,8 +39,7 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - boardSizeCm: !<Vec2> {x: 45.000000, y: 30.000000}
-      viewDistanceCm: !<float> 55.000000
+    - viewDistanceCm: !<float> 55.000000
       matchedColor: !<Vec4> {x: 0.200000, y: 0.620000, z: 0.320000, w: 1.000000}
   ScriptTypes:
     -
@@ -50,7 +48,6 @@
     - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwPracticeBoardUI – matching board (4 HU + 4 EN cards)</span>"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
-    - '// @input vec2 boardSizeCm = {38,28} {"hint":"Board size in cm (brief: about 45 x 30 cm)"}'
     - '// @input float viewDistanceCm = 65 {"hint":"Viewing distance the text is sized for (cm) — brief: 50–60 cm", "widget":"slider", "min":40, "max":100, "step":5}'
     - '// @input vec4 matchedColor = {0.2,0.62,0.32,1} {"hint":"Colour of a matched pair", "widget":"color"}'
     - '// @ui {"widget":"group_end"}'

@@ -1,7 +1,8 @@
 // TEMPORARY verification probe — drives the flow to a given stage for screenshots / checks.
 // Remove before finishing the build.
 import {WbwMain} from "./WbwMain"
-import {camPos, camLook} from "./WbwSpatial"
+import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
+import {camPos, camLook, placeFacingUser} from "./WbwSpatial"
 
 @component
 export class WbwTempProbe extends BaseScriptComponent {
@@ -169,9 +170,78 @@ export class WbwTempProbe extends BaseScriptComponent {
       })
       return
     }
-    if (this.stage === "wordcard") {
+    if (this.stage.indexOf("live:") === 0) {
+      // screenshot-only: "live:<pitchDeg>[:<target>]" — Use it live from the start position, turned
+      // toward <target> (default ServerSpot); the café is tilted about the eye to emulate head pitch
+      // relative to the fixed preview head (+ = look up)
+      const parts = this.stage.split(":")
+      m.selectMode("live")
+      this.later(2.6, () => {
+        this.frame(parts[2] || "ServerSpot")
+        const ct = (m as any).cafe.getSceneObject().getTransform()
+        const c = camPos()
+        const lk = camLook()
+        const right = new vec3(-lk.z, 0, lk.x).normalize()
+        const q = quat.angleAxis((-Number(parts[1]) * Math.PI) / 180, right)
+        const rel = ct.getWorldPosition().sub(c)
+        ct.setWorldPosition(c.add(q.multiplyVec3(rel)))
+        ct.setWorldRotation(q.multiply(ct.getWorldRotation()))
+      })
+      // the phrase row is laid on the counter tray when shown; re-lay it after the café was moved
+      const relay = () => {
+        if (!O.phraseTray) return
+        const tt = O.phraseTray.getTransform(), pt = O.phrases.getSceneObject().getTransform()
+        pt.setWorldPosition(tt.getWorldPosition())
+        pt.setWorldRotation(tt.getWorldRotation())
+        // the server caption is placed at its anchor when the line starts: re-place it and keep it up
+        if (O.caption.isVisible) {
+          placeFacingUser(O.caption.getSceneObject(), O.server.getCaptionAnchor(), true)
+          O.captionHideAt = -1
+        }
+      }
+      this.later(2.8, relay)
+      this.later(4.5, relay)
+      if (parts[3]) {
+        // optional: answer with the first offered phrase until step <parts[3]> is reached
+        const tick = () => {
+          if (O.orderStepName === parts[3]) {
+            relay()
+            // show the picked (selected) state on one card
+            if (parts[4]) this.later(1.5, () => print(`PROBE pick ${parts[4]} -> ${O.pickPhrase(parts[4])}`))
+            return
+          }
+          if (O.waitingFor === "user" && O.offeredPhraseIds.length > 0) {
+            const ids = O.offeredPhraseIds.filter((x: string) => x !== "done")
+            const id = ids[ids.length - 1] || "done"
+            print(`PROBE advance ${O.orderStepName} pick ${id} -> ${O.pickPhrase(id)}`)
+          }
+          this.later(1.2, tick)
+        }
+        this.later(3.2, tick)
+      }
+      this.later(parts[3] ? 25 : 7, () => {
+        const hud = (m as any).hud
+        print(`PROBE live step=${O.orderStep} ${O.orderStepName} offered=${O.offeredPhraseIds} hudCompact=${hud.isCompact} phrasePanel=${O.phrases.lastSizeCm}`)
+      })
+      return
+    }
+    if (this.stage === "wordcard" || this.stage === "hover") {
       m.selectMode("learn")
-      this.later(4.5, () => print(`PROBE select olivabogyo -> ${L.selectById("olivabogyo")} card=${L.activeCardWordId} brackets=${L.bracketedIds}`))
+      this.later(1.2, () => this.frame("Learnable_paradicsom"))
+      this.later(4.5, () => {
+        print(`PROBE select olivabogyo -> ${L.selectById("olivabogyo")} card=${L.activeCardWordId} brackets=${L.bracketedIds}`)
+        if (this.stage === "hover") this.later(0.6, () => {
+          const card = (m as any).learn.wordCard
+          const vis = (name: string) => {
+            const so = this.find(card.getSceneObject(), name)
+            const b = so ? (so.getComponent(Button.getTypeName()) as any) : null
+            return b ? b.visual : null
+          }
+          const pv = vis("WordCardPlayButton"); if (pv) pv.setState("hovered")
+          const sv = vis("WordCardPlaySentenceButton"); if (sv) sv.setState("triggered")
+          print(`PROBE hover state set play=${!!pv} sentence=${!!sv}`)
+        })
+      })
       return
     }
     if (this.stage === "phrases" || this.stage === "phrases2") {
@@ -203,7 +273,14 @@ export class WbwTempProbe extends BaseScriptComponent {
     if (this.stage === "practice") {
       for (const id of ["olivabogyo", "sonka", "sajt", "paradicsom"]) (m as any).session.save(id)
       m.selectMode("practice")
-      this.later(4.5, () => print(`PROBE practice active=${P.active}`))
+      this.later(3.0, () => {
+        print(`PROBE practice active=${P.active} left=${P.leftIds}`)
+        if (P.leftIds.length > 0) {
+          const a = P.leftIds[0], b = P.leftIds[1]
+          P.pick("hu", a); P.pick("en", a)
+          this.later(2.0, () => { P.pick("hu", b); print(`PROBE practice matched ${a}, selected ${b}`) })
+        }
+      })
       return
     }
   }

@@ -29,13 +29,14 @@ The idea behind it is vocabulary-first learning, the way children learn: lots of
 Real-world scale, centimeters. The user starts at the sandwich counter, facing it.
 
 - **Setup panel (first launch):** "I speak: English. I want to learn: Hungarian." Floats about 70 cm in front at start, a little below eye level, about 40 × 25 cm (default). Only English → Hungarian works in the demo. Other languages can show as "coming soon" (default).
-- **Café layout** (one room, about 6 × 6 m (default)):
-  - **Sandwich counter:** directly in front of the start position, about 100 cm away. Counter about 90 cm high (default). Ingredient containers are visible in a row along the counter top: ham, cheese, chicken, meatball, lettuce, spinach, tomato, olives, pickles, onion, mayonnaise, with bread loaves behind them (default bread, not selectable as a choice).
+- **Café layout** (one room, first planned at about 6 × 6 m; made larger and more spacious during the build at the learner's request, with clear walking space and the lounge well away from the counter):
+  - **Sandwich counter:** directly in front of the start position, about 100 cm away. Counter about 90 cm high (default). Ingredient containers are visible in a row along the counter top: ham, salami, roast chicken, cheese, meatball, lettuce, spinach, tomato, peppers, cucumber, olives, pickles, onion, mayonnaise, mustard, with bread loaves behind them (default bread, not selectable as a choice). Salami, roast chicken, peppers, cucumber and mustard were added during the build so the choices feel like a real sandwich bar.
   - **Pastry display:** to the left of the sandwich counter, same counter line. Croissants, cakes, bread and cookies. Mostly decorative and not ordered; may carry a couple of learnable words (e.g. bread).
   - **Coffee area:** to the right of the sandwich counter. Coffee machine, cups (small and large), milk jug, water bottle.
   - **Server:** a 3D character standing behind the sandwich counter, facing the user, about 150 cm across the counter. As lifelike as the build allows (see Risks). When they speak, their line plays as audio with a short caption bubble above their head (Hungarian, with English underneath in smaller text).
   - **Seating area:** behind the user (they turn around to see it), about 2.5 to 4 m away. Six to eight small tables, each with a clear, large number card standing on it (about 15 × 10 cm, readable from about 3 m). Tables **4, 8 and 12 are empty**. The others (e.g. 2, 5, 7, 10 (default)) have seated virtual diners and can't be selected. No table 13.
 - **Highlights (Learn):** subtle brackets or a soft outline drawn around the object itself, staying attached to it as you walk. Only three or four of the nearest learnable objects in view are bracketed at a time.
+- **Name label (Learn and ordering):** when the user points at an object, its Hungarian name appears just above it. In the preview a visible hand ray stands in for pointing. Selecting the label opens the word card.
 - **Word card:** opens next to the object it's about, slightly toward the user, about 60 to 80 cm from the user, about 25 × 18 cm (default). Shows the illustration, the Hungarian word (large), the English word, one example sentence (reusing an ordering phrase, e.g. the pickles card shows "Savanyú uborka nélkül, kérem."), a ▶ play button and a Save button.
 - **Phrase choices (Use it live):** a small row of 2 to 4 phrase cards lying on the counter top in front of the user, tilted up toward them, so the user looks down at the counter to pick and the server stays visible above them (changed during the build at the learner's request; first planned as a row floating about 60 cm in front, slightly below eye level). When a phrase names an ingredient, that container on the counter gets a soft highlight. Each card shows a picture **and** the Hungarian phrase with the English underneath (first run shows both; the learner will give feedback on whether to keep the pictures).
 - **Practice board:** a compact panel floating upright just above the user's table, facing them, about 50 to 60 cm away, about 45 × 30 cm (default). Eight face-up cards in two columns: four on the left with an illustration and the Hungarian word, four on the right with the English translations, shuffled, with no illustrations. A progress line on top, e.g. "1 / 4 pairs".
@@ -65,7 +66,9 @@ Panels are compact and sized around their contents, so the café and the object 
 | Current target or focus | Cyan accent or outline |
 | Successful match or saved word | Green, paired with a checkmark or confirmation text |
 | Incorrect match | Amber, paired with "Try again" |
-| Panel background | A restrained translucent tint, starting from the Small Wins treatment |
+| Panel background | The current mode's colour, translucent on large panels (about 80% opacity, the treatment that worked in Small Wins) and solid on small strips |
+
+**Mode colours:** each mode has its own panel colour so the learner always knows where they are: **Learn is cobalt blue, Use it live is royal violet, Practice is magenta.** Panels and buttons are never grey, black or white. Word by Word takes only Small Wins' accessibility ideas (opacity treatment, readable sizes, clear outlines, visible states, content-sized panels) and otherwise has its own look.
 
 Accents are used sparingly and consistently, and colour is always paired with a readable label, icon or other visible state change. In the matching game, colour shows selection and feedback only; it never reveals the correct pairs before the learner works them out.
 
@@ -74,16 +77,18 @@ Accents are used sparingly and consistently, and colour is always paired with a 
 ## Hands and input
 - **Aim and pinch** for everything: the hand stays relaxed and low (by the waist or on the counter). The hand ray highlights whatever it lands on, and a small pinch selects it. No pointing, no waving, no dragging. Designed so the user doesn't look strange in public. In the preview, mouse click = pinch.
 - Select a bracketed object → opens its word card. ▶ plays the word. Save adds it to the collection (with a small confirmation, e.g. the card flies into a counter "Saved: 3").
-- Select a phrase card → plays the phrase in Hungarian and counts as your answer to the server.
+- Select a phrase card → plays the phrase in Hungarian and counts as your answer to the server (steps 1, 3, 4, 5 and 6).
+- Ordering the fillings (step 2) works like real life: point at ingredients on the counter, mark each as wanted or "nélkül", and say the sentence the app builds out loud (see the scripted order).
 - Select a table number card → shows "8 = nyolc" and plays the number.
 - Practice: select one card, then its translation.
 - Open the mode menu: raise the hand on glasses. In the preview, click the "✋ Menu" stand-in button.
 - Targets are big and highlight when aimed at.
-- Voice: none required. Speaking out loud is optional practice. Every answer is a pinch-able phrase card.
+- Voice: the learner says their order out loud, as they would in a real café. The microphone only detects that they spoke (voice activity), not what they said; then the server answers. In the preview a "Said it" button stands in when no microphone is available. (Changed during the build: first planned as pinch-only answers.)
 
 ## When things show
 - **Setup panel:** shows at first launch; hides once the language pair is confirmed.
 - **"Café detected" toast:** shows after setup for about 3 seconds (default), then fades.
+- **Arrival suggestion:** the demo starts as the learner walks into the café. After "Café detected", the app suggests what to do here: Learn, Practice or Use it live (added during the build so the story of arriving somewhere and being offered help is visible).
 - **Brackets (Learn mode only):** show on 3 to 4 nearby learnable objects in view. They stay quiet and never fill the view. Hidden in Practice mode.
 - **Word card:** shows when an object is selected; hides when saved, when the user selects another object, or when they walk away (more than about 1.5 m (default)).
 - **Server caption:** shows while the line plays and for a few seconds after; the phrase choices appear right after the question.
@@ -95,7 +100,7 @@ Accents are used sparingly and consistently, and colour is always paired with a 
 
 ## Use it live: the scripted order (in order)
 1. Server: "Jó napot! Mit kér?" → choices: "Jó napot!" / "Egy szendvicset kérek."
-2. Server: "Mit kér bele?" → choices built from the ingredients, favouring words the user saved: "Sonkát és sajtot kérek." / "Kérhetek olívabogyót?" / "Savanyú uborka nélkül, kérem." The user can pick more than one before continuing (default: a "Kész / Done" card ends the step).
+2. Server: "Mit kér bele?" → the user looks at the counter and points at the real ingredients. Each shows its name, and the user marks it as wanted or "nélkül" (without). The app builds the Hungarian sentence from those choices, using the correct object forms, for example "Sonkát, szalámit és paprikát kérek, savanyú uborka nélkül." The user can listen to it, then says it out loud; once the microphone hears them speak, the server answers. (Changed during the build: first planned as fixed phrase cards such as "Sonkát és sajtot kérek." / "Kérhetek olívabogyót?" / "Savanyú uborka nélkül, kérem.")
 3. Server: "Inni valamit?" → "Egy kicsi tejes kávét kérek." (small/large and with/without milk shown as choices where possible (default)).
 4. Server: "Itt fogyasztja vagy elvitelre?" → "Itt eszem." (picture: inside, a table) / "Elvitelre, kérem." (picture: outside, a takeaway bag). The demo path is "Itt eszem."
 5. Server: "Hányas asztalnál ül?" → the user turns around, finds an empty table (4, 8 or 12), selects its number card to learn it ("8 = nyolc" + audio), turns back, and picks "A nyolcas asztalnál ülök." (or the four/twelve version). Only the phrase for the chosen table is offered.
@@ -103,7 +108,9 @@ Accents are used sparingly and consistently, and colour is always paired with a 
 7. The user walks to the chosen table. A hint invites them to open the menu and choose Practice while they wait (default).
 
 ## Audio
-43 Hungarian clips. The full list with exact file names is in `devpost/audio-recording-list.md`. Files go in `Assets/Audio/hu/`.
+**Status:** every clip is now a generated Hungarian voice (Microsoft neural voices: Tamás for the learner's words and phrases, Noémi for the server), made with `agent/tts/make_hu_voice.py`. The learner listened and accepted them for the demo; they understand them clearly but they don't sound fully human, so the learner may replace them with their own recordings before submitting. Extra clips (object forms such as "sonkát" and connectors such as "kérek", "és", "nélkül") let the app play the sentences it builds in step 2.
+
+41 Hungarian clips in the original list (it first said 43), plus the extra clips. The full list with exact file names is in `devpost/audio-recording-list.md`. Files go in `Assets/Audio/hu/`.
 - **First choice: a generated Hungarian voice.** Before wiring audio, generate every clip ahead of time with a Hungarian (hu-HU) text-to-speech voice and save it as a file under **exactly those file names**. Use the Hungarian text from the list. Don't rely on live text-to-speech or an AI service inside the Lens; the demo must play pre-made files in the preview.
 - Use one consistent voice for the user's words and phrases (`w_`, `n_`, `p_`) and, if available, a different voice for the server (`s_`) so the two are easy to tell apart (default).
 - If no Hungarian voice can be generated, use placeholder sounds under the same names and say so.
@@ -114,14 +121,14 @@ Accents are used sparingly and consistently, and colour is always paired with a 
 ## Done criteria
 Each one can be checked in Lens Studio's preview.
 1. **Mode menu:** clicking the "✋ Menu" stand-in (for raising the hand) opens a menu with Learn, Practice and Use it live. I can pick any mode, see which one is active, and reopen the menu to switch modes without losing my saved words.
-2. **Learn:** walking around the pastry display and sandwich counter, three or four learnable objects have subtle highlights that stay attached to them. Clicking one (e.g. the olives) opens a card with an illustration, "olívabogyó", "olives" and an example sentence. ▶ plays the audio, and Save adds it to my collection. Saved words stay saved when I move elsewhere or switch modes.
-3. **Use it live, ordering:** I can click through ordering a sandwich and coffee: the server's scripted questions ("Mit kér?", "Mit kér bele?", "Inni valamit?", "Itt fogyasztja vagy elvitelre?") each play with a caption, and I answer by selecting phrase cards (picture + Hungarian + English) that play their audio. This includes leaving out an ingredient ("Savanyú uborka nélkül, kérem") and choosing "Itt eszem."
+2. **Learn:** walking around the pastry display and sandwich counter, three or four learnable objects have subtle highlights that stay attached to them. Pointing at one shows its Hungarian name just above it. Clicking one (e.g. the olives) opens a card with an illustration, "olívabogyó", "olives" and an example sentence. ▶ plays the audio, and Save adds it to my collection. Saved words stay saved when I move elsewhere or switch modes.
+3. **Use it live, ordering:** I can order a sandwich and coffee: the server's scripted questions ("Mit kér?", "Mit kér bele?", "Inni valamit?", "Itt fogyasztja vagy elvitelre?") each play with a caption. For the fillings I point at real ingredients on the counter, see their names, mark what I want and what I don't ("… nélkül"), and the app builds the Hungarian sentence, which I say out loud (or press "Said it" in the preview). For the other questions I answer with phrase cards (picture + Hungarian + English) that play their audio, including "Itt eszem." (Updated during the build at the learner's request: first planned as phrase cards for every step.)
 4. **Use it live, table:** after "Hányas asztalnál ül?", I turn around, see occupied and empty tables, select the number card on an empty table (4, 8 or 12) and see and hear it (e.g. "8 = nyolc"). Back at the counter I can answer with the matching phrase ("A nyolcas asztalnál ülök."), and the server answers "Jó étvágyat!"
 5. **Practice:** after saving at least four words, I choose Practice at my table and see eight face-up cards on an upright panel just above the table: four illustrated Hungarian cards and four shuffled English cards. I click one card and then its translation. Correct pairs turn green with checkmarks, play the word, become inactive and update "x / 4 pairs". Wrong pairs show "Try again" and become clickable again. After all four I see a completion state and can start another set or close the board, then return to another mode through the menu.
 
 ## Out of scope
 - Real location or object recognition; the café context and object identities are scripted.
-- Real speech recognition of the user speaking Hungarian.
+- Real speech recognition of the user speaking Hungarian. (The app only detects that the learner spoke.)
 - AI-generated conversation; all server lines are scripted.
 - Bread choice, toasting, ordering bakery items, order-number announcements, "Anything else?".
 - Languages other than English → Hungarian (others may appear as "coming soon").
@@ -131,6 +138,7 @@ Each one can be checked in Lens Studio's preview.
 ## Risks and open questions
 - **Scope is large** (setup, Learn, a 6-step scripted order, table selection, Practice). The learner chose to keep everything. If time runs short, **the table-selection/number-learning part is the first to skip in the video**, but it stays in the build.
 - **Lifelike server:** the learner wants a real-feeling person, not just a bubble or a voice. A realistic, animated human is the hardest asset here. Expect a stylized character with simple idle motion; make it as lifelike as possible.
+- **Not a game:** the first rebuild's people looked like game avatars. The learner wants the surroundings and people as realistic as possible, so nobody mistakes the demo for a game, and every diner should be a different person (no repeated characters).
 - **Raise-hand menu:** a custom gesture that can't be tried in the preview. The clickable stand-in carries the demo; the real gesture is "feel unproven".
 - **Narrow view:** the sandwich counter has around 11 ingredients. Only 3 to 4 are bracketed at a time to avoid filling the view. On real glasses this needs checking.
 - **Audio:** generated Hungarian voice first. Pronunciation quality (accents like ő, ű, gy, ny) is unknown until the learner listens. The learner's own recordings are the backup.

@@ -35,6 +35,17 @@ CLIPS = {
     "p_szabad_asztal": "Szabad ez az asztal?", "p_negyes_asztal": "A négyes asztalnál ülök.",
     "p_nyolcas_asztal": "A nyolcas asztalnál ülök.", "p_tizenkettes_asztal": "A tizenkettes asztalnál ülök.",
     "p_koszonom": "Köszönöm!",
+    # new ingredients (added after the learner's feedback on variety)
+    "w_szalami": "szalámi", "w_sult_csirke": "sült csirke", "w_paprika": "paprika",
+    "w_uborka_friss": "uborka", "w_mustar": "mustár",
+    # object forms for building "…-t kérek" sentences (accusative)
+    "a_sonka": "sonkát", "a_szalami": "szalámit", "a_sult_csirke": "sült csirkét", "a_csirke": "csirkét",
+    "a_sajt": "sajtot", "a_salata": "salátát", "a_spenot": "spenótot", "a_paradicsom": "paradicsomot",
+    "a_paprika": "paprikát", "a_uborka_friss": "uborkát", "a_hagyma": "hagymát",
+    "a_savanyu_uborka": "savanyú uborkát", "a_olivabogyo": "olívabogyót", "a_majonez": "majonézt",
+    "a_mustar": "mustárt", "a_husgomboc": "húsgombócot",
+    # connectors for building sentences
+    "c_kerek": "kérek", "c_es": "és", "c_nelkul": "nélkül", "c_kerem": "kérem",
     # server lines
     "s_mit_ker": "Jó napot! Mit kér?", "s_mit_ker_bele": "Mit kér bele?", "s_inni": "Inni valamit?",
     "s_itt_vagy_elvitel": "Itt fogyasztja vagy elvitelre?", "s_hanyas_asztal": "Hányas asztalnál ül?",

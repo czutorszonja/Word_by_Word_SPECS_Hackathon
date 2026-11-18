@@ -79,4 +79,42 @@ Use the **exact file name** from the tables below. The Lens is built with placeh
 
 Tables 4, 8 and 12 are the empty ones you can choose in the demo; the occupied tables use other numbers and have no audio.
 
-**Total: 43 clips.** Word cards reuse your phrases as their example sentences, so there's nothing extra to record.
+## 5. New ingredients (added for more sandwich variety)
+| ✓ | English | Hungarian | File |
+|---|---|---|---|
+| ☐ | salami | szalámi | `w_szalami.wav` |
+| ☐ | roast chicken | sült csirke | `w_sult_csirke.wav` |
+| ☐ | peppers | paprika | `w_paprika.wav` |
+| ☐ | cucumber | uborka | `w_uborka_friss.wav` |
+| ☐ | mustard | mustár | `w_mustar.wav` |
+
+## 6. Sentence pieces (the app joins these to build your order)
+When you point at ingredients, the app builds a sentence such as "Sonkát és sajtot kérek, savanyú uborka nélkül." It plays it by joining these short clips.
+
+| ✓ | Hungarian | File |
+|---|---|---|
+| ☐ | sonkát | `a_sonka.wav` |
+| ☐ | szalámit | `a_szalami.wav` |
+| ☐ | sült csirkét | `a_sult_csirke.wav` |
+| ☐ | csirkét | `a_csirke.wav` |
+| ☐ | sajtot | `a_sajt.wav` |
+| ☐ | salátát | `a_salata.wav` |
+| ☐ | spenótot | `a_spenot.wav` |
+| ☐ | paradicsomot | `a_paradicsom.wav` |
+| ☐ | paprikát | `a_paprika.wav` |
+| ☐ | uborkát | `a_uborka_friss.wav` |
+| ☐ | hagymát | `a_hagyma.wav` |
+| ☐ | savanyú uborkát | `a_savanyu_uborka.wav` |
+| ☐ | olívabogyót | `a_olivabogyo.wav` |
+| ☐ | majonézt | `a_majonez.wav` |
+| ☐ | mustárt | `a_mustar.wav` |
+| ☐ | húsgombócot | `a_husgomboc.wav` |
+| ☐ | kérek | `c_kerek.wav` |
+| ☐ | és | `c_es.wav` |
+| ☐ | nélkül | `c_nelkul.wav` |
+| ☐ | kérem | `c_kerem.wav` |
+
+## Current status
+Every clip above now exists as an AI-generated voice (Microsoft neural voices: Tamás for your words and phrases, Noémi for the server), made with `agent/tts/make_hu_voice.py`. To replace one with your own recording, save it under the same file name in `Assets/Audio/hu/`.
+
+**Total: 41 clips in sections 1–4** (the list first said 43, but it names 41 files), **plus 25 in sections 5–6.** Word cards reuse your phrases as their example sentences, so there's nothing extra to record.

@@ -59,7 +59,7 @@ export class DC2_Learn extends Scenario {
       await t.setHead(spot, 0, -20)
       await sleep(600)
       await waitFor(() => learn.bracketedIds.length >= 3 && learn.bracketedIds.length <= 4 &&
-        (learn.bracketedIds.indexOf("kenyer") >= 0 || learn.bracketedIds.indexOf("szendvics") >= 0),
+        ["kenyer", "szendvics", "perec", "kakaos_csiga", "pogacsa", "repatorta"].some((id) => learn.bracketedIds.indexOf(id) >= 0),
         `3–4 brackets incl. a pastry item at the pastry display (got ${learn.bracketedIds.join(",")})`, 4000)
       log(`pastry brackets: ${learn.bracketedIds.join(",")}`)
       checkBrackets("pastry")

@@ -297,6 +297,9 @@ export class WbwTester {
     this.quietMic()
     if (this.main.setupComplete) throw new Error("setupComplete was already true before Start was pressed")
     if (this.main.currentMode !== "none") throw new Error(`mode before setup should be 'none', got '${this.main.currentMode}'`)
+    // these scenarios begin at the counter (the café normally starts the user outside the entrance;
+    // DC6_Entrance covers that start)
+    this.main.cafe.useCounterStart()
     // face the counter as a user standing at the start spot would
     await this.faceCounter()
     // UI rework: functional heading; "soon" languages are a small muted line, not selectable buttons

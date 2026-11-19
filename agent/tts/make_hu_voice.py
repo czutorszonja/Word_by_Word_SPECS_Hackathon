@@ -30,7 +30,7 @@ CLIPS = {
     # learner's phrases
     "p_jonapot": "Jó napot!", "p_szendvicset_kerek": "Egy szendvicset kérek.",
     "p_sonka_sajt": "Sonkát és sajtot kérek.", "p_kerhetek_oliva": "Kérhetek olívabogyót?",
-    "p_uborka_nelkul": "Savanyú uborka nélkül, kérem.", "p_tejes_kave": "Egy kicsi tejes kávét kérek.",
+    "p_uborka_nelkul": "Savanyú uborka nélkül, kérem.", "p_tejes_kave": "Egy kicsi tejeskávét kérek.",
     "p_itt_eszem": "Itt eszem.", "p_elvitelre": "Elvitelre, kérem.",
     "p_szabad_asztal": "Szabad ez az asztal?", "p_negyes_asztal": "A négyes asztalnál ülök.",
     "p_nyolcas_asztal": "A nyolcas asztalnál ülök.", "p_tizenkettes_asztal": "A tizenkettes asztalnál ülök.",
@@ -72,6 +72,16 @@ CLIPS = {
     "w_fa": "fa", "w_virag": "virág", "w_fu": "fű", "w_pad": "pad", "w_szokokut": "szökőkút",
     "w_kutya": "kutya", "w_madar": "madár", "w_to": "tó", "w_jatszoter": "játszótér", "w_hinta": "hinta",
     "w_labda": "labda", "w_osveny": "ösvény",
+    # entrance sign, wall menu board, pastry case and coffee station (added 2026-11-19)
+    "w_nyitva": "nyitva", "w_zarva": "zárva", "p_nyitva_van": "A kávézó nyitva van.", "p_zarva_van": "A kávézó zárva van.",
+    "w_tejeskave": "tejeskávé", "w_presszo": "presszó", "w_forro_csoki": "forró csoki",
+    "p_tejeskave": "Egy tejeskávét kérek.", "p_presszo": "Egy presszót kérek.", "p_forro_csoki": "Egy forró csokit kérek.",
+    "w_repatorta": "répatorta", "w_perec": "perec", "w_kakaos_csiga": "kakaós csiga", "w_pogacsa": "pogácsa",
+    "p_repatorta": "Egy szelet répatortát kérek.", "p_perec": "Egy perecet kérek.",
+    "p_kakaos_csiga": "Egy kakaós csigát kérek.", "p_pogacsa": "Két pogácsát kérek.",
+    "w_zabtej": "zabtej", "w_mandulatej": "mandulatej", "w_kavedaralo": "kávédaráló", "w_csesze": "csésze",
+    "p_zabtej": "Zabtejjel kérem.", "p_mandulatej": "Mandulatejjel kérem.",
+    "p_kavedaralo": "A kávédaráló hangos.", "p_csesze": "Egy csésze kávét kérek.",
     # server lines
     "s_mit_ker": "Jó napot! Mit kér?", "s_mit_ker_bele": "Mit kér bele?", "s_inni": "Inni valamit?",
     "s_itt_vagy_elvitel": "Itt fogyasztja vagy elvitelre?", "s_hanyas_asztal": "Hányas asztalnál ül?",

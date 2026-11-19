@@ -33,10 +33,16 @@
     coffeeArea: false
     colliderPaddingCm: false
     debugColliders: false
+    entrance: false
     eyeHeightCm: false
+    menuBoard: false
     pastryDisplay: false
     sandwichCounter: false
     seating: false
+    startCafeYawDeg: false
+    startOutside: false
+    startXCm: false
+    startZCm: false
     stopAligningAfterWalkCm: false
   ScriptTypesHidden:
     {}
@@ -51,9 +57,15 @@
       pastryDisplay: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       coffeeArea: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       seating: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      entrance: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      menuBoard: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       eyeHeightCm: !<float> 160.000000
       alignToUserHeight: true
       alignToUserPosition: true
+      startOutside: true
+      startXCm: !<float> -760.000000
+      startZCm: !<float> 20.000000
+      startCafeYawDeg: !<float> 90.000000
       stopAligningAfterWalkCm: !<float> 12.000000
       colliderPaddingCm: 1.500000
       debugColliders: false
@@ -68,11 +80,17 @@
     - '// @input SceneObject pastryDisplay {"hint":"Authored unit root: pastry display (left of the sandwich counter)"}'
     - '// @input SceneObject coffeeArea {"hint":"Authored unit root: coffee area (right of the sandwich counter)"}'
     - '// @input SceneObject seating {"hint":"Authored unit root: seating area; children named Table_<n>"}'
+    - '// @input SceneObject entrance {"hint":"Authored unit root: the entrance (door with the NYITVA / ZÁRVA sign)"}'
+    - '// @input SceneObject menuBoard {"hint":"Authored unit root: the wall menu board (its drink lines are learnable)"}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - "// @input float eyeHeightCm = 160 {\"hint\":\"Keep the café floor this far below the user's eyes (cm). The preview camera height can differ between runs.\", \"widget\":\"slider\", \"min\":120, \"max\":190, \"step\":1}"
     - '// @input bool alignToUserHeight = true {"hint":"Snap the café floor to (user eye height - eyeHeightCm) during the first seconds"}'
     - "// @input bool alignToUserPosition = true {\"hint\":\"Also centre the café on the user's start spot (x/z) — the brief starts the user at the counter. The preview can remember a moved head position between runs.\"}"
+    - '// @input bool startOutside = true {"hint":"Start outside the entrance: the café turns around the user so they face the door and its NYITVA sign. Off = start at the counter"}'
+    - '// @input float startXCm = -760 {"hint":"Start spot outside the door, café-local x (cm)"}'
+    - '// @input float startZCm = 20 {"hint":"Start spot outside the door, café-local z (cm)"}'
+    - '// @input float startCafeYawDeg = 90 {"hint":"How far the café is turned around the user at the start (deg). 90 = the user faces café +X (the door in the left wall)"}'
     - '// @input float stopAligningAfterWalkCm = 12 {"hint":"Stop the start-up alignment as soon as the user has walked this far (cm), so the room never slides along", "widget":"slider", "min":2, "max":50, "step":1}'
     - "// @input float colliderPaddingCm = 1.5 {\"hint\":\"Extra margin added around each learnable's mesh for its hit box (cm)\", \"widget\":\"slider\", \"min\":0, \"max\":6, \"step\":0.5}"
     - '// @ui {"widget":"group_end"}'

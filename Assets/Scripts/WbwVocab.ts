@@ -8,7 +8,7 @@
 // Audio keys are the exact file base names in Assets/Audio/hu/ (see WbwAudioBank.ts);
 // illustration keys are file base names in Assets/Illustrations/ (see WbwIllustrations.ts).
 
-export type WordArea = "sandwich" | "pastry" | "coffee"
+export type WordArea = "entrance" | "sandwich" | "pastry" | "coffee"
 
 export interface WordEntry {
   id: string            // stable id, also used in SceneObject names: Learnable_<id>
@@ -57,15 +57,32 @@ export const WORDS: WordEntry[] = [
   {id: "uborka", hu: "savanyú uborka", en: "pickles", exampleHu: "Savanyú uborka nélkül, kérem.", exampleEn: "Without pickles, please.", exampleAudio: "p_uborka_nelkul", audio: "w_uborka", picture: "uborka", area: "sandwich"},
   {id: "hagyma", hu: "hagyma", en: "onion", exampleHu: "Hagyma nélkül, kérem.", exampleEn: "Without onion, please.", exampleAudio: "w_hagyma+c_nelkul+c_kerem", audio: "w_hagyma", picture: "hagyma", area: "sandwich"},
   {id: "majonez", hu: "majonéz", en: "mayonnaise", exampleHu: "Majonéz nélkül, kérem.", exampleEn: "Without mayonnaise, please.", exampleAudio: "w_majonez+c_nelkul+c_kerem", audio: "w_majonez", picture: "majonez", area: "sandwich"},
+  // Entrance — the two-sided sign on the door: NYITVA outside, ZÁRVA inside (a real flip sign)
+  {id: "nyitva", hu: "nyitva", en: "open", exampleHu: "A kávézó nyitva van.", exampleEn: "The café is open.", exampleAudio: "p_nyitva_van", audio: "w_nyitva", picture: "nyitva", area: "entrance"},
+  {id: "zarva", hu: "zárva", en: "closed", exampleHu: "A kávézó zárva van.", exampleEn: "The café is closed.", exampleAudio: "p_zarva_van", audio: "w_zarva", picture: "zarva", area: "entrance"},
+  // Pastry display — the glass case and the cake on top
+  {id: "repatorta", hu: "répatorta", en: "carrot cake", exampleHu: "Egy szelet répatortát kérek.", exampleEn: "A slice of carrot cake, please.", exampleAudio: "p_repatorta", audio: "w_repatorta", picture: "repatorta", area: "pastry"},
+  {id: "perec", hu: "perec", en: "pretzel", exampleHu: "Egy perecet kérek.", exampleEn: "A pretzel, please.", exampleAudio: "p_perec", audio: "w_perec", picture: "perec", area: "pastry"},
+  {id: "kakaos_csiga", hu: "kakaós csiga", en: "cocoa roll", exampleHu: "Egy kakaós csigát kérek.", exampleEn: "A cocoa roll, please.", exampleAudio: "p_kakaos_csiga", audio: "w_kakaos_csiga", picture: "kakaos_csiga", area: "pastry"},
+  {id: "pogacsa", hu: "pogácsa", en: "savoury scone", exampleHu: "Két pogácsát kérek.", exampleEn: "Two savoury scones, please.", exampleAudio: "p_pogacsa", audio: "w_pogacsa", picture: "pogacsa", area: "pastry"},
   // Pastry display
   {id: "szendvics", hu: "szendvics", en: "sandwich", exampleHu: "Egy szendvicset kérek.", exampleEn: "I'd like a sandwich, please.", exampleAudio: "p_szendvicset_kerek", audio: "w_szendvics", picture: "szendvics", area: "pastry"},
   {id: "kenyer", hu: "kenyér", en: "bread", exampleHu: "Kérhetek kenyeret?", exampleEn: "Could I have some bread?", exampleAudio: "", audio: "w_kenyer", picture: "kenyer", area: "pastry"},
   // Coffee area
-  {id: "kave", hu: "kávé", en: "coffee", exampleHu: "Egy kicsi tejes kávét kérek.", exampleEn: "A small coffee with milk, please.", exampleAudio: "p_tejes_kave", audio: "w_kave", picture: "kave", area: "coffee"},
-  {id: "tej", hu: "tej", en: "milk", exampleHu: "Egy kicsi tejes kávét kérek.", exampleEn: "A small coffee with milk, please.", exampleAudio: "p_tejes_kave", audio: "w_tej", picture: "tej", area: "coffee"},
+  {id: "kave", hu: "kávé", en: "coffee", exampleHu: "Egy kicsi tejeskávét kérek.", exampleEn: "A small coffee with milk, please.", exampleAudio: "p_tejes_kave", audio: "w_kave", picture: "kave", area: "coffee"},
+  {id: "tej", hu: "tej", en: "milk", exampleHu: "Egy kicsi tejeskávét kérek.", exampleEn: "A small coffee with milk, please.", exampleAudio: "p_tejes_kave", audio: "w_tej", picture: "tej", area: "coffee"},
   {id: "viz", hu: "víz", en: "water", exampleHu: "Kérhetek vizet?", exampleEn: "Could I have some water?", exampleAudio: "", audio: "w_viz", picture: "viz", area: "coffee"},
-  {id: "kicsi", hu: "kicsi", en: "small", exampleHu: "Egy kicsi tejes kávét kérek.", exampleEn: "A small coffee with milk, please.", exampleAudio: "p_tejes_kave", audio: "w_kicsi", picture: "kicsi", area: "coffee"},
-  {id: "nagy", hu: "nagy", en: "large", exampleHu: "Egy nagy tejes kávét kérek.", exampleEn: "A large coffee with milk, please.", exampleAudio: "", audio: "w_nagy", picture: "nagy", area: "coffee"},
+  {id: "kicsi", hu: "kicsi", en: "small", exampleHu: "Egy kicsi tejeskávét kérek.", exampleEn: "A small coffee with milk, please.", exampleAudio: "p_tejes_kave", audio: "w_kicsi", picture: "kicsi", area: "coffee"},
+  {id: "nagy", hu: "nagy", en: "large", exampleHu: "Egy nagy tejeskávét kérek.", exampleEn: "A large coffee with milk, please.", exampleAudio: "", audio: "w_nagy", picture: "nagy", area: "coffee"},
+  // Wall menu board — the drinks (pointing at a line on the board)
+  {id: "tejeskave", hu: "tejeskávé", en: "latte", exampleHu: "Egy tejeskávét kérek.", exampleEn: "A latte, please.", exampleAudio: "p_tejeskave", audio: "w_tejeskave", picture: "tejeskave", area: "coffee"},
+  {id: "presszo", hu: "presszó", en: "espresso", exampleHu: "Egy presszót kérek.", exampleEn: "An espresso, please.", exampleAudio: "p_presszo", audio: "w_presszo", picture: "presszo", area: "coffee"},
+  {id: "forro_csoki", hu: "forró csoki", en: "hot chocolate", exampleHu: "Egy forró csokit kérek.", exampleEn: "A hot chocolate, please.", exampleAudio: "p_forro_csoki", audio: "w_forro_csoki", picture: "forro_csoki", area: "coffee"},
+  // Coffee station — milks, grinder, cups
+  {id: "zabtej", hu: "zabtej", en: "oat milk", exampleHu: "Zabtejjel kérem.", exampleEn: "With oat milk, please.", exampleAudio: "p_zabtej", audio: "w_zabtej", picture: "zabtej", area: "coffee"},
+  {id: "mandulatej", hu: "mandulatej", en: "almond milk", exampleHu: "Mandulatejjel kérem.", exampleEn: "With almond milk, please.", exampleAudio: "p_mandulatej", audio: "w_mandulatej", picture: "mandulatej", area: "coffee"},
+  {id: "kavedaralo", hu: "kávédaráló", en: "coffee grinder", exampleHu: "A kávédaráló hangos.", exampleEn: "The coffee grinder is loud.", exampleAudio: "p_kavedaralo", audio: "w_kavedaralo", picture: "kavedaralo", area: "coffee"},
+  {id: "csesze", hu: "csésze", en: "cup", exampleHu: "Egy csésze kávét kérek.", exampleEn: "A cup of coffee, please.", exampleAudio: "p_csesze", audio: "w_csesze", picture: "csesze", area: "coffee"},
   {id: "asztal", hu: "asztal", en: "table", exampleHu: "Szabad ez az asztal?", exampleEn: "Is this table free?", exampleAudio: "p_szabad_asztal", audio: "w_asztal", picture: "asztal", area: "coffee"},
 ]
 
@@ -115,7 +132,7 @@ export const EARLIER_WORDS: EarlierWord[] = [
 export const PHRASES: PhraseEntry[] = [
   {id: "jonapot", hu: "Jó napot!", en: "Hello!", audio: "p_jonapot", picture: "hello", words: []},
   {id: "szendvicset", hu: "Egy szendvicset kérek.", en: "I'd like a sandwich, please.", audio: "p_szendvicset_kerek", picture: "szendvics", words: ["szendvics"]},
-  {id: "tejes_kave", hu: "Egy kicsi tejes kávét kérek.", en: "A small coffee with milk, please.", audio: "p_tejes_kave", picture: "coffee_milk", words: ["kicsi", "tej", "kave"]},
+  {id: "tejes_kave", hu: "Egy kicsi tejeskávét kérek.", en: "A small coffee with milk, please.", audio: "p_tejes_kave", picture: "coffee_milk", words: ["kicsi", "tej", "kave"]},
   {id: "itt_eszem", hu: "Itt eszem.", en: "I'll eat here.", audio: "p_itt_eszem", picture: "eat_here", words: []},
   {id: "elvitelre", hu: "Elvitelre, kérem.", en: "Takeaway, please.", audio: "p_elvitelre", picture: "takeaway", words: []},
   {id: "szabad_asztal", hu: "Szabad ez az asztal?", en: "Is this table free?", audio: "p_szabad_asztal", picture: "table_free", words: ["asztal"]},

@@ -1,0 +1,57 @@
+- !<AssetImportMetadata/c43eaf4d-b4a1-4057-9d35-e247788f6658>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 5a02ccab-2ce2-413f-b023-4225f9e6dde4
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 5a02ccab-2ce2-413f-b023-4225f9e6dde4
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 6711c230-8c43-473e-8f39-d887bd298416
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/6711c230-8c43-473e-8f39-d887bd298416>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: aefc6af9-f932-4048-b8e9-2f8e1e71290c
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    hinge: false
+    openAngleDeg: false
+    openDistanceCm: false
+    speed: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - hinge: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      openAngleDeg: !<float> -95.000000
+      openDistanceCm: !<float> 120.000000
+      speed: 1.400000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwDoor – entrance door that opens as you approach</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - "// @input SceneObject hinge {\"hint\":\"The door leaf's hinge; it turns about its local Y\"}"
+    - "// @input float openAngleDeg = -95 {\"hint\":\"Open angle (deg, about the hinge's local Y; negative swings the door into the café)\", \"widget\":\"slider\", \"min\":-120, \"max\":120, \"step\":1}"
+    - "// @input float openDistanceCm = 120 {\"hint\":\"Open when the user's head is this close to the doorway (cm, horizontal)\", \"widget\":\"slider\", \"min\":60, \"max\":250, \"step\":5}"
+    - '// @input float speed = 1.4 {"hint":"How fast the door swings (fraction of the full swing per second)", "widget":"slider", "min":0.3, "max":4, "step":0.1}'

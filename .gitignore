@@ -49,3 +49,4 @@ agent/staging/**/*.glb
 # mesh generation: download URLs carry temporary signed tokens; preview images are scratch
 agent/staging/mesh/urls*.json
 agent/staging/mesh/preview_img/
+__pycache__/

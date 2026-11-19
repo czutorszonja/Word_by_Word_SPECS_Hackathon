@@ -1,6 +1,6 @@
 # Blender: render a single contact-sheet PNG for a GLB (glTF +Z front = Blender -Y, camera yaw 0 looks at the front).
 #   blender --background --python preview_sheet.py -- in.glb out.png [person]
-# Props: front | 3/4 | side | top-down.  person: front | 3/4 | side | face close-up | neck/collar 3/4 close-up.
+# Props: front | 3/4 | side | top-down.  back: back | back 3/4 | other side | top-down.  person: front | 3/4 | side | face close-up | neck/collar 3/4 close-up.
 import bpy, sys, math, os, mathutils
 import numpy as np
 
@@ -79,6 +79,11 @@ if person:
     shot(face, H * 0.075, 0, 3, 85)
     neck = mathutils.Vector((hc[0], hc[1], mn[2] + H * 0.84))
     shot(neck, H * 0.09, 35, 8, 85)
+elif len(argv) > 2 and argv[2] == "back":
+    shot(center, radius, 180, 15)
+    shot(center, radius, 220, 30)
+    shot(center, radius, 270, 12)
+    shot(center, radius, 0, 75)
 else:
     shot(center, radius, 0, 15)
     shot(center, radius, 40, 30)

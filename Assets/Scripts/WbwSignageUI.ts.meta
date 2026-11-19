@@ -30,9 +30,13 @@
   ScriptInputsHidden:
     chalkText: false
     chalkboardAnchor: false
+    facadeAnchor: false
+    menuAnchor: false
     neonAnchor: false
     neonColor: false
     neonText: false
+    signInsideAnchor: false
+    signOutsideAnchor: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -44,6 +48,10 @@
   DefaultScriptInputs:
     - neonAnchor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       chalkboardAnchor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      menuAnchor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      signOutsideAnchor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      signInsideAnchor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      facadeAnchor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       neonColor: !<Vec4> {x: 1.000000, y: 0.420000, z: 0.550000, w: 1.000000}
       neonText: COFFEE
       chalkText: SZENDVICS|KÁVÉ · TEA|SÜTEMÉNY
@@ -56,6 +64,10 @@
     - '// @ui {"widget":"group_start", "label":"References"}'
     - '// @input SceneObject neonAnchor {"hint":"Where the neon sign hangs (on the white tiles above the coffee bar)"}'
     - '// @input SceneObject chalkboardAnchor {"hint":"Where the chalkboard menu text sits (on the chalkboard)"}'
+    - "// @input SceneObject menuAnchor {\"hint\":\"The wall menu board's text anchor (board centre, +Z out of the board)\"}"
+    - "// @input SceneObject signOutsideAnchor {\"hint\":\"The door sign's outside face anchor (+Z points out of the café)\"}"
+    - "// @input SceneObject signInsideAnchor {\"hint\":\"The door sign's inside face anchor (+Z points into the café)\"}"
+    - "// @input SceneObject facadeAnchor {\"hint\":\"Over the entrance, outside: the café's name\"}"
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input vec4 neonColor = {1,0.42,0.55,1} {"hint":"Neon colour (pink-red, kept bright for the additive display)", "widget":"color"}'

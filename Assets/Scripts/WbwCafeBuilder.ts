@@ -1,9 +1,11 @@
 // WbwCafeBuilder.ts — runtime logic for the AUTHORED café (no visible geometry is built here).
 // The whole café — textured room shell, counters, props, lights, seating, lounge, server —
 // is authored in the Scene Hierarchy under `Cafe` (see Scene panel). This script only:
-//   • snaps the café floor to the user's eye height (preview camera height varies per run),
+//   • snaps the café floor to the user's eye height (preview camera height varies per run) and,
+//     with startOutside, turns the café around the user so they start outside the entrance,
+//     facing the door with the NYITVA sign (useCounterStart() restores the counter start),
 //   • finds every authored learnable object `Learnable_<id>` (under SandwichCounter,
-//     PastryDisplay and CoffeeArea) and gives it a box collider fitted to its mesh + a SIK
+//     PastryDisplay, CoffeeArea, Entrance and MenuBoard) and gives it a box collider fitted to its mesh + a SIK
 //     Interactable. Non-learnable props (tongs, cup stacks, glasses) get nothing and never
 //     highlight.
 // Must NOT: build visible geometry, run Learn/Order/Practice logic, or create text/UI.
@@ -27,6 +29,8 @@ export class WbwCafeBuilder extends BaseScriptComponent {
   @input @hint("Authored unit root: pastry display (left of the sandwich counter)") pastryDisplay!: SceneObject
   @input @hint("Authored unit root: coffee area (right of the sandwich counter)") coffeeArea!: SceneObject
   @input @hint("Authored unit root: seating area; children named Table_<n>") seating!: SceneObject
+  @input @allowUndefined @hint("Authored unit root: the entrance (door with the NYITVA / ZÁRVA sign)") entrance: SceneObject | undefined
+  @input @allowUndefined @hint("Authored unit root: the wall menu board (its drink lines are learnable)") menuBoard: SceneObject | undefined
   @ui.group_end
   @ui.group_start("Settings")
   @input
@@ -41,6 +45,22 @@ export class WbwCafeBuilder extends BaseScriptComponent {
   @input
   @hint("Also centre the café on the user's start spot (x/z) — the brief starts the user at the counter. The preview can remember a moved head position between runs.")
   alignToUserPosition: boolean = true
+
+  @input
+  @hint("Start outside the entrance: the café turns around the user so they face the door and its NYITVA sign. Off = start at the counter")
+  startOutside: boolean = true
+
+  @input
+  @hint("Start spot outside the door, café-local x (cm)")
+  startXCm: number = -760
+
+  @input
+  @hint("Start spot outside the door, café-local z (cm)")
+  startZCm: number = 20
+
+  @input
+  @hint("How far the café is turned around the user at the start (deg). 90 = the user faces café +X (the door in the left wall)")
+  startCafeYawDeg: number = 90
 
   @input
   @hint("Stop the start-up alignment as soon as the user has walked this far (cm), so the room never slides along")
@@ -60,6 +80,9 @@ export class WbwCafeBuilder extends BaseScriptComponent {
 
   /** Every learnable object found in the authored café. */
   learnables: Learnable[] = []
+  /** True while the café is placed for the outside start (the user began outside the entrance). */
+  get startedOutside(): boolean { return this.startOutside && !this.counterStart }
+  private counterStart = false
   /** True once build() has run. */
   built: boolean = false
 
@@ -81,7 +104,7 @@ export class WbwCafeBuilder extends BaseScriptComponent {
         else ev.enabled = false
       })
     }
-    for (const root of [this.sandwichCounter, this.pastryDisplay, this.coffeeArea]) {
+    for (const root of [this.sandwichCounter, this.pastryDisplay, this.coffeeArea, this.entrance, this.menuBoard]) {
       if (root) this.collectLearnables(root)
     }
     print(`WbwCafeBuilder: found ${this.learnables.length} authored learnable objects`)
@@ -99,14 +122,25 @@ export class WbwCafeBuilder extends BaseScriptComponent {
     return null
   }
 
+  /** Place the café for a start at the counter instead of outside: no turn, the café origin (the
+   *  counter spot) under the user. Used by scenarios that begin at the counter. */
+  useCounterStart(): void {
+    this.counterStart = true
+    this.alignFloor()
+  }
+
   private alignFloor(): void {
     const t = this.sceneObject.getTransform()
     const p = t.getWorldPosition()
     const c = camPos()
     const y = c.y - this.eyeHeightCm
-    // the user starts at the counter: put the café origin (start spot) under the user's feet
-    const x = this.alignToUserPosition ? c.x : p.x
-    const z = this.alignToUserPosition ? c.z : p.z
+    const outside = this.startedOutside
+    const rot = outside ? quat.angleAxis(this.startCafeYawDeg * Math.PI / 180, vec3.up()) : quat.quatIdentity()
+    // the start spot (counter: the café origin; outside: in front of the door) goes under the user's feet
+    const spot = rot.multiplyVec3(outside ? new vec3(this.startXCm, 0, this.startZCm) : vec3.zero())
+    const x = this.alignToUserPosition ? c.x - spot.x : p.x
+    const z = this.alignToUserPosition ? c.z - spot.z : p.z
+    t.setWorldRotation(rot)
     if (Math.abs(p.y - y) > 0.5 || Math.abs(p.x - x) > 0.5 || Math.abs(p.z - z) > 0.5) t.setWorldPosition(new vec3(x, y, z))
   }
 

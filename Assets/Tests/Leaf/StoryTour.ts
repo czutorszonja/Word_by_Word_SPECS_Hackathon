@@ -281,6 +281,8 @@ export class StoryTour extends Scenario {
       // lazily: WbwMain has started by now, so SIK's mouse interactor and the voice detector exist
       t.quietMouse()
       t.quietMic()
+      // the tour is filmed from the counter start (the outside start has its own scenario, DC6_Entrance)
+      m.cafe.useCounterStart()
       const ss = S.startSpotLocal()
       const walkInBuilt = ss !== null && ss.z > 100
       tour.beat("A1", walkInBuilt ? "at the café door: setup panel" : "setup panel (the café has no walk-in start: cut to the door after Start)")

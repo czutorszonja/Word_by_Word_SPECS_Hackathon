@@ -147,7 +147,7 @@ export async function orderUpToTable(t: WbwTester): Promise<void> {
   // step 3 — drink
   await checkServerTurn(t, 3, "Inni valamit?", "Anything to drink?", "s_inni")
   expect(o.orderStepName, "step 3 name").toBe("drink")
-  checkCards(t, 3, [{id: "tejes_kave", hu: "Egy kicsi tejes kávét kérek.", en: "A small coffee with milk, please."}])
+  checkCards(t, 3, [{id: "tejes_kave", hu: "Egy kicsi tejeskávét kérek.", en: "A small coffee with milk, please."}])
   await t.tap("PhraseCard_tejes_kave")
   await waitFor(() => a.lastVoiceKey === "p_tejes_kave", "coffee card plays its audio")
   await t.sayIt()

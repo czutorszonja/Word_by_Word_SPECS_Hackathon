@@ -1,13 +1,15 @@
 // WbwHudUI.ts — low side-of-view HUD: the "✋ Menu" stand-in button + saved counter (passive view).
 // Owns: lazy view-follow placement (low-left of view), the Menu button, "Saved: N" badge,
 //       active-mode label. Emits onMenu. The "✋ Menu" button stands in for the raise-hand
-//       gesture (not testable in Preview).
+//       gesture (not testable in Preview). The mode name is always visible: as the ModeLabel
+//       line on the full strip, and as the HudModeChip above the Menu button on the compact chip.
 // Must NOT: own saved words or mode (WbwSession does — pushed in via setters).
-// Stable names: Hud, MenuButton, SavedBadge, ModeLabel. In Use it live the HUD is a Menu chip only;
+// Stable names: Hud, MenuButton, SavedBadge, ModeLabel, HudModeChip (compact only; its text is
+//               ChipLabel). In Use it live the HUD is a Menu chip with the mode chip above it;
 //               SavedBadge/ModeLabel then exist with their Text hidden.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {button, flexBox, lineHeightCm, panel, retire, text, textWidthCm, TEXT_SOFT, useTone, toneOf} from "./WbwSharedUI"
+import {button, flexBox, lineHeightCm, panel, retire, text, textWidthCm, TEXT_SOFT, useTone, toneOf, modeChip, modeChipH} from "./WbwSharedUI"
 import {camLook, camPos, camRightFlat, faceRotation} from "./WbwSpatial"
 
 const ICON_HAND = requireAsset("../Icons/back_hand.png") as Texture
@@ -43,12 +45,12 @@ export class WbwHudUI extends BaseScriptComponent {
   chipOffsetUpCm: number = -15.5
 
   @input
-  @hint("Width of the compact Menu chip (cm); the whole chip is the button")
+  @hint("Width of the Menu button on the compact chip (cm); the chip is at least this wide, and wider when the mode name above the button needs it")
   @widget(new SliderWidget(5, 12, 0.1))
   chipWidthCm: number = 7.4
 
   @input
-  @hint("Height of the compact Menu chip (cm); keep at least 3.8 cm so it stays easy to pinch")
+  @hint("Height of the Menu button on the compact chip (cm); keep at least 3.8 cm so it stays easy to pinch. The mode name sits above it")
   @widget(new SliderWidget(3.8, 6, 0.1))
   chipHeightCm: number = 3.9
 
@@ -70,13 +72,17 @@ export class WbwHudUI extends BaseScriptComponent {
   /** True while the HUD is collapsed to the small Menu chip (Use it live). */
   get isCompact(): boolean { return this.compact }
   private compact = false
+  // size (cm) of the compact chip as built by show(); 0 until it has been built
+  private compactW = 0
+  private compactH = 0
 
   onAwake(): void {
     this.createEvent("UpdateEvent").bind(() => this.follow(false))
   }
 
-  /** Use it live: collapse to a small "Menu" chip at the low-left edge of the view so the HUD never
-   *  covers the server, the caption or the phrase cards. Off restores the full strip. */
+  /** Use it live: collapse to a small "Menu" chip (mode name above the button) at the low-left edge
+   *  of the view so the HUD never covers the server, the caption or the phrase cards. Off restores
+   *  the full strip. */
   setCompact(on: boolean): void {
     if (on === this.compact) return
     this.compact = on
@@ -88,10 +94,18 @@ export class WbwHudUI extends BaseScriptComponent {
     const d = this.followDistanceCm
     useTone(toneOf(this.modeLabel))
     if (this.compact) {
-      // the chip IS the button: same size as its backing plate, so the whole chip is selectable
+      // A column: the mode chip ("Use it live") above the Menu button, so the mode is named here too,
+      // never by colour alone. The button keeps its size (chipWidthCm x chipHeightCm).
+      // A column, not a row: side by side the two would reach out of the narrow view.
       const w = this.chipWidthCm, h = Math.max(3.8, this.chipHeightCm)
-      const p = panel(this.sceneObject, "Hud", w, h, {justify: FlexJustify.Center, align: FlexAlign.Center}, true)
+      // same width modeChip() gives the chip it builds for the current tone
+      const modeW = textWidthCm(toneOf(this.modeLabel).label.length, "Caption", d, false) + 1.4
+      const W = Math.max(w, modeW + 0.6), H = modeChipH(d) + 0.4 + h + 0.6
+      const p = panel(this.sceneObject, "Hud", W, H, {gap: 0.4, padY: 0.3, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
       this.root = p.root
+      this.compactW = W
+      this.compactH = H
+      modeChip(p.content, d, "HudModeChip")
       button(p.content, "MenuButton", w, h, "Menu", d, () => this._onMenu.invoke(), {icon: ICON_HAND})
       // saved count + mode stay as (hidden) text objects so their state is still readable
       this.savedText = text(p.root, "SavedBadge", "", "Subheadline", d)
@@ -150,9 +164,20 @@ export class WbwHudUI extends BaseScriptComponent {
 
   private target(): vec3 {
     const look = camLook()
+    let right = this.offsetRightCm, up = this.offsetUpCm
+    if (this.compact) {
+      // The chip offsets place a chip of chipWidthCm x chipHeightCm. The built chip is larger (mode
+      // name above the button): keep that chip's left and bottom edge, grow to the right and upward.
+      right = this.chipOffsetRightCm
+      up = this.chipOffsetUpCm
+      if (this.compactW > 0) {
+        right += (this.compactW - this.chipWidthCm) / 2
+        up += (this.compactH - Math.max(3.8, this.chipHeightCm)) / 2
+      }
+    }
     return camPos().add(look.uniformScale(this.followDistanceCm))
-      .add(camRightFlat().uniformScale(this.compact ? this.chipOffsetRightCm : this.offsetRightCm))
-      .add(new vec3(0, this.compact ? this.chipOffsetUpCm : this.offsetUpCm, 0))
+      .add(camRightFlat().uniformScale(right))
+      .add(new vec3(0, up, 0))
   }
 
   private follow(snap: boolean): void {

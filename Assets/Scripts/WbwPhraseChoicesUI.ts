@@ -1,8 +1,11 @@
-// WbwPhraseChoicesUI.ts — the row of 2–4 phrase cards for "Use it live" (passive view).
-// Owns: phrase cards (picture + Hungarian + English), picked state for multi-pick steps,
-//       the optional "Kész / Done" card. Emits onPick(phraseId).
+// WbwPhraseChoicesUI.ts — the row of phrase cards for "Use it live" (passive view).
+// Owns: phrase cards (picture + Hungarian + English) and which ONE card is chosen (selected state).
+//       Emits onPick(phraseId) on every card press, also on the card that is already chosen
+//       (= listen again). Choosing is not answering: the controller records an answer only once the
+//       learner has said it.
 // Must NOT: decide which phrases to offer, advance the order, play audio, or place itself.
-// Stable names: PhraseChoices, PhraseCard_<phraseId> (e.g. PhraseCard_uborka_nelkul, PhraseCard_done).
+// Stable names: PhraseChoices, Head / ModeChip / Prompt, Cards, PhraseCard_<phraseId>
+//               (e.g. PhraseCard_szendvicset) with Face / Picture and Words / Hu / En.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
@@ -16,7 +19,7 @@ export interface PhraseCardData {
   hu: string
   en: string
   picture: Texture | null
-  picked: boolean
+  chosen: boolean
 }
 
 @component
@@ -51,19 +54,24 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
 
   private root: SceneObject | null = null
   private cards: {[id: string]: Button} = {}
-  private picked: {[id: string]: boolean} = {}
+  private chosenRev = 0
   private _onPick = new Event<string>()
+  /** A card was pressed (arg: its phrase id). Fires on every press, also on the chosen card. */
   get onPick(): PublicApi<string> { return this._onPick.publicApi() }
 
   /** Phrase ids currently offered (empty when hidden). */
   offeredIds: string[] = []
+  /** Id of the card that is chosen (selected state) and waiting to be said ("" = none). */
+  chosenId: string = ""
   get isVisible(): boolean { return this.root !== null }
   /** Size (cm) of the last shown card row panel. */
   lastSizeCm: vec2 = new vec2(0, 0)
+  /** Same as lastSizeCm, under the name every answer surface shares (the controller places with it). */
+  get sizeCm(): vec2 { return this.lastSizeCm }
 
   show(cards: PhraseCardData[], prompt: string): void {
     this.hide()
-    const gap = 1.3, pad = 0.8, cardPadX = 0.6, cardPadY = 0.6, picGap = 0.5
+    const gap = 1.3, pad = 0.8, cardPadX = 0.6, cardPadY = 0.6, picGap = 0.5, headGap = 1
     const enBoost = READ_BOOST * EN_SCALE
     // compact cards: small picture on the left, Hungarian (primary) over English (smaller).
     // One line each when the row fits; otherwise wrap to at most two lines; if the row is still too
@@ -93,37 +101,50 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
     const ch = 2 * cardPadY + huH + enH
     const widths = textWs.map((tw) => tw + m.extra)
     const promptH = lineHeightCm("Caption", d, false, enBoost)
-    const W = rowW + 2 * pad
+    const promptW = textWidthCm(prompt.length, "Caption", d, false, enBoost) + 0.6
+    // The heading (mode chip + prompt) has to fit the panel as well: a single short card ("Köszönöm!")
+    // is narrower than it. Chip width as modeChip() sizes it for this tone.
+    const headW = textWidthCm(TONE_LIVE.label.length, "Caption", d, false) + 1.4 + headGap + promptW
+    const innerW = Math.max(rowW, headW)
+    const W = innerW + 2 * pad
     const H = 2 * pad + Math.max(promptH, modeChipH(d)) + 0.4 + ch
     this.lastSizeCm = new vec2(W, H)
     useTone(TONE_LIVE)
     const p = panel(this.sceneObject, "PhraseChoices", W, H, {gap: 0.4, padX: pad, padY: pad, justify: FlexJustify.Center, align: FlexAlign.Center})
     this.root = p.root
-    const head = flexBox(p.content, "Head", "row", rowW, Math.max(promptH, modeChipH(d)), {gap: 1, justify: FlexJustify.Center, align: FlexAlign.Center})
+    const head = flexBox(p.content, "Head", "row", innerW, Math.max(promptH, modeChipH(d)), {gap: headGap, justify: FlexJustify.Center, align: FlexAlign.Center})
     modeChip(head, d)
-    text(head, "Prompt", prompt, "Caption", d, {w: textWidthCm(prompt.length, "Caption", d, false, enBoost) + 0.6, h: promptH, color: TEXT_SOFT, onPanel: false, boost: enBoost})
+    text(head, "Prompt", prompt, "Caption", d, {w: promptW, h: promptH, color: TEXT_SOFT, onPanel: false, boost: enBoost})
     const row = flexBox(p.content, "Cards", "row", rowW, ch, {gap: gap, justify: FlexJustify.Center, align: FlexAlign.Center})
     this.cards = {}
     this.offeredIds = []
+    let chosen = ""
     cards.forEach((c, i) => {
       this.makeCard(row, c, widths[i], ch, d, textWs[i], huH, enH, picS, enBoost, cardPadX, picGap)
       this.offeredIds.push(c.id)
+      if (c.chosen) chosen = c.id
     })
+    if (chosen) this.setChosen(chosen)
   }
 
   hide(): void {
     retire(this.root, this)
     this.root = null
     this.cards = {}
-    this.picked = {}
+    this.chosenId = ""
     this.offeredIds = []
   }
 
-  /** Mark a card as picked (multi-pick steps): selected (cyan) state, further taps ignored. */
-  setPicked(id: string): void {
-    this.picked[id] = true
-    const b = this.cards[id]
-    if (b) setToggleLater(b, true, this)
+  /** Single select: `id` becomes the chosen (selected) card and every other card is deselected; "" = none. */
+  setChosen(id: string): void {
+    this.chosenId = this.cards[id] ? id : ""
+    this.chosenRev++
+    this.applyChosen()
+  }
+
+  /** Put every card's toggle in line with chosenId (one frame later, so it wins over UIKit's own flip). */
+  private applyChosen(): void {
+    for (const cid in this.cards) setToggleLater(this.cards[cid], cid === this.chosenId, this)
   }
 
   private makeCard(parent: SceneObject, c: PhraseCardData, w: number, h: number, d: number, textW: number,
@@ -141,12 +162,13 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
     text(col, "En", c.en, "Caption", d, {w: textW, h: enH, color: TEXT_SOFT, wrap: true, onPanel: false, align: "left", boost: enBoost})
     register(parent, item(so, w, h))
     btn.onTriggerUp.add(() => {
-      // UIKit flips the toggle on every tap; the controller decides the real picked state
-      setToggleLater(btn, !!this.picked[c.id], this)
-      if (this.picked[c.id]) return
+      // Every press is reported, also on the chosen card (listen again). UIKit flips the toggle on each
+      // press; the controller answers onPick with setChosen(), which decides the real selected state.
+      const rev = this.chosenRev
       this._onPick.invoke(c.id)
+      // nobody answered (the press did not count): put the pressed card back as it was
+      if (rev === this.chosenRev) this.applyChosen()
     })
     this.cards[c.id] = btn
-    if (c.picked) this.setPicked(c.id)
   }
 }

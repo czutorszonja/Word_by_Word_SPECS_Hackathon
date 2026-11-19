@@ -3,9 +3,10 @@
 //  card on an empty table (4, 8 or 12) and see and hear it (e.g. '8 = nyolc'). Back at the
 //  counter I can answer with the matching phrase ('A nyolcas asztalnál ülök.'), and the server
 //  answers 'Jó étvágyat!'"
-// Drives: real SIK triggers through the whole order (steps 1–4 shared with DC3), a real head
-//         turn (camera yaw 180° → seating, back to 0° → counter), TableNumberButton_8,
-//         PhraseCard_nyolcas_asztal and PhraseCard_koszonom.
+// Drives: real SIK triggers through the whole order (prep and steps 1–4 shared with DC3), a real
+//         head turn (camera yaw 180° → seating, back to 0° → counter), TableNumberButton_8,
+//         PhraseCard_nyolcas_asztal and PhraseCard_koszonom, each answered with SaidItButton
+//         (choosing a card plays it; only saying it moves the order on).
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
@@ -75,11 +76,13 @@ export class DC4_TableNumber extends Scenario {
       expect(textOf("En", card), "table 8 phrase EN").toBe("I'm at table eight.")
       await t.tap("PhraseCard_nyolcas_asztal")
       await waitFor(() => a.lastVoiceKey === "p_nyolcas_asztal", "table phrase plays its audio")
+      await t.sayIt()
 
       // ── server: "Jó étvágyat!" → "Köszönöm!" ──
       await checkServerTurn(t, 6, "Jó étvágyat!", "Enjoy your meal!", "s_jo_etvagyat")
       expect(o.offeredPhraseIds.join(","), "step 6 offers Köszönöm").toBe("koszonom")
       await t.tap("PhraseCard_koszonom")
+      await t.sayIt()
       await waitFor(() => o.orderStep === 7 && o.waitingFor === "done", "order complete (step 7)", 15000)
       expect(a.lastVoiceKey, "Köszönöm audio").toBe("p_koszonom")
       expect(t.hint.hintText.indexOf("Walk to table 8") >= 0, `final hint names table 8 (got '${t.hint.hintText}')`).toBe(true)

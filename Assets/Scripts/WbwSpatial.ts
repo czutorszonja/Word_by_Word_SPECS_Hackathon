@@ -72,3 +72,33 @@ export function horizDist(a: vec3, b: vec3): number {
   const dx = a.x - b.x, dz = a.z - b.z
   return Math.sqrt(dx * dx + dz * dz)
 }
+
+/**
+ * Lazy view-follow for a world-placed panel (toast, suggestion). Call every frame while the panel is visible.
+ * Starts gliding to inView(dist, up) when the panel is more than maxAngleDeg off the gaze or its horizontal
+ * distance to the user leaves [minD, maxD]; keeps gliding until it is within 2 cm of the goal; always turns
+ * the panel to face the user; never moves it while `frozen` (a button on it is hovered).
+ * @returns true while it is gliding: pass the value back in as `following` on the next frame.
+ */
+export function lazyFollowStep(so: SceneObject, dist: number, up: number, dt: number, following: boolean = false,
+                               frozen: boolean = false, maxAngleDeg: number = 18, minD: number = 55, maxD: number = 95): boolean {
+  if (!so || isNull(so)) return false
+  const t = so.getTransform()
+  const pos = t.getWorldPosition()
+  const cam = camPos()
+  if (frozen) {
+    t.setWorldRotation(faceRotation(pos, cam))
+    return false
+  }
+  const d = horizDist(pos, cam)
+  let glide = following || angleToDeg(pos) > maxAngleDeg || d < minD || d > maxD
+  let next = pos
+  if (glide) {
+    const goal = inView(dist, up)
+    next = vec3.lerp(pos, goal, Math.min(1, dt * 5))
+    if (next.distance(goal) < 2) { next = goal; glide = false }
+    t.setWorldPosition(next)
+  }
+  t.setWorldRotation(faceRotation(next, cam))
+  return glide
+}

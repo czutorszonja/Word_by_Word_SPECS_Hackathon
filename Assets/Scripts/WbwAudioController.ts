@@ -2,8 +2,14 @@
 // Owns: one voice channel (Hungarian words/phrases/server lines — a new clip interrupts the
 //       previous one) and a small SFX pool. Clips resolve by key = file base name, so a
 //       recording dropped into Assets/Audio/hu/ under the same name replaces the placeholder.
+//       Also answers "is a Lens sound playing?" (isBusy / isVoiceBusy: the playback gate of
+//       WbwVoiceActivity, so the Lens never hears its own clips as the learner speaking) and
+//       "how long is this clip?" (durationOf, also for "a+b+c" sentences).
 // Must NOT: decide when to play (controllers do) or hold experience state.
 import {AUDIO} from "./WbwAudioBank"
+
+/** Length assumed for a clip part whose duration cannot be read (s). */
+const FALLBACK_PART_SEC = 1.2
 
 @component
 export class WbwAudioController extends BaseScriptComponent {
@@ -25,8 +31,10 @@ export class WbwAudioController extends BaseScriptComponent {
   lastVoiceKey: string = ""
   /** Key of the last SFX started. */
   lastSfxKey: string = ""
-  /** Number of voice clips started this session. */
+  /** Number of voice clips started this session ("a+b+c" counts one per clip part). */
   voicePlayCount: number = 0
+  /** Number of SFX started this session. */
+  sfxPlayCount: number = 0
 
   private voice!: AudioComponent
   private sfx: AudioComponent[] = []
@@ -52,6 +60,33 @@ export class WbwAudioController extends BaseScriptComponent {
   /** True if the clip exists ("a+b+c": every clip of the sequence exists). */
   has(key: string): boolean {
     return key.length > 0 && key.split("+").every((k) => !!AUDIO[k])
+  }
+
+  /** Voice channel only: a clip plays or its finish is still pending (between the parts of "a+b+c" too). */
+  isVoiceBusy(): boolean {
+    return this.pendingDone !== null || (!!this.voice && this.voice.isPlaying())
+  }
+
+  /** Any Lens sound: the voice channel (see isVoiceBusy) or an SFX channel. The mic gate of WbwVoiceActivity. */
+  isBusy(): boolean {
+    if (this.isVoiceBusy()) return true
+    for (const a of this.sfx) if (a.isPlaying()) return true
+    return false
+  }
+
+  /**
+   * Seconds of a key; "a+b+c" = the sum of its parts. A part that is missing from the bank, or whose
+   * duration cannot be read, counts as 1.2 s. Never plays anything.
+   */
+  durationOf(key: string): number {
+    let sec = 0
+    for (const k of key.split("+")) {
+      const track = AUDIO[k]
+      const control = track ? track.control : null
+      const d = control ? (control as FileAudioTrackProvider).duration : 0
+      sec += d > 0 ? d : FALLBACK_PART_SEC
+    }
+    return sec
   }
 
   /**
@@ -110,6 +145,7 @@ export class WbwAudioController extends BaseScriptComponent {
   }
 
   playSfx(key: string): void {
+    this.sfxPlayCount++
     const track = AUDIO[key]
     this.lastSfxKey = key
     if (!track) return

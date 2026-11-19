@@ -2,8 +2,11 @@
 // "Clicking the ✋ Menu stand-in opens a menu with Learn, Practice and Use it live. I can pick
 //  any mode, see which one is active, and reopen the menu to switch modes without losing my
 //  saved words."
-// Drives: real SIK triggers on SetupConfirmButton, Learnable_olivabogyo, WordCardSaveButton,
-//         MenuButton, ModeLearnButton / ModePracticeButton / ModeUseLiveButton, ModeMenuCloseButton.
+// Drives: real SIK triggers on SetupConfirmButton, SuggestLearnButton, Learnable_olivabogyo,
+//         WordCardSaveButton, WordCardCloseButton, MenuButton, ModeLearnButton / ModePracticeButton /
+//         ModeUseLiveButton, ReadyToOrderButton, ModeMenuCloseButton.
+// Use it live opens in its prep state (phrase helper shown, the server waits): a saved word never
+// fills the phrase, and nothing is ordered until "Ready to order".
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
@@ -56,7 +59,12 @@ export class DC1_ModeMenu extends Scenario {
       await t.tap("ModeUseLiveButton")
       await waitFor(() => m.currentMode === "live", "mode = live")
       expect(t.order.active, "order controller active").toBe(true)
-      await waitFor(() => t.order.orderStep === 1, "Use it live starts the scripted order at step 1")
+      await waitFor(() => t.order.waitingFor === "ready" && t.order.phraseHelperVisible, "Use it live opens with the phrase helper; the server waits")
+      expect(t.order.orderStep, "nothing is ordered before Ready to order").toBe(0)
+      expect(t.order.phraseSlotIds.length, "a saved word never fills the phrase").toBe(0) // olives were saved, not carried
+      expect(t.order.phraseHu, "empty phrase").toBe("Kérek … a szendvicsembe.")
+      await t.startOrdering()
+      expect(t.order.orderStep, "Ready to order starts the scripted order at step 1").toBe(1)
       await waitFor(() => textOf("ModeLabel") === "Mode: Use it live", "HUD shows 'Mode: Use it live'")
       expect(m.savedCount, "saved words kept after switching to Use it live").toBe(1)
 

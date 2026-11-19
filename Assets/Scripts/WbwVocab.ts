@@ -2,6 +2,9 @@
 // Owns: every learnable word, every user phrase, every scripted server line,
 //       the 7-step order script and the table numbers.
 // Must NOT: touch the scene, play audio, or hold session state.
+// The answer to step 2 ("Kérek … a szendvicsembe.") is built by the phrase helper: the inflected
+// ingredient forms and their clips live in WbwPhraseHelperModel (PHRASE_INGREDIENTS), which the
+// order controller checks against WORDS at start-up. Do not add them here as well.
 // Audio keys are the exact file base names in Assets/Audio/hu/ (see WbwAudioBank.ts);
 // illustration keys are file base names in Assets/Illustrations/ (see WbwIllustrations.ts).
 
@@ -23,9 +26,9 @@ export interface PhraseEntry {
   id: string            // stable id, used in SceneObject names: PhraseCard_<id>
   hu: string
   en: string
-  audio: string         // p_*.wav key, or "a+b+c" clips in sequence ("" for UI-only cards like Done)
+  audio: string         // p_*.wav key, or "a+b+c" clips played in sequence
   picture: string
-  words: string[]       // word ids this phrase uses (for "favour saved words")
+  words: string[]       // word ids this phrase uses (their objects are highlighted while the card is offered)
 }
 
 export interface ServerLine {
@@ -69,11 +72,6 @@ export const WORDS: WordEntry[] = [
 export const PHRASES: PhraseEntry[] = [
   {id: "jonapot", hu: "Jó napot!", en: "Hello!", audio: "p_jonapot", picture: "hello", words: []},
   {id: "szendvicset", hu: "Egy szendvicset kérek.", en: "I'd like a sandwich, please.", audio: "p_szendvicset_kerek", picture: "szendvics", words: ["szendvics"]},
-  {id: "sonka_sajt", hu: "Sonkát és sajtot kérek.", en: "Ham and cheese, please.", audio: "p_sonka_sajt", picture: "ham_cheese", words: ["sonka", "sajt"]},
-  {id: "kerhetek_oliva", hu: "Kérhetek olívabogyót?", en: "Could I have some olives?", audio: "p_kerhetek_oliva", picture: "olivabogyo", words: ["olivabogyo"]},
-  {id: "uborka_nelkul", hu: "Savanyú uborka nélkül, kérem.", en: "Without pickles, please.", audio: "p_uborka_nelkul", picture: "no_pickles", words: ["uborka"]},
-  {id: "szalami_sajt", hu: "Szalámit és sajtot kérek.", en: "Salami and cheese, please.", audio: "a_szalami+c_es+a_sajt+c_kerek", picture: "szalami", words: ["szalami", "sajt"]},
-  {id: "csirke_paprika", hu: "Sült csirkét és paprikát kérek.", en: "Roast chicken and peppers, please.", audio: "a_sult_csirke+c_es+a_paprika+c_kerek", picture: "csirke", words: ["csirke", "paprika"]},
   {id: "tejes_kave", hu: "Egy kicsi tejes kávét kérek.", en: "A small coffee with milk, please.", audio: "p_tejes_kave", picture: "coffee_milk", words: ["kicsi", "tej", "kave"]},
   {id: "itt_eszem", hu: "Itt eszem.", en: "I'll eat here.", audio: "p_itt_eszem", picture: "eat_here", words: []},
   {id: "elvitelre", hu: "Elvitelre, kérem.", en: "Takeaway, please.", audio: "p_elvitelre", picture: "takeaway", words: []},
@@ -82,7 +80,6 @@ export const PHRASES: PhraseEntry[] = [
   {id: "nyolcas_asztal", hu: "A nyolcas asztalnál ülök.", en: "I'm at table eight.", audio: "p_nyolcas_asztal", picture: "table8", words: ["asztal"]},
   {id: "tizenkettes_asztal", hu: "A tizenkettes asztalnál ülök.", en: "I'm at table twelve.", audio: "p_tizenkettes_asztal", picture: "table12", words: ["asztal"]},
   {id: "koszonom", hu: "Köszönöm!", en: "Thank you!", audio: "p_koszonom", picture: "thanks", words: []},
-  {id: "done", hu: "Kész", en: "Done", audio: "", picture: "done", words: []},
 ]
 
 export const SERVER_LINES: ServerLine[] = [
@@ -111,14 +108,14 @@ export interface OrderStep {
   step: number
   name: string
   line: string            // ServerLine id
-  choices: string[]       // PhraseEntry ids offered (dynamic for step 2 / 5)
+  choices: string[]       // PhraseEntry ids offered as phrase cards (none for the helper step 2; step 5 offers the chosen table's phrase)
   advanceOn: string[]     // phrase ids that complete the step
-  multi: boolean          // multi-pick with a Done card
-  pinned?: string[]       // always offered, even when the choices are capped (e.g. the leave-out phrase)
+  multi: boolean          // unused: every step takes one answer now (always false)
+  helper?: boolean        // the answer is the phrase helper, not phrase cards
 }
 export const ORDER_STEPS: OrderStep[] = [
   {step: 1, name: "greet", line: "mit_ker", choices: ["jonapot", "szendvicset"], advanceOn: ["szendvicset"], multi: false},
-  {step: 2, name: "fillings", line: "mit_ker_bele", choices: ["sonka_sajt", "kerhetek_oliva", "uborka_nelkul", "szalami_sajt", "csirke_paprika"], advanceOn: ["done"], multi: true, pinned: ["uborka_nelkul"]},
+  {step: 2, name: "fillings", line: "mit_ker_bele", choices: [], advanceOn: [], multi: false, helper: true},
   {step: 3, name: "drink", line: "inni", choices: ["tejes_kave"], advanceOn: ["tejes_kave"], multi: false},
   {step: 4, name: "here_or_takeaway", line: "itt_vagy_elvitel", choices: ["itt_eszem", "elvitelre"], advanceOn: ["itt_eszem"], multi: false},
   {step: 5, name: "table", line: "hanyas_asztal", choices: [], advanceOn: ["negyes_asztal", "nyolcas_asztal", "tizenkettes_asztal"], multi: false},

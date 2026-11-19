@@ -1,5 +1,6 @@
 // LeafIndex.ts — registers the Word by Word LEAF scenarios (one per done criterion in
-// devpost/design-brief.md). Attached to the root SceneObject "LeafIndex".
+// devpost/design-brief.md, plus the watchable story tour, last). Attached to the root SceneObject
+// "LeafIndex". Run scenarios one at a time.
 import {scenariosIndex} from "Leaf.lspkg/Scenarios/decorator/ScenarioIndexDecorator"
 import {ScenarioMetadata} from "Leaf.lspkg/Scenarios/scenario/ScenarioMetadata"
 import {DC1_ModeMenu} from "./DC1_ModeMenu"
@@ -7,6 +8,7 @@ import {DC2_Learn} from "./DC2_Learn"
 import {DC3_OrderingAtCounter} from "./DC3_OrderingAtCounter"
 import {DC4_TableNumber} from "./DC4_TableNumber"
 import {DC5_Practice} from "./DC5_Practice"
+import {StoryTour} from "./StoryTour"
 
 @component
 export class LeafIndex extends BaseScriptComponent {
@@ -17,5 +19,6 @@ export class LeafIndex extends BaseScriptComponent {
     {id: "DC3_OrderingAtCounter", typename: DC3_OrderingAtCounter.getTypeName()},
     {id: "DC4_TableNumber", typename: DC4_TableNumber.getTypeName()},
     {id: "DC5_Practice", typename: DC5_Practice.getTypeName()},
+    {id: "TOUR_Story", typename: StoryTour.getTypeName()},
   ]
 }

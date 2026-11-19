@@ -79,7 +79,7 @@
     - '// @input float viewHalfWidthDeg = 16 {"hint":"Half width of the Specs view (deg) — the word card is kept fully inside it", "widget":"slider", "min":10, "max":30, "step":0.5}'
     - '// @input float viewHalfHeightDeg = 19 {"hint":"Half height of the Specs view (deg)", "widget":"slider", "min":10, "max":30, "step":0.5}'
     - "// @input float savedHoldSec = 0.8 {\"hint\":\"Seconds the card shows 'Saved ✓' before it flies into the Saved counter\", \"widget\":\"slider\", \"min\":0, \"max\":2, \"step\":0.1}"
-    - '// @input vec4 highlightColor = {1,0.78,0.35,1} {"hint":"Highlight colour for ingredients named by the offered phrase cards", "widget":"color"}'
-    - '// @input vec4 focusColor = {0.45,0.93,1,1} {"hint":"Bracket colour while an object is targeted or open on the word card (focus colour)", "widget":"color"}'
+    - '// @input vec4 highlightColor = {0.78,0.68,1,1} {"hint":"Highlight colour for ingredients named by the offered phrase cards", "widget":"color"}'
+    - '// @input vec4 focusColor = {0.42,0.98,0.95,1} {"hint":"Bracket colour while an object is targeted or open on the word card (focus colour)", "widget":"color"}'
     - '// @input vec4 bracketColor = {1,0.9,0.6,1} {"hint":"Bracket colour (subtle, warm)", "widget":"color"}'
     - '// @ui {"widget":"group_end"}'

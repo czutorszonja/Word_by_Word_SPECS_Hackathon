@@ -1,9 +1,11 @@
 // WbwSharedUI.ts — shared UIKit composition helpers for the Wbw*UI.ts modules ONLY.
 // Owns: the type scale (applyTextRole), colour roles, the panel scaffold (Canvas → BackPlate
-//       recoloured to a translucent teal → Content at +0.6 cm → FlexLayout), flex rows/columns
+//       recoloured to the current mode tone → Content at +0.6 cm → FlexLayout), flex rows/columns
 //       with addItems registration, Text / Image / Button builders (UIKit Button styled with
 //       distinct idle / targeted / pressed / selected states + raw Text label).
-// Visual language follows the user's Small Wins project (SmallWinsUIKit.ts).
+// Visual language: Word by Word's own — one tone per mode (cobalt Learn, violet Use it live,
+// magenta Practice), soft card corners, cream outlines, a "word by word" dash rule under headings.
+// Accessibility ideas (panel opacity, readable sizes, clear outlines, visible states) as in Small Wins.
 // Must NOT: be imported by non-UI scripts (Hard Rule 3), hold state, or set renderOrder.
 import {FlexLayout} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexLayout"
 import {FlexItem} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem"
@@ -52,14 +54,14 @@ export function lineHeightCm(role: TextRole, distanceCm: number, onPanel: boolea
 }
 
 // ── Colour roles (always paired with a label, icon or state change — never colour alone)
-/** Main text: warm off-white. */
+/** Main text: warm cream. */
 export const TEXT_LIGHT = new vec4(1, 0.98, 0.9, 1)
 /** Secondary text (translations, hints). */
-export const TEXT_SOFT = new vec4(0.86, 0.95, 0.88, 1)
-/** Unavailable / "coming soon" text. */
-export const MUTED = new vec4(0.72, 0.8, 0.78, 0.7)
-/** Current target / focus / selected. */
-export const CYAN = new vec4(0.45, 0.93, 1.0, 1)
+export const TEXT_SOFT = new vec4(0.93, 0.92, 0.98, 1)
+/** Unavailable / "coming soon" text: cream, dimmed. */
+export const MUTED = new vec4(1, 0.98, 0.9, 0.66)
+/** Current target / focus / selected — an aqua cyan that stays distinct on cobalt, violet and magenta. */
+export const CYAN = new vec4(0.42, 0.98, 0.95, 1)
 /** Success (saved, matched) — always with a checkmark or confirmation text. */
 export const GREEN = new vec4(0.5, 0.95, 0.55, 1)
 export const GREEN_FILL = new vec4(0.16, 0.56, 0.3, 1)
@@ -71,22 +73,45 @@ export const SOFT = TEXT_SOFT
 export const GOLD = TEXT_LIGHT
 export const RED = AMBER
 
-// ── Panel and button surfaces (Small Wins treatment)
-/** Brighter teal than a dark grey, because the Specs display only adds light: dark panels turn see-through. */
-export const PANEL_TEAL = new vec4(0.1, 0.46, 0.43, 1)
+// ── Word by Word tones: every mode has its own panel colour (never grey, black or white).
+// Panels and their buttons use the tone of the context they belong to.
+export interface Tone { name: string; base: vec4 }
+function tone(name: string, r: number, g: number, b: number): Tone { return {name, base: new vec4(r, g, b, 1)} }
+/** Learn (and app-level screens: setup, mode menu) — cobalt blue #2F6FE0. */
+export const TONE_LEARN = tone("learn", 0.184, 0.435, 0.878)
+/** Use it live (real-life ordering) — royal violet #6A4BD8. */
+export const TONE_LIVE = tone("live", 0.416, 0.294, 0.847)
+/** Practice (matching game) — magenta #C2348A. */
+export const TONE_PRACTICE = tone("practice", 0.761, 0.204, 0.541)
+let currentTone: Tone = TONE_LEARN
+/** Tone used by panel() / button() built from now on (each UI module sets it in show()). */
+export function useTone(t: Tone): void { currentTone = t }
+export function toneOf(mode: string): Tone {
+  const m = mode.toLowerCase()
+  if (m.indexOf("practice") >= 0) return TONE_PRACTICE
+  if (m.indexOf("live") >= 0) return TONE_LIVE
+  return TONE_LEARN
+}
+/** Mix a tone toward cream (k > 0, lighter) or toward its own deep shade (k < 0). */
+export function shade(c: vec4, k: number, alpha: number = 1): vec4 {
+  if (k >= 0) return new vec4(c.r + (1 - c.r) * k, c.g + (0.98 - c.g) * k, c.b + (0.9 - c.b) * k, alpha)
+  const f = 1 + k
+  return new vec4(c.r * f, c.g * f, c.b * f, alpha)
+}
+
+// ── Surfaces (accessibility treatment: translucent big panels, solid strips, clear outlines)
 // Big panels let the café show through (tinted); small message strips stay nearly solid.
 const SEE_THROUGH_FROM_HEIGHT = 10
-export const PANEL_ALPHA_SEE_THROUGH = 0.66
-export const PANEL_ALPHA_STRIP = 0.9
-const BUTTON_TEAL = new vec4(0.12, 0.5, 0.47, 1)
-const BUTTON_PRIMARY = new vec4(0.16, 0.6, 0.55, 1)
+export const PANEL_ALPHA_SEE_THROUGH = 0.8
+export const PANEL_ALPHA_STRIP = 0.95
+// Word by Word's own shapes: soft card corners on panels, gentler corners on buttons
+const PANEL_RADIUS = 1.6
+const STRIP_RADIUS = 1.1
+const BUTTON_RADIUS = 0.9
 const BUTTON_OUTLINE = new vec4(1, 0.98, 0.9, 1)
 const BUTTON_OUTLINE_SIZE = 0.14
-const BUTTON_HOVER = new vec4(0.17, 0.62, 0.62, 1) // darker than Small Wins so the light label stays readable
-const BUTTON_PRESSED = new vec4(0.3, 0.76, 0.7, 1)
+const BUTTON_PRIMARY_OUTLINE_SIZE = 0.22
 const BUTTON_FOCUS_OUTLINE_SIZE = 0.3
-const BUTTON_SELECTED = new vec4(0.08, 0.5, 0.62, 1)
-const BUTTON_SELECTED_HOVER = new vec4(0.25, 0.7, 0.8, 1)
 
 export function obj(parent: SceneObject, name: string, pos?: vec3): SceneObject {
   const so = global.scene.createSceneObject(name)
@@ -149,30 +174,30 @@ export interface Panel {
 
 /**
  * Canvas + BackPlate (fixed size) + Content(+0.6) with a column FlexLayout.
- * The BackPlate's default dark grey is replaced by a translucent teal: on an additive display a
- * dark, mostly opaque panel hides the virtual café behind it (only a small part of it comes
- * through) and reads as a see-through hole to the real room (in the preview: the grid).
- * Teal at ~0.66 alpha keeps a tinted view of the café through the panel.
+ * The BackPlate's default dark grey is replaced by the current tone (cobalt / violet / magenta):
+ * on an additive display a dark, mostly opaque panel hides the virtual café behind it and reads as
+ * a see-through hole to the real room. A bright tone at 0.8 alpha keeps a tinted view of the café.
  */
 export function panel(host: SceneObject, name: string, w: number, h: number, o?: FlexOpts, solid: boolean = false): Panel {
   const root = obj(host, name)
   root.createComponent("Component.Canvas")
   const plate = root.createComponent(BackPlate.getTypeName()) as BackPlate
   plate.size = new vec2(w, h)
-  tintPanelWhenReady(plate, root, solid || h < SEE_THROUGH_FROM_HEIGHT)
+  tintPanelWhenReady(plate, root, solid || h < SEE_THROUGH_FROM_HEIGHT, currentTone)
   const content = obj(root, "Content", new vec3(0, 0, 0.6))
   const flex = content.createComponent(FlexLayout.getTypeName()) as FlexLayout
   configureFlex(flex, FlexDirection.Column, w, h, o)
   return {root, plate, content, flex}
 }
 
-function tintPanelWhenReady(plate: BackPlate, root: SceneObject, solid: boolean): void {
+function tintPanelWhenReady(plate: BackPlate, root: SceneObject, solid: boolean, t: Tone): void {
   const apply = (): boolean => {
     if (isNull(root)) return true
     const rect = root.getComponent(RoundedRectangle.getTypeName()) as RoundedRectangle | null
     if (!rect) return false
     rect.gradient = false
-    rect.backgroundColor = new vec4(PANEL_TEAL.r, PANEL_TEAL.g, PANEL_TEAL.b, solid ? PANEL_ALPHA_STRIP : PANEL_ALPHA_SEE_THROUGH)
+    rect.backgroundColor = shade(t.base, 0, solid ? PANEL_ALPHA_STRIP : PANEL_ALPHA_SEE_THROUGH)
+    rect.cornerRadius = solid ? STRIP_RADIUS : PANEL_RADIUS
     return true
   }
   // BackPlate applies its own (grey) style in its OnStart, so keep re-applying for a few frames
@@ -278,6 +303,8 @@ export interface ButtonOpts {
   column?: boolean       // stack icon above label
   asItem?: boolean       // register as flex item of parent (default true)
   labelColor?: vec4
+  /** Tone of the button (default: the tone of the panel being built). */
+  tone?: Tone
 }
 
 /**
@@ -304,7 +331,7 @@ export function button(parent: SceneObject, name: string, w: number, h: number, 
     lbl = text(face, "Label", label, role, dist, {w: lw, h: o?.column ? Math.max(1.4, h - iconSize - 1) : Math.min(h, 2.8), color: o?.labelColor, onPanel: false})
   }
   if (o?.asItem !== false) register(parent, item(so, w, h))
-  styleWhenReady(btn, !!o?.primary)
+  styleWhenReady(btn, !!o?.primary, o?.tone)
   btn.onTriggerUp.add(() => onClick())
   return {so, btn, face, label: lbl, icon}
 }
@@ -320,49 +347,45 @@ function solidGradient(color: vec4): GradientParameters {
 }
 
 /** Apply the button style now if UIKit already built the visual, else once it has. */
-export function styleWhenReady(btn: Button, primary: boolean = false): void {
-  if (btn.visual) styleButton(btn, primary)
-  else btn.onInitialized.add(() => styleButton(btn, primary))
+export function styleWhenReady(btn: Button, primary: boolean = false, t?: Tone): void {
+  const tn = t ?? currentTone
+  if (btn.visual) styleButton(btn, primary, tn)
+  else btn.onInitialized.add(() => styleButton(btn, primary, tn))
 }
 
 /**
- * Idle = teal + thin cream outline · targeted (hover) = light teal + thick CYAN outline ·
- * pressed = lightest teal · selected (toggled on) = deep cyan + thick CYAN outline.
- * In this UIKit style each state's gradient wins over its base colour, so both are set.
+ * Every state is painted in the button's tone — no UIKit grey anywhere:
+ * idle = tone + cream outline (primary: thicker outline) · targeted (hover) = lighter tone + thick
+ * CYAN outline · pressed = lightest tone · selected (toggled on) = deep tone + thick CYAN outline ·
+ * inactive = deep tone with a cream outline. Both colour and gradient are set for each state,
+ * because the UIKit style decides per state which of the two it shows.
  */
-export function styleButton(btn: Button, primary: boolean = false): void {
+export function styleButton(btn: Button, primary: boolean = false, t: Tone = currentTone): void {
   const v = btn.visual as unknown as RoundedRectangleVisual
   if (!v) return
   try {
-    const idle = primary ? BUTTON_PRIMARY : BUTTON_TEAL
+    const c = t.base
+    const idle = primary ? shade(c, 0.08) : c
+    const states: [string, vec4][] = [
+      ["Default", idle], ["Hovered", shade(c, 0.2)], ["Triggered", shade(c, 0.36)],
+      ["ToggledDefault", shade(c, -0.22)], ["ToggledHovered", shade(c, 0.1)], ["ToggledTriggered", shade(c, 0.36)],
+      ["Inactive", shade(c, -0.3)],
+    ]
     const anyV = v as unknown as {[k: string]: unknown}
-    anyV["baseDefaultColor"] = idle
-    anyV["baseHoveredColor"] = BUTTON_HOVER
-    anyV["baseTriggeredColor"] = BUTTON_PRESSED
-    v.defaultGradient = solidGradient(idle)
-    v.hoveredGradient = solidGradient(BUTTON_HOVER)
-    v.triggeredGradient = solidGradient(BUTTON_PRESSED)
-    v.toggledDefaultGradient = solidGradient(BUTTON_SELECTED)
-    v.toggledHoveredGradient = solidGradient(BUTTON_SELECTED_HOVER)
-    v.toggledTriggeredGradient = solidGradient(BUTTON_PRESSED)
-    v.borderDefaultGradient = solidGradient(BUTTON_OUTLINE)
-    v.borderHoveredGradient = solidGradient(CYAN)
-    v.borderTriggeredGradient = solidGradient(CYAN)
-    v.borderToggledDefaultGradient = solidGradient(CYAN)
-    v.borderToggledHoveredGradient = solidGradient(CYAN)
-    v.borderToggledTriggeredGradient = solidGradient(CYAN)
-    v.defaultHasBorder = true
-    v.hoveredHasBorder = true
-    v.triggeredHasBorder = true
-    v.toggledDefaultHasBorder = true
-    v.toggledHoveredHasBorder = true
-    v.toggledTriggeredHasBorder = true
-    v.defaultBorderSize = BUTTON_OUTLINE_SIZE
-    v.hoveredBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
-    v.triggeredBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
-    v.toggledDefaultBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
-    v.toggledHoveredBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
-    v.toggledTriggeredBorderSize = BUTTON_FOCUS_OUTLINE_SIZE
+    for (const [st, col] of states) {
+      const lc = st.charAt(0).toLowerCase() + st.slice(1)
+      anyV["base" + st + "Color"] = col
+      anyV[lc + "BaseType"] = "Gradient"
+      anyV[lc + "Gradient"] = solidGradient(col)
+      const border = st === "Default" || st === "Inactive" ? BUTTON_OUTLINE : CYAN
+      anyV["border" + st + "Color"] = border
+      anyV["border" + st + "Gradient"] = solidGradient(border)
+      anyV[lc + "BorderType"] = "Gradient"
+      anyV[lc + "HasBorder"] = true
+      anyV[lc + "BorderSize"] = st === "Default" ? (primary ? BUTTON_PRIMARY_OUTLINE_SIZE : BUTTON_OUTLINE_SIZE)
+        : st === "Inactive" ? BUTTON_OUTLINE_SIZE : BUTTON_FOCUS_OUTLINE_SIZE
+    }
+    v.cornerRadius = BUTTON_RADIUS
   } catch (e) {
     print("WbwSharedUI: button style not applied: " + e)
   }
@@ -371,11 +394,12 @@ export function styleButton(btn: Button, primary: boolean = false): void {
 /** Paint a button's inactive state a solid colour and make it inactive (e.g. matched = green). */
 export function setInactiveColor(btn: Button, color: vec4): void {
   const apply = () => {
-    const v = btn.visual as unknown as {inactiveBaseType?: string; baseInactiveColor?: vec4}
+    const v = btn.visual as unknown as {[k: string]: unknown}
     if (v) {
       try {
-        v.inactiveBaseType = "Color"
-        v.baseInactiveColor = color
+        v["inactiveBaseType"] = "Gradient"
+        v["baseInactiveColor"] = color
+        v["inactiveGradient"] = solidGradient(color)
       } catch (e) {
         print("WbwSharedUI: could not tint inactive state: " + e)
       }
@@ -384,6 +408,32 @@ export function setInactiveColor(btn: Button, color: vec4): void {
   }
   if (btn.visual) apply()
   else btn.onInitialized.add(apply)
+}
+
+/** Height (cm) a headerRule() takes in a column. */
+export const HEADER_RULE_H = 0.52
+
+/**
+ * Word by Word heading mark: three cream dashes getting shorter ("word · by · word"),
+ * placed under a panel heading. Registered as a flex item of `parent`.
+ */
+export function headerRule(parent: SceneObject, rowW: number = 0, name: string = "HeaderRule"): SceneObject {
+  const lens = [2.4, 1.4, 0.7], h = 0.32, gap = 0.45
+  const dashW = lens.reduce((a, b) => a + b, 0) + gap * (lens.length - 1)
+  const w = Math.max(rowW, dashW)
+  const row = obj(parent, name, new vec3(0, 0, 0.03))
+  let x = rowW > 0 ? -w / 2 : -dashW / 2 // left-aligned under a left-aligned heading
+  lens.forEach((l, i) => {
+    const d = obj(row, `Dash${i}`, new vec3(x + l / 2, 0, 0))
+    const rr = d.createComponent(RoundedRectangle.getTypeName()) as RoundedRectangle
+    rr.size = new vec2(l, h)
+    rr.cornerRadius = h / 2
+    rr.gradient = false
+    rr.backgroundColor = new vec4(1, 0.98, 0.9, 0.9 - i * 0.15)
+    x += l + gap
+  })
+  register(parent, item(row, w, h + 0.2))
+  return row
 }
 
 /** Disable now, destroy shortly after (safe to call from inside a Button callback). */

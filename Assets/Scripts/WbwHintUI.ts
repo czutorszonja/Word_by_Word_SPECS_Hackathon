@@ -4,7 +4,7 @@
 // Must NOT: decide the message or the arrow direction (controllers push them in).
 // Stable names: Hint, HintText, EdgeArrow.
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {image, lineHeightCm, obj, panel, retire, text, textWidthCm} from "./WbwSharedUI"
+import {image, lineHeightCm, obj, panel, retire, text, textWidthCm, useTone, TONE_LIVE} from "./WbwSharedUI"
 import {camLook, camPos, faceRotation} from "./WbwSpatial"
 
 const ICON_ARROW = requireAsset("../Icons/arrow_forward.png") as Texture
@@ -32,7 +32,7 @@ export class WbwHintUI extends BaseScriptComponent {
   @input
   @hint("Arrow colour")
   @widget(new ColorWidget())
-  arrowColor: vec4 = new vec4(1.0, 0.82, 0.3, 1)
+  arrowColor: vec4 = new vec4(0.42, 0.98, 0.95, 1)
   @ui.group_end
 
   private hintRoot: SceneObject | null = null
@@ -61,6 +61,7 @@ export class WbwHintUI extends BaseScriptComponent {
     const tw = Math.min(full, maxW)
     const lines = Math.ceil(full / maxW)
     const lh = lineHeightCm("Body", d)
+    useTone(TONE_LIVE)
     const p = panel(this.sceneObject, "Hint", tw + 3, lines * lh + 1.6, {justify: FlexJustify.Center, align: FlexAlign.Center, padX: 1.5}, true)
     p.root.getTransform().setLocalPosition(new vec3(0, this.hintOffsetUpCm, 0))
     text(p.content, "HintText", msg, "Body", d, {h: lines * lh, wrap: true})

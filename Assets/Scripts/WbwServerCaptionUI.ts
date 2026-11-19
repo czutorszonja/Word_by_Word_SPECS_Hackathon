@@ -3,7 +3,7 @@
 // Must NOT: play audio, time the conversation, or position itself (WbwOrderController does).
 // Stable names: ServerCaption, CaptionHu, CaptionEn.
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {flexBox, image, lineHeightCm, panel, retire, text, textWidthCm, SOFT} from "./WbwSharedUI"
+import {flexBox, image, lineHeightCm, panel, retire, text, textWidthCm, SOFT, useTone, TONE_LIVE} from "./WbwSharedUI"
 
 const ICON_SPEAK = requireAsset("../Icons/volume_up.png") as Texture
 
@@ -40,6 +40,7 @@ export class WbwServerCaptionUI extends BaseScriptComponent {
     const inner = Math.max(huW + iconS + 1, this.showEnglish ? enW : 0)
     const W = inner + 3
     const H = 2 + huH + (this.showEnglish ? enH + 0.2 : 0)
+    useTone(TONE_LIVE)
     const p = panel(this.sceneObject, "ServerCaption", W, H, {gap: 0.2, padX: 1.5, padY: 1, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
     this.root = p.root
     const row = flexBox(p.content, "HuRow", "row", inner, huH, {gap: 1, justify: FlexJustify.Center, align: FlexAlign.Center})

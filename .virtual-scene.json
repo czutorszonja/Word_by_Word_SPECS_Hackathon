@@ -4893,9 +4893,9 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          -85,
-          94,
-          10
+          -54,
+          95.5,
+          -7.5
         ],
         "rotation": [
           0,
@@ -5090,9 +5090,9 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          -68,
-          94,
-          10
+          -18,
+          95.5,
+          -7.5
         ],
         "rotation": [
           0,
@@ -5287,9 +5287,9 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          -51,
-          94,
-          10
+          0,
+          95.5,
+          -7.5
         ],
         "rotation": [
           0,
@@ -5484,9 +5484,9 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          -34,
-          94,
-          10
+          18,
+          95.5,
+          -7.5
         ],
         "rotation": [
           0,
@@ -5681,7 +5681,7 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          -17,
+          -63,
           94,
           10
         ],
@@ -5878,7 +5878,7 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          0,
+          -45,
           94,
           10
         ],
@@ -6075,7 +6075,7 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          17,
+          -27,
           94,
           10
         ],
@@ -6272,7 +6272,7 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          34,
+          63,
           94,
           10
         ],
@@ -6469,7 +6469,7 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          51,
+          27,
           94,
           10
         ],
@@ -6666,7 +6666,7 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          68,
+          45,
           94,
           10
         ],
@@ -6863,9 +6863,9 @@
       "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
       "transform": {
         "position": [
-          85,
-          94,
-          10
+          36,
+          95.5,
+          -7.5
         ],
         "rotation": [
           0,
@@ -7475,7 +7475,7 @@
         "position": [
           0,
           90.5999984741211,
-          10
+          2.1500000953674316
         ],
         "rotation": [
           0,
@@ -7485,7 +7485,7 @@
         "scale": [
           196,
           1.2000000476837158,
-          21
+          37.29999923706055
         ]
       },
       "layers": 1,
@@ -7744,7 +7744,7 @@
         "position": [
           -78,
           90,
-          -18
+          -25
         ],
         "rotation": [
           0,
@@ -7916,7 +7916,7 @@
         "position": [
           -40,
           90,
-          -20
+          -26
         ],
         "rotation": [
           0,
@@ -8529,7 +8529,7 @@
         "position": [
           0,
           91.5,
-          -0.800000011920929
+          -17.200000762939453
         ],
         "rotation": [
           0,
@@ -8612,6 +8612,891 @@
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "703b5cab-ae46-453a-8fb3-96436af1d1f3",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "a2e25364-82bd-447a-a7ad-591599213db1",
+      "name": "Learnable_szalami",
+      "enabled": true,
+      "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
+      "transform": {
+        "position": [
+          -36,
+          95.5,
+          -7.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "441be567-6d6a-44e1-839a-19e664ef9159",
+      "name": "Visual",
+      "enabled": true,
+      "parentId": "a2e25364-82bd-447a-a7ad-591599213db1",
+      "transform": {
+        "position": [
+          0,
+          -6.5,
+          0
+        ],
+        "rotation": [
+          0,
+          180,
+          0
+        ],
+        "scale": [
+          100,
+          100,
+          100
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "bee00dc8-fa7d-483b-8907-11d020c2c6fc",
+      "name": "Scenes",
+      "enabled": true,
+      "parentId": "441be567-6d6a-44e1-839a-19e664ef9159",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "e271e673-f68f-4913-a298-6a8989467071",
+      "name": "Scene",
+      "enabled": true,
+      "parentId": "bee00dc8-fa7d-483b-8907-11d020c2c6fc",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "c091a6c3-ebec-4c64-94e5-57415729b35e",
+      "name": "geometry_0",
+      "enabled": true,
+      "parentId": "e271e673-f68f-4913-a298-6a8989467071",
+      "transform": {
+        "position": [
+          0,
+          0.03999999910593033,
+          0
+        ],
+        "rotation": [
+          180,
+          0,
+          180
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "99db5b35-1c81-4178-a33a-d6c4d815b8cd",
+          "type": "RenderMeshVisual",
+          "name": "geometry_0",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:GeneratedMeshes/Salami.glb",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:GeneratedMeshes/Salami.glb",
+            "mainMaterial": "@asset:GeneratedMeshes/Salami.glb",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "geometry_0",
+            "enabled": true,
+            "sceneObject": "@sceneObject:geometry_0#16",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "99db5b35-1c81-4178-a33a-d6c4d815b8cd",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ef15f0b2-a4a4-4129-822d-bcac7d370364",
+      "name": "Learnable_mustar",
+      "enabled": true,
+      "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
+      "transform": {
+        "position": [
+          54,
+          95.5,
+          -7.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "ddfee87c-6382-4fe1-85e3-1771a9cd0692",
+      "name": "Visual",
+      "enabled": true,
+      "parentId": "ef15f0b2-a4a4-4129-822d-bcac7d370364",
+      "transform": {
+        "position": [
+          0,
+          -6.5,
+          0
+        ],
+        "rotation": [
+          0,
+          180,
+          0
+        ],
+        "scale": [
+          100,
+          100,
+          100
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "ce46a9e7-3166-4f7c-baa0-5eab15dc8092",
+      "name": "Scenes",
+      "enabled": true,
+      "parentId": "ddfee87c-6382-4fe1-85e3-1771a9cd0692",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "cec201a3-8378-4c6e-a9b2-6d7fc9e1e2b6",
+      "name": "Scene",
+      "enabled": true,
+      "parentId": "ce46a9e7-3166-4f7c-baa0-5eab15dc8092",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "9c37151b-63a6-4d47-8726-0feb0bac00be",
+      "name": "geometry_0",
+      "enabled": true,
+      "parentId": "cec201a3-8378-4c6e-a9b2-6d7fc9e1e2b6",
+      "transform": {
+        "position": [
+          0,
+          0.03999999910593033,
+          0
+        ],
+        "rotation": [
+          180,
+          0,
+          180
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "159ecb3a-626f-4dee-bebd-db67a12da040",
+          "type": "RenderMeshVisual",
+          "name": "geometry_0",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:GeneratedMeshes/Mustard.glb",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:GeneratedMeshes/Mustard.glb",
+            "mainMaterial": "@asset:GeneratedMeshes/Mustard.glb",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "geometry_0",
+            "enabled": true,
+            "sceneObject": "@sceneObject:geometry_0#17",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "159ecb3a-626f-4dee-bebd-db67a12da040",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "9df238d9-dd0e-40e5-b715-cd53d8e60c3a",
+      "name": "Learnable_paprika",
+      "enabled": true,
+      "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
+      "transform": {
+        "position": [
+          -9,
+          94,
+          10
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "fcebd99f-20bf-4085-9b7c-b8dc6e521764",
+      "name": "Visual",
+      "enabled": true,
+      "parentId": "9df238d9-dd0e-40e5-b715-cd53d8e60c3a",
+      "transform": {
+        "position": [
+          0,
+          -4.5,
+          0
+        ],
+        "rotation": [
+          0,
+          180,
+          0
+        ],
+        "scale": [
+          100,
+          100,
+          100
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "dbe3c8de-3852-4f92-9b33-91633db88485",
+      "name": "Scenes",
+      "enabled": true,
+      "parentId": "fcebd99f-20bf-4085-9b7c-b8dc6e521764",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "60614d2a-f988-4b36-b245-dea3b579976c",
+      "name": "Scene",
+      "enabled": true,
+      "parentId": "dbe3c8de-3852-4f92-9b33-91633db88485",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "d7a66d03-f33b-4bda-81b9-14223abeb0c3",
+      "name": "geometry_0",
+      "enabled": true,
+      "parentId": "60614d2a-f988-4b36-b245-dea3b579976c",
+      "transform": {
+        "position": [
+          0,
+          0.04002171754837036,
+          0
+        ],
+        "rotation": [
+          180,
+          0,
+          180
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "31d65b3d-97e9-40f1-a5bb-4321607775cc",
+          "type": "RenderMeshVisual",
+          "name": "geometry_0",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:GeneratedMeshes/Peppers.glb",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:GeneratedMeshes/Peppers.glb",
+            "mainMaterial": "@asset:GeneratedMeshes/Peppers.glb",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "geometry_0",
+            "enabled": true,
+            "sceneObject": "@sceneObject:geometry_0#18",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "31d65b3d-97e9-40f1-a5bb-4321607775cc",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "622b8c8e-3cc6-41c0-8fca-01233a869eab",
+      "name": "Learnable_uborka_friss",
+      "enabled": true,
+      "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
+      "transform": {
+        "position": [
+          9,
+          94,
+          10
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "b057d9df-7e5d-4fce-a66a-d739ca78cd8e",
+      "name": "Visual",
+      "enabled": true,
+      "parentId": "622b8c8e-3cc6-41c0-8fca-01233a869eab",
+      "transform": {
+        "position": [
+          0,
+          -6.5,
+          0
+        ],
+        "rotation": [
+          0,
+          180,
+          0
+        ],
+        "scale": [
+          100,
+          100,
+          100
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "0916981c-66ac-4543-8478-8675314491dd",
+      "name": "Scenes",
+      "enabled": true,
+      "parentId": "b057d9df-7e5d-4fce-a66a-d739ca78cd8e",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "88fb4d5b-aa4d-4607-ab51-71ede0f70436",
+      "name": "Scene",
+      "enabled": true,
+      "parentId": "0916981c-66ac-4543-8478-8675314491dd",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "55bd2363-ed12-407e-bc83-4f46c2a15f11",
+      "name": "geometry_0",
+      "enabled": true,
+      "parentId": "88fb4d5b-aa4d-4607-ab51-71ede0f70436",
+      "transform": {
+        "position": [
+          0,
+          0.03999999910593033,
+          0
+        ],
+        "rotation": [
+          180,
+          0,
+          180
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "815b346e-1373-4586-afa4-c98f53a4c716",
+          "type": "RenderMeshVisual",
+          "name": "geometry_0",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:GeneratedMeshes/Cucumber.glb",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:GeneratedMeshes/Cucumber.glb",
+            "mainMaterial": "@asset:GeneratedMeshes/Cucumber.glb",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "geometry_0",
+            "enabled": true,
+            "sceneObject": "@sceneObject:geometry_0#19",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "815b346e-1373-4586-afa4-c98f53a4c716",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "7ca6b42d-dd66-427a-b339-a5c25db4ec43",
+      "name": "WellDivider",
+      "enabled": true,
+      "parentId": "6c5f8ed7-85d1-4939-834c-add8e7cde8d4",
+      "transform": {
+        "position": [
+          0,
+          91.19999694824219,
+          1.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          196,
+          3.4000000953674316,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "f58cce34-d188-486a-a4e7-e0758ab2ce49",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:Meshes/WbwBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:Materials/Cafe/Wbw_Steel.mat",
+            "mainMaterial": "@asset:Materials/Cafe/Wbw_Steel.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:WellDivider",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "f58cce34-d188-486a-a4e7-e0758ab2ce49",
             "type": "RenderMeshVisual"
           }
         }
@@ -8805,7 +9690,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#16",
+            "sceneObject": "@sceneObject:geometry_0#20",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "9d89639e-0bec-4719-bcfa-4da4a4730380",
@@ -9002,7 +9887,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#17",
+            "sceneObject": "@sceneObject:geometry_0#21",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "b2b9a4e6-7412-447a-aa5d-ee97b9e4d326",
@@ -9199,7 +10084,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#18",
+            "sceneObject": "@sceneObject:geometry_0#22",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "c43bb5cb-554c-411f-9fbb-6050fb925fe1",
@@ -9590,7 +10475,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#19",
+            "sceneObject": "@sceneObject:geometry_0#23",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "f8c25db7-d2c0-4c9d-a49f-c51f388d8b13",
@@ -9762,7 +10647,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#20",
+            "sceneObject": "@sceneObject:geometry_0#24",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "a2f179d3-ed06-4158-a091-a3291ded2335",
@@ -9934,7 +10819,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#21",
+            "sceneObject": "@sceneObject:geometry_0#25",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "528aedee-4ada-4ce8-9aad-ed07491e753a",
@@ -10106,7 +10991,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#22",
+            "sceneObject": "@sceneObject:geometry_0#26",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "00cbc9c6-c400-499a-afe9-7c55ae28d426",
@@ -10497,7 +11382,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#23",
+            "sceneObject": "@sceneObject:geometry_0#27",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "b764464a-748f-4471-8cd7-8a9abff21b8e",
@@ -10694,7 +11579,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#24",
+            "sceneObject": "@sceneObject:geometry_0#28",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "199d6e3d-323b-47e2-8475-cf19067dacaa",
@@ -10891,7 +11776,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#25",
+            "sceneObject": "@sceneObject:geometry_0#29",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "da595416-6a10-424e-8a41-89218c5fd97b",
@@ -11088,7 +11973,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#26",
+            "sceneObject": "@sceneObject:geometry_0#30",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "1b694f0b-046b-4e3a-a40f-1190a7ba6b4d",
@@ -11285,7 +12170,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#27",
+            "sceneObject": "@sceneObject:geometry_0#31",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "d884b812-6105-4068-92d7-ceae98df07c1",
@@ -11482,7 +12367,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#28",
+            "sceneObject": "@sceneObject:geometry_0#32",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "ad8813d8-0080-423a-a55d-29bcc9b0cf48",
@@ -11679,7 +12564,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#29",
+            "sceneObject": "@sceneObject:geometry_0#33",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "390d5bfe-fff4-416e-ae8b-efd9832a1132",
@@ -11851,7 +12736,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#30",
+            "sceneObject": "@sceneObject:geometry_0#34",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "f8be01b9-a3ce-40d5-991f-10ca58242435",
@@ -12023,7 +12908,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#31",
+            "sceneObject": "@sceneObject:geometry_0#35",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "26688def-c268-4c59-b2d3-9c4d42d62975",
@@ -12195,7 +13080,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#32",
+            "sceneObject": "@sceneObject:geometry_0#36",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "140bfaad-1e1a-4e2d-a197-5514d8a7734f",
@@ -12367,7 +13252,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#33",
+            "sceneObject": "@sceneObject:geometry_0#37",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "a8323dd0-5d12-4052-abfc-74b609f02870",
@@ -12539,7 +13424,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#34",
+            "sceneObject": "@sceneObject:geometry_0#38",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "4f34a958-353d-4ce3-8671-73b20cea168c",
@@ -12711,7 +13596,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#35",
+            "sceneObject": "@sceneObject:geometry_0#39",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "b8d87deb-4bc9-4e7c-a4ff-a2e5ddd63b89",
@@ -12959,7 +13844,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#36",
+            "sceneObject": "@sceneObject:geometry_0#40",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "7cd99445-0cb6-4e68-b591-d994fbfd0296",
@@ -13680,7 +14565,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#37",
+            "sceneObject": "@sceneObject:geometry_0#41",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "d9796894-d8a3-4469-93fe-dae6e6a1dc32",
@@ -13852,7 +14737,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#38",
+            "sceneObject": "@sceneObject:geometry_0#42",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "7e9375c8-0ad4-4c77-a9a2-a66201c65bcb",
@@ -14024,7 +14909,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#39",
+            "sceneObject": "@sceneObject:geometry_0#43",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "0e50fba5-6993-4755-98a3-68df0ea416e4",
@@ -14196,7 +15081,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#40",
+            "sceneObject": "@sceneObject:geometry_0#44",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "7bc3adc1-9e96-4e13-bdce-5caa5da1e35b",
@@ -14368,7 +15253,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#41",
+            "sceneObject": "@sceneObject:geometry_0#45",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "abe185c4-b63a-4987-930c-de1a8854302a",
@@ -14664,7 +15549,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#42",
+            "sceneObject": "@sceneObject:geometry_0#46",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "dfa4d319-cfc4-4dfc-96bb-e92f118ad7e2",
@@ -14836,7 +15721,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#43",
+            "sceneObject": "@sceneObject:geometry_0#47",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "4e6dc9bb-11b6-4372-8896-aa0721288751",
@@ -15008,7 +15893,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#44",
+            "sceneObject": "@sceneObject:geometry_0#48",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "8c87cc4d-b9f3-4633-a3e0-c6bccdd022e9",
@@ -15180,7 +16065,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#45",
+            "sceneObject": "@sceneObject:geometry_0#49",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "03c8271e-dd69-4d70-a53b-2ae1ca8e52d8",
@@ -15451,7 +16336,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#46",
+            "sceneObject": "@sceneObject:geometry_0#50",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "0d46b6b1-3843-4206-8b26-3d6263199683",
@@ -15623,7 +16508,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#47",
+            "sceneObject": "@sceneObject:geometry_0#51",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "306c1ffe-6517-4bc6-85e2-46c4d2cc2d3a",
@@ -15795,7 +16680,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#48",
+            "sceneObject": "@sceneObject:geometry_0#52",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "b4734fd7-a3b6-45ae-bb77-1efd12635ce8",
@@ -16066,7 +16951,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#49",
+            "sceneObject": "@sceneObject:geometry_0#53",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "dbaa31f0-71f0-4c3c-af53-c7b31b53bc12",
@@ -16238,7 +17123,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#50",
+            "sceneObject": "@sceneObject:geometry_0#54",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "2e218881-a447-443e-94cc-f00d2347e620",
@@ -16410,7 +17295,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#51",
+            "sceneObject": "@sceneObject:geometry_0#55",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "305d897f-50f3-424f-bc5d-4ed4a1d54bda",
@@ -16582,7 +17467,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#52",
+            "sceneObject": "@sceneObject:geometry_0#56",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "5009befa-7011-43de-9a38-3170a1eab9ba",
@@ -16853,7 +17738,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#53",
+            "sceneObject": "@sceneObject:geometry_0#57",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "fa5bd091-7b99-4d42-9bb0-dee0209f63b6",
@@ -17025,7 +17910,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#54",
+            "sceneObject": "@sceneObject:geometry_0#58",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "5150c48d-6c4b-4ff9-a2d4-f4bd67a4c92a",
@@ -17197,7 +18082,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#55",
+            "sceneObject": "@sceneObject:geometry_0#59",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "96ceb1d7-aec2-429a-a5a2-1cb5fd69c67d",
@@ -17468,7 +18353,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#56",
+            "sceneObject": "@sceneObject:geometry_0#60",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "d7670894-86df-4539-926f-58032e1a5921",
@@ -17640,7 +18525,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#57",
+            "sceneObject": "@sceneObject:geometry_0#61",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "cdc3a0a7-0321-4192-985f-2e95259f7d0b",
@@ -17911,7 +18796,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#58",
+            "sceneObject": "@sceneObject:geometry_0#62",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "758b5a17-e949-43f7-8d7d-4dc92cba164d",
@@ -18083,7 +18968,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#59",
+            "sceneObject": "@sceneObject:geometry_0#63",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "00acf47b-c6b0-40ba-a476-6da82c7aa411",
@@ -18255,7 +19140,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#60",
+            "sceneObject": "@sceneObject:geometry_0#64",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "52f5e8f7-d026-4ee4-a7b3-def0dc989a6a",
@@ -18427,7 +19312,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#61",
+            "sceneObject": "@sceneObject:geometry_0#65",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "b48d7ef5-a1a0-4677-882f-9c2242291db0",
@@ -18698,7 +19583,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#62",
+            "sceneObject": "@sceneObject:geometry_0#66",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "336425b2-7088-481e-86c9-83cbf0b2164b",
@@ -18870,7 +19755,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#63",
+            "sceneObject": "@sceneObject:geometry_0#67",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "0d3835d7-f00c-4fd0-aba5-ff56273bbdcf",
@@ -19042,7 +19927,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#64",
+            "sceneObject": "@sceneObject:geometry_0#68",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "328205e9-a4a6-40a3-b7f6-8d3f3225dcf6",
@@ -19214,7 +20099,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#65",
+            "sceneObject": "@sceneObject:geometry_0#69",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "3cf72e60-b7e8-422c-affa-51e356546770",
@@ -21165,7 +22050,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#66",
+            "sceneObject": "@sceneObject:geometry_0#70",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "88bff0aa-41b8-4833-8803-4fc4348ed1d9",
@@ -21337,7 +22222,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#67",
+            "sceneObject": "@sceneObject:geometry_0#71",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "fc9c45e6-4e83-4619-887a-40af221c19c5",
@@ -21509,7 +22394,7 @@
             "renderOrder": 0,
             "name": "geometry_0",
             "enabled": true,
-            "sceneObject": "@sceneObject:geometry_0#68",
+            "sceneObject": "@sceneObject:geometry_0#72",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "e417e855-c796-4c5d-97b9-9433bb3ded0a",
@@ -31096,10 +31981,10 @@
           "properties": {
             "arrowColor": {
               "isScriptInput": true,
-              "value": "{x: 1, y: 0.82, z: 0.3, w: 1}",
+              "value": "{x: 0.42, y: 0.98, z: 0.95, w: 1}",
               "type": "vec4",
               "uiInfo": "{\"hint\":\"Arrow colour\", \"widget\":\"color\"}",
-              "defaultValue": "{1,0.82,0.3,1}"
+              "defaultValue": "{0.42,0.98,0.95,1}"
             },
             "arrowRadiusCm": {
               "isScriptInput": true,
@@ -31253,10 +32138,10 @@
           "properties": {
             "focusColor": {
               "isScriptInput": true,
-              "value": "{x: 0.45, y: 0.93, z: 1, w: 1}",
+              "value": "{x: 0.42, y: 0.98, z: 0.95, w: 1}",
               "type": "vec4",
               "uiInfo": "{\"hint\":\"Bracket colour while an object is targeted or open on the word card (focus colour)\", \"widget\":\"color\"}",
-              "defaultValue": "{0.45,0.93,1,1}"
+              "defaultValue": "{0.42,0.98,0.95,1}"
             },
             "bracketColor": {
               "isScriptInput": true,
@@ -31295,10 +32180,10 @@
             },
             "highlightColor": {
               "isScriptInput": true,
-              "value": "{x: 1, y: 0.78, z: 0.35, w: 1}",
+              "value": "{x: 0.78, y: 0.68, z: 1, w: 1}",
               "type": "vec4",
               "uiInfo": "{\"hint\":\"Highlight colour for ingredients named by the offered phrase cards\", \"widget\":\"color\"}",
-              "defaultValue": "{1,0.78,0.35,1}"
+              "defaultValue": "{0.78,0.68,1,1}"
             },
             "viewConeDeg": {
               "isScriptInput": true,
@@ -31460,6 +32345,13 @@
               "uiInfo": "{\"hint\":\"Seconds the caption stays after the server's line ends\", \"widget\":\"slider\", \"min\":0, \"max\":10, \"step\":0.5}",
               "defaultValue": "4"
             },
+            "fillingsCardCount": {
+              "isScriptInput": true,
+              "value": 3,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"How many filling phrases the 'Mit kér bele?' step shows (plus Kész). Phrases with words you saved come first; the leave-out phrase is always shown.\", \"widget\":\"slider\", \"min\":2, \"max\":4, \"step\":1}",
+              "defaultValue": "3"
+            },
             "phrases": {
               "isScriptInput": true,
               "value": {
@@ -31491,15 +32383,16 @@
             "inputNames.0": "arrowInViewDeg",
             "inputNames.1": "caption",
             "inputNames.2": "captionLingerSec",
-            "inputNames.3": "hint",
-            "inputNames.4": "phraseDistanceCm",
-            "inputNames.5": "phraseDropCm",
-            "inputNames.6": "phraseTray",
-            "inputNames.7": "phrases",
-            "inputNames.8": "phrasesOnCounter",
-            "inputNames.9": "replyPauseSec",
-            "inputNames.10": "seating",
-            "inputNames.11": "server",
+            "inputNames.3": "fillingsCardCount",
+            "inputNames.4": "hint",
+            "inputNames.5": "phraseDistanceCm",
+            "inputNames.6": "phraseDropCm",
+            "inputNames.7": "phraseTray",
+            "inputNames.8": "phrases",
+            "inputNames.9": "phrasesOnCounter",
+            "inputNames.10": "replyPauseSec",
+            "inputNames.11": "seating",
+            "inputNames.12": "server",
             "name": "WbwOrderController",
             "enabled": true,
             "sceneObject": "@sceneObject:OrderController",
@@ -31893,7 +32786,7 @@
       ]
     },
     {
-      "id": "c7df44ce-ea10-4b6b-8ee0-d3759c58b4e3",
+      "id": "5c0a87d5-f25f-42e0-a738-1ecc9d0517f9",
       "name": "TEMP_Probe",
       "enabled": true,
       "parentId": null,
@@ -31917,26 +32810,16 @@
       "layers": 1,
       "components": [
         {
-          "id": "59389321-c65c-4424-ab1b-2bc8edc678e7",
+          "id": "0ee521a5-a49e-41d3-98c0-993d03842bcd",
           "type": "ScriptComponent",
           "name": "WbwTempProbe",
           "enabled": true,
           "properties": {
             "main": {
-              "isScriptInput": true,
-              "value": {
-                "UUID": "7df6eee8-dc07-45fd-a000-99dab7307422",
-                "name": "WbwMain"
-              },
-              "type": "AssignableType_1"
+              "UUID": "7df6eee8-dc07-45fd-a000-99dab7307422",
+              "name": "WbwMain"
             },
-            "stage": {
-              "isScriptInput": true,
-              "value": "live:-13.6:ServerSpot:fillings:sonka_sajt",
-              "type": "string",
-              "uiInfo": "{\"hint\":\"setup | wordcard | phrases | phrases2 | practice | flow\"}",
-              "defaultValue": "setup"
-            },
+            "stage": "menu",
             "scriptAsset": "@asset:Scripts/WbwTempProbe.ts",
             "inputNames.0": "main",
             "inputNames.1": "stage",
@@ -31945,7 +32828,7 @@
             "sceneObject": "@sceneObject:TEMP_Probe",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
-            "id": "59389321-c65c-4424-ab1b-2bc8edc678e7",
+            "id": "0ee521a5-a49e-41d3-98c0-993d03842bcd",
             "type": "ScriptComponent"
           }
         }
@@ -33880,6 +34763,27 @@
         "fileMeta.id": "671eb1ff-ad48-2136-40ef-78dcdf6e56e9",
         "id": "b7768f04-ce8d-4cc0-ad8e-e42117ca5223",
         "type": "Material"
+      }
+    },
+    {
+      "id": "d39c11af-432d-47e9-9883-b027584eb4ae",
+      "name": "Mustard",
+      "type": "ObjectPrefab",
+      "path": "GeneratedMeshes/Mustard.glb",
+      "properties": {
+        "prefabInstances.0": "@id:89968c18-046e-4770-8db0-c638a2e6d458 (Mustard)",
+        "prefabInstances.1": "@sceneObject:Visual#12",
+        "lazyLoading": false,
+        "retainAssets": true,
+        "sceneObjects.0": "@id:89968c18-046e-4770-8db0-c638a2e6d458 (Mustard)",
+        "sceneObjects.1": "@id:3489d742-5244-4e08-beb7-31c0901af1fe (Scenes)",
+        "sceneObjects.2": "@id:eb5c15cd-1cce-49ac-a07d-c7b140555932 (Scene)",
+        "sceneObjects.3": "@id:3a18422f-2bf5-4ab8-9e2c-cb866b7f7e7a (geometry_0)",
+        "rootSceneObjects.0": "@id:89968c18-046e-4770-8db0-c638a2e6d458 (Mustard)",
+        "name": "Mustard",
+        "fileMeta.id": "bbea8bbd-a175-402f-85b1-0be4e7a29afe",
+        "id": "d39c11af-432d-47e9-9883-b027584eb4ae",
+        "type": "ObjectPrefab"
       }
     },
     {
@@ -36852,7 +37756,7 @@
       "path": "GeneratedMeshes/MilkJug.glb",
       "properties": {
         "prefabInstances.0": "@id:81444a1a-ea64-42fb-a959-73f4f3275307 (MilkJug)",
-        "prefabInstances.1": "@sceneObject:Visual#14",
+        "prefabInstances.1": "@sceneObject:Visual#18",
         "lazyLoading": false,
         "retainAssets": true,
         "sceneObjects.0": "@id:81444a1a-ea64-42fb-a959-73f4f3275307 (MilkJug)",
@@ -38407,7 +39311,7 @@
       "path": "GeneratedMeshes/Sandwiches.glb",
       "properties": {
         "prefabInstances.0": "@id:c4f79efb-d85b-4c6a-b2c1-91ae17df318f (Sandwiches)",
-        "prefabInstances.1": "@sceneObject:Visual#12",
+        "prefabInstances.1": "@sceneObject:Visual#16",
         "prefabInstances.2": "@sceneObject:TableSandwich",
         "lazyLoading": false,
         "retainAssets": true,
@@ -45685,7 +46589,7 @@
       "path": "GeneratedMeshes/BarTable.glb",
       "properties": {
         "prefabInstances.0": "@id:58295d22-afbf-43aa-90cb-d08edb34be52 (BarTable)",
-        "prefabInstances.1": "@sceneObject:Visual#18",
+        "prefabInstances.1": "@sceneObject:Visual#22",
         "lazyLoading": false,
         "retainAssets": true,
         "sceneObjects.0": "@id:58295d22-afbf-43aa-90cb-d08edb34be52 (BarTable)",
@@ -60347,7 +61251,7 @@
       "path": "GeneratedMeshes/WaterBottle.glb",
       "properties": {
         "prefabInstances.0": "@id:0ed71c0c-f21f-46ae-9f0d-b8fd8e5d1360 (WaterBottle)",
-        "prefabInstances.1": "@sceneObject:Visual#15",
+        "prefabInstances.1": "@sceneObject:Visual#19",
         "lazyLoading": false,
         "retainAssets": true,
         "sceneObjects.0": "@id:0ed71c0c-f21f-46ae-9f0d-b8fd8e5d1360 (WaterBottle)",
@@ -60368,7 +61272,7 @@
       "path": "GeneratedMeshes/CoffeeCup.glb",
       "properties": {
         "prefabInstances.0": "@id:2643a98b-213c-44f0-8378-e30bdb180018 (CoffeeCup)",
-        "prefabInstances.1": "@sceneObject:Visual#13",
+        "prefabInstances.1": "@sceneObject:Visual#17",
         "prefabInstances.2": "@sceneObject:TableCup#0",
         "prefabInstances.3": "@sceneObject:TableCup#2",
         "lazyLoading": false,
@@ -61447,7 +62351,7 @@
       "path": "GeneratedMeshes/BreadLoaf.glb",
       "properties": {
         "prefabInstances.0": "@id:d72a673d-23bf-4d0f-9454-db902ac31ee6 (BreadLoaf)",
-        "prefabInstances.1": "@sceneObject:Visual#11",
+        "prefabInstances.1": "@sceneObject:Visual#15",
         "prefabInstances.2": "@sceneObject:ShelfLoaf",
         "lazyLoading": false,
         "retainAssets": true,
@@ -63077,8 +63981,8 @@
       "path": "GeneratedMeshes/OrangeCup.glb",
       "properties": {
         "prefabInstances.0": "@id:56132894-057e-41d1-a31b-fc4016c36ab5 (OrangeCup)",
-        "prefabInstances.1": "@sceneObject:Visual#16",
-        "prefabInstances.2": "@sceneObject:Visual#17",
+        "prefabInstances.1": "@sceneObject:Visual#20",
+        "prefabInstances.2": "@sceneObject:Visual#21",
         "prefabInstances.3": "@sceneObject:TableCup#1",
         "prefabInstances.4": "@sceneObject:LowTableCup",
         "lazyLoading": false,
@@ -66862,6 +67766,2181 @@
         "name": "SolidColor",
         "fileMeta.id": "f39b33c3-557b-3c08-73dc-88803356f2db",
         "id": "2fa285ff-4ba1-4d77-91c3-89bc8b6bd5a9",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "925f8034-2b81-46de-ba43-945ccd149a05",
+      "name": "Cucumber",
+      "type": "ObjectPrefab",
+      "path": "GeneratedMeshes/Cucumber.glb",
+      "properties": {
+        "prefabInstances.0": "@id:905ab1c9-e3c8-44f0-b994-8719ddc4c278 (Cucumber)",
+        "prefabInstances.1": "@sceneObject:Visual#14",
+        "lazyLoading": false,
+        "retainAssets": true,
+        "sceneObjects.0": "@id:905ab1c9-e3c8-44f0-b994-8719ddc4c278 (Cucumber)",
+        "sceneObjects.1": "@id:e7f1f39c-9d84-43cc-b0b1-1cbe05ae05ed (Scenes)",
+        "sceneObjects.2": "@id:a925ed0e-7b7a-46c5-bb6f-06bae5615020 (Scene)",
+        "sceneObjects.3": "@id:5a175dcd-7d50-49c6-9c59-708520c3070b (geometry_0)",
+        "rootSceneObjects.0": "@id:905ab1c9-e3c8-44f0-b994-8719ddc4c278 (Cucumber)",
+        "name": "Cucumber",
+        "fileMeta.id": "527171bc-82c7-4fb3-9ff5-5caf8a2c50fa",
+        "id": "925f8034-2b81-46de-ba43-945ccd149a05",
+        "type": "ObjectPrefab"
+      }
+    },
+    {
+      "id": "c63d7c0e-10a1-4229-b9e1-9e02c59240ef",
+      "name": "geometry_0_baked",
+      "type": "Material",
+      "path": "GeneratedMeshes/Mustard.glb",
+      "properties": {
+        "passInfos.0.ENABLE_VERTEX_COLOR_BASE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Vertex Color"
+        },
+        "passInfos.0.ENABLE_GLTF_LIGHTING": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Lighting"
+        },
+        "passInfos.0.baseColorFactor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColorFactor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture.value.id": "78f4b4fa-61af-46d8-b526-5317ba5d5b8a",
+        "passInfos.0.baseColorTexture.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.emissiveFactor.value": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.emissiveFactor.label": "Emissive Factor",
+        "passInfos.0.ENABLE_EMISSIVE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture.value": null,
+        "passInfos.0.emissiveTexture.hidden": true,
+        "passInfos.0.emissiveTexture.enabledBy": "ENABLE_EMISSIVE",
+        "passInfos.0.emissiveTexture.label": "Texture",
+        "passInfos.0.ENABLE_NORMALMAP": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Map"
+        },
+        "passInfos.0.normalTextureScale.value": null,
+        "passInfos.0.normalTextureScale.hidden": true,
+        "passInfos.0.normalTextureScale.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTextureScale.label": "Scale",
+        "passInfos.0.normalTextureScale.min": 0,
+        "passInfos.0.normalTextureScale.max": 1,
+        "passInfos.0.normalTexture.value": null,
+        "passInfos.0.normalTexture.hidden": true,
+        "passInfos.0.normalTexture.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTexture.label": "Texture",
+        "passInfos.0.metallicFactor.value": 0,
+        "passInfos.0.metallicFactor.label": "Metallic",
+        "passInfos.0.metallicFactor.min": 0,
+        "passInfos.0.metallicFactor.max": 1,
+        "passInfos.0.roughnessFactor.value": 0.5,
+        "passInfos.0.roughnessFactor.label": "Roughness",
+        "passInfos.0.roughnessFactor.min": 0,
+        "passInfos.0.roughnessFactor.max": 1,
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Texture"
+        },
+        "passInfos.0.occlusionTextureStrength.value": 1,
+        "passInfos.0.occlusionTextureStrength.label": "Occlusion Strength",
+        "passInfos.0.occlusionTextureStrength.min": 0,
+        "passInfos.0.occlusionTextureStrength.max": 1,
+        "passInfos.0.metallicRoughnessTexture.value.id": "7efa6d40-1fca-4b88-964a-2c88cc681dd0",
+        "passInfos.0.metallicRoughnessTexture.label": "Texture",
+        "passInfos.0.METALLIC_ROUGHNESS_TEX_SWIZZLE_RB": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Swizzle RB"
+        },
+        "passInfos.0.ENABLE_TRANSMISSION": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission"
+        },
+        "passInfos.0.screenTexture.value": null,
+        "passInfos.0.screenTexture.hidden": true,
+        "passInfos.0.screenTexture.enabledBy": "ENABLE_TRANSMISSION",
+        "passInfos.0.screenTexture.label": "Screen Texture",
+        "passInfos.0.transmissionFactor.value": null,
+        "passInfos.0.transmissionFactor.hidden": true,
+        "passInfos.0.transmissionFactor.enabledBy": "ENABLE_TRANSMISSION",
+        "passInfos.0.transmissionFactor.label": "Factor",
+        "passInfos.0.transmissionFactor.min": 0,
+        "passInfos.0.transmissionFactor.max": 1,
+        "passInfos.0.ENABLE_TRANSMISSION_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture.value": null,
+        "passInfos.0.transmissionTexture.hidden": true,
+        "passInfos.0.transmissionTexture.enabledBy": "ENABLE_TRANSMISSION_TEX",
+        "passInfos.0.transmissionTexture.label": "Texture",
+        "passInfos.0.ENABLE_SHEEN": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen"
+        },
+        "passInfos.0.sheenColorFactor.value": null,
+        "passInfos.0.sheenColorFactor.hidden": true,
+        "passInfos.0.sheenColorFactor.enabledBy": "ENABLE_SHEEN",
+        "passInfos.0.sheenColorFactor.label": "Color",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Color Texture"
+        },
+        "passInfos.0.sheenColorTexture.value": null,
+        "passInfos.0.sheenColorTexture.hidden": true,
+        "passInfos.0.sheenColorTexture.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenColorTexture.label": "Texture",
+        "passInfos.0.sheenRoughnessFactor.value": null,
+        "passInfos.0.sheenRoughnessFactor.hidden": true,
+        "passInfos.0.sheenRoughnessFactor.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.sheenRoughnessFactor.min": 0,
+        "passInfos.0.sheenRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture.value": null,
+        "passInfos.0.sheenRoughnessTexture.hidden": true,
+        "passInfos.0.sheenRoughnessTexture.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEX",
+        "passInfos.0.sheenRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat"
+        },
+        "passInfos.0.clearcoatFactor.value": null,
+        "passInfos.0.clearcoatFactor.hidden": true,
+        "passInfos.0.clearcoatFactor.enabledBy": "ENABLE_CLEARCOAT",
+        "passInfos.0.clearcoatFactor.label": "Factor",
+        "passInfos.0.clearcoatFactor.min": 0,
+        "passInfos.0.clearcoatFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat Texture"
+        },
+        "passInfos.0.clearcoatTexture.value": null,
+        "passInfos.0.clearcoatTexture.hidden": true,
+        "passInfos.0.clearcoatTexture.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatTexture.label": "Texture",
+        "passInfos.0.clearcoatRoughnessFactor.value": null,
+        "passInfos.0.clearcoatRoughnessFactor.hidden": true,
+        "passInfos.0.clearcoatRoughnessFactor.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.clearcoatRoughnessFactor.min": 0,
+        "passInfos.0.clearcoatRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture.value": null,
+        "passInfos.0.clearcoatRoughnessTexture.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEX",
+        "passInfos.0.clearcoatRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal"
+        },
+        "passInfos.0.clearcoatNormalTexture.value": null,
+        "passInfos.0.clearcoatNormalTexture.hidden": true,
+        "passInfos.0.clearcoatNormalTexture.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEX",
+        "passInfos.0.clearcoatNormalTexture.label": "Texture",
+        "passInfos.0.ENABLE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Texture Transform"
+        },
+        "passInfos.0.ENABLE_BASE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture_offset.value": null,
+        "passInfos.0.baseColorTexture_offset.hidden": true,
+        "passInfos.0.baseColorTexture_offset.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_offset.label": "Offset",
+        "passInfos.0.baseColorTexture_scale.value": null,
+        "passInfos.0.baseColorTexture_scale.hidden": true,
+        "passInfos.0.baseColorTexture_scale.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_scale.label": "Scale",
+        "passInfos.0.baseColorTexture_rotation.value": null,
+        "passInfos.0.baseColorTexture_rotation.hidden": true,
+        "passInfos.0.baseColorTexture_rotation.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_EMISSIVE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture_offset.value": null,
+        "passInfos.0.emissiveTexture_offset.hidden": true,
+        "passInfos.0.emissiveTexture_offset.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_offset.label": "Offset",
+        "passInfos.0.emissiveTexture_scale.value": null,
+        "passInfos.0.emissiveTexture_scale.hidden": true,
+        "passInfos.0.emissiveTexture_scale.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_scale.label": "Scale",
+        "passInfos.0.emissiveTexture_rotation.value": null,
+        "passInfos.0.emissiveTexture_rotation.hidden": true,
+        "passInfos.0.emissiveTexture_rotation.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Texture"
+        },
+        "passInfos.0.normalTexture_offset.value": null,
+        "passInfos.0.normalTexture_offset.hidden": true,
+        "passInfos.0.normalTexture_offset.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_offset.label": "Offset",
+        "passInfos.0.normalTexture_scale.value": null,
+        "passInfos.0.normalTexture_scale.hidden": true,
+        "passInfos.0.normalTexture_scale.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_scale.label": "Scale",
+        "passInfos.0.normalTexture_rotation.value": null,
+        "passInfos.0.normalTexture_rotation.hidden": true,
+        "passInfos.0.normalTexture_rotation.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic Roughness Texture"
+        },
+        "passInfos.0.metallicRoughnessTexture_offset.value": null,
+        "passInfos.0.metallicRoughnessTexture_offset.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_offset.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.metallicRoughnessTexture_scale.value": null,
+        "passInfos.0.metallicRoughnessTexture_scale.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_scale.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.metallicRoughnessTexture_rotation.value": null,
+        "passInfos.0.metallicRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_rotation.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_TRANSMISSION_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture_offset.value": null,
+        "passInfos.0.transmissionTexture_offset.hidden": true,
+        "passInfos.0.transmissionTexture_offset.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_offset.label": "Offset",
+        "passInfos.0.transmissionTexture_scale.value": null,
+        "passInfos.0.transmissionTexture_scale.hidden": true,
+        "passInfos.0.transmissionTexture_scale.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_scale.label": "Scale",
+        "passInfos.0.transmissionTexture_rotation.value": null,
+        "passInfos.0.transmissionTexture_rotation.hidden": true,
+        "passInfos.0.transmissionTexture_rotation.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Color Texture"
+        },
+        "passInfos.0.sheenColorTexture_offset.value": null,
+        "passInfos.0.sheenColorTexture_offset.hidden": true,
+        "passInfos.0.sheenColorTexture_offset.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_offset.label": "Offset",
+        "passInfos.0.sheenColorTexture_scale.value": null,
+        "passInfos.0.sheenColorTexture_scale.hidden": true,
+        "passInfos.0.sheenColorTexture_scale.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_scale.label": "Scale",
+        "passInfos.0.sheenColorTexture_rotation.value": null,
+        "passInfos.0.sheenColorTexture_rotation.hidden": true,
+        "passInfos.0.sheenColorTexture_rotation.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture_offset.value": null,
+        "passInfos.0.sheenRoughnessTexture_offset.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_offset.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.sheenRoughnessTexture_scale.value": null,
+        "passInfos.0.sheenRoughnessTexture_scale.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_scale.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.sheenRoughnessTexture_rotation.value": null,
+        "passInfos.0.sheenRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_rotation.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Texture"
+        },
+        "passInfos.0.clearcoatTexture_offset.value": null,
+        "passInfos.0.clearcoatTexture_offset.hidden": true,
+        "passInfos.0.clearcoatTexture_offset.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatTexture_scale.value": null,
+        "passInfos.0.clearcoatTexture_scale.hidden": true,
+        "passInfos.0.clearcoatTexture_scale.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatTexture_rotation.value": null,
+        "passInfos.0.clearcoatTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Normal Texture"
+        },
+        "passInfos.0.clearcoatNormalTexture_offset.value": null,
+        "passInfos.0.clearcoatNormalTexture_offset.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_offset.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatNormalTexture_scale.value": null,
+        "passInfos.0.clearcoatNormalTexture_scale.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_scale.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatNormalTexture_rotation.value": null,
+        "passInfos.0.clearcoatNormalTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture_offset.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_offset.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_offset.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatRoughnessTexture_scale.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_scale.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_scale.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Albedo_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Metallic_N405": 0,
+        "passInfos.0.Port_Opacity_N405": 0,
+        "passInfos.0.Port_SpecularAO_N036": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_SpecularAO_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": true,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "d9ca8b06-819e-49fa-85b5-f86d33bc364a",
+        "passInfos.0.type": "PassInfo",
+        "name": "geometry_0_baked",
+        "fileMeta.id": "bbea8bbd-a175-402f-85b1-0be4e7a29afe",
+        "id": "c63d7c0e-10a1-4229-b9e1-9e02c59240ef",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "b3acc1eb-5a27-4e8a-a34f-e91f77b77bf1",
+      "name": "geometry_0_baked",
+      "type": "Material",
+      "path": "GeneratedMeshes/Cucumber.glb",
+      "properties": {
+        "passInfos.0.ENABLE_VERTEX_COLOR_BASE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Vertex Color"
+        },
+        "passInfos.0.ENABLE_GLTF_LIGHTING": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Lighting"
+        },
+        "passInfos.0.baseColorFactor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColorFactor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture.value.id": "9258cf51-7e20-4287-b9d3-787a47f7575d",
+        "passInfos.0.baseColorTexture.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.emissiveFactor.value": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.emissiveFactor.label": "Emissive Factor",
+        "passInfos.0.ENABLE_EMISSIVE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture.value": null,
+        "passInfos.0.emissiveTexture.hidden": true,
+        "passInfos.0.emissiveTexture.enabledBy": "ENABLE_EMISSIVE",
+        "passInfos.0.emissiveTexture.label": "Texture",
+        "passInfos.0.ENABLE_NORMALMAP": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Map"
+        },
+        "passInfos.0.normalTextureScale.value": null,
+        "passInfos.0.normalTextureScale.hidden": true,
+        "passInfos.0.normalTextureScale.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTextureScale.label": "Scale",
+        "passInfos.0.normalTextureScale.min": 0,
+        "passInfos.0.normalTextureScale.max": 1,
+        "passInfos.0.normalTexture.value": null,
+        "passInfos.0.normalTexture.hidden": true,
+        "passInfos.0.normalTexture.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTexture.label": "Texture",
+        "passInfos.0.metallicFactor.value": 0,
+        "passInfos.0.metallicFactor.label": "Metallic",
+        "passInfos.0.metallicFactor.min": 0,
+        "passInfos.0.metallicFactor.max": 1,
+        "passInfos.0.roughnessFactor.value": 0.5,
+        "passInfos.0.roughnessFactor.label": "Roughness",
+        "passInfos.0.roughnessFactor.min": 0,
+        "passInfos.0.roughnessFactor.max": 1,
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Texture"
+        },
+        "passInfos.0.occlusionTextureStrength.value": 1,
+        "passInfos.0.occlusionTextureStrength.label": "Occlusion Strength",
+        "passInfos.0.occlusionTextureStrength.min": 0,
+        "passInfos.0.occlusionTextureStrength.max": 1,
+        "passInfos.0.metallicRoughnessTexture.value.id": "521976fc-6e4b-4e18-9947-2e0734e2dd9a",
+        "passInfos.0.metallicRoughnessTexture.label": "Texture",
+        "passInfos.0.METALLIC_ROUGHNESS_TEX_SWIZZLE_RB": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Swizzle RB"
+        },
+        "passInfos.0.ENABLE_TRANSMISSION": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission"
+        },
+        "passInfos.0.screenTexture.value": null,
+        "passInfos.0.screenTexture.hidden": true,
+        "passInfos.0.screenTexture.enabledBy": "ENABLE_TRANSMISSION",
+        "passInfos.0.screenTexture.label": "Screen Texture",
+        "passInfos.0.transmissionFactor.value": null,
+        "passInfos.0.transmissionFactor.hidden": true,
+        "passInfos.0.transmissionFactor.enabledBy": "ENABLE_TRANSMISSION",
+        "passInfos.0.transmissionFactor.label": "Factor",
+        "passInfos.0.transmissionFactor.min": 0,
+        "passInfos.0.transmissionFactor.max": 1,
+        "passInfos.0.ENABLE_TRANSMISSION_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture.value": null,
+        "passInfos.0.transmissionTexture.hidden": true,
+        "passInfos.0.transmissionTexture.enabledBy": "ENABLE_TRANSMISSION_TEX",
+        "passInfos.0.transmissionTexture.label": "Texture",
+        "passInfos.0.ENABLE_SHEEN": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen"
+        },
+        "passInfos.0.sheenColorFactor.value": null,
+        "passInfos.0.sheenColorFactor.hidden": true,
+        "passInfos.0.sheenColorFactor.enabledBy": "ENABLE_SHEEN",
+        "passInfos.0.sheenColorFactor.label": "Color",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Color Texture"
+        },
+        "passInfos.0.sheenColorTexture.value": null,
+        "passInfos.0.sheenColorTexture.hidden": true,
+        "passInfos.0.sheenColorTexture.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenColorTexture.label": "Texture",
+        "passInfos.0.sheenRoughnessFactor.value": null,
+        "passInfos.0.sheenRoughnessFactor.hidden": true,
+        "passInfos.0.sheenRoughnessFactor.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.sheenRoughnessFactor.min": 0,
+        "passInfos.0.sheenRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture.value": null,
+        "passInfos.0.sheenRoughnessTexture.hidden": true,
+        "passInfos.0.sheenRoughnessTexture.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEX",
+        "passInfos.0.sheenRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat"
+        },
+        "passInfos.0.clearcoatFactor.value": null,
+        "passInfos.0.clearcoatFactor.hidden": true,
+        "passInfos.0.clearcoatFactor.enabledBy": "ENABLE_CLEARCOAT",
+        "passInfos.0.clearcoatFactor.label": "Factor",
+        "passInfos.0.clearcoatFactor.min": 0,
+        "passInfos.0.clearcoatFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat Texture"
+        },
+        "passInfos.0.clearcoatTexture.value": null,
+        "passInfos.0.clearcoatTexture.hidden": true,
+        "passInfos.0.clearcoatTexture.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatTexture.label": "Texture",
+        "passInfos.0.clearcoatRoughnessFactor.value": null,
+        "passInfos.0.clearcoatRoughnessFactor.hidden": true,
+        "passInfos.0.clearcoatRoughnessFactor.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.clearcoatRoughnessFactor.min": 0,
+        "passInfos.0.clearcoatRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture.value": null,
+        "passInfos.0.clearcoatRoughnessTexture.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEX",
+        "passInfos.0.clearcoatRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal"
+        },
+        "passInfos.0.clearcoatNormalTexture.value": null,
+        "passInfos.0.clearcoatNormalTexture.hidden": true,
+        "passInfos.0.clearcoatNormalTexture.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEX",
+        "passInfos.0.clearcoatNormalTexture.label": "Texture",
+        "passInfos.0.ENABLE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Texture Transform"
+        },
+        "passInfos.0.ENABLE_BASE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture_offset.value": null,
+        "passInfos.0.baseColorTexture_offset.hidden": true,
+        "passInfos.0.baseColorTexture_offset.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_offset.label": "Offset",
+        "passInfos.0.baseColorTexture_scale.value": null,
+        "passInfos.0.baseColorTexture_scale.hidden": true,
+        "passInfos.0.baseColorTexture_scale.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_scale.label": "Scale",
+        "passInfos.0.baseColorTexture_rotation.value": null,
+        "passInfos.0.baseColorTexture_rotation.hidden": true,
+        "passInfos.0.baseColorTexture_rotation.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_EMISSIVE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture_offset.value": null,
+        "passInfos.0.emissiveTexture_offset.hidden": true,
+        "passInfos.0.emissiveTexture_offset.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_offset.label": "Offset",
+        "passInfos.0.emissiveTexture_scale.value": null,
+        "passInfos.0.emissiveTexture_scale.hidden": true,
+        "passInfos.0.emissiveTexture_scale.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_scale.label": "Scale",
+        "passInfos.0.emissiveTexture_rotation.value": null,
+        "passInfos.0.emissiveTexture_rotation.hidden": true,
+        "passInfos.0.emissiveTexture_rotation.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Texture"
+        },
+        "passInfos.0.normalTexture_offset.value": null,
+        "passInfos.0.normalTexture_offset.hidden": true,
+        "passInfos.0.normalTexture_offset.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_offset.label": "Offset",
+        "passInfos.0.normalTexture_scale.value": null,
+        "passInfos.0.normalTexture_scale.hidden": true,
+        "passInfos.0.normalTexture_scale.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_scale.label": "Scale",
+        "passInfos.0.normalTexture_rotation.value": null,
+        "passInfos.0.normalTexture_rotation.hidden": true,
+        "passInfos.0.normalTexture_rotation.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic Roughness Texture"
+        },
+        "passInfos.0.metallicRoughnessTexture_offset.value": null,
+        "passInfos.0.metallicRoughnessTexture_offset.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_offset.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.metallicRoughnessTexture_scale.value": null,
+        "passInfos.0.metallicRoughnessTexture_scale.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_scale.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.metallicRoughnessTexture_rotation.value": null,
+        "passInfos.0.metallicRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_rotation.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_TRANSMISSION_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture_offset.value": null,
+        "passInfos.0.transmissionTexture_offset.hidden": true,
+        "passInfos.0.transmissionTexture_offset.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_offset.label": "Offset",
+        "passInfos.0.transmissionTexture_scale.value": null,
+        "passInfos.0.transmissionTexture_scale.hidden": true,
+        "passInfos.0.transmissionTexture_scale.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_scale.label": "Scale",
+        "passInfos.0.transmissionTexture_rotation.value": null,
+        "passInfos.0.transmissionTexture_rotation.hidden": true,
+        "passInfos.0.transmissionTexture_rotation.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Color Texture"
+        },
+        "passInfos.0.sheenColorTexture_offset.value": null,
+        "passInfos.0.sheenColorTexture_offset.hidden": true,
+        "passInfos.0.sheenColorTexture_offset.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_offset.label": "Offset",
+        "passInfos.0.sheenColorTexture_scale.value": null,
+        "passInfos.0.sheenColorTexture_scale.hidden": true,
+        "passInfos.0.sheenColorTexture_scale.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_scale.label": "Scale",
+        "passInfos.0.sheenColorTexture_rotation.value": null,
+        "passInfos.0.sheenColorTexture_rotation.hidden": true,
+        "passInfos.0.sheenColorTexture_rotation.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture_offset.value": null,
+        "passInfos.0.sheenRoughnessTexture_offset.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_offset.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.sheenRoughnessTexture_scale.value": null,
+        "passInfos.0.sheenRoughnessTexture_scale.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_scale.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.sheenRoughnessTexture_rotation.value": null,
+        "passInfos.0.sheenRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_rotation.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Texture"
+        },
+        "passInfos.0.clearcoatTexture_offset.value": null,
+        "passInfos.0.clearcoatTexture_offset.hidden": true,
+        "passInfos.0.clearcoatTexture_offset.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatTexture_scale.value": null,
+        "passInfos.0.clearcoatTexture_scale.hidden": true,
+        "passInfos.0.clearcoatTexture_scale.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatTexture_rotation.value": null,
+        "passInfos.0.clearcoatTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Normal Texture"
+        },
+        "passInfos.0.clearcoatNormalTexture_offset.value": null,
+        "passInfos.0.clearcoatNormalTexture_offset.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_offset.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatNormalTexture_scale.value": null,
+        "passInfos.0.clearcoatNormalTexture_scale.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_scale.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatNormalTexture_rotation.value": null,
+        "passInfos.0.clearcoatNormalTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture_offset.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_offset.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_offset.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatRoughnessTexture_scale.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_scale.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_scale.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Albedo_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Metallic_N405": 0,
+        "passInfos.0.Port_Opacity_N405": 0,
+        "passInfos.0.Port_SpecularAO_N036": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_SpecularAO_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": true,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "4b2dd464-002a-490e-85b3-ffc5269ae2f4",
+        "passInfos.0.type": "PassInfo",
+        "name": "geometry_0_baked",
+        "fileMeta.id": "527171bc-82c7-4fb3-9ff5-5caf8a2c50fa",
+        "id": "b3acc1eb-5a27-4e8a-a34f-e91f77b77bf1",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "f6e5fd1c-ed25-4301-917e-98cd1543dcaf",
+      "name": "Salami",
+      "type": "ObjectPrefab",
+      "path": "GeneratedMeshes/Salami.glb",
+      "properties": {
+        "prefabInstances.0": "@id:5b85c85d-ddf9-4ce4-a173-9e1040e3573d (Salami)",
+        "prefabInstances.1": "@sceneObject:Visual#11",
+        "lazyLoading": false,
+        "retainAssets": true,
+        "sceneObjects.0": "@id:5b85c85d-ddf9-4ce4-a173-9e1040e3573d (Salami)",
+        "sceneObjects.1": "@id:10b2e5cf-fe3c-4f59-99f0-8661f8c69301 (Scenes)",
+        "sceneObjects.2": "@id:03e767c0-f1a1-445d-965d-0ed1874517aa (Scene)",
+        "sceneObjects.3": "@id:958d8f9a-7a19-433c-af08-4a5ea9082172 (geometry_0)",
+        "rootSceneObjects.0": "@id:5b85c85d-ddf9-4ce4-a173-9e1040e3573d (Salami)",
+        "name": "Salami",
+        "fileMeta.id": "97831d35-cf2e-4926-9daa-69c7f6f4fa55",
+        "id": "f6e5fd1c-ed25-4301-917e-98cd1543dcaf",
+        "type": "ObjectPrefab"
+      }
+    },
+    {
+      "id": "05a193ed-6e8b-4cf2-a0aa-fba3be854202",
+      "name": "geometry_0_baked",
+      "type": "Material",
+      "path": "GeneratedMeshes/Salami.glb",
+      "properties": {
+        "passInfos.0.ENABLE_VERTEX_COLOR_BASE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Vertex Color"
+        },
+        "passInfos.0.ENABLE_GLTF_LIGHTING": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Lighting"
+        },
+        "passInfos.0.baseColorFactor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColorFactor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture.value.id": "c06f9ad0-30df-4381-81a1-1314b60e0ada",
+        "passInfos.0.baseColorTexture.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.emissiveFactor.value": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.emissiveFactor.label": "Emissive Factor",
+        "passInfos.0.ENABLE_EMISSIVE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture.value": null,
+        "passInfos.0.emissiveTexture.hidden": true,
+        "passInfos.0.emissiveTexture.enabledBy": "ENABLE_EMISSIVE",
+        "passInfos.0.emissiveTexture.label": "Texture",
+        "passInfos.0.ENABLE_NORMALMAP": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Map"
+        },
+        "passInfos.0.normalTextureScale.value": null,
+        "passInfos.0.normalTextureScale.hidden": true,
+        "passInfos.0.normalTextureScale.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTextureScale.label": "Scale",
+        "passInfos.0.normalTextureScale.min": 0,
+        "passInfos.0.normalTextureScale.max": 1,
+        "passInfos.0.normalTexture.value": null,
+        "passInfos.0.normalTexture.hidden": true,
+        "passInfos.0.normalTexture.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTexture.label": "Texture",
+        "passInfos.0.metallicFactor.value": 0,
+        "passInfos.0.metallicFactor.label": "Metallic",
+        "passInfos.0.metallicFactor.min": 0,
+        "passInfos.0.metallicFactor.max": 1,
+        "passInfos.0.roughnessFactor.value": 0.5,
+        "passInfos.0.roughnessFactor.label": "Roughness",
+        "passInfos.0.roughnessFactor.min": 0,
+        "passInfos.0.roughnessFactor.max": 1,
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Texture"
+        },
+        "passInfos.0.occlusionTextureStrength.value": 1,
+        "passInfos.0.occlusionTextureStrength.label": "Occlusion Strength",
+        "passInfos.0.occlusionTextureStrength.min": 0,
+        "passInfos.0.occlusionTextureStrength.max": 1,
+        "passInfos.0.metallicRoughnessTexture.value.id": "9b97137a-56ee-4bbd-99cf-fb5cf74cf331",
+        "passInfos.0.metallicRoughnessTexture.label": "Texture",
+        "passInfos.0.METALLIC_ROUGHNESS_TEX_SWIZZLE_RB": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Swizzle RB"
+        },
+        "passInfos.0.ENABLE_TRANSMISSION": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission"
+        },
+        "passInfos.0.screenTexture.value": null,
+        "passInfos.0.screenTexture.hidden": true,
+        "passInfos.0.screenTexture.enabledBy": "ENABLE_TRANSMISSION",
+        "passInfos.0.screenTexture.label": "Screen Texture",
+        "passInfos.0.transmissionFactor.value": null,
+        "passInfos.0.transmissionFactor.hidden": true,
+        "passInfos.0.transmissionFactor.enabledBy": "ENABLE_TRANSMISSION",
+        "passInfos.0.transmissionFactor.label": "Factor",
+        "passInfos.0.transmissionFactor.min": 0,
+        "passInfos.0.transmissionFactor.max": 1,
+        "passInfos.0.ENABLE_TRANSMISSION_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture.value": null,
+        "passInfos.0.transmissionTexture.hidden": true,
+        "passInfos.0.transmissionTexture.enabledBy": "ENABLE_TRANSMISSION_TEX",
+        "passInfos.0.transmissionTexture.label": "Texture",
+        "passInfos.0.ENABLE_SHEEN": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen"
+        },
+        "passInfos.0.sheenColorFactor.value": null,
+        "passInfos.0.sheenColorFactor.hidden": true,
+        "passInfos.0.sheenColorFactor.enabledBy": "ENABLE_SHEEN",
+        "passInfos.0.sheenColorFactor.label": "Color",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Color Texture"
+        },
+        "passInfos.0.sheenColorTexture.value": null,
+        "passInfos.0.sheenColorTexture.hidden": true,
+        "passInfos.0.sheenColorTexture.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenColorTexture.label": "Texture",
+        "passInfos.0.sheenRoughnessFactor.value": null,
+        "passInfos.0.sheenRoughnessFactor.hidden": true,
+        "passInfos.0.sheenRoughnessFactor.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.sheenRoughnessFactor.min": 0,
+        "passInfos.0.sheenRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture.value": null,
+        "passInfos.0.sheenRoughnessTexture.hidden": true,
+        "passInfos.0.sheenRoughnessTexture.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEX",
+        "passInfos.0.sheenRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat"
+        },
+        "passInfos.0.clearcoatFactor.value": null,
+        "passInfos.0.clearcoatFactor.hidden": true,
+        "passInfos.0.clearcoatFactor.enabledBy": "ENABLE_CLEARCOAT",
+        "passInfos.0.clearcoatFactor.label": "Factor",
+        "passInfos.0.clearcoatFactor.min": 0,
+        "passInfos.0.clearcoatFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat Texture"
+        },
+        "passInfos.0.clearcoatTexture.value": null,
+        "passInfos.0.clearcoatTexture.hidden": true,
+        "passInfos.0.clearcoatTexture.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatTexture.label": "Texture",
+        "passInfos.0.clearcoatRoughnessFactor.value": null,
+        "passInfos.0.clearcoatRoughnessFactor.hidden": true,
+        "passInfos.0.clearcoatRoughnessFactor.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.clearcoatRoughnessFactor.min": 0,
+        "passInfos.0.clearcoatRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture.value": null,
+        "passInfos.0.clearcoatRoughnessTexture.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEX",
+        "passInfos.0.clearcoatRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal"
+        },
+        "passInfos.0.clearcoatNormalTexture.value": null,
+        "passInfos.0.clearcoatNormalTexture.hidden": true,
+        "passInfos.0.clearcoatNormalTexture.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEX",
+        "passInfos.0.clearcoatNormalTexture.label": "Texture",
+        "passInfos.0.ENABLE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Texture Transform"
+        },
+        "passInfos.0.ENABLE_BASE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture_offset.value": null,
+        "passInfos.0.baseColorTexture_offset.hidden": true,
+        "passInfos.0.baseColorTexture_offset.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_offset.label": "Offset",
+        "passInfos.0.baseColorTexture_scale.value": null,
+        "passInfos.0.baseColorTexture_scale.hidden": true,
+        "passInfos.0.baseColorTexture_scale.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_scale.label": "Scale",
+        "passInfos.0.baseColorTexture_rotation.value": null,
+        "passInfos.0.baseColorTexture_rotation.hidden": true,
+        "passInfos.0.baseColorTexture_rotation.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_EMISSIVE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture_offset.value": null,
+        "passInfos.0.emissiveTexture_offset.hidden": true,
+        "passInfos.0.emissiveTexture_offset.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_offset.label": "Offset",
+        "passInfos.0.emissiveTexture_scale.value": null,
+        "passInfos.0.emissiveTexture_scale.hidden": true,
+        "passInfos.0.emissiveTexture_scale.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_scale.label": "Scale",
+        "passInfos.0.emissiveTexture_rotation.value": null,
+        "passInfos.0.emissiveTexture_rotation.hidden": true,
+        "passInfos.0.emissiveTexture_rotation.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Texture"
+        },
+        "passInfos.0.normalTexture_offset.value": null,
+        "passInfos.0.normalTexture_offset.hidden": true,
+        "passInfos.0.normalTexture_offset.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_offset.label": "Offset",
+        "passInfos.0.normalTexture_scale.value": null,
+        "passInfos.0.normalTexture_scale.hidden": true,
+        "passInfos.0.normalTexture_scale.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_scale.label": "Scale",
+        "passInfos.0.normalTexture_rotation.value": null,
+        "passInfos.0.normalTexture_rotation.hidden": true,
+        "passInfos.0.normalTexture_rotation.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic Roughness Texture"
+        },
+        "passInfos.0.metallicRoughnessTexture_offset.value": null,
+        "passInfos.0.metallicRoughnessTexture_offset.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_offset.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.metallicRoughnessTexture_scale.value": null,
+        "passInfos.0.metallicRoughnessTexture_scale.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_scale.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.metallicRoughnessTexture_rotation.value": null,
+        "passInfos.0.metallicRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_rotation.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_TRANSMISSION_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture_offset.value": null,
+        "passInfos.0.transmissionTexture_offset.hidden": true,
+        "passInfos.0.transmissionTexture_offset.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_offset.label": "Offset",
+        "passInfos.0.transmissionTexture_scale.value": null,
+        "passInfos.0.transmissionTexture_scale.hidden": true,
+        "passInfos.0.transmissionTexture_scale.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_scale.label": "Scale",
+        "passInfos.0.transmissionTexture_rotation.value": null,
+        "passInfos.0.transmissionTexture_rotation.hidden": true,
+        "passInfos.0.transmissionTexture_rotation.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Color Texture"
+        },
+        "passInfos.0.sheenColorTexture_offset.value": null,
+        "passInfos.0.sheenColorTexture_offset.hidden": true,
+        "passInfos.0.sheenColorTexture_offset.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_offset.label": "Offset",
+        "passInfos.0.sheenColorTexture_scale.value": null,
+        "passInfos.0.sheenColorTexture_scale.hidden": true,
+        "passInfos.0.sheenColorTexture_scale.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_scale.label": "Scale",
+        "passInfos.0.sheenColorTexture_rotation.value": null,
+        "passInfos.0.sheenColorTexture_rotation.hidden": true,
+        "passInfos.0.sheenColorTexture_rotation.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture_offset.value": null,
+        "passInfos.0.sheenRoughnessTexture_offset.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_offset.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.sheenRoughnessTexture_scale.value": null,
+        "passInfos.0.sheenRoughnessTexture_scale.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_scale.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.sheenRoughnessTexture_rotation.value": null,
+        "passInfos.0.sheenRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_rotation.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Texture"
+        },
+        "passInfos.0.clearcoatTexture_offset.value": null,
+        "passInfos.0.clearcoatTexture_offset.hidden": true,
+        "passInfos.0.clearcoatTexture_offset.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatTexture_scale.value": null,
+        "passInfos.0.clearcoatTexture_scale.hidden": true,
+        "passInfos.0.clearcoatTexture_scale.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatTexture_rotation.value": null,
+        "passInfos.0.clearcoatTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Normal Texture"
+        },
+        "passInfos.0.clearcoatNormalTexture_offset.value": null,
+        "passInfos.0.clearcoatNormalTexture_offset.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_offset.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatNormalTexture_scale.value": null,
+        "passInfos.0.clearcoatNormalTexture_scale.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_scale.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatNormalTexture_rotation.value": null,
+        "passInfos.0.clearcoatNormalTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture_offset.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_offset.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_offset.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatRoughnessTexture_scale.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_scale.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_scale.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Albedo_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Metallic_N405": 0,
+        "passInfos.0.Port_Opacity_N405": 0,
+        "passInfos.0.Port_SpecularAO_N036": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_SpecularAO_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": true,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "455014c1-94c8-41a3-86d9-9e37cf09428d",
+        "passInfos.0.type": "PassInfo",
+        "name": "geometry_0_baked",
+        "fileMeta.id": "97831d35-cf2e-4926-9daa-69c7f6f4fa55",
+        "id": "05a193ed-6e8b-4cf2-a0aa-fba3be854202",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "1526fac4-101a-4ed3-8589-bf605867d7ce",
+      "name": "Peppers",
+      "type": "ObjectPrefab",
+      "path": "GeneratedMeshes/Peppers.glb",
+      "properties": {
+        "prefabInstances.0": "@id:5217b2e0-f388-45ea-acd6-49cfa5bbd250 (Peppers)",
+        "prefabInstances.1": "@sceneObject:Visual#13",
+        "lazyLoading": false,
+        "retainAssets": true,
+        "sceneObjects.0": "@id:5217b2e0-f388-45ea-acd6-49cfa5bbd250 (Peppers)",
+        "sceneObjects.1": "@id:ade67925-bc96-45da-926d-d8c6df4e9b4f (Scenes)",
+        "sceneObjects.2": "@id:85bf4e36-1e03-440f-b291-d3352d24328a (Scene)",
+        "sceneObjects.3": "@id:233bb9b2-6b09-4e37-87ab-1e873323189a (geometry_0)",
+        "rootSceneObjects.0": "@id:5217b2e0-f388-45ea-acd6-49cfa5bbd250 (Peppers)",
+        "name": "Peppers",
+        "fileMeta.id": "36102a32-321f-45fb-9f65-a1b21b40d272",
+        "id": "1526fac4-101a-4ed3-8589-bf605867d7ce",
+        "type": "ObjectPrefab"
+      }
+    },
+    {
+      "id": "5343beb8-52ce-42f7-862c-4de0d932c718",
+      "name": "geometry_0_baked",
+      "type": "Material",
+      "path": "GeneratedMeshes/Peppers.glb",
+      "properties": {
+        "passInfos.0.ENABLE_VERTEX_COLOR_BASE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Vertex Color"
+        },
+        "passInfos.0.ENABLE_GLTF_LIGHTING": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Lighting"
+        },
+        "passInfos.0.baseColorFactor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColorFactor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture.value.id": "13e0011b-2736-43ad-aef1-a6cc573c7ef9",
+        "passInfos.0.baseColorTexture.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.emissiveFactor.value": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.emissiveFactor.label": "Emissive Factor",
+        "passInfos.0.ENABLE_EMISSIVE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture.value": null,
+        "passInfos.0.emissiveTexture.hidden": true,
+        "passInfos.0.emissiveTexture.enabledBy": "ENABLE_EMISSIVE",
+        "passInfos.0.emissiveTexture.label": "Texture",
+        "passInfos.0.ENABLE_NORMALMAP": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Map"
+        },
+        "passInfos.0.normalTextureScale.value": null,
+        "passInfos.0.normalTextureScale.hidden": true,
+        "passInfos.0.normalTextureScale.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTextureScale.label": "Scale",
+        "passInfos.0.normalTextureScale.min": 0,
+        "passInfos.0.normalTextureScale.max": 1,
+        "passInfos.0.normalTexture.value": null,
+        "passInfos.0.normalTexture.hidden": true,
+        "passInfos.0.normalTexture.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTexture.label": "Texture",
+        "passInfos.0.metallicFactor.value": 0,
+        "passInfos.0.metallicFactor.label": "Metallic",
+        "passInfos.0.metallicFactor.min": 0,
+        "passInfos.0.metallicFactor.max": 1,
+        "passInfos.0.roughnessFactor.value": 0.5,
+        "passInfos.0.roughnessFactor.label": "Roughness",
+        "passInfos.0.roughnessFactor.min": 0,
+        "passInfos.0.roughnessFactor.max": 1,
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Texture"
+        },
+        "passInfos.0.occlusionTextureStrength.value": 1,
+        "passInfos.0.occlusionTextureStrength.label": "Occlusion Strength",
+        "passInfos.0.occlusionTextureStrength.min": 0,
+        "passInfos.0.occlusionTextureStrength.max": 1,
+        "passInfos.0.metallicRoughnessTexture.value.id": "804a9e83-ed1b-4dc5-a11e-a7c3b4223e97",
+        "passInfos.0.metallicRoughnessTexture.label": "Texture",
+        "passInfos.0.METALLIC_ROUGHNESS_TEX_SWIZZLE_RB": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Swizzle RB"
+        },
+        "passInfos.0.ENABLE_TRANSMISSION": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission"
+        },
+        "passInfos.0.screenTexture.value": null,
+        "passInfos.0.screenTexture.hidden": true,
+        "passInfos.0.screenTexture.enabledBy": "ENABLE_TRANSMISSION",
+        "passInfos.0.screenTexture.label": "Screen Texture",
+        "passInfos.0.transmissionFactor.value": null,
+        "passInfos.0.transmissionFactor.hidden": true,
+        "passInfos.0.transmissionFactor.enabledBy": "ENABLE_TRANSMISSION",
+        "passInfos.0.transmissionFactor.label": "Factor",
+        "passInfos.0.transmissionFactor.min": 0,
+        "passInfos.0.transmissionFactor.max": 1,
+        "passInfos.0.ENABLE_TRANSMISSION_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture.value": null,
+        "passInfos.0.transmissionTexture.hidden": true,
+        "passInfos.0.transmissionTexture.enabledBy": "ENABLE_TRANSMISSION_TEX",
+        "passInfos.0.transmissionTexture.label": "Texture",
+        "passInfos.0.ENABLE_SHEEN": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen"
+        },
+        "passInfos.0.sheenColorFactor.value": null,
+        "passInfos.0.sheenColorFactor.hidden": true,
+        "passInfos.0.sheenColorFactor.enabledBy": "ENABLE_SHEEN",
+        "passInfos.0.sheenColorFactor.label": "Color",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Color Texture"
+        },
+        "passInfos.0.sheenColorTexture.value": null,
+        "passInfos.0.sheenColorTexture.hidden": true,
+        "passInfos.0.sheenColorTexture.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenColorTexture.label": "Texture",
+        "passInfos.0.sheenRoughnessFactor.value": null,
+        "passInfos.0.sheenRoughnessFactor.hidden": true,
+        "passInfos.0.sheenRoughnessFactor.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.sheenRoughnessFactor.min": 0,
+        "passInfos.0.sheenRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture.value": null,
+        "passInfos.0.sheenRoughnessTexture.hidden": true,
+        "passInfos.0.sheenRoughnessTexture.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEX",
+        "passInfos.0.sheenRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat"
+        },
+        "passInfos.0.clearcoatFactor.value": null,
+        "passInfos.0.clearcoatFactor.hidden": true,
+        "passInfos.0.clearcoatFactor.enabledBy": "ENABLE_CLEARCOAT",
+        "passInfos.0.clearcoatFactor.label": "Factor",
+        "passInfos.0.clearcoatFactor.min": 0,
+        "passInfos.0.clearcoatFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat Texture"
+        },
+        "passInfos.0.clearcoatTexture.value": null,
+        "passInfos.0.clearcoatTexture.hidden": true,
+        "passInfos.0.clearcoatTexture.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatTexture.label": "Texture",
+        "passInfos.0.clearcoatRoughnessFactor.value": null,
+        "passInfos.0.clearcoatRoughnessFactor.hidden": true,
+        "passInfos.0.clearcoatRoughnessFactor.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.clearcoatRoughnessFactor.min": 0,
+        "passInfos.0.clearcoatRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture.value": null,
+        "passInfos.0.clearcoatRoughnessTexture.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEX",
+        "passInfos.0.clearcoatRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal"
+        },
+        "passInfos.0.clearcoatNormalTexture.value": null,
+        "passInfos.0.clearcoatNormalTexture.hidden": true,
+        "passInfos.0.clearcoatNormalTexture.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEX",
+        "passInfos.0.clearcoatNormalTexture.label": "Texture",
+        "passInfos.0.ENABLE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Texture Transform"
+        },
+        "passInfos.0.ENABLE_BASE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture_offset.value": null,
+        "passInfos.0.baseColorTexture_offset.hidden": true,
+        "passInfos.0.baseColorTexture_offset.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_offset.label": "Offset",
+        "passInfos.0.baseColorTexture_scale.value": null,
+        "passInfos.0.baseColorTexture_scale.hidden": true,
+        "passInfos.0.baseColorTexture_scale.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_scale.label": "Scale",
+        "passInfos.0.baseColorTexture_rotation.value": null,
+        "passInfos.0.baseColorTexture_rotation.hidden": true,
+        "passInfos.0.baseColorTexture_rotation.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_EMISSIVE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture_offset.value": null,
+        "passInfos.0.emissiveTexture_offset.hidden": true,
+        "passInfos.0.emissiveTexture_offset.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_offset.label": "Offset",
+        "passInfos.0.emissiveTexture_scale.value": null,
+        "passInfos.0.emissiveTexture_scale.hidden": true,
+        "passInfos.0.emissiveTexture_scale.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_scale.label": "Scale",
+        "passInfos.0.emissiveTexture_rotation.value": null,
+        "passInfos.0.emissiveTexture_rotation.hidden": true,
+        "passInfos.0.emissiveTexture_rotation.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Texture"
+        },
+        "passInfos.0.normalTexture_offset.value": null,
+        "passInfos.0.normalTexture_offset.hidden": true,
+        "passInfos.0.normalTexture_offset.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_offset.label": "Offset",
+        "passInfos.0.normalTexture_scale.value": null,
+        "passInfos.0.normalTexture_scale.hidden": true,
+        "passInfos.0.normalTexture_scale.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_scale.label": "Scale",
+        "passInfos.0.normalTexture_rotation.value": null,
+        "passInfos.0.normalTexture_rotation.hidden": true,
+        "passInfos.0.normalTexture_rotation.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic Roughness Texture"
+        },
+        "passInfos.0.metallicRoughnessTexture_offset.value": null,
+        "passInfos.0.metallicRoughnessTexture_offset.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_offset.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.metallicRoughnessTexture_scale.value": null,
+        "passInfos.0.metallicRoughnessTexture_scale.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_scale.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.metallicRoughnessTexture_rotation.value": null,
+        "passInfos.0.metallicRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_rotation.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_TRANSMISSION_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture_offset.value": null,
+        "passInfos.0.transmissionTexture_offset.hidden": true,
+        "passInfos.0.transmissionTexture_offset.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_offset.label": "Offset",
+        "passInfos.0.transmissionTexture_scale.value": null,
+        "passInfos.0.transmissionTexture_scale.hidden": true,
+        "passInfos.0.transmissionTexture_scale.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_scale.label": "Scale",
+        "passInfos.0.transmissionTexture_rotation.value": null,
+        "passInfos.0.transmissionTexture_rotation.hidden": true,
+        "passInfos.0.transmissionTexture_rotation.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Color Texture"
+        },
+        "passInfos.0.sheenColorTexture_offset.value": null,
+        "passInfos.0.sheenColorTexture_offset.hidden": true,
+        "passInfos.0.sheenColorTexture_offset.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_offset.label": "Offset",
+        "passInfos.0.sheenColorTexture_scale.value": null,
+        "passInfos.0.sheenColorTexture_scale.hidden": true,
+        "passInfos.0.sheenColorTexture_scale.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_scale.label": "Scale",
+        "passInfos.0.sheenColorTexture_rotation.value": null,
+        "passInfos.0.sheenColorTexture_rotation.hidden": true,
+        "passInfos.0.sheenColorTexture_rotation.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture_offset.value": null,
+        "passInfos.0.sheenRoughnessTexture_offset.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_offset.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.sheenRoughnessTexture_scale.value": null,
+        "passInfos.0.sheenRoughnessTexture_scale.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_scale.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.sheenRoughnessTexture_rotation.value": null,
+        "passInfos.0.sheenRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_rotation.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Texture"
+        },
+        "passInfos.0.clearcoatTexture_offset.value": null,
+        "passInfos.0.clearcoatTexture_offset.hidden": true,
+        "passInfos.0.clearcoatTexture_offset.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatTexture_scale.value": null,
+        "passInfos.0.clearcoatTexture_scale.hidden": true,
+        "passInfos.0.clearcoatTexture_scale.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatTexture_rotation.value": null,
+        "passInfos.0.clearcoatTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Normal Texture"
+        },
+        "passInfos.0.clearcoatNormalTexture_offset.value": null,
+        "passInfos.0.clearcoatNormalTexture_offset.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_offset.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatNormalTexture_scale.value": null,
+        "passInfos.0.clearcoatNormalTexture_scale.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_scale.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatNormalTexture_rotation.value": null,
+        "passInfos.0.clearcoatNormalTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture_offset.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_offset.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_offset.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatRoughnessTexture_scale.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_scale.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_scale.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Albedo_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Metallic_N405": 0,
+        "passInfos.0.Port_Opacity_N405": 0,
+        "passInfos.0.Port_SpecularAO_N036": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_SpecularAO_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": true,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "b410a9e0-f5d5-4b45-b557-df193d89097d",
+        "passInfos.0.type": "PassInfo",
+        "name": "geometry_0_baked",
+        "fileMeta.id": "36102a32-321f-45fb-9f65-a1b21b40d272",
+        "id": "5343beb8-52ce-42f7-862c-4de0d932c718",
         "type": "Material"
       }
     }

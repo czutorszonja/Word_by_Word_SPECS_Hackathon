@@ -9,7 +9,7 @@
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {button, flexBox, image, item, lineHeightCm, obj, panel, register, retire, setTextColor, setToggleLater, styleWhenReady, text, textWidthCm, AMBER, GREEN, TEXT_SOFT} from "./WbwSharedUI"
+import {button, flexBox, image, item, lineHeightCm, obj, panel, register, retire, setTextColor, setToggleLater, styleWhenReady, text, textWidthCm, AMBER, GREEN, TEXT_SOFT, useTone, headerRule, HEADER_RULE_H, TONE_PRACTICE} from "./WbwSharedUI"
 
 const ICON_CLOSE = requireAsset("../Icons/close.png") as Texture
 const ICON_CHECK = requireAsset("../Icons/check_circle.png") as Texture
@@ -160,13 +160,15 @@ export class WbwPracticeBoardUI extends BaseScriptComponent {
     const inner = Math.max(bodyW, titleW + progW + closeS + 2)
     const subH = subtitle.length > 0 ? lineHeightCm("Caption", d) : 0
     const W = inner + 2 * pad
-    const H = 2 * pad + headH + (subH > 0 ? subH + gap : 0) + gap + bodyH
+    const H = 2 * pad + headH + HEADER_RULE_H + gap + (subH > 0 ? subH + gap : 0) + gap + bodyH
+    useTone(TONE_PRACTICE)
     const p = panel(this.sceneObject, "PracticeBoard", W, H, {gap: gap, padX: pad, padY: pad, justify: FlexJustify.Center, align: FlexAlign.Center})
     this.root = p.root
     const head = flexBox(p.content, "Header", "row", inner, headH, {gap: 1, justify: FlexJustify.SpaceBetween, align: FlexAlign.Center})
     text(head, "Title", "Practice", "Headline1", d, {w: titleW + 0.5, h: headH, align: "left"})
     this.progress = text(head, "PracticeProgress", "", "Headline2", d, {w: inner - titleW - closeS - 2.5, h: headH, color: TEXT_SOFT, align: "right"})
     button(head, "PracticeCloseButton", closeS, closeS, "", d, () => this._onClose.invoke(), {icon: ICON_CLOSE, iconSize: 2})
+    headerRule(p.content, inner)
     if (subH > 0) text(p.content, "Subtitle", subtitle, "Caption", d, {h: subH, color: TEXT_SOFT})
     return {content: p.content}
   }
@@ -184,7 +186,8 @@ export class WbwPracticeBoardUI extends BaseScriptComponent {
     image(fill, "Fill", FILL, w - 0.5, h - 0.5, this.matchedColor, false)
     fill.enabled = false
     const face = flexBox(so, "Face", "row", w, h, {gap: 0.8, justify: FlexJustify.Center, align: FlexAlign.Center})
-    face.getTransform().setLocalPosition(new vec3(0, 0, 0.08))
+    // content sits a little left so the matched checkmark at the right edge never covers the label
+    face.getTransform().setLocalPosition(new vec3(-1.3, 0, 0.08))
     if (pic) image(face, "Picture", pic, 3.2)
     text(face, "Label", label, side === "hu" ? "Headline2" : "Subheadline", d, {w: w - (pic ? 5.2 : 1.6) - 3, h: 3.4, onPanel: false})
     const check = obj(so, "Check", new vec3(w / 2 - 1.8, 0, 0.2))

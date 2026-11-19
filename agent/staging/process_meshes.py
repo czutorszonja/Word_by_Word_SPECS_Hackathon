@@ -19,6 +19,7 @@ SIZE = {
  "Meatballs": ("target", "15,8,14"), "Lettuce": ("target", "15,8,14"), "Spinach": ("target", "15,8,14"),
  "Tomato": ("target", "15,8,14"), "Olives": ("target", "15,8,14"), "Pickles": ("target", "15,8,14"),
  "Onion": ("target", "15,8,14"), "Mayonnaise": ("target", "15,8,14"),
+ "Salami": ("target", "15,8,14"), "Peppers": ("target", "15,8,14"), "Cucumber": ("target", "15,8,14"), "Mustard": ("target", "15,8,14"),
  "CroissantBoard": ("max", 32), "BreadLoaf": ("max", 26), "Sandwiches": ("max", 26), "CoffeeCup": ("max", 12),
  "MilkJug": ("max", 15), "WaterBottle": ("max", 24), "OrangeCup": ("max", 9), "CupStacks": ("max", 50),
  "WallShelf": ("max", 190), "GlobePendant": ("max", 60), "EdisonCluster": ("max", 70), "PottedPlant": ("max", 170),

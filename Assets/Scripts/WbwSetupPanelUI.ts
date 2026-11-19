@@ -6,7 +6,7 @@
 // Stable names for tests: SetupPanel, SetupSpeakEnglish, SetupLearnHungarian, SetupConfirmButton.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {button, flexBox, lineHeightCm, panel, retire, setToggleLater, text, textWidthCm, MUTED, TEXT_SOFT} from "./WbwSharedUI"
+import {button, flexBox, lineHeightCm, panel, retire, setToggleLater, text, textWidthCm, MUTED, TEXT_SOFT, useTone, headerRule, HEADER_RULE_H, TONE_LEARN} from "./WbwSharedUI"
 
 const ICON_CHECK = requireAsset("../Icons/check_circle.png") as Texture
 const ICON_NEXT = requireAsset("../Icons/arrow_forward.png") as Texture
@@ -47,10 +47,13 @@ export class WbwSetupPanelUI extends BaseScriptComponent {
     const soonH = lineHeightCm("Caption", d)
     const inner = Math.max(titleW, labelW + 1 + choiceW, soonW) + 0.5
     const W = inner + 2 * pad
-    const H = 2 * pad + titleH + 2 * rowH + soonH + 4.4 + 4 * gap
+    const H = 2 * pad + titleH + HEADER_RULE_H + 2 * rowH + soonH + 4.4 + 4 * gap + 0.3
+    useTone(TONE_LEARN)
     const p = panel(this.sceneObject, "SetupPanel", W, H, {gap: gap, padX: pad, padY: pad, justify: FlexJustify.Center, align: FlexAlign.Center})
     this.root = p.root
-    text(p.content, "Title", this.headingText, "Headline1", d, {h: titleH})
+    const titleBlock = flexBox(p.content, "TitleBlock", "column", inner, titleH + HEADER_RULE_H + 0.3, {gap: 0.3, justify: FlexJustify.Center, align: FlexAlign.Center})
+    text(titleBlock, "Title", this.headingText, "Headline1", d, {h: titleH})
+    headerRule(titleBlock)
 
     const r1 = flexBox(p.content, "SpeakRow", "row", inner, rowH, {gap: 1, justify: FlexJustify.Center, align: FlexAlign.Center})
     text(r1, "SpeakLabel", "I speak", "Body", d, {w: labelW, h: rowH, align: "left", color: TEXT_SOFT})

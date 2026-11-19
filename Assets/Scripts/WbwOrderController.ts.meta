@@ -31,6 +31,7 @@
     arrowInViewDeg: false
     caption: false
     captionLingerSec: false
+    fillingsCardCount: false
     hint: false
     phraseDistanceCm: false
     phraseDropCm: false
@@ -61,6 +62,7 @@
       phraseDistanceCm: !<float> 60.000000
       phraseDropCm: !<float> 17.000000
       arrowInViewDeg: !<float> 24.000000
+      fillingsCardCount: !<float> 3.000000
   ScriptTypes:
     -
       {}
@@ -82,4 +84,5 @@
     - '// @input float phraseDistanceCm = 68 {"hint":"Distance of the phrase cards in front of the user when NOT on the counter (cm)", "widget":"slider", "min":40, "max":90, "step":1}'
     - '// @input float phraseDropCm = 7 {"hint":"How far below eye level the phrase cards sit (cm)", "widget":"slider", "min":0, "max":40, "step":1}'
     - "// @input float arrowInViewDeg = 24 {\"hint\":\"Objects within this angle (deg) of the view direction count as 'in view' for the arrow\", \"widget\":\"slider\", \"min\":10, \"max\":45, \"step\":1}"
+    - "// @input float fillingsCardCount = 3 {\"hint\":\"How many filling phrases the 'Mit kér bele?' step shows (plus Kész). Phrases with words you saved come first; the leave-out phrase is always shown.\", \"widget\":\"slider\", \"min\":2, \"max\":4, \"step\":1}"
     - '// @ui {"widget":"group_end"}'

@@ -175,6 +175,8 @@ export class WbwTempProbe extends BaseScriptComponent {
       // toward <target> (default ServerSpot); the café is tilted about the eye to emulate head pitch
       // relative to the fixed preview head (+ = look up)
       const parts = this.stage.split(":")
+      // optional 6th part: words to save first (comma list) so the filling phrases favour them
+      if (parts[5]) for (const w of parts[5].split(",")) (m as any).session.save(w)
       m.selectMode("live")
       this.later(2.6, () => {
         this.frame(parts[2] || "ServerSpot")
@@ -225,11 +227,12 @@ export class WbwTempProbe extends BaseScriptComponent {
       })
       return
     }
-    if (this.stage === "wordcard" || this.stage === "hover") {
+    if (this.stage.indexOf("wordcard") === 0 || this.stage === "hover") {
+      const wid = this.stage.split(":")[1] || "olivabogyo"
       m.selectMode("learn")
-      this.later(1.2, () => this.frame("Learnable_paradicsom"))
+      this.later(1.2, () => this.frame("Learnable_" + wid))
       this.later(4.5, () => {
-        print(`PROBE select olivabogyo -> ${L.selectById("olivabogyo")} card=${L.activeCardWordId} brackets=${L.bracketedIds}`)
+        print(`PROBE select ${wid} -> ${L.selectById(wid)} card=${L.activeCardWordId} brackets=${L.bracketedIds}`)
         if (this.stage === "hover") this.later(0.6, () => {
           const card = (m as any).learn.wordCard
           const vis = (name: string) => {
@@ -266,12 +269,18 @@ export class WbwTempProbe extends BaseScriptComponent {
       })
       return
     }
+    if (this.stage === "menu") {
+      // screenshot-only: the mode menu (after setup), with the Learn tile targeted
+      m.selectMode("learn")
+      this.later(1.0, () => m.toggleMenu())
+      return
+    }
     if (this.stage === "flow") {
       this.runFlow()
       return
     }
     if (this.stage === "practice") {
-      for (const id of ["olivabogyo", "sonka", "sajt", "paradicsom"]) (m as any).session.save(id)
+      for (const id of ["szalami", "paprika", "sajt", "uborka_friss"]) (m as any).session.save(id)
       m.selectMode("practice")
       this.later(3.0, () => {
         print(`PROBE practice active=${P.active} left=${P.leftIds}`)

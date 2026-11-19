@@ -13,7 +13,7 @@ export interface WordEntry {
   en: string            // English translation
   exampleHu: string     // example sentence, reusing an ordering phrase pattern
   exampleEn: string
-  exampleAudio: string  // phrase clip key if the example IS a recorded phrase, else ""
+  exampleAudio: string  // clip key for the example sentence ("a+b+c" = clips played in sequence), else ""
   audio: string         // word clip key (w_*.wav)
   picture: string       // illustration key
   area: WordArea
@@ -23,7 +23,7 @@ export interface PhraseEntry {
   id: string            // stable id, used in SceneObject names: PhraseCard_<id>
   hu: string
   en: string
-  audio: string         // p_*.wav key ("" for UI-only cards like Done)
+  audio: string         // p_*.wav key, or "a+b+c" clips in sequence ("" for UI-only cards like Done)
   picture: string
   words: string[]       // word ids this phrase uses (for "favour saved words")
 }
@@ -37,17 +37,23 @@ export interface ServerLine {
 
 export const WORDS: WordEntry[] = [
   // Sandwich counter — ingredient row (left → right as seen from the user)
+  // Back row of the well: meats, cheese and sauces · front row: vegetables (see SandwichCounter)
   {id: "sonka", hu: "sonka", en: "ham", exampleHu: "Sonkát és sajtot kérek.", exampleEn: "Ham and cheese, please.", exampleAudio: "p_sonka_sajt", audio: "w_sonka", picture: "sonka", area: "sandwich"},
   {id: "sajt", hu: "sajt", en: "cheese", exampleHu: "Sonkát és sajtot kérek.", exampleEn: "Ham and cheese, please.", exampleAudio: "p_sonka_sajt", audio: "w_sajt", picture: "sajt", area: "sandwich"},
-  {id: "csirke", hu: "csirke", en: "chicken", exampleHu: "Kérhetek csirkét?", exampleEn: "Could I have some chicken?", exampleAudio: "", audio: "w_csirke", picture: "csirke", area: "sandwich"},
-  {id: "husgomboc", hu: "húsgombóc", en: "meatball", exampleHu: "Kérhetek húsgombócot?", exampleEn: "Could I have meatballs?", exampleAudio: "", audio: "w_husgomboc", picture: "husgomboc", area: "sandwich"},
-  {id: "salata", hu: "saláta", en: "lettuce", exampleHu: "Kérhetek salátát?", exampleEn: "Could I have some lettuce?", exampleAudio: "", audio: "w_salata", picture: "salata", area: "sandwich"},
-  {id: "spenot", hu: "spenót", en: "spinach", exampleHu: "Spenót nélkül, kérem.", exampleEn: "Without spinach, please.", exampleAudio: "", audio: "w_spenot", picture: "spenot", area: "sandwich"},
-  {id: "paradicsom", hu: "paradicsom", en: "tomato", exampleHu: "Kérhetek paradicsomot?", exampleEn: "Could I have some tomato?", exampleAudio: "", audio: "w_paradicsom", picture: "paradicsom", area: "sandwich"},
+  // id stays "csirke" (stable SceneObject name Learnable_csirke); the item is roast chicken
+  {id: "csirke", hu: "sült csirke", en: "roast chicken", exampleHu: "Sült csirkét kérek.", exampleEn: "Roast chicken, please.", exampleAudio: "a_sult_csirke+c_kerek", audio: "w_sult_csirke", picture: "csirke", area: "sandwich"},
+  {id: "szalami", hu: "szalámi", en: "salami", exampleHu: "Szalámit és sajtot kérek.", exampleEn: "Salami and cheese, please.", exampleAudio: "a_szalami+c_es+a_sajt+c_kerek", audio: "w_szalami", picture: "szalami", area: "sandwich"},
+  {id: "husgomboc", hu: "húsgombóc", en: "meatball", exampleHu: "Húsgombócot kérek.", exampleEn: "Meatballs, please.", exampleAudio: "a_husgomboc+c_kerek", audio: "w_husgomboc", picture: "husgomboc", area: "sandwich"},
+  {id: "mustar", hu: "mustár", en: "mustard", exampleHu: "Mustár nélkül, kérem.", exampleEn: "Without mustard, please.", exampleAudio: "w_mustar+c_nelkul+c_kerem", audio: "w_mustar", picture: "mustar", area: "sandwich"},
+  {id: "salata", hu: "saláta", en: "lettuce", exampleHu: "Salátát kérek.", exampleEn: "Lettuce, please.", exampleAudio: "a_salata+c_kerek", audio: "w_salata", picture: "salata", area: "sandwich"},
+  {id: "spenot", hu: "spenót", en: "spinach", exampleHu: "Spenót nélkül, kérem.", exampleEn: "Without spinach, please.", exampleAudio: "w_spenot+c_nelkul+c_kerem", audio: "w_spenot", picture: "spenot", area: "sandwich"},
+  {id: "paradicsom", hu: "paradicsom", en: "tomato", exampleHu: "Paradicsomot kérek.", exampleEn: "Tomato, please.", exampleAudio: "a_paradicsom+c_kerek", audio: "w_paradicsom", picture: "paradicsom", area: "sandwich"},
+  {id: "paprika", hu: "paprika", en: "peppers", exampleHu: "Paprikát és uborkát kérek.", exampleEn: "Peppers and cucumber, please.", exampleAudio: "a_paprika+c_es+a_uborka_friss+c_kerek", audio: "w_paprika", picture: "paprika", area: "sandwich"},
+  {id: "uborka_friss", hu: "uborka", en: "cucumber", exampleHu: "Uborkát kérek.", exampleEn: "Cucumber, please.", exampleAudio: "a_uborka_friss+c_kerek", audio: "w_uborka_friss", picture: "uborka_friss", area: "sandwich"},
   {id: "olivabogyo", hu: "olívabogyó", en: "olives", exampleHu: "Kérhetek olívabogyót?", exampleEn: "Could I have some olives?", exampleAudio: "p_kerhetek_oliva", audio: "w_olivabogyo", picture: "olivabogyo", area: "sandwich"},
   {id: "uborka", hu: "savanyú uborka", en: "pickles", exampleHu: "Savanyú uborka nélkül, kérem.", exampleEn: "Without pickles, please.", exampleAudio: "p_uborka_nelkul", audio: "w_uborka", picture: "uborka", area: "sandwich"},
-  {id: "hagyma", hu: "hagyma", en: "onion", exampleHu: "Hagyma nélkül, kérem.", exampleEn: "Without onion, please.", exampleAudio: "", audio: "w_hagyma", picture: "hagyma", area: "sandwich"},
-  {id: "majonez", hu: "majonéz", en: "mayonnaise", exampleHu: "Majonéz nélkül, kérem.", exampleEn: "Without mayonnaise, please.", exampleAudio: "", audio: "w_majonez", picture: "majonez", area: "sandwich"},
+  {id: "hagyma", hu: "hagyma", en: "onion", exampleHu: "Hagyma nélkül, kérem.", exampleEn: "Without onion, please.", exampleAudio: "w_hagyma+c_nelkul+c_kerem", audio: "w_hagyma", picture: "hagyma", area: "sandwich"},
+  {id: "majonez", hu: "majonéz", en: "mayonnaise", exampleHu: "Majonéz nélkül, kérem.", exampleEn: "Without mayonnaise, please.", exampleAudio: "w_majonez+c_nelkul+c_kerem", audio: "w_majonez", picture: "majonez", area: "sandwich"},
   // Pastry display
   {id: "szendvics", hu: "szendvics", en: "sandwich", exampleHu: "Egy szendvicset kérek.", exampleEn: "I'd like a sandwich, please.", exampleAudio: "p_szendvicset_kerek", audio: "w_szendvics", picture: "szendvics", area: "pastry"},
   {id: "kenyer", hu: "kenyér", en: "bread", exampleHu: "Kérhetek kenyeret?", exampleEn: "Could I have some bread?", exampleAudio: "", audio: "w_kenyer", picture: "kenyer", area: "pastry"},
@@ -66,6 +72,8 @@ export const PHRASES: PhraseEntry[] = [
   {id: "sonka_sajt", hu: "Sonkát és sajtot kérek.", en: "Ham and cheese, please.", audio: "p_sonka_sajt", picture: "ham_cheese", words: ["sonka", "sajt"]},
   {id: "kerhetek_oliva", hu: "Kérhetek olívabogyót?", en: "Could I have some olives?", audio: "p_kerhetek_oliva", picture: "olivabogyo", words: ["olivabogyo"]},
   {id: "uborka_nelkul", hu: "Savanyú uborka nélkül, kérem.", en: "Without pickles, please.", audio: "p_uborka_nelkul", picture: "no_pickles", words: ["uborka"]},
+  {id: "szalami_sajt", hu: "Szalámit és sajtot kérek.", en: "Salami and cheese, please.", audio: "a_szalami+c_es+a_sajt+c_kerek", picture: "szalami", words: ["szalami", "sajt"]},
+  {id: "csirke_paprika", hu: "Sült csirkét és paprikát kérek.", en: "Roast chicken and peppers, please.", audio: "a_sult_csirke+c_es+a_paprika+c_kerek", picture: "csirke", words: ["csirke", "paprika"]},
   {id: "tejes_kave", hu: "Egy kicsi tejes kávét kérek.", en: "A small coffee with milk, please.", audio: "p_tejes_kave", picture: "coffee_milk", words: ["kicsi", "tej", "kave"]},
   {id: "itt_eszem", hu: "Itt eszem.", en: "I'll eat here.", audio: "p_itt_eszem", picture: "eat_here", words: []},
   {id: "elvitelre", hu: "Elvitelre, kérem.", en: "Takeaway, please.", audio: "p_elvitelre", picture: "takeaway", words: []},
@@ -106,10 +114,11 @@ export interface OrderStep {
   choices: string[]       // PhraseEntry ids offered (dynamic for step 2 / 5)
   advanceOn: string[]     // phrase ids that complete the step
   multi: boolean          // multi-pick with a Done card
+  pinned?: string[]       // always offered, even when the choices are capped (e.g. the leave-out phrase)
 }
 export const ORDER_STEPS: OrderStep[] = [
   {step: 1, name: "greet", line: "mit_ker", choices: ["jonapot", "szendvicset"], advanceOn: ["szendvicset"], multi: false},
-  {step: 2, name: "fillings", line: "mit_ker_bele", choices: ["sonka_sajt", "kerhetek_oliva", "uborka_nelkul"], advanceOn: ["done"], multi: true},
+  {step: 2, name: "fillings", line: "mit_ker_bele", choices: ["sonka_sajt", "kerhetek_oliva", "uborka_nelkul", "szalami_sajt", "csirke_paprika"], advanceOn: ["done"], multi: true, pinned: ["uborka_nelkul"]},
   {step: 3, name: "drink", line: "inni", choices: ["tejes_kave"], advanceOn: ["tejes_kave"], multi: false},
   {step: 4, name: "here_or_takeaway", line: "itt_vagy_elvitel", choices: ["itt_eszem", "elvitelre"], advanceOn: ["itt_eszem"], multi: false},
   {step: 5, name: "table", line: "hanyas_asztal", choices: [], advanceOn: ["negyes_asztal", "nyolcas_asztal", "tizenkettes_asztal"], multi: false},

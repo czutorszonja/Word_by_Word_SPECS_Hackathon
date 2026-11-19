@@ -7,7 +7,7 @@
 //               SavedBadge/ModeLabel then exist with their Text hidden.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {button, flexBox, lineHeightCm, panel, retire, text, textWidthCm, TEXT_SOFT} from "./WbwSharedUI"
+import {button, flexBox, lineHeightCm, panel, retire, text, textWidthCm, TEXT_SOFT, useTone, toneOf} from "./WbwSharedUI"
 import {camLook, camPos, camRightFlat, faceRotation} from "./WbwSpatial"
 
 const ICON_HAND = requireAsset("../Icons/back_hand.png") as Texture
@@ -86,6 +86,7 @@ export class WbwHudUI extends BaseScriptComponent {
   show(): void {
     this.hide()
     const d = this.followDistanceCm
+    useTone(toneOf(this.modeLabel))
     if (this.compact) {
       // the chip IS the button: same size as its backing plate, so the whole chip is selectable
       const w = this.chipWidthCm, h = Math.max(3.8, this.chipHeightCm)
@@ -131,8 +132,10 @@ export class WbwHudUI extends BaseScriptComponent {
   }
 
   setMode(label: string): void {
+    const toneChanged = toneOf(label) !== toneOf(this.modeLabel)
     this.modeLabel = label
-    this.render()
+    if (toneChanged && this.root) this.show() // the HUD wears the colour of the current mode
+    else this.render()
   }
 
   /** World position of the saved badge (target for the word card's fly-to animation). */

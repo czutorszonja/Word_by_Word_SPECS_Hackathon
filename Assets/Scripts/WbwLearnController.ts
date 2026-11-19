@@ -74,12 +74,12 @@ export class WbwLearnController extends BaseScriptComponent {
   @input
   @hint("Highlight colour for ingredients named by the offered phrase cards")
   @widget(new ColorWidget())
-  highlightColor: vec4 = new vec4(1.0, 0.78, 0.35, 1)
+  highlightColor: vec4 = new vec4(0.78, 0.68, 1.0, 1)
 
   @input
   @hint("Bracket colour while an object is targeted or open on the word card (focus colour)")
   @widget(new ColorWidget())
-  focusColor: vec4 = new vec4(0.45, 0.93, 1.0, 1)
+  focusColor: vec4 = new vec4(0.42, 0.98, 0.95, 1)
 
   @input
   @hint("Bracket colour (subtle, warm)")

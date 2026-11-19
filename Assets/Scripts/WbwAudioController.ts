@@ -49,15 +49,40 @@ export class WbwAudioController extends BaseScriptComponent {
     }
   }
 
+  /** True if the clip exists ("a+b+c": every clip of the sequence exists). */
   has(key: string): boolean {
-    return !!AUDIO[key]
+    return key.length > 0 && key.split("+").every((k) => !!AUDIO[k])
   }
 
-  /** Play a voice clip; `onDone` fires when it ends (or immediately if the clip is missing). */
+  /**
+   * Play a voice clip; `onDone` fires when it ends (or immediately if the clip is missing).
+   * "a+b+c" plays the clips one after another (sentences composed from word and connector clips).
+   */
   playVoice(key: string, onDone?: () => void): void {
+    if (key.indexOf("+") >= 0) {
+      this.playSequence(key, key.split("+"), onDone)
+      return
+    }
+    this.playOne(key, key, onDone)
+  }
+
+  private playSequence(fullKey: string, parts: string[], onDone?: () => void): void {
+    let i = 0
+    const next = () => {
+      if (i >= parts.length) { if (onDone) onDone(); return }
+      const tokenBefore = this.token
+      this.playOne(fullKey, parts[i++], () => {
+        // a newer playVoice/stopVoice cancels the rest of the sentence
+        if (this.token === tokenBefore + 1) next()
+      })
+    }
+    next()
+  }
+
+  private playOne(reportKey: string, key: string, onDone?: () => void): void {
     this.token++
     const track = AUDIO[key]
-    this.lastVoiceKey = key
+    this.lastVoiceKey = reportKey
     this.voicePlayCount++
     if (!track) {
       print(`WbwAudio: no clip named '${key}'`)

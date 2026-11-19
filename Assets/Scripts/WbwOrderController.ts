@@ -58,6 +58,11 @@ export class WbwOrderController extends BaseScriptComponent {
   @hint("Objects within this angle (deg) of the view direction count as 'in view' for the arrow")
   @widget(new SliderWidget(10, 45, 1))
   arrowInViewDeg: number = 24
+
+  @input
+  @hint("How many filling phrases the 'Mit kér bele?' step shows (plus Kész). Phrases with words you saved come first; the leave-out phrase is always shown.")
+  @widget(new SliderWidget(2, 4, 1))
+  fillingsCardCount: number = 3
   @ui.group_end
 
   // ── readable state for tests ──
@@ -196,7 +201,12 @@ export class WbwOrderController extends BaseScriptComponent {
     if (this.stepDef && this.stepDef.name === "fillings") {
       // favour phrases built from words the learner saved
       const score = (pid: string) => phraseById(pid)!.words.filter((w) => this.session.isSaved(w)).length
-      list.sort((a, b) => score(b) - score(a))
+      const order = ids.slice()
+      list.sort((a, b) => score(b) - score(a) || order.indexOf(a) - order.indexOf(b))
+      // keep the card row compact: pinned phrases + the best-scoring others, up to fillingsCardCount
+      const pinned = this.stepDef.pinned ?? []
+      const others = list.filter((pid) => pinned.indexOf(pid) < 0).slice(0, Math.max(0, this.fillingsCardCount - pinned.length))
+      list = list.filter((pid) => pinned.indexOf(pid) >= 0 || others.indexOf(pid) >= 0)
     }
     if (multi) list = list.concat(["done"])
     const cards: PhraseCardData[] = list.map((pid) => {

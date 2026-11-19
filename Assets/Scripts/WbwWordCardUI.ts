@@ -8,7 +8,7 @@
 //               WordCardSaveButton, WordCardCloseButton, WordCardHu, WordCardEn.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {button, ButtonParts, flexBox, image, lineHeightCm, panel, retire, setTextColor, text, textWidthCm, CYAN, GREEN, TEXT_LIGHT, TEXT_SOFT} from "./WbwSharedUI"
+import {button, ButtonParts, flexBox, image, lineHeightCm, panel, retire, setTextColor, text, textWidthCm, CYAN, GREEN, TEXT_LIGHT, TEXT_SOFT, useTone, TONE_LEARN} from "./WbwSharedUI"
 
 const ICON_PLAY = requireAsset("../Icons/play_arrow.png") as Texture
 const ICON_PLAYING = requireAsset("../Icons/volume_up.png") as Texture
@@ -105,6 +105,7 @@ export class WbwWordCardUI extends BaseScriptComponent {
     const headerH = Math.max(picS, huH + enH) + 0.2
     const W = inner + 2 * pad
     const H = 2 * pad + headerH + gap + (this.showExample ? exHuH + exEnH + gap : 0) + btnH
+    useTone(TONE_LEARN)
     const p = panel(this.sceneObject, "WordCard", W, H, {gap: 0, padX: pad, padY: pad, justify: FlexJustify.SpaceBetween, align: FlexAlign.Center})
     this.root = p.root
 

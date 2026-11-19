@@ -3,7 +3,7 @@
 // Must NOT: decide when to show (WbwMain does) or position itself (caller places root).
 // Stable names: CafeToast.
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {flexBox, image, lineHeightCm, panel, retire, text, textWidthCm} from "./WbwSharedUI"
+import {flexBox, image, lineHeightCm, panel, retire, text, textWidthCm, useTone, TONE_LEARN} from "./WbwSharedUI"
 
 const ICON_PIN = requireAsset("../Icons/location_on.png") as Texture
 
@@ -43,6 +43,7 @@ export class WbwToastUI extends BaseScriptComponent {
     const th = lineHeightCm("Subheadline", d)
     const pinS = Math.min(3, th)
     const W = tw + pinS + 1 + 2.4, H = th + 1.6
+    useTone(TONE_LEARN)
     const p = panel(this.sceneObject, "CafeToast", W, H, {padX: 1.2, padY: 0.8, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
     this.root = p.root
     const row = flexBox(p.content, "Row", "row", W - 2.4, th, {gap: 1, justify: FlexJustify.Center, align: FlexAlign.Center})

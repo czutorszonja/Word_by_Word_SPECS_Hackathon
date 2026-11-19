@@ -148,7 +148,7 @@ export class WbwMain extends BaseScriptComponent {
     }
     // preview stand-in: just above and inward of the low-side HUD (where a raised hand would be)
     const hudPos = this.hud.getSceneObject().getTransform().getWorldPosition()
-    this.openMenuAt(hudPos.add(new vec3(0, 18, 0)).add(camRightFlat().uniformScale(6)))
+    this.openMenuAt(hudPos.add(new vec3(0, 20.5, 0)).add(camRightFlat().uniformScale(6)))
   }
 
   private openMenuAt(pos: vec3): void {

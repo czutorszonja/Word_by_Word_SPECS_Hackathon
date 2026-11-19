@@ -20,14 +20,24 @@ function send(method: string, path: string, body: any): Promise<any> {
 const auth = pluginSystem.findInterface(Editor.IAuthorization);
 if (!auth || !auth.isAuthorized) { return { status: "NOT_SIGNED_IN" }; }
 
-const PENDING: any = {"Salami": "bca4c63a-2f6f-4a18-8da1-a18b4cd20c45", "Peppers": "0858a63e-ec4d-453e-aa0f-ed69b5e954e7", "Cucumber": "be152d13-f4e3-40ce-ad71-a72cc35ba0f9"};
+const PENDING: any = {"ReaderHQ2": "f8fe5e23-c1f8-4a8a-8d21-02c9d2a02de9"};
 const URLS_PATH = new Editor.Path("C:/LensProjects/Word_by_Word_SPECS_Hackhaton/agent/staging/mesh/urls_new.json");
 const urls: any = {};
 const out: any = {};
+const IMG_DIR = "C:/LensProjects/Word_by_Word_SPECS_Hackhaton/agent/staging/mesh/preview_img";
 for (const n of Object.keys(PENDING)) {
   const r = await send("GET", "/v1/generations/" + PENDING[n], {});
   const d = r.json || {};
-  if (d.status === "succeeded" && d.asset_url) { urls[n] = d.asset_url; out[n] = "succeeded"; }
+  if (d.preview_image_url && !FS.exists(new Editor.Path(IMG_DIR + "/" + n + ".png"))) {
+    await new Promise<void>((res) => {
+      const q = new Network.HttpRequest(); q.url = d.preview_image_url; q.method = Network.HttpRequest.Method.Get;
+      Network.performHttpRequest(q, (resp: any) => {
+        try { if (resp.statusCode === 200) FS.writeFile(new Editor.Path(IMG_DIR + "/" + n + ".png"), resp.body.toBytes()); } catch (e) {}
+        res();
+      });
+    });
+  }
+  if (d.status === "succeeded" && d.asset_url) { urls[n] = d.asset_url; out[n] = "succeeded " + d.output_quality + "/" + d.preview_quality + "/" + d.reconstruction_quality; }
   else if (d.status === "failed" || d.status === "canceled") out[n] = d.status + ": " + d.error_message;
   else out[n] = (d.status || ("http " + r.code)) + " " + ((d.progress && d.progress.overall_percent) || 0) + "%";
 }

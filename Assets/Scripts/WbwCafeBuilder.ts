@@ -43,6 +43,11 @@ export class WbwCafeBuilder extends BaseScriptComponent {
   alignToUserPosition: boolean = true
 
   @input
+  @hint("Stop the start-up alignment as soon as the user has walked this far (cm), so the room never slides along")
+  @widget(new SliderWidget(2, 50, 1))
+  stopAligningAfterWalkCm: number = 12
+
+  @input
   @hint("Extra margin added around each learnable's mesh for its hit box (cm)")
   @widget(new SliderWidget(0, 6, 0.5))
   colliderPaddingCm: number = 1.5
@@ -64,9 +69,15 @@ export class WbwCafeBuilder extends BaseScriptComponent {
     if (this.alignToUserHeight) {
       this.alignFloor()
       const t0 = getTime()
+      const start = camPos()
       const ev = this.createEvent("UpdateEvent")
       ev.bind(() => {
-        if (getTime() - t0 < 2.5) this.alignFloor()
+        // The preview camera can settle during the first moments, so keep the café under the
+        // user's feet briefly — but stop as soon as the user starts walking (Interactive Preview
+        // WASD or a real step), otherwise the room would slide along with them.
+        const c = camPos()
+        const walked = Math.hypot(c.x - start.x, c.z - start.z) > this.stopAligningAfterWalkCm
+        if (getTime() - t0 < 2.5 && !walked) this.alignFloor()
         else ev.enabled = false
       })
     }

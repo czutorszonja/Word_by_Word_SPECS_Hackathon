@@ -32,7 +32,7 @@ export class WbwHintUI extends BaseScriptComponent {
   @input
   @hint("Arrow colour")
   @widget(new ColorWidget())
-  arrowColor: vec4 = new vec4(0.42, 0.98, 0.95, 1)
+  arrowColor: vec4 = new vec4(0.56, 0.93, 0.9, 1)
   @ui.group_end
 
   private hintRoot: SceneObject | null = null

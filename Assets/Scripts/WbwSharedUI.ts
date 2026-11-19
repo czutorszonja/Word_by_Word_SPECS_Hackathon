@@ -54,14 +54,14 @@ export function lineHeightCm(role: TextRole, distanceCm: number, onPanel: boolea
 }
 
 // ── Colour roles (always paired with a label, icon or state change — never colour alone)
-/** Main text: warm cream. */
-export const TEXT_LIGHT = new vec4(1, 0.98, 0.9, 1)
+/** Main text: soft white (reads on the muted mode fills and stays bright on the additive display). */
+export const TEXT_LIGHT = new vec4(0.97, 0.96, 0.94, 1)
 /** Secondary text (translations, hints). */
-export const TEXT_SOFT = new vec4(0.93, 0.92, 0.98, 1)
-/** Unavailable / "coming soon" text: cream, dimmed. */
-export const MUTED = new vec4(1, 0.98, 0.9, 0.66)
-/** Current target / focus / selected — an aqua cyan that stays distinct on cobalt, violet and magenta. */
-export const CYAN = new vec4(0.42, 0.98, 0.95, 1)
+export const TEXT_SOFT = new vec4(0.88, 0.89, 0.92, 1)
+/** Unavailable / "coming soon" text: soft white, dimmed. */
+export const MUTED = new vec4(0.97, 0.96, 0.94, 0.66)
+/** Current target / focus / selected — a soft aqua that stays distinct on the slate, lavender and rose fills. */
+export const CYAN = new vec4(0.56, 0.93, 0.9, 1)
 /** Success (saved, matched) — always with a checkmark or confirmation text. */
 export const GREEN = new vec4(0.5, 0.95, 0.55, 1)
 export const GREEN_FILL = new vec4(0.16, 0.56, 0.3, 1)
@@ -73,16 +73,19 @@ export const SOFT = TEXT_SOFT
 export const GOLD = TEXT_LIGHT
 export const RED = AMBER
 
-// ── Word by Word tones: every mode has its own panel colour (never grey, black or white).
-// Panels and their buttons use the tone of the context they belong to.
-export interface Tone { name: string; base: vec4 }
-function tone(name: string, r: number, g: number, b: number): Tone { return {name, base: new vec4(r, g, b, 1)} }
-/** Learn (and app-level screens: setup, mode menu) — cobalt blue #2F6FE0. */
-export const TONE_LEARN = tone("learn", 0.184, 0.435, 0.878)
-/** Use it live (real-life ordering) — royal violet #6A4BD8. */
-export const TONE_LIVE = tone("live", 0.416, 0.294, 0.847)
-/** Practice (matching game) — magenta #C2348A. */
-export const TONE_PRACTICE = tone("practice", 0.761, 0.204, 0.541)
+// ── Word by Word tones: every mode has its own soft colour identity (never grey, black or white).
+// `base` is a muted mid-deep fill that keeps soft-white text readable on the additive display;
+// `tint` is the light reference colour, used for outlines, chips, heading marks and highlights.
+export interface Tone { name: string; label: string; base: vec4; tint: vec4 }
+function tone(name: string, label: string, base: number[], tint: number[]): Tone {
+  return {name, label, base: new vec4(base[0], base[1], base[2], 1), tint: new vec4(tint[0], tint[1], tint[2], 1)}
+}
+/** Learn (and app-level screens: setup, mode menu) — dusty slate blue #4E6A84, powder-blue tint #B9CEDF. */
+export const TONE_LEARN = tone("learn", "Learn", [0.306, 0.416, 0.518], [0.725, 0.808, 0.875])
+/** Use it live (real-life ordering) — dusty violet #675C86, lavender tint #CBBFE0. */
+export const TONE_LIVE = tone("live", "Use it live", [0.404, 0.361, 0.525], [0.796, 0.749, 0.878])
+/** Practice (matching game) — dusty rose #87566F, rose tint #D5ADC5. */
+export const TONE_PRACTICE = tone("practice", "Practice", [0.529, 0.337, 0.435], [0.835, 0.678, 0.773])
 let currentTone: Tone = TONE_LEARN
 /** Tone used by panel() / button() built from now on (each UI module sets it in show()). */
 export function useTone(t: Tone): void { currentTone = t }
@@ -92,23 +95,27 @@ export function toneOf(mode: string): Tone {
   if (m.indexOf("live") >= 0) return TONE_LIVE
   return TONE_LEARN
 }
-/** Mix a tone toward cream (k > 0, lighter) or toward its own deep shade (k < 0). */
+/** Mix a colour toward soft white (k > 0, lighter) or toward its own deep shade (k < 0). */
 export function shade(c: vec4, k: number, alpha: number = 1): vec4 {
-  if (k >= 0) return new vec4(c.r + (1 - c.r) * k, c.g + (0.98 - c.g) * k, c.b + (0.9 - c.b) * k, alpha)
+  if (k >= 0) return new vec4(c.r + (0.97 - c.r) * k, c.g + (0.96 - c.g) * k, c.b + (0.94 - c.b) * k, alpha)
   const f = 1 + k
   return new vec4(c.r * f, c.g * f, c.b * f, alpha)
+}
+/** Mix the tone's fill toward its light tint (0 = fill, 1 = tint). */
+export function toward(t: Tone, k: number, alpha: number = 1): vec4 {
+  return new vec4(t.base.r + (t.tint.r - t.base.r) * k, t.base.g + (t.tint.g - t.base.g) * k, t.base.b + (t.tint.b - t.base.b) * k, alpha)
 }
 
 // ── Surfaces (accessibility treatment: translucent big panels, solid strips, clear outlines)
 // Big panels let the café show through (tinted); small message strips stay nearly solid.
 const SEE_THROUGH_FROM_HEIGHT = 10
-export const PANEL_ALPHA_SEE_THROUGH = 0.8
+// muted fills need a little more body than bright ones for soft-white text over the bright café
+export const PANEL_ALPHA_SEE_THROUGH = 0.86
 export const PANEL_ALPHA_STRIP = 0.95
 // Word by Word's own shapes: soft card corners on panels, gentler corners on buttons
 const PANEL_RADIUS = 1.6
 const STRIP_RADIUS = 1.1
 const BUTTON_RADIUS = 0.9
-const BUTTON_OUTLINE = new vec4(1, 0.98, 0.9, 1)
 const BUTTON_OUTLINE_SIZE = 0.14
 const BUTTON_PRIMARY_OUTLINE_SIZE = 0.22
 const BUTTON_FOCUS_OUTLINE_SIZE = 0.3
@@ -355,21 +362,20 @@ export function styleWhenReady(btn: Button, primary: boolean = false, t?: Tone):
 
 /**
  * Every state is painted in the button's tone — no UIKit grey anywhere:
- * idle = tone + cream outline (primary: thicker outline) · targeted (hover) = lighter tone + thick
- * CYAN outline · pressed = lightest tone · selected (toggled on) = deep tone + thick CYAN outline ·
- * inactive = deep tone with a cream outline. Both colour and gradient are set for each state,
+ * idle = fill nudged toward the tint + tint outline (primary: thicker outline) · targeted (hover) =
+ * lighter + thick CYAN outline · pressed = lighter still · selected (toggled on) = deeper fill + thick
+ * CYAN outline · inactive = deep fill with a tint outline. Both colour and gradient are set for each state,
  * because the UIKit style decides per state which of the two it shows.
  */
 export function styleButton(btn: Button, primary: boolean = false, t: Tone = currentTone): void {
   const v = btn.visual as unknown as RoundedRectangleVisual
   if (!v) return
   try {
-    const c = t.base
-    const idle = primary ? shade(c, 0.08) : c
+    const idle = toward(t, primary ? 0.2 : 0.1)
     const states: [string, vec4][] = [
-      ["Default", idle], ["Hovered", shade(c, 0.2)], ["Triggered", shade(c, 0.36)],
-      ["ToggledDefault", shade(c, -0.22)], ["ToggledHovered", shade(c, 0.1)], ["ToggledTriggered", shade(c, 0.36)],
-      ["Inactive", shade(c, -0.3)],
+      ["Default", idle], ["Hovered", toward(t, 0.3)], ["Triggered", toward(t, 0.42)],
+      ["ToggledDefault", shade(t.base, -0.2)], ["ToggledHovered", toward(t, 0.18)], ["ToggledTriggered", toward(t, 0.42)],
+      ["Inactive", shade(t.base, -0.28)],
     ]
     const anyV = v as unknown as {[k: string]: unknown}
     for (const [st, col] of states) {
@@ -377,7 +383,7 @@ export function styleButton(btn: Button, primary: boolean = false, t: Tone = cur
       anyV["base" + st + "Color"] = col
       anyV[lc + "BaseType"] = "Gradient"
       anyV[lc + "Gradient"] = solidGradient(col)
-      const border = st === "Default" || st === "Inactive" ? BUTTON_OUTLINE : CYAN
+      const border = st === "Default" || st === "Inactive" ? t.tint : CYAN
       anyV["border" + st + "Color"] = border
       anyV["border" + st + "Gradient"] = solidGradient(border)
       anyV[lc + "BorderType"] = "Gradient"
@@ -414,7 +420,7 @@ export function setInactiveColor(btn: Button, color: vec4): void {
 export const HEADER_RULE_H = 0.52
 
 /**
- * Word by Word heading mark: three cream dashes getting shorter ("word · by · word"),
+ * Word by Word heading mark: three dashes in the mode's tint, getting shorter ("word · by · word"),
  * placed under a panel heading. Registered as a flex item of `parent`.
  */
 export function headerRule(parent: SceneObject, rowW: number = 0, name: string = "HeaderRule"): SceneObject {
@@ -429,7 +435,7 @@ export function headerRule(parent: SceneObject, rowW: number = 0, name: string =
     rr.size = new vec2(l, h)
     rr.cornerRadius = h / 2
     rr.gradient = false
-    rr.backgroundColor = new vec4(1, 0.98, 0.9, 0.9 - i * 0.15)
+    rr.backgroundColor = new vec4(currentTone.tint.r, currentTone.tint.g, currentTone.tint.b, 0.95 - i * 0.15)
     x += l + gap
   })
   register(parent, item(row, w, h + 0.2))
@@ -454,4 +460,26 @@ export function setToggleLater(btn: Button, on: boolean, owner: ScriptComponent)
     if (!isNull(btn)) btn.isOn = on
   })
   ev.reset(0.02)
+}
+
+/** Height (cm) of a modeChip() for a given distance. */
+export function modeChipH(dist: number): number { return lineHeightCm("Caption", dist, false) + 0.5 }
+
+/**
+ * Small "Learn" / "Use it live" / "Practice" chip so the mode is always named, never colour alone:
+ * deeper fill of the current tone, tint-coloured text. Registered as a flex item of `parent`.
+ */
+export function modeChip(parent: SceneObject, dist: number, name: string = "ModeChip"): SceneObject {
+  const t = currentTone
+  const h = modeChipH(dist)
+  const w = textWidthCm(t.label.length, "Caption", dist, false) + 1.4
+  const so = obj(parent, name, new vec3(0, 0, 0.03))
+  const rr = so.createComponent(RoundedRectangle.getTypeName()) as RoundedRectangle
+  rr.size = new vec2(w, h)
+  rr.cornerRadius = h / 2
+  rr.gradient = false
+  rr.backgroundColor = shade(t.base, -0.32, 0.95)
+  text(so, "ChipLabel", t.label, "Caption", dist, {w: w, h: h, color: t.tint, onPanel: false, z: 0.04})
+  register(parent, item(so, w, h))
+  return so
 }

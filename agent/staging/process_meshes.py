@@ -19,7 +19,7 @@ SIZE = {
  "Meatballs": ("target", "15,8,14"), "Lettuce": ("target", "15,8,14"), "Spinach": ("target", "15,8,14"),
  "Tomato": ("target", "15,8,14"), "Olives": ("target", "15,8,14"), "Pickles": ("target", "15,8,14"),
  "Onion": ("target", "15,8,14"), "Mayonnaise": ("target", "15,8,14"),
- "Salami": ("target", "15,8,14"), "Peppers": ("target", "15,8,14"), "Cucumber": ("target", "15,8,14"), "Mustard": ("target", "15,8,14"),
+ "Salami": ("target", "15,8,14"), "BaristaReal": ("max", 170), "BaristaScan": ("max", 168), "BaristaScan2": ("max", 168), "BaristaScan3": ("max", 168), "BaristaScan4": ("max", 168), "BaristaHead": ("max", 60), "BaristaFullHQ": ("max", 168), "ReaderHQ": ("max", 128), "ReaderHQ2": ("max", 128), "CoffeeHQ": ("max", 128), "LaptopHQ": ("max", 128), "ChattingHQ": ("max", 128), "ListeningHQ": ("max", 128), "ReaderScan": ("max", 128), "LaptopScan": ("max", 128), "CoffeeScan": ("max", 128), "ChattingScan": ("max", 128), "ListeningScan": ("max", 128), "DinerReader": ("max", 128), "DinerLaptop": ("max", 128), "DinerCoffee": ("max", 128), "DinerChatting": ("max", 128), "DinerListening": ("max", 128), "Peppers": ("target", "15,8,14"), "Cucumber": ("target", "15,8,14"), "Mustard": ("target", "15,8,14"),
  "CroissantBoard": ("max", 32), "BreadLoaf": ("max", 26), "Sandwiches": ("max", 26), "CoffeeCup": ("max", 12),
  "MilkJug": ("max", 15), "WaterBottle": ("max", 24), "OrangeCup": ("max", 9), "CupStacks": ("max", 50),
  "WallShelf": ("max", 190), "GlobePendant": ("max", 60), "EdisonCluster": ("max", 70), "PottedPlant": ("max", 170),

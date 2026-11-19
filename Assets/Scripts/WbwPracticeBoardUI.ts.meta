@@ -49,5 +49,5 @@
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input float viewDistanceCm = 65 {"hint":"Viewing distance the text is sized for (cm) — brief: 50–60 cm", "widget":"slider", "min":40, "max":100, "step":5}'
-    - '// @input vec4 matchedColor = {0.2,0.62,0.32,1} {"hint":"Colour of a matched pair", "widget":"color"}'
+    - '// @input vec4 matchedColor = {0.32,0.6,0.4,1} {"hint":"Colour of a matched pair", "widget":"color"}'
     - '// @ui {"widget":"group_end"}'

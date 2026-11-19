@@ -6,7 +6,7 @@
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {flexBox, image, item, lineHeightCm, obj, panel, register, retire, setToggleLater, styleWhenReady, text, textWidthCm, READ_BOOST, TEXT_SOFT, useTone, TONE_LIVE} from "./WbwSharedUI"
+import {flexBox, image, item, lineHeightCm, obj, panel, register, retire, setToggleLater, styleWhenReady, text, textWidthCm, READ_BOOST, TEXT_SOFT, useTone, TONE_LIVE, modeChip, modeChipH} from "./WbwSharedUI"
 
 // English line and the prompt are secondary: ~80 % of the Hungarian size
 const EN_SCALE = 0.8
@@ -94,12 +94,14 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
     const widths = textWs.map((tw) => tw + m.extra)
     const promptH = lineHeightCm("Caption", d, false, enBoost)
     const W = rowW + 2 * pad
-    const H = 2 * pad + promptH + 0.4 + ch
+    const H = 2 * pad + Math.max(promptH, modeChipH(d)) + 0.4 + ch
     this.lastSizeCm = new vec2(W, H)
     useTone(TONE_LIVE)
     const p = panel(this.sceneObject, "PhraseChoices", W, H, {gap: 0.4, padX: pad, padY: pad, justify: FlexJustify.Center, align: FlexAlign.Center})
     this.root = p.root
-    text(p.content, "Prompt", prompt, "Caption", d, {h: promptH, color: TEXT_SOFT, onPanel: false, boost: enBoost})
+    const head = flexBox(p.content, "Head", "row", rowW, Math.max(promptH, modeChipH(d)), {gap: 1, justify: FlexJustify.Center, align: FlexAlign.Center})
+    modeChip(head, d)
+    text(head, "Prompt", prompt, "Caption", d, {w: textWidthCm(prompt.length, "Caption", d, false, enBoost) + 0.6, h: promptH, color: TEXT_SOFT, onPanel: false, boost: enBoost})
     const row = flexBox(p.content, "Cards", "row", rowW, ch, {gap: gap, justify: FlexJustify.Center, align: FlexAlign.Center})
     this.cards = {}
     this.offeredIds = []

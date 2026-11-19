@@ -34,7 +34,7 @@ export class WbwPracticeBoardUI extends BaseScriptComponent {
   @input
   @hint("Colour of a matched pair")
   @widget(new ColorWidget())
-  matchedColor: vec4 = new vec4(0.2, 0.62, 0.32, 1)
+  matchedColor: vec4 = new vec4(0.32, 0.6, 0.4, 1)
   @ui.group_end
 
   private root: SceneObject | null = null

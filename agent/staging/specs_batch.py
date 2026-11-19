@@ -67,10 +67,20 @@ const PENDING: any = {json.dumps(pending)};
 const URLS_PATH = new Editor.Path({json.dumps(URLS.replace(chr(92), "/").replace("urls.json","urls_new.json"))});
 const urls: any = {{}};
 const out: any = {{}};
+const IMG_DIR = {json.dumps(MESH.replace(chr(92), "/") + "/preview_img")};
 for (const n of Object.keys(PENDING)) {{
   const r = await send("GET", "/v1/generations/" + PENDING[n], {{}});
   const d = r.json || {{}};
-  if (d.status === "succeeded" && d.asset_url) {{ urls[n] = d.asset_url; out[n] = "succeeded"; }}
+  if (d.preview_image_url && !FS.exists(new Editor.Path(IMG_DIR + "/" + n + ".png"))) {{
+    await new Promise<void>((res) => {{
+      const q = new Network.HttpRequest(); q.url = d.preview_image_url; q.method = Network.HttpRequest.Method.Get;
+      Network.performHttpRequest(q, (resp: any) => {{
+        try {{ if (resp.statusCode === 200) FS.writeFile(new Editor.Path(IMG_DIR + "/" + n + ".png"), resp.body.toBytes()); }} catch (e) {{}}
+        res();
+      }});
+    }});
+  }}
+  if (d.status === "succeeded" && d.asset_url) {{ urls[n] = d.asset_url; out[n] = "succeeded " + d.output_quality + "/" + d.preview_quality + "/" + d.reconstruction_quality; }}
   else if (d.status === "failed" || d.status === "canceled") out[n] = d.status + ": " + d.error_message;
   else out[n] = (d.status || ("http " + r.code)) + " " + ((d.progress && d.progress.overall_percent) || 0) + "%";
 }}

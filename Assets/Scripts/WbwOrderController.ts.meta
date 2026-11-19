@@ -33,6 +33,7 @@
     captionLingerSec: false
     fillingsCardCount: false
     hint: false
+    maxTrayDistanceCm: false
     phraseDistanceCm: false
     phraseDropCm: false
     phraseTray: false
@@ -59,6 +60,7 @@
       replyPauseSec: 0.600000
       captionLingerSec: !<float> 4.000000
       phrasesOnCounter: true
+      maxTrayDistanceCm: !<float> 260.000000
       phraseDistanceCm: !<float> 60.000000
       phraseDropCm: !<float> 17.000000
       arrowInViewDeg: !<float> 24.000000
@@ -81,6 +83,7 @@
     - "// @input float replyPauseSec = 0.6 {\"hint\":\"Pause between the user's answer and the server's next line (s)\", \"widget\":\"slider\", \"min\":0, \"max\":3, \"step\":0.1}"
     - "// @input float captionLingerSec = 4 {\"hint\":\"Seconds the caption stays after the server's line ends\", \"widget\":\"slider\", \"min\":0, \"max\":10, \"step\":0.5}"
     - '// @input bool phrasesOnCounter = true {"hint":"Lay the phrase cards on the counter tray (user looks down to pick). Off = float in front of the user."}'
+    - '// @input float maxTrayDistanceCm = 260 {"hint":"Cards lie on the counter tray only while the user is within this distance of it (cm); further away they float in front of the user", "widget":"slider", "min":100, "max":500, "step":10}'
     - '// @input float phraseDistanceCm = 68 {"hint":"Distance of the phrase cards in front of the user when NOT on the counter (cm)", "widget":"slider", "min":40, "max":90, "step":1}'
     - '// @input float phraseDropCm = 7 {"hint":"How far below eye level the phrase cards sit (cm)", "widget":"slider", "min":0, "max":40, "step":1}'
     - "// @input float arrowInViewDeg = 24 {\"hint\":\"Objects within this angle (deg) of the view direction count as 'in view' for the arrow\", \"widget\":\"slider\", \"min\":10, \"max\":45, \"step\":1}"

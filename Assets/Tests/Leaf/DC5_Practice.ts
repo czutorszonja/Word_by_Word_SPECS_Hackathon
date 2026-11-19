@@ -31,7 +31,9 @@ export class DC5_Practice extends Scenario {
 
       // ── walk to table 8 and choose Practice ──
       const table = findEnabled("Table_8")!.getTransform().getWorldPosition()
-      const seat = t.eyeAt(-145, 385 - 75) // standing ~75 cm in front of table 8 (counter side)
+      // Standing ~75 cm in front of table 8 (counter side), read from the scene so a re-layout can't break it.
+      const tableLocal = table.sub(t.cafeOrigin())
+      const seat = t.eyeAt(tableLocal.x, tableLocal.z - 75)
       await t.setHead(seat, t.yawToward(seat, table), -25)
       await t.switchModeViaMenu("ModePracticeButton", "practice")
       await waitFor(() => p.active && b.state === "board" && p.pairsTotal === 4, `practice board with a 4-pair set (state '${b.state}', pairs ${p.pairsTotal})`, 5000)

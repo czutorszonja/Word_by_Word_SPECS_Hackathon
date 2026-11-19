@@ -67,6 +67,11 @@ export class WbwLearnController extends BaseScriptComponent {
   viewHalfHeightDeg: number = 19
 
   @input
+  @hint("The word card stays above this angle below the gaze (deg) so it never covers the HUD strip")
+  @widget(new SliderWidget(5, 19, 0.5))
+  hudClearDeg: number = 11.5
+
+  @input
   @hint("Seconds the card shows 'Saved ✓' before it flies into the Saved counter")
   @widget(new SliderWidget(0, 2, 0.1))
   savedHoldSec: number = 0.8
@@ -74,17 +79,17 @@ export class WbwLearnController extends BaseScriptComponent {
   @input
   @hint("Highlight colour for ingredients named by the offered phrase cards")
   @widget(new ColorWidget())
-  highlightColor: vec4 = new vec4(0.78, 0.68, 1.0, 1)
+  highlightColor: vec4 = new vec4(0.796, 0.749, 0.878, 1)
 
   @input
   @hint("Bracket colour while an object is targeted or open on the word card (focus colour)")
   @widget(new ColorWidget())
-  focusColor: vec4 = new vec4(0.42, 0.98, 0.95, 1)
+  focusColor: vec4 = new vec4(0.56, 0.93, 0.9, 1)
 
   @input
   @hint("Bracket colour (subtle, warm)")
   @widget(new ColorWidget())
-  bracketColor: vec4 = new vec4(1.0, 0.9, 0.6, 1)
+  bracketColor: vec4 = new vec4(0.725, 0.808, 0.875, 1)
   @ui.group_end
 
   // ── readable state for tests ──
@@ -195,6 +200,9 @@ export class WbwLearnController extends BaseScriptComponent {
     const clampRad = (v: number, m: number) => Math.max(-(m * Math.PI) / 180, Math.min((m * Math.PI) / 180, v))
     yaw = clampRad(yaw, maxYaw)
     pitch = clampRad(pitch, maxPitch)
+    // keep the card's bottom edge above the low HUD strip so the two never overlap
+    const minPitch = ((-this.hudClearDeg + halfHDeg + 1) * Math.PI) / 180
+    if (pitch < minPitch) pitch = minPitch
     const fy = lookYaw + yaw, fp = lookPitch + pitch
     const dir = new vec3(Math.sin(fy) * Math.cos(fp), Math.sin(fp), -Math.cos(fy) * Math.cos(fp))
     const pos = cam.add(dir.uniformScale(D))

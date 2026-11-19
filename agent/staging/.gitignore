@@ -1,0 +1,4 @@
+# Generated mesh downloads and previews (large, reproducible from mesh/<Name>.json); the imported copies live in Assets/GeneratedMeshes
+mesh/*.glb
+mesh/preview/
+shots/

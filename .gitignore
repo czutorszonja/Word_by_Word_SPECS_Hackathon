@@ -42,3 +42,6 @@ leaf_plugin_settings.json
 
 # Mesh-generation download links (contain temporary AWS tokens; never commit)
 agent/staging/mesh/urls.json
+
+# Raw and rejected mesh downloads stay local (hundreds of MB); the chosen meshes live in Assets/GeneratedMeshes
+agent/staging/**/*.glb

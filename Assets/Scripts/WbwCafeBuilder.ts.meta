@@ -37,6 +37,7 @@
     pastryDisplay: false
     sandwichCounter: false
     seating: false
+    stopAligningAfterWalkCm: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -53,6 +54,7 @@
       eyeHeightCm: !<float> 160.000000
       alignToUserHeight: true
       alignToUserPosition: true
+      stopAligningAfterWalkCm: !<float> 12.000000
       colliderPaddingCm: 1.500000
       debugColliders: false
   ScriptTypes:
@@ -71,6 +73,7 @@
     - "// @input float eyeHeightCm = 160 {\"hint\":\"Keep the café floor this far below the user's eyes (cm). The preview camera height can differ between runs.\", \"widget\":\"slider\", \"min\":120, \"max\":190, \"step\":1}"
     - '// @input bool alignToUserHeight = true {"hint":"Snap the café floor to (user eye height - eyeHeightCm) during the first seconds"}'
     - "// @input bool alignToUserPosition = true {\"hint\":\"Also centre the café on the user's start spot (x/z) — the brief starts the user at the counter. The preview can remember a moved head position between runs.\"}"
+    - '// @input float stopAligningAfterWalkCm = 12 {"hint":"Stop the start-up alignment as soon as the user has walked this far (cm), so the room never slides along", "widget":"slider", "min":2, "max":50, "step":1}'
     - "// @input float colliderPaddingCm = 1.5 {\"hint\":\"Extra margin added around each learnable's mesh for its hit box (cm)\", \"widget\":\"slider\", \"min\":0, \"max\":6, \"step\":0.5}"
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"group_start", "label":"Debug"}'

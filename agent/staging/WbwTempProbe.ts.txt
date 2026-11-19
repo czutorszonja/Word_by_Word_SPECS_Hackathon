@@ -154,7 +154,14 @@ export class WbwTempProbe extends BaseScriptComponent {
           // optional eye height (cm) — emulates looking down/up with the fixed preview head
           const ct = (m as any).cafe.getSceneObject().getTransform()
           const p = ct.getWorldPosition()
-          ct.setWorldPosition(new vec3(p.x, camPos().y - Number(parts[3]), p.z))
+          if (Number(parts[3]) > 0) ct.setWorldPosition(new vec3(p.x, camPos().y - Number(parts[3]), p.z))
+        }
+        if (parts[5]) {
+          // optional: step back N cm from the anchor (away from the target) — move the café forward
+          const ct = (m as any).cafe.getSceneObject().getTransform()
+          const lk = camLook()
+          const f = new vec3(lk.x, 0, lk.z).normalize().uniformScale(Number(parts[5]))
+          ct.setWorldPosition(ct.getWorldPosition().add(f))
         }
         if (parts[4]) {
           // optional head pitch (deg, + = look up): tilt the café around the eye instead
@@ -167,6 +174,35 @@ export class WbwTempProbe extends BaseScriptComponent {
           ct.setWorldPosition(c.add(q.multiplyVec3(rel)))
           ct.setWorldRotation(q.multiply(ct.getWorldRotation()))
         }
+      })
+      return
+    }
+    if (this.stage.indexOf("tour:") === 0) {
+      // screenshot-only: "tour:<target>,<anchor>,<eye>,<pitch>,<back>|..." — shows each view for holdSec,
+      // printing "PROBE tourshot <i>" when the view is in place (the capture script waits for it)
+      const views = this.stage.substring(5).split("|")
+      ;(m as any).setupPanel.hide()
+      this.later(2.8, () => {
+        const ct = (m as any).cafe.getSceneObject().getTransform()
+        const p0 = ct.getWorldPosition(), r0 = ct.getWorldRotation()
+        const hold = 14
+        views.forEach((v, i) => this.later(0.1 + i * hold, () => {
+          ct.setWorldPosition(p0); ct.setWorldRotation(r0)
+          const a = v.split(",")
+          this.frame(a[0], a[1] || undefined)
+          const p = ct.getWorldPosition()
+          if (Number(a[2]) > 0) ct.setWorldPosition(new vec3(p.x, camPos().y - Number(a[2]), p.z))
+          const lk = camLook()
+          if (a[4]) ct.setWorldPosition(ct.getWorldPosition().add(new vec3(lk.x, 0, lk.z).normalize().uniformScale(Number(a[4]))))
+          if (a[3]) {
+            const c = camPos()
+            const right = new vec3(-lk.z, 0, lk.x).normalize()
+            const q = quat.angleAxis((-Number(a[3]) * Math.PI) / 180, right)
+            ct.setWorldPosition(c.add(q.multiplyVec3(ct.getWorldPosition().sub(c))))
+            ct.setWorldRotation(q.multiply(ct.getWorldRotation()))
+          }
+          this.later(0.6, () => print(`PROBE tourshot ${i} ${v}`))
+        }))
       })
       return
     }

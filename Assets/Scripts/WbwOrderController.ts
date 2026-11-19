@@ -15,7 +15,7 @@ import {WbwSession} from "./WbwSession"
 import {WbwLearnController} from "./WbwLearnController"
 import {ORDER_STEPS, OrderStep, lineById, phraseById, tableByNum} from "./WbwVocab"
 import {PICTURES} from "./WbwIllustrations"
-import {camLook, camPos, camTransform, flat, placeFacingUser} from "./WbwSpatial"
+import {camLook, camLookFlat, camPos, camTransform, flat, placeFacingUser} from "./WbwSpatial"
 
 @component
 export class WbwOrderController extends BaseScriptComponent {
@@ -43,6 +43,11 @@ export class WbwOrderController extends BaseScriptComponent {
   @input
   @hint("Lay the phrase cards on the counter tray (user looks down to pick). Off = float in front of the user.")
   phrasesOnCounter: boolean = true
+
+  @input
+  @hint("Cards lie on the counter tray only while the user is within this distance of it (cm); further away they float in front of the user")
+  @widget(new SliderWidget(100, 500, 10))
+  maxTrayDistanceCm: number = 260
 
   @input
   @hint("Distance of the phrase cards in front of the user when NOT on the counter (cm)")
@@ -216,15 +221,19 @@ export class WbwOrderController extends BaseScriptComponent {
     this.waitingFor = "user"
     this.offeredPhraseIds = list
     this.phrases.show(cards, multi ? "Pick any, then Kész" : "Tap your answer")
-    if (this.phrasesOnCounter && this.phraseTray) {
+    // after walking away from the counter, the cards come to the user instead of staying on the tray
+    const nearTray = this.phraseTray ? this.phraseTray.getTransform().getWorldPosition().distance(camPos()) <= this.maxTrayDistanceCm : false
+    if (this.phrasesOnCounter && this.phraseTray && nearTray) {
       // lying on the counter in front of the user, tilted up toward them (authored tray)
       const tt = this.phraseTray.getTransform(), pt = this.phrases.getSceneObject().getTransform()
       pt.setWorldPosition(tt.getWorldPosition())
       pt.setWorldRotation(tt.getWorldRotation())
     } else {
-      // ~60 cm ahead, below eye level, between the user and the server
+      // ~60 cm ahead, below eye level: toward the server when near the counter, else where the user looks
       const cam = camPos()
-      const toServer = flat(this.server.getSceneObject().getTransform().getWorldPosition().sub(cam))
+      const toServer = this.phrasesOnCounter && !nearTray
+        ? camLookFlat()
+        : flat(this.server.getSceneObject().getTransform().getWorldPosition().sub(cam))
       placeFacingUser(this.phrases.getSceneObject(), cam.add(toServer.uniformScale(this.phraseDistanceCm)).add(new vec3(0, -this.phraseDropCm, 0)))
     }
     // softly highlight the real ingredients/items the offered phrases name

@@ -24,11 +24,12 @@
   VersionPatch: 0
   VersionPrerelease: ""
   UpdateOrder: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: 2d1210da-3c0b-477d-ae66-4be724469ea6
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    {}
+    viewDistanceCm: false
+    widthCm: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,10 +39,15 @@
   Attachments:
     []
   DefaultScriptInputs:
-    -
-      {}
+    - viewDistanceCm: !<float> 60.000000
+      widthCm: !<float> 42.000000
   ScriptTypes:
     -
       {}
   InputLines:
-    []
+    - '// @ui {"widget":"label", "label":"WbwWordListUI – saved words (by category, date added or A–Z)"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float viewDistanceCm = 60 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":100, "step":5}'
+    - '// @input float widthCm = 42 {"hint":"Panel width (cm)", "widget":"slider", "min":30, "max":50, "step":1}'
+    - '// @ui {"widget":"group_end"}'

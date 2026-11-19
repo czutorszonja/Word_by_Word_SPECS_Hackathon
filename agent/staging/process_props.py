@@ -16,6 +16,7 @@ SIZE = {
     "CarrotCake": ("max", 28), "KakaosCsiga": ("max", 38), "Pogacsa": ("max", 20),
     "OatMilk": ("height", 24.5), "AlmondMilk": ("height", 24.5), "CowMilk": ("height", 26),
     "CoffeeGrinder": ("height", 58), "CakeCloche": ("height", 36),
+    "SteelPan": ("max", 17.6), "Plate": ("max", 26), "Gherkin": ("max", 8),
 }
 
 
@@ -34,7 +35,10 @@ def aabb(g):
 
 def stage(names):
     os.makedirs(PV, exist_ok=True)
-    urls = json.load(open(os.path.join(M, "urls.json")))
+    urls = {}
+    for f in ("urls.json", "urls_new.json"):  # both gitignored: signed download links
+        fp = os.path.join(M, f)
+        if os.path.exists(fp): urls.update(json.load(open(fp)))
     for job in names:
         final = job.rsplit("_", 1)[0]
         g = os.path.join(M, job + ".glb")

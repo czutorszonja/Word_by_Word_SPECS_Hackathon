@@ -14,8 +14,8 @@ import wave
 import edge_tts
 import miniaudio
 
-SERVER_VOICE = "hu-HU-NoemiNeural"   # the barista
-LEARNER_VOICE = "hu-HU-TamasNeural"  # words and the learner's phrases
+SERVER_VOICE = "hu-HU-TamasNeural"   # the barista (a man since 2026-11-19)
+LEARNER_VOICE = "hu-HU-NoemiNeural"  # words and the learner's phrases (the other voice, so the two never blur)
 RATE = "-8%"                          # a touch slower than default, for learners
 
 CLIPS = {

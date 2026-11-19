@@ -46,6 +46,25 @@ CLIPS = {
     "a_mustar": "mustárt", "a_husgomboc": "húsgombócot",
     # connectors for building sentences
     "c_kerek": "kérek", "c_es": "és", "c_nelkul": "nélkül", "c_kerem": "kérem",
+    # reusable sentence pattern "Kérek <object form> a szendvicsembe." (one whole clip per ingredient)
+    "c_a_szendvicsembe": "a szendvicsembe",
+    "p_kerek_sonka": "Kérek sonkát a szendvicsembe.", "p_kerek_szalami": "Kérek szalámit a szendvicsembe.",
+    "p_kerek_csirke": "Kérek sült csirkét a szendvicsembe.", "p_kerek_sajt": "Kérek sajtot a szendvicsembe.",
+    "p_kerek_husgomboc": "Kérek húsgombócot a szendvicsembe.", "p_kerek_salata": "Kérek salátát a szendvicsembe.",
+    "p_kerek_spenot": "Kérek spenótot a szendvicsembe.", "p_kerek_paradicsom": "Kérek paradicsomot a szendvicsembe.",
+    "p_kerek_paprika": "Kérek paprikát a szendvicsembe.", "p_kerek_uborka_friss": "Kérek uborkát a szendvicsembe.",
+    "p_kerek_uborka": "Kérek savanyú uborkát a szendvicsembe.", "p_kerek_hagyma": "Kérek hagymát a szendvicsembe.",
+    "p_kerek_olivabogyo": "Kérek olívabogyót a szendvicsembe.", "p_kerek_majonez": "Kérek majonézt a szendvicsembe.",
+    "p_kerek_mustar": "Kérek mustárt a szendvicsembe.",
+    # "without" pattern "<dictionary form> nélkül, kérem."
+    "p_nelkul_sonka": "Sonka nélkül, kérem.", "p_nelkul_szalami": "Szalámi nélkül, kérem.",
+    "p_nelkul_csirke": "Sült csirke nélkül, kérem.", "p_nelkul_sajt": "Sajt nélkül, kérem.",
+    "p_nelkul_husgomboc": "Húsgombóc nélkül, kérem.", "p_nelkul_salata": "Saláta nélkül, kérem.",
+    "p_nelkul_spenot": "Spenót nélkül, kérem.", "p_nelkul_paradicsom": "Paradicsom nélkül, kérem.",
+    "p_nelkul_paprika": "Paprika nélkül, kérem.", "p_nelkul_uborka_friss": "Uborka nélkül, kérem.",
+    "p_nelkul_uborka": "Savanyú uborka nélkül, kérem.", "p_nelkul_hagyma": "Hagyma nélkül, kérem.",
+    "p_nelkul_olivabogyo": "Olívabogyó nélkül, kérem.", "p_nelkul_majonez": "Majonéz nélkül, kérem.",
+    "p_nelkul_mustar": "Mustár nélkül, kérem.",
     # server lines
     "s_mit_ker": "Jó napot! Mit kér?", "s_mit_ker_bele": "Mit kér bele?", "s_inni": "Inni valamit?",
     "s_itt_vagy_elvitel": "Itt fogyasztja vagy elvitelre?", "s_hanyas_asztal": "Hányas asztalnál ül?",

@@ -24,11 +24,12 @@
   VersionPatch: 0
   VersionPrerelease: ""
   UpdateOrder: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: 6df85da3-002f-4ae0-851a-91ba9eb389bc
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    {}
+    micPulse: false
+    viewDistanceCm: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,10 +39,15 @@
   Attachments:
     []
   DefaultScriptInputs:
-    -
-      {}
+    - viewDistanceCm: !<float> 100.000000
+      micPulse: 0.450000
   ScriptTypes:
     -
       {}
   InputLines:
-    []
+    - '// @ui {"widget":"label", "label":"WbwSpeakPromptUI – say-it strip (mic indicator + Said it)"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - "// @input float viewDistanceCm = 100 {\"hint\":\"Distance the strip's text is sized for (cm). It lies under the phrase cards / phrase helper on the counter (~125 cm away); sizing for less keeps it compact\", \"widget\":\"slider\", \"min\":60, \"max\":140, \"step\":5}"
+    - "// @input float micPulse = 0.45 {\"hint\":\"How much the mic dot grows with the learner's voice level (0 = it only brightens)\", \"widget\":\"slider\", \"min\":0, \"max\":0.8, \"step\":0.05}"
+    - '// @ui {"widget":"group_end"}'

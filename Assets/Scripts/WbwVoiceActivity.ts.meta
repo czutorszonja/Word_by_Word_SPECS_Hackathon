@@ -24,11 +24,28 @@
   VersionPatch: 0
   VersionPrerelease: ""
   UpdateOrder: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: ba29fff0-6027-4cd9-bd97-2e373dedbc58
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    {}
+    absMinOnsetDbfs: false
+    calibrationSec: false
+    debugLog: false
+    defaultListenTimeoutSec: false
+    endSilenceSec: false
+    hesitationSilenceSec: false
+    maxUtterSec: false
+    micAudio: false
+    minSpeechMaxSec: false
+    minSpeechMinSec: false
+    noSignalSec: false
+    noisyFloorDbfs: false
+    noisyListenTimeoutSec: false
+    onsetDb: false
+    preGapSec: false
+    releaseDb: false
+    tailGuardSec: false
+    voiceActivityEnabled: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,10 +55,53 @@
   Attachments:
     []
   DefaultScriptInputs:
-    -
-      {}
+    - micAudio: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      voiceActivityEnabled: true
+      onsetDb: !<float> 12.000000
+      releaseDb: !<float> 6.000000
+      absMinOnsetDbfs: !<float> -55.000000
+      minSpeechMinSec: 0.500000
+      minSpeechMaxSec: 0.800000
+      preGapSec: 0.300000
+      endSilenceSec: 0.700000
+      hesitationSilenceSec: 1.200000
+      maxUtterSec: !<float> 8.000000
+      calibrationSec: 0.400000
+      tailGuardSec: 0.350000
+      defaultListenTimeoutSec: !<float> 8.000000
+      noisyListenTimeoutSec: !<float> 4.000000
+      noisyFloorDbfs: !<float> -38.000000
+      noSignalSec: 1.500000
+      debugLog: false
   ScriptTypes:
     -
       {}
   InputLines:
-    []
+    - '// @ui {"widget":"label", "label":"WbwVoiceActivity – \"say it out loud\" detector (voice activity only, no recognition)"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Microphone"}'
+    - '// @input Asset.AudioTrackAsset micAudio {"hint":"Microphone Audio asset (Asset Browser → + → Microphone Audio). Empty = Said-it-only mode, unless init() passes one. Referencing it also shows the Preview mic button (bottom-left)."}'
+    - '// @input bool voiceActivityEnabled = true {"hint":"Detect that the learner spoke. Off = only the Said it button advances (the mic is never started)."}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Detection (tune on device)"}'
+    - '// @input float onsetDb = 12 {"hint":"Speech onset: dB above the noise floor (raised automatically in fluctuating noise so it stays this far above release)", "widget":"slider", "min":6, "max":24, "step":1}'
+    - "// @input float releaseDb = 6 {\"hint\":\"Release (hysteresis): dB above the floor that still counts as sound, so quiet syllables don't split the phrase. Never below 2.5 × the noise spread.\", \"widget\":\"slider\", \"min\":2, \"max\":12, \"step\":1}"
+    - '// @input float absMinOnsetDbfs = -55 {"hint":"Onset is never below this level (dBFS), so faint hiss in a digitally quiet room is not speech", "widget":"slider", "min":-75, "max":-35, "step":1}'
+    - '// @input float minSpeechMinSec = 0.5 {"hint":"Minimum voiced time for short phrases (s). Rejects coughs, clicks, pinch taps, a muttered word.", "widget":"slider", "min":0.2, "max":1.5, "step":0.05}'
+    - '// @input float minSpeechMaxSec = 0.8 {"hint":"Minimum voiced time for long phrases (s). Per turn: 0.3 × expectedPhraseSec, clamped to [min, max].", "widget":"slider", "min":0.3, "max":2, "step":0.05}'
+    - '// @input float preGapSec = 0.3 {"hint":"Longest pause inside an unconfirmed onset before it is dropped (s)", "widget":"slider", "min":0.1, "max":0.6, "step":0.05}'
+    - '// @input float endSilenceSec = 0.7 {"hint":"End window once the learner has voiced at least half of the model phrase (s): 85 % of it quiet = finished, onSpeechDetected fires", "widget":"slider", "min":0.3, "max":1.5, "step":0.05}'
+    - '// @input float hesitationSilenceSec = 1.2 {"hint":"End window before that, or when the phrase length is unknown (s). Beginners pause 0.7–1.2 s between words.", "widget":"slider", "min":0.6, "max":2.5, "step":0.05}'
+    - '// @input float maxUtterSec = 8 {"hint":"Continuous sound this long is NOT an answer (order phrases are 1–3 s): no event, the floor is raised to it, listening goes on (s)", "widget":"slider", "min":3, "max":15, "step":0.5}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Timing"}'
+    - '// @input float calibrationSec = 0.4 {"hint":"Brief noise-floor calibration after the mic starts or its signal returns (s of quiet, non-gated audio)", "widget":"slider", "min":0.2, "max":2, "step":0.1}'
+    - '// @input float tailGuardSec = 0.35 {"hint":"Ignore the mic this long after any Lens clip stops (s): speaker ring-down, room echo, timing slop", "widget":"slider", "min":0, "max":1, "step":0.05}'
+    - '// @input float defaultListenTimeoutSec = 8 {"hint":"Listen timeout when start() gets none (s): onTimeout fires and the UI nudges Said it. Never auto-advances.", "widget":"slider", "min":2, "max":20, "step":0.5}'
+    - "// @input float noisyListenTimeoutSec = 4 {\"hint\":\"Listen timeout in a noisy room (s); the shorter of this and the turn's timeout wins\", \"widget\":\"slider\", \"min\":2, \"max\":10, \"step\":0.5}"
+    - '// @input float noisyFloorDbfs = -38 {"hint":"A noise floor above this (dBFS) counts as a noisy room", "widget":"slider", "min":-50, "max":-25, "step":1}'
+    - '// @input float noSignalSec = 1.5 {"hint":"No non-zero sample for this long = no mic signal, e.g. the Preview mic toggle is off (s)", "widget":"slider", "min":0.5, "max":5, "step":0.1}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Debug"}'
+    - '// @input bool debugLog {"hint":"Print state changes with level, floor and spread (for tuning on device)"}'
+    - '// @ui {"widget":"group_end"}'

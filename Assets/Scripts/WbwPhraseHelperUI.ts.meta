@@ -49,5 +49,5 @@
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input float viewDistanceCm = 100 {"hint":"Distance the text is sized for (cm). The panel lies on the counter like the phrase cards", "widget":"slider", "min":60, "max":140, "step":5}'
-    - '// @input float maxWidthCm = 46 {"hint":"Panel width (cm). Fixed, so the frame never jumps when the phrase changes", "widget":"slider", "min":30, "max":60, "step":1}'
+    - '// @input float maxWidthCm = 40 {"hint":"Panel width (cm). Fixed, so the frame never jumps when the phrase changes", "widget":"slider", "min":30, "max":60, "step":1}'
     - '// @ui {"widget":"group_end"}'

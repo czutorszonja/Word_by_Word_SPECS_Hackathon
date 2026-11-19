@@ -28,11 +28,13 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    arrivalSuggestion: false
     audio: false
     cafe: false
     firstMode: false
     hud: false
     learn: false
+    micAudio: false
     modeMenu: false
     order: false
     practice: false
@@ -40,7 +42,11 @@
     setupDistanceCm: false
     setupPanel: false
     skipSetup: false
+    suggestAutoPickSec: false
+    suggestion: false
     toast: false
+    toastAfterWalkCm: false
+    toastFallbackSec: false
     toastSeconds: false
     toastText: false
   ScriptTypesHidden:
@@ -61,12 +67,18 @@
       order: !<MappingBased.AssignableType_7> 00000000-0000-0000-0000-000000000000
       practice: !<MappingBased.AssignableType_8> 00000000-0000-0000-0000-000000000000
       audio: !<MappingBased.AssignableType_9> 00000000-0000-0000-0000-000000000000
+      suggestion: !<MappingBased.AssignableType_10> 00000000-0000-0000-0000-000000000000
+      micAudio: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
       toastText: Café detected (demo)
       toastSeconds: !<float> 3.000000
       firstMode: learn
       setupDistanceCm: !<float> 70.000000
       raiseHandOpensMenu: true
       skipSetup: false
+      arrivalSuggestion: true
+      toastAfterWalkCm: !<float> 80.000000
+      toastFallbackSec: 1.500000
+      suggestAutoPickSec: !<float> 0.000000
   ScriptTypes:
     -
       {}
@@ -83,12 +95,20 @@
     - '// @input AssignableType_7 order {"hint":"Use it live controller"}'
     - '// @input AssignableType_8 practice {"hint":"Practice controller"}'
     - '// @input AssignableType_9 audio {"hint":"Audio controller"}'
+    - '// @input AssignableType_10 suggestion {"hint":"Arrival suggestion panel (Learn / Practice / Use it live / Later). Empty = created at start"}'
+    - "// @input Asset.AudioTrackAsset micAudio {\"hint\":\"Microphone Audio asset (Asset Browser → + → Microphone Audio) for 'say it out loud' in Use it live. Empty = only the Said it button ends a speak turn\"}"
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input string toastText = "Café detected (demo)" {"hint":"Stand-in for location recognition, shown after setup"}'
     - '// @input float toastSeconds = 3 {"hint":"Seconds the toast stays (brief: about 3 s)", "widget":"slider", "min":1, "max":8, "step":0.5}'
-    - '// @input string firstMode = "learn" {"hint":"Mode entered automatically after setup", "widget":"combobox", "values":[{"label":"Learn", "value":"learn"}, {"label":"Use it live", "value":"live"}, {"label":"Practice", "value":"practice"}, {"label":"None (menu only)", "value":"none"}]}'
+    - '// @input string firstMode = "learn" {"hint":"Mode entered by itself after the toast. Used only when the arrival suggestion is off or setup is skipped", "widget":"combobox", "values":[{"label":"Learn", "value":"learn"}, {"label":"Use it live", "value":"live"}, {"label":"Practice", "value":"practice"}, {"label":"None (menu only)", "value":"none"}]}'
     - '// @input float setupDistanceCm = 70 {"hint":"Distance of the setup panel in front of the user (cm) — brief: ~70 cm", "widget":"slider", "min":40, "max":110, "step":1}'
     - '// @input bool raiseHandOpensMenu = true {"hint":"On Specs: raising an open hand (palm toward you) opens the mode menu next to it. The HUD Menu button is the preview stand-in."}'
-    - '// @input bool skipSetup {"hint":"Skip the setup panel and toast (handy while iterating)"}'
+    - '// @input bool skipSetup {"hint":"Skip the setup panel, the walk-in and the suggestion (handy while iterating): toast, then the first mode"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Arrival"}'
+    - '// @input bool arrivalSuggestion = true {"hint":"After the toast, offer Learn / Practice / Use it live / Later and wait for a pick: no mode starts by itself and the HUD stays hidden until then. Off = the first mode (Settings) starts by itself after the toast"}'
+    - '// @input float toastAfterWalkCm = 80 {"hint":"The toast appears once the learner has walked this far after Start (cm)...", "widget":"slider", "min":0, "max":300, "step":5}'
+    - '// @input float toastFallbackSec = 1.5 {"hint":"...or this many seconds after Start, whichever comes first", "widget":"slider", "min":0, "max":6, "step":0.1}'
+    - '// @input float suggestAutoPickSec {"hint":"Kiosk only: seconds on the suggestion panel after which the suggested option is picked by itself. 0 = never (nothing starts by itself)", "widget":"slider", "min":0, "max":60, "step":1}'
     - '// @ui {"widget":"group_end"}'

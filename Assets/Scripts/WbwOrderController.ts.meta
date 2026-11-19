@@ -31,17 +31,20 @@
     arrowInViewDeg: false
     caption: false
     captionLingerSec: false
-    fillingsCardCount: false
     hint: false
     maxTrayDistanceCm: false
     phraseDistanceCm: false
     phraseDropCm: false
+    phraseHelper: false
     phraseTray: false
     phrases: false
     phrasesOnCounter: false
+    playPhraseOnChange: false
     replyPauseSec: false
     seating: false
     server: false
+    speakPrompt: false
+    voiceDetection: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -57,6 +60,8 @@
       server: !<MappingBased.AssignableType_4> 00000000-0000-0000-0000-000000000000
       seating: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       phraseTray: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      phraseHelper: !<MappingBased.AssignableType_5> 00000000-0000-0000-0000-000000000000
+      speakPrompt: !<MappingBased.AssignableType_6> 00000000-0000-0000-0000-000000000000
       replyPauseSec: 0.600000
       captionLingerSec: !<float> 4.000000
       phrasesOnCounter: true
@@ -64,7 +69,8 @@
       phraseDistanceCm: !<float> 60.000000
       phraseDropCm: !<float> 17.000000
       arrowInViewDeg: !<float> 24.000000
-      fillingsCardCount: !<float> 3.000000
+      playPhraseOnChange: true
+      voiceDetection: true
   ScriptTypes:
     -
       {}
@@ -78,6 +84,8 @@
     - '// @input AssignableType_4 server {"hint":"The scripted server character"}'
     - '// @input SceneObject seating {"hint":"Seating root: children Table_<n>, each with a TableCard_<n> child"}'
     - '// @input SceneObject phraseTray {"hint":"Authored tray on the sandwich counter where the phrase cards lie (tilted toward the user)"}'
+    - '// @input AssignableType_5 phraseHelper {"hint":"Phrase helper view (SAY IT AT THE COUNTER). Empty = WbwMain creates one at start"}'
+    - '// @input AssignableType_6 speakPrompt {"hint":"Say-it strip with the Said it button. Empty = WbwMain creates one at start"}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - "// @input float replyPauseSec = 0.6 {\"hint\":\"Pause between the user's answer and the server's next line (s)\", \"widget\":\"slider\", \"min\":0, \"max\":3, \"step\":0.1}"
@@ -87,5 +95,6 @@
     - '// @input float phraseDistanceCm = 68 {"hint":"Distance of the phrase cards in front of the user when NOT on the counter (cm)", "widget":"slider", "min":40, "max":90, "step":1}'
     - '// @input float phraseDropCm = 7 {"hint":"How far below eye level the phrase cards sit (cm)", "widget":"slider", "min":0, "max":40, "step":1}'
     - "// @input float arrowInViewDeg = 24 {\"hint\":\"Objects within this angle (deg) of the view direction count as 'in view' for the arrow\", \"widget\":\"slider\", \"min\":10, \"max\":45, \"step\":1}"
-    - "// @input float fillingsCardCount = 3 {\"hint\":\"How many filling phrases the 'Mit kér bele?' step shows (plus Kész). Phrases with words you saved come first; the leave-out phrase is always shown.\", \"widget\":\"slider\", \"min\":2, \"max\":4, \"step\":1}"
+    - '// @input bool playPhraseOnChange = true {"hint":"Use this word, Add (+ és) and the pattern switch play the updated phrase once"}'
+    - "// @input bool voiceDetection = true {\"hint\":\"Listen for the learner's voice to end a speak turn. Off = only the Said it button ends it (use for recordings)\"}"
     - '// @ui {"widget":"group_end"}'

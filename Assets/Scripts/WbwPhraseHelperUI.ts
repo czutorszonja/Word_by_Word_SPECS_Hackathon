@@ -45,7 +45,7 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
   @input
   @hint("Panel width (cm). Fixed, so the frame never jumps when the phrase changes")
   @widget(new SliderWidget(30, 60, 1))
-  maxWidthCm: number = 46
+  maxWidthCm: number = 40
   @ui.group_end
 
   private root: SceneObject | null = null

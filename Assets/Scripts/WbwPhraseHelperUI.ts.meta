@@ -24,11 +24,12 @@
   VersionPatch: 0
   VersionPrerelease: ""
   UpdateOrder: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: da2d3c26-be57-476b-8536-c58f5a7dbdaf
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    {}
+    maxWidthCm: false
+    viewDistanceCm: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,10 +39,15 @@
   Attachments:
     []
   DefaultScriptInputs:
-    -
-      {}
+    - viewDistanceCm: !<float> 100.000000
+      maxWidthCm: !<float> 46.000000
   ScriptTypes:
     -
       {}
   InputLines:
-    []
+    - '// @ui {"widget":"label", "label":"WbwPhraseHelperUI – SAY IT AT THE COUNTER (reusable phrase)"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float viewDistanceCm = 100 {"hint":"Distance the text is sized for (cm). The panel lies on the counter like the phrase cards", "widget":"slider", "min":60, "max":140, "step":5}'
+    - '// @input float maxWidthCm = 46 {"hint":"Panel width (cm). Fixed, so the frame never jumps when the phrase changes", "widget":"slider", "min":30, "max":60, "step":1}'
+    - '// @ui {"widget":"group_end"}'

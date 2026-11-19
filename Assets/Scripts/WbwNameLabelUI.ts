@@ -581,7 +581,8 @@ export class WbwNameLabelUI extends BaseScriptComponent {
       {side: "upper-right", x: objR.x1 + gap + hw, y: objR.y1 + gap + hh, pref: 2}, // beside-above corner
       {side: "upper-left", x: objR.x0 - gap - hw, y: objR.y1 + gap + hh, pref: 3},
       {side: "above", x: cx, y: objR.y1 + gap + hh, pref: 4},                // clean for the back row
-      {side: "below", x: cx, y: objR.y0 - gap - hh, pref: 6},                // in front of the counter glass
+      // last resort: below the tray is where the low HUD strip sits, so the label could hide behind it
+      {side: "below", x: cx, y: objR.y0 - gap - hh, pref: 40},
     ]
     const obst: ScreenRect[] = []
     for (const o of this.obstacles) {
@@ -603,7 +604,9 @@ export class WbwNameLabelUI extends BaseScriptComponent {
       if (overlap(r, objKeepOut) > 0) s += 1000                           // never cover what is named
       const ox = Math.max(0, Math.abs(c.x) + hw - vx), oy = Math.max(0, Math.abs(c.y) + hh - vy)
       s += 100 * (ox * ox + oy * oy)                                      // stay inside the narrow view
-      for (const o of obst) s += overlap(r, o)                            // cover as little as possible
+      // cover as little as possible; on the dense counter some overlap with a neighbouring tray is
+      // better than dropping the label below the counter edge, so neighbours weigh lightly
+      for (const o of obst) s += 0.3 * overlap(r, o)
       if (cardR) s += 3 * overlap(r, cardR)
       if (s < bestScore) {
         bestScore = s

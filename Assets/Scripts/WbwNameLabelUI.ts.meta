@@ -24,11 +24,20 @@
   VersionPatch: 0
   VersionPrerelease: ""
   UpdateOrder: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: 88d45403-586a-47b7-ab2a-f76f7b304a21
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    {}
+    drawBracket: false
+    drawConnector: false
+    drawPointerDot: false
+    gapCm: false
+    labelBoost: false
+    pullTowardEyeCm: false
+    replaceMoveCm: false
+    replaceTurnDeg: false
+    viewHalfHeightDeg: false
+    viewHalfWidthDeg: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,10 +47,33 @@
   Attachments:
     []
   DefaultScriptInputs:
-    -
-      {}
+    - viewHalfWidthDeg: !<float> 16.000000
+      viewHalfHeightDeg: !<float> 19.000000
+      pullTowardEyeCm: !<float> 10.000000
+      gapCm: 1.500000
+      replaceMoveCm: !<float> 10.000000
+      replaceTurnDeg: !<float> 8.000000
+      labelBoost: 1.250000
+      drawBracket: true
+      drawConnector: true
+      drawPointerDot: true
   ScriptTypes:
     -
       {}
   InputLines:
-    []
+    - '// @ui {"widget":"label", "label":"WbwNameLabelUI – hover label beside the pointed-at object"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Placement"}'
+    - '// @input float viewHalfWidthDeg = 16 {"hint":"Half width of the Specs view (deg): the label stays inside it", "widget":"slider", "min":10, "max":30, "step":0.5}'
+    - '// @input float viewHalfHeightDeg = 19 {"hint":"Half height of the Specs view (deg)", "widget":"slider", "min":10, "max":30, "step":0.5}'
+    - '// @input float pullTowardEyeCm = 10 {"hint":"The label floats this much nearer the eye than the object, so it never cuts into neighbouring pans (cm)", "widget":"slider", "min":0, "max":30, "step":1}'
+    - "// @input float gapCm = 1.5 {\"hint\":\"Gap between the object's bracket and the label (cm)\", \"widget\":\"slider\", \"min\":0, \"max\":6, \"step\":0.1}"
+    - '// @input float replaceMoveCm = 10 {"hint":"Re-place the (world-locked) label when the head moved this far since it was placed (cm)", "widget":"slider", "min":2, "max":40, "step":1}'
+    - '// @input float replaceTurnDeg = 8 {"hint":"Re-place the label when the head turned this far since it was placed (deg)", "widget":"slider", "min":2, "max":30, "step":1}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"group_start", "label":"Look"}'
+    - "// @input float labelBoost = 1.25 {\"hint\":\"Text size factor for the label's real distance. Word cards use READ_BOOST 2.0; a smaller value keeps the label small (about a 2.2 cm Hungarian line at ~110 cm)\", \"widget\":\"slider\", \"min\":0.8, \"max\":2, \"step\":0.05}"
+    - '// @input bool drawBracket = true {"hint":"Draw the discreet focus bracket around the pointed-at object"}'
+    - '// @input bool drawConnector = true {"hint":"Draw the short connector line from the object to the label"}'
+    - '// @input bool drawPointerDot = true {"hint":"Preview and LEAF only: draw the small dot where the pointer meets the pointed-at object (on Specs SIK draws its own cursor)"}'
+    - '// @ui {"widget":"group_end"}'

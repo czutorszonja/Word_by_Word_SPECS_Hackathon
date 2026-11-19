@@ -74,7 +74,10 @@ CLIPS = {
 PAD_SECONDS = 0.25  # short silence at start and end, like the recording guide asks
 
 
-def mp3_to_wav(mp3_path: str, wav_path: str) -> float:
+STITCH_PAD_SECONDS = 0.05  # a_* and c_* clips are joined into sentences, so they get almost no padding
+
+
+def mp3_to_wav(mp3_path: str, wav_path: str, pad_seconds: float = PAD_SECONDS) -> float:
     decoded = miniaudio.decode_file(mp3_path, output_format=miniaudio.SampleFormat.SIGNED16,
                                     nchannels=1, sample_rate=44100)
     samples = decoded.samples
@@ -84,13 +87,13 @@ def mp3_to_wav(mp3_path: str, wav_path: str) -> float:
     if loud:
         margin = int(44100 * 0.04)
         samples = samples[max(0, loud[0] - margin): min(len(samples), loud[-1] + margin)]
-    pad = b"\x00\x00" * int(44100 * PAD_SECONDS)
+    pad = b"\x00\x00" * int(44100 * pad_seconds)
     with wave.open(wav_path, "wb") as w:
         w.setnchannels(1)
         w.setsampwidth(2)
         w.setframerate(44100)
         w.writeframes(pad + samples.tobytes() + pad)
-    return len(samples) / 44100 + 2 * PAD_SECONDS
+    return len(samples) / 44100 + 2 * pad_seconds
 
 
 async def make(key: str, text: str, out_dir: str) -> str:
@@ -99,7 +102,8 @@ async def make(key: str, text: str, out_dir: str) -> str:
         mp3 = os.path.join(tmp, key + ".mp3")
         await edge_tts.Communicate(text, voice, rate=RATE).save(mp3)
         wav = os.path.join(out_dir, key + ".wav")
-        secs = mp3_to_wav(mp3, wav)
+        stitched = key.startswith("a_") or key.startswith("c_")
+        secs = mp3_to_wav(mp3, wav, STITCH_PAD_SECONDS if stitched else PAD_SECONDS)
     return f"{key}.wav  {secs:4.2f}s  {voice}  \"{text}\""
 
 

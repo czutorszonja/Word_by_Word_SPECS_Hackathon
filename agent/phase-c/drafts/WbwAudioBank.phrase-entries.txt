@@ -1,0 +1,40 @@
+// WbwAudioBank.phrase-entries.txt — the 31 entries the phrase helper needs that Assets/Scripts/WbwAudioBank.ts
+// does not list yet (checked against the bank on 2026-11-19; every .wav and .wav.meta exists in Assets/Audio/hu/).
+// For the agent that owns Assets/: paste these lines into the AUDIO table. The table is sorted by key, so:
+//   c_a_szendvicsembe        goes right before "c_es"
+//   p_kerek_<id>  (15 lines) go right after "p_jonapot" (before "p_kerhetek_oliva")
+//   p_nelkul_<id> (15 lines) go right after "p_negyes_asztal" (before "p_nyolcas_asztal")
+// Generated from WbwPhraseHelperModel.phraseClipKeys(); verify afterwards with the one-liner in
+// WbwPhraseHelperModel.cases.md §F (expects []). Not a source file: it is .txt so Lens Studio never compiles it.
+
+  "c_a_szendvicsembe": requireAsset("../Audio/hu/c_a_szendvicsembe.wav") as AudioTrackAsset,
+  "p_kerek_csirke": requireAsset("../Audio/hu/p_kerek_csirke.wav") as AudioTrackAsset,
+  "p_kerek_hagyma": requireAsset("../Audio/hu/p_kerek_hagyma.wav") as AudioTrackAsset,
+  "p_kerek_husgomboc": requireAsset("../Audio/hu/p_kerek_husgomboc.wav") as AudioTrackAsset,
+  "p_kerek_majonez": requireAsset("../Audio/hu/p_kerek_majonez.wav") as AudioTrackAsset,
+  "p_kerek_mustar": requireAsset("../Audio/hu/p_kerek_mustar.wav") as AudioTrackAsset,
+  "p_kerek_olivabogyo": requireAsset("../Audio/hu/p_kerek_olivabogyo.wav") as AudioTrackAsset,
+  "p_kerek_paprika": requireAsset("../Audio/hu/p_kerek_paprika.wav") as AudioTrackAsset,
+  "p_kerek_paradicsom": requireAsset("../Audio/hu/p_kerek_paradicsom.wav") as AudioTrackAsset,
+  "p_kerek_sajt": requireAsset("../Audio/hu/p_kerek_sajt.wav") as AudioTrackAsset,
+  "p_kerek_salata": requireAsset("../Audio/hu/p_kerek_salata.wav") as AudioTrackAsset,
+  "p_kerek_sonka": requireAsset("../Audio/hu/p_kerek_sonka.wav") as AudioTrackAsset,
+  "p_kerek_spenot": requireAsset("../Audio/hu/p_kerek_spenot.wav") as AudioTrackAsset,
+  "p_kerek_szalami": requireAsset("../Audio/hu/p_kerek_szalami.wav") as AudioTrackAsset,
+  "p_kerek_uborka": requireAsset("../Audio/hu/p_kerek_uborka.wav") as AudioTrackAsset,
+  "p_kerek_uborka_friss": requireAsset("../Audio/hu/p_kerek_uborka_friss.wav") as AudioTrackAsset,
+  "p_nelkul_csirke": requireAsset("../Audio/hu/p_nelkul_csirke.wav") as AudioTrackAsset,
+  "p_nelkul_hagyma": requireAsset("../Audio/hu/p_nelkul_hagyma.wav") as AudioTrackAsset,
+  "p_nelkul_husgomboc": requireAsset("../Audio/hu/p_nelkul_husgomboc.wav") as AudioTrackAsset,
+  "p_nelkul_majonez": requireAsset("../Audio/hu/p_nelkul_majonez.wav") as AudioTrackAsset,
+  "p_nelkul_mustar": requireAsset("../Audio/hu/p_nelkul_mustar.wav") as AudioTrackAsset,
+  "p_nelkul_olivabogyo": requireAsset("../Audio/hu/p_nelkul_olivabogyo.wav") as AudioTrackAsset,
+  "p_nelkul_paprika": requireAsset("../Audio/hu/p_nelkul_paprika.wav") as AudioTrackAsset,
+  "p_nelkul_paradicsom": requireAsset("../Audio/hu/p_nelkul_paradicsom.wav") as AudioTrackAsset,
+  "p_nelkul_sajt": requireAsset("../Audio/hu/p_nelkul_sajt.wav") as AudioTrackAsset,
+  "p_nelkul_salata": requireAsset("../Audio/hu/p_nelkul_salata.wav") as AudioTrackAsset,
+  "p_nelkul_sonka": requireAsset("../Audio/hu/p_nelkul_sonka.wav") as AudioTrackAsset,
+  "p_nelkul_spenot": requireAsset("../Audio/hu/p_nelkul_spenot.wav") as AudioTrackAsset,
+  "p_nelkul_szalami": requireAsset("../Audio/hu/p_nelkul_szalami.wav") as AudioTrackAsset,
+  "p_nelkul_uborka": requireAsset("../Audio/hu/p_nelkul_uborka.wav") as AudioTrackAsset,
+  "p_nelkul_uborka_friss": requireAsset("../Audio/hu/p_nelkul_uborka_friss.wav") as AudioTrackAsset,

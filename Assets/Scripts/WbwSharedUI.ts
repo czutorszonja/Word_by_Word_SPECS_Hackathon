@@ -416,29 +416,17 @@ export function setInactiveColor(btn: Button, color: vec4): void {
   else btn.onInitialized.add(apply)
 }
 
-/** Height (cm) a headerRule() takes in a column. */
-export const HEADER_RULE_H = 0.52
+/** Height (cm) a headerRule() takes in a column: none. */
+export const HEADER_RULE_H = 0
 
 /**
- * Word by Word heading mark: three dashes in the mode's tint, getting shorter ("word · by · word"),
- * placed under a panel heading. Registered as a flex item of `parent`.
+ * Formerly a three-dash "word · by · word" heading mark. The learner found it meaningless, so it draws
+ * nothing now: panels name their content instead (e.g. the menu's "Current mode"). Kept as a no-op so
+ * existing callers stay valid; the returned object is empty, disabled and not a flex item.
  */
 export function headerRule(parent: SceneObject, rowW: number = 0, name: string = "HeaderRule"): SceneObject {
-  const lens = [2.4, 1.4, 0.7], h = 0.32, gap = 0.45
-  const dashW = lens.reduce((a, b) => a + b, 0) + gap * (lens.length - 1)
-  const w = Math.max(rowW, dashW)
   const row = obj(parent, name, new vec3(0, 0, 0.03))
-  let x = rowW > 0 ? -w / 2 : -dashW / 2 // left-aligned under a left-aligned heading
-  lens.forEach((l, i) => {
-    const d = obj(row, `Dash${i}`, new vec3(x + l / 2, 0, 0))
-    const rr = d.createComponent(RoundedRectangle.getTypeName()) as RoundedRectangle
-    rr.size = new vec2(l, h)
-    rr.cornerRadius = h / 2
-    rr.gradient = false
-    rr.backgroundColor = new vec4(currentTone.tint.r, currentTone.tint.g, currentTone.tint.b, 0.95 - i * 0.15)
-    x += l + gap
-  })
-  register(parent, item(row, w, h + 0.2))
+  row.enabled = false
   return row
 }
 

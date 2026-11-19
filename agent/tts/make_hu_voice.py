@@ -65,6 +65,13 @@ CLIPS = {
     "p_nelkul_uborka": "Savanyú uborka nélkül, kérem.", "p_nelkul_hagyma": "Hagyma nélkül, kérem.",
     "p_nelkul_olivabogyo": "Olívabogyó nélkül, kérem.", "p_nelkul_majonez": "Majonéz nélkül, kérem.",
     "p_nelkul_mustar": "Mustár nélkül, kérem.",
+    # pre-saved words from earlier outings (saved-words viewer categories)
+    "w_utca": "utca", "w_jarda": "járda", "w_bolt": "bolt", "w_busz": "busz", "w_villamos": "villamos",
+    "w_megallo": "megálló", "w_lampa": "lámpa", "w_auto": "autó", "w_bicikli": "bicikli", "w_taxi": "taxi",
+    "w_posta": "posta", "w_gyogyszertar": "gyógyszertár",
+    "w_fa": "fa", "w_virag": "virág", "w_fu": "fű", "w_pad": "pad", "w_szokokut": "szökőkút",
+    "w_kutya": "kutya", "w_madar": "madár", "w_to": "tó", "w_jatszoter": "játszótér", "w_hinta": "hinta",
+    "w_labda": "labda", "w_osveny": "ösvény",
     # server lines
     "s_mit_ker": "Jó napot! Mit kér?", "s_mit_ker_bele": "Mit kér bele?", "s_inni": "Inni valamit?",
     "s_itt_vagy_elvitel": "Itt fogyasztja vagy elvitelre?", "s_hanyas_asztal": "Hányas asztalnál ül?",

@@ -45,3 +45,7 @@ agent/staging/mesh/urls.json
 
 # Raw and rejected mesh downloads stay local (hundreds of MB); the chosen meshes live in Assets/GeneratedMeshes
 agent/staging/**/*.glb
+
+# mesh generation: download URLs carry temporary signed tokens; preview images are scratch
+agent/staging/mesh/urls*.json
+agent/staging/mesh/preview_img/

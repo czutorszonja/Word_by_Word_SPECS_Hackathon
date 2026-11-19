@@ -57,7 +57,7 @@
     -
       {}
   InputLines:
-    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwHudUI – Menu stand-in button + saved counter</span>"}'
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwHudUI – Menu (demo) stand-in button</span>"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input float followDistanceCm = 60 {"hint":"Distance in front of the user (cm)", "widget":"slider", "min":40, "max":100, "step":1}'

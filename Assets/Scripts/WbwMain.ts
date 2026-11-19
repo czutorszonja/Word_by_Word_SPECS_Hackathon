@@ -18,6 +18,10 @@ import {WbwSuggestionUI} from "./WbwSuggestionUI"
 import {WbwNameLabelUI} from "./WbwNameLabelUI"
 import {WbwPhraseHelperUI} from "./WbwPhraseHelperUI"
 import {WbwSpeakPromptUI} from "./WbwSpeakPromptUI"
+import {WbwWordListUI, WordListEntry} from "./WbwWordListUI"
+import {CAFE_CATEGORY, EARLIER_WORDS, wordById} from "./WbwVocab"
+import {PICTURES} from "./WbwIllustrations"
+import {WORD_ICONS} from "./WbwWordIcons"
 import {WbwCafeBuilder} from "./WbwCafeBuilder"
 import {WbwLearnController} from "./WbwLearnController"
 import {WbwOrderController} from "./WbwOrderController"
@@ -35,6 +39,9 @@ const SUGGEST_DIST = 70, SUGGEST_UP = -3
 const TOAST_FADE_SEC = 0.35, SUGGEST_PAUSE_SEC = 0.3
 /** Option the arrival suggestion recommends: nothing is saved yet, so Learn comes first. */
 const SUGGESTED_OPTION = "learn"
+/** The menu and the saved-words viewer follow the gaze at this distance / height (cm). */
+const MENU_DIST = 55, MENU_UP = -3
+const WORDS_DIST = 62, WORDS_UP = -2
 
 @component
 export class WbwMain extends BaseScriptComponent {
@@ -51,6 +58,7 @@ export class WbwMain extends BaseScriptComponent {
   @input @hint("Practice controller") practice!: WbwPracticeController
   @input @hint("Audio controller") audio!: WbwAudioController
   @input @allowUndefined @hint("Arrival suggestion panel (Learn / Practice / Use it live / Later). Empty = created at start") suggestion: WbwSuggestionUI | undefined
+  @input @allowUndefined @hint("Saved-words viewer (opened from the menu's Words saved). Empty = created at start") wordList: WbwWordListUI | undefined
   @input @allowUndefined @hint("Microphone Audio asset (Asset Browser → + → Microphone Audio) for 'say it out loud' in Use it live. Empty = only the Said it button ends a speak turn") micAudio: AudioTrackAsset | undefined
   @ui.group_end
   @ui.group_start("Settings")
@@ -110,6 +118,8 @@ export class WbwMain extends BaseScriptComponent {
   private suggestT0 = 0
   private toastFollowing = false
   private suggestFollowing = false
+  private menuFollowing = false
+  private wordsFollowing = false
 
   // ── readable state for tests ──
   get currentMode(): string { return this.session.mode }
@@ -118,6 +128,8 @@ export class WbwMain extends BaseScriptComponent {
   get savedCount(): number { return this.session.savedCount }
   get setupComplete(): boolean { return this.session.setupComplete }
   get menuOpen(): boolean { return this.modeMenu ? this.modeMenu.isVisible : false }
+  /** True while the saved-words viewer is open. */
+  get wordListOpen(): boolean { return !!this.wordList && this.wordList.isVisible }
   /** Number of mode switches this session. */
   modeSwitches: number = 0
   /** Arrival: "setup" → "walkIn" → "toast" → "suggest" → "done". */
@@ -158,6 +170,11 @@ export class WbwMain extends BaseScriptComponent {
     this.hud.onMenu.add(() => this.toggleMenu())
     this.modeMenu.onPick.add((m) => this.selectMode(m as Mode))
     this.modeMenu.onClose.add(() => this.modeMenu.hide())
+    this.modeMenu.onWords.add(() => this.openWordList())
+    if (this.wordList) {
+      this.wordList.onClose.add(() => this.wordList!.hide())
+      this.wordList.onPlay.add((e) => this.audio.playVoice(e.audio))
+    }
     this.setupPanel.onConfirm.add(() => this.confirmSetup())
     // "Use it live →" on a word card: carry the word, then switch mode (the order controller reads it once).
     // The label's "Use this word" / "Add" buttons need no wiring here: order.init() subscribes learn.onUse / onAdd.
@@ -170,6 +187,7 @@ export class WbwMain extends BaseScriptComponent {
     this.createEvent("UpdateEvent").bind(() => {
       this.hud.setCompact(this.order.active)
       this.tickArrival()
+      this.followOpenPanels()
     })
     if (this.raiseHandOpensMenu) {
       this.raiseHand = new WbwRaiseHand()
@@ -198,6 +216,9 @@ export class WbwMain extends BaseScriptComponent {
     }
     if (!this.order.speakPrompt) {
       this.hostView("SpeakPromptRoot", made, (so) => { this.order.speakPrompt = so.createComponent(WbwSpeakPromptUI.getTypeName()) as WbwSpeakPromptUI })
+    }
+    if (!this.wordList) {
+      this.hostView("WordListRoot", made, (so) => { this.wordList = so.createComponent(WbwWordListUI.getTypeName()) as WbwWordListUI })
     }
     if (!this.suggestion) {
       this.hostView("SuggestionRoot", made, (so) => { this.suggestion = so.createComponent(WbwSuggestionUI.getTypeName()) as WbwSuggestionUI })
@@ -349,15 +370,50 @@ export class WbwMain extends BaseScriptComponent {
       this.modeMenu.hide()
       return
     }
-    // preview stand-in: just above and inward of the low-side HUD (where a raised hand would be)
-    const hudPos = this.hud.getSceneObject().getTransform().getWorldPosition()
-    this.openMenuAt(hudPos.add(new vec3(0, 20.5, 0)).add(camRightFlat().uniformScale(6)))
+    // opened on purpose, so it comes into view and then follows the gaze (followOpenPanels)
+    this.openMenuAt(inView(MENU_DIST, MENU_UP))
   }
 
   private openMenuAt(pos: vec3): void {
     this.audio.playSfx("ToastPop")
-    this.modeMenu.show(this.session.mode, MODE_LABEL[this.session.mode], this.session.savedCount)
+    if (this.wordList) this.wordList.hide()
+    this.modeMenu.show(this.session.mode, MODE_LABEL[this.session.mode])
     placeFacingUser(this.modeMenu.getSceneObject(), pos)
+    this.menuFollowing = false
+  }
+
+  /** The menu's "Words saved": the saved-words viewer replaces the menu, sorted by category first. */
+  openWordList(): void {
+    if (!this.wordList) return
+    this.modeMenu.hide()
+    this.audio.playSfx("UiClick")
+    this.wordList.show(this.wordEntries(), "category")
+    placeFacingUser(this.wordList.getSceneObject(), inView(WORDS_DIST, WORDS_UP))
+    this.wordsFollowing = false
+  }
+
+  /** Words saved in this session (category Café, today) plus the words saved on earlier outings. */
+  wordEntries(): WordListEntry[] {
+    const out: WordListEntry[] = []
+    this.session.saved.forEach((id, i) => {
+      const w = wordById(id)
+      if (w) out.push({id: w.id, hu: w.hu, en: w.en, audio: w.audio, picture: PICTURES[w.picture] ?? null, category: CAFE_CATEGORY, daysAgo: 0, order: i})
+    })
+    for (const e of EARLIER_WORDS) {
+      out.push({id: e.id, hu: e.hu, en: e.en, audio: e.audio, picture: WORD_ICONS[e.icon] ?? null, category: e.category, daysAgo: e.daysAgo, order: 0})
+    }
+    return out
+  }
+
+  /** An open menu or word list follows where the user looks, and stays still while a button on it is pointed at. */
+  private followOpenPanels(): void {
+    const dt = getDeltaTime()
+    if (this.modeMenu.isVisible) {
+      this.menuFollowing = lazyFollowStep(this.modeMenu.getSceneObject(), MENU_DIST, MENU_UP, dt, this.menuFollowing, this.modeMenu.hovered)
+    }
+    if (this.wordList && this.wordList.isVisible) {
+      this.wordsFollowing = lazyFollowStep(this.wordList.getSceneObject(), WORDS_DIST, WORDS_UP, dt, this.wordsFollowing, this.wordList.hovered)
+    }
   }
 
   /** Switch mode (closes the menu). Saved words are kept across switches. Any mode chosen before the

@@ -69,6 +69,49 @@ export const WORDS: WordEntry[] = [
   {id: "asztal", hu: "asztal", en: "table", exampleHu: "Szabad ez az asztal?", exampleEn: "Is this table free?", exampleAudio: "p_szabad_asztal", audio: "w_asztal", picture: "asztal", area: "coffee"},
 ]
 
+/** A word saved on an earlier outing (pre-saved, so the saved-words viewer can show categories). */
+export interface EarlierWord {
+  id: string
+  hu: string
+  en: string
+  audio: string         // w_*.wav key
+  icon: string          // WORD_ICONS key (Assets/Icons/)
+  category: string      // "Street" | "Park"
+  daysAgo: number       // when it was saved, for "Date added"
+}
+
+/** Café words saved in this session show under this category. */
+export const CAFE_CATEGORY = "Café"
+/** Category order in the saved-words viewer. */
+export const CATEGORY_ORDER = [CAFE_CATEGORY, "Street", "Park"]
+
+export const EARLIER_WORDS: EarlierWord[] = [
+  {id: "utca", hu: "utca", en: "street", audio: "w_utca", icon: "add_road", category: "Street", daysAgo: 3},
+  {id: "jarda", hu: "járda", en: "pavement", audio: "w_jarda", icon: "directions_walk", category: "Street", daysAgo: 3},
+  {id: "bolt", hu: "bolt", en: "shop", audio: "w_bolt", icon: "storefront", category: "Street", daysAgo: 3},
+  {id: "busz", hu: "busz", en: "bus", audio: "w_busz", icon: "directions_bus", category: "Street", daysAgo: 3},
+  {id: "villamos", hu: "villamos", en: "tram", audio: "w_villamos", icon: "tram", category: "Street", daysAgo: 2},
+  {id: "megallo", hu: "megálló", en: "stop", audio: "w_megallo", icon: "signpost", category: "Street", daysAgo: 2},
+  {id: "lampa", hu: "lámpa", en: "traffic light", audio: "w_lampa", icon: "traffic", category: "Street", daysAgo: 2},
+  {id: "auto", hu: "autó", en: "car", audio: "w_auto", icon: "directions_car", category: "Street", daysAgo: 2},
+  {id: "bicikli", hu: "bicikli", en: "bicycle", audio: "w_bicikli", icon: "pedal_bike", category: "Street", daysAgo: 2},
+  {id: "taxi", hu: "taxi", en: "taxi", audio: "w_taxi", icon: "local_taxi", category: "Street", daysAgo: 2},
+  {id: "posta", hu: "posta", en: "post office", audio: "w_posta", icon: "local_post_office", category: "Street", daysAgo: 2},
+  {id: "gyogyszertar", hu: "gyógyszertár", en: "pharmacy", audio: "w_gyogyszertar", icon: "local_pharmacy", category: "Street", daysAgo: 2},
+  {id: "fa", hu: "fa", en: "tree", audio: "w_fa", icon: "park", category: "Park", daysAgo: 1},
+  {id: "virag", hu: "virág", en: "flower", audio: "w_virag", icon: "local_florist", category: "Park", daysAgo: 1},
+  {id: "fu", hu: "fű", en: "grass", audio: "w_fu", icon: "grass", category: "Park", daysAgo: 1},
+  {id: "pad", hu: "pad", en: "bench", audio: "w_pad", icon: "event_seat", category: "Park", daysAgo: 1},
+  {id: "szokokut", hu: "szökőkút", en: "fountain", audio: "w_szokokut", icon: "water_drop", category: "Park", daysAgo: 1},
+  {id: "kutya", hu: "kutya", en: "dog", audio: "w_kutya", icon: "pets", category: "Park", daysAgo: 1},
+  {id: "madar", hu: "madár", en: "bird", audio: "w_madar", icon: "flutter_dash", category: "Park", daysAgo: 1},
+  {id: "to", hu: "tó", en: "lake", audio: "w_to", icon: "water", category: "Park", daysAgo: 1},
+  {id: "jatszoter", hu: "játszótér", en: "playground", audio: "w_jatszoter", icon: "toys", category: "Park", daysAgo: 1},
+  {id: "hinta", hu: "hinta", en: "swing", audio: "w_hinta", icon: "attractions", category: "Park", daysAgo: 1},
+  {id: "labda", hu: "labda", en: "ball", audio: "w_labda", icon: "sports_soccer", category: "Park", daysAgo: 1},
+  {id: "osveny", hu: "ösvény", en: "path", audio: "w_osveny", icon: "route", category: "Park", daysAgo: 1},
+]
+
 export const PHRASES: PhraseEntry[] = [
   {id: "jonapot", hu: "Jó napot!", en: "Hello!", audio: "p_jonapot", picture: "hello", words: []},
   {id: "szendvicset", hu: "Egy szendvicset kérek.", en: "I'd like a sandwich, please.", audio: "p_szendvicset_kerek", picture: "szendvics", words: ["szendvics"]},

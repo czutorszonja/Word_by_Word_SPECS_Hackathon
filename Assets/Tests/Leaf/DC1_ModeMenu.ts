@@ -28,11 +28,12 @@ export class DC1_ModeMenu extends Scenario {
       // ── open the menu with the stand-in ──
       await t.tap("MenuButton")
       await waitFor(() => m.menuOpen, "menu open after MenuButton")
-      for (const b of ["ModeLearnButton", "ModePracticeButton", "ModeUseLiveButton", "ModeMenuCloseButton"]) {
+      for (const b of ["ModeLearnButton", "ModePracticeButton", "ModeUseLiveButton", "ModeMenuCloseButton", "WordsSavedButton"]) {
         expect(t.hasEnabledInteractable(b), `menu shows ${b}`).toBe(true)
       }
-      expect(textOf("ActiveLabel"), "menu active label in Learn").toBe("Active: Learn")
-      expect(textOf("SavedCount"), "menu saved count").toBe("Saved words: 1")
+      expect(textOf("CurrentCaption"), "menu header caption").toBe("Current mode")
+      expect(textOf("ActiveLabel"), "menu header names the current mode (Learn)").toBe("Learn")
+      expect(textOf("Label", findEnabled("MenuButton")), "the hand button says Menu (demo)").toBe("Menu (demo)")
       expect(textOf("Label", findEnabled("ModeLearnButton")), "Learn button label").toBe("Learn")
       expect(textOf("Label", findEnabled("ModePracticeButton")), "Practice button label").toBe("Practice")
       expect(textOf("Label", findEnabled("ModeUseLiveButton")), "Use it live button label").toBe("Use it live")
@@ -53,7 +54,7 @@ export class DC1_ModeMenu extends Scenario {
       // ── reopen: active indicator follows, pick Use it live ──
       await t.tap("MenuButton")
       await waitFor(() => m.menuOpen, "menu reopened")
-      expect(textOf("ActiveLabel"), "menu active label in Practice").toBe("Active: Practice")
+      expect(textOf("ActiveLabel"), "menu header names the current mode (Practice)").toBe("Practice")
       const pracBtn = findEnabled("ModePracticeButton")!.getComponent(Button.getTypeName()) as Button
       expect(pracBtn.isOn, "Practice button toggled on").toBe(true)
       await t.tap("ModeUseLiveButton")
@@ -74,6 +75,46 @@ export class DC1_ModeMenu extends Scenario {
       expect(t.order.active, "order inactive").toBe(false)
       expect(m.savedWords.indexOf("olivabogyo") >= 0, "olives still saved after 3 mode switches").toBe(true)
       await waitFor(() => textOf("SavedBadge") === "Saved: 1", "HUD still 'Saved: 1'")
+
+      // ── Words saved: the saved-words viewer (6 per page, by category / date added / A–Z) ──
+      await t.tap("MenuButton")
+      await waitFor(() => m.menuOpen, "menu open (for Words saved)")
+      await t.tap("WordsSavedButton")
+      await waitFor(() => m.wordListOpen, "Words saved opens the viewer")
+      expect(m.menuOpen, "the menu gives way to the viewer").toBe(false)
+      const wl = m.wordList!
+      expect(wl.entryCount, "1 café word + 12 street + 12 park words").toBe(25)
+      expect(wl.pageCount, "6 words per page").toBe(5)
+      expect(wl.shownIds.length, "a full page shows 6 words").toBe(6)
+      expect(wl.sort, "opens sorted by category").toBe("category")
+      expect(wl.shownIds[0], "the café word comes first by category").toBe("olivabogyo")
+      for (const b of ["WordsSortCategory", "WordsSortDate", "WordsSortAlpha", "WordsJump_Café", "WordsJump_Street", "WordsJump_Park", "WordsNextButton", "WordsCloseButton", "WordTile_olivabogyo"]) {
+        expect(t.hasEnabledInteractable(b), `viewer shows ${b}`).toBe(true)
+      }
+      expect(textOf("WordsPage"), "page indicator").toBe("Page 1 / 5")
+      await t.tap("WordsNextButton")
+      await waitFor(() => wl.page === 1, "Next goes to page 2")
+      expect(textOf("WordsPage"), "page indicator after Next").toBe("Page 2 / 5")
+      await t.tap("WordsPrevButton")
+      await waitFor(() => wl.page === 0, "Back returns to page 1")
+      await t.tap("WordsJump_Park")
+      await waitFor(() => wl.page === 2, "Park jumps to the page with the first park word")
+      expect(wl.shownIds.indexOf("fa") >= 0, "the park page shows fa (tree)").toBe(true)
+      await t.tap("WordsSortAlpha")
+      await waitFor(() => wl.sort === "alpha" && wl.page === 0, "A–Z sorts alphabetically")
+      expect(wl.shownIds[0], "autó comes first A–Z").toBe("auto")
+      expect(wl.indexKeys().indexOf("Ö") > wl.indexKeys().indexOf("O"), "Hungarian order: Ö after O").toBe(true)
+      await t.tap("WordsLetter_V")
+      await waitFor(() => wl.page === wl.pageCount - 1, "V jumps to the last page")
+      expect(wl.shownIds.indexOf("villamos") >= 0, "the V page shows villamos").toBe(true)
+      await t.tap("WordsSortDate")
+      await waitFor(() => wl.sort === "date", "Date added sorts newest first")
+      expect(wl.shownIds[0], "today's café word is newest").toBe("olivabogyo")
+      await t.tap("WordTile_olivabogyo")
+      await waitFor(() => t.audio.lastVoiceKey === "w_olivabogyo", "tapping a word plays it")
+      await t.tap("WordsCloseButton")
+      await waitFor(() => !m.wordListOpen, "the viewer closes")
+      expect(m.currentMode, "browsing words keeps the mode").toBe("learn")
 
       // ── close button + toggle behaviour ──
       await t.tap("MenuButton")

@@ -98,5 +98,5 @@
       value: 0.000000
     roughness:
       typeIdx: 1
-      value: 0.000000
+      value: 0.950000
   Pass: !<reference> cd735d9e-bd78-4d83-ace8-b9719ba911fd

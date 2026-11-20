@@ -166,6 +166,17 @@ export class WbwCafeBuilder extends BaseScriptComponent {
     col.debugDrawEnabled = this.debugColliders
     const it = so.createComponent(Interactable.getTypeName()) as Interactable
     this.learnables.push({id: id, so: so, size: boxSize, interactable: it})
+    this.hideHitBoxes(so)
+  }
+
+  /** Invisible hit areas (e.g. the menu board's drink lines) are boxes named "HitBox": they size the
+   *  collider above, then their visual is switched off so nothing is drawn. */
+  private hideHitBoxes(so: SceneObject): void {
+    if (so.name === "HitBox") {
+      const r = so.getComponent("Component.RenderMeshVisual") as RenderMeshVisual
+      if (r) r.enabled = false
+    }
+    for (let i = 0; i < so.getChildrenCount(); i++) this.hideHitBoxes(so.getChild(i))
   }
 
   private meshSize(root: SceneObject): vec3 {

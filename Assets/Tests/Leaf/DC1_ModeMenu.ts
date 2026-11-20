@@ -105,8 +105,9 @@ export class DC1_ModeMenu extends Scenario {
       expect(wl.shownIds[0], "autó comes first A–Z").toBe("auto")
       expect(wl.indexKeys().indexOf("Ö") > wl.indexKeys().indexOf("O"), "Hungarian order: Ö after O").toBe(true)
       await t.tap("WordsLetter_V")
-      await waitFor(() => wl.page === wl.pageCount - 1, "V jumps to the last page")
-      expect(wl.shownIds.indexOf("villamos") >= 0, "the V page shows villamos").toBe(true)
+      // V starts at word 24 of 25 (Hungarian order), which is on page 4 of 5
+      await waitFor(() => wl.shownIds.indexOf("villamos") >= 0, "V jumps to the page with villamos")
+      expect(wl.page, "the V page is page 4").toBe(3)
       await t.tap("WordsSortDate")
       await waitFor(() => wl.sort === "date", "Date added sorts newest first")
       expect(wl.shownIds[0], "today's café word is newest").toBe("olivabogyo")

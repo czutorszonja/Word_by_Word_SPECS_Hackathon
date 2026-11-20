@@ -16,7 +16,7 @@ SIZE = {
     "CarrotCake": ("max", 28), "KakaosCsiga": ("max", 38), "Pogacsa": ("max", 20),
     "OatMilk": ("height", 24.5), "AlmondMilk": ("height", 24.5), "CowMilk": ("height", 26),
     "CoffeeGrinder": ("height", 58), "CakeCloche": ("height", 36),
-    "SteelPan": ("max", 17.6), "Plate": ("max", 26), "Gherkin": ("max", 8),
+    "SteelPan": ("max", 17.6), "Plate": ("max", 26), "Gherkin": ("max", 8), "EmptyCup": ("max", 9.5), "TakeawayCups": ("height", 36), "Croissant": ("max", 13), "PepperStrips": ("max", 15), "Meatballs": ("max", 15),
 }
 
 

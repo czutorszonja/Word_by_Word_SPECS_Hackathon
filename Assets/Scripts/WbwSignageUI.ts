@@ -9,23 +9,26 @@
 import {obj} from "./WbwSharedUI"
 
 const CHALK = new vec4(0.98, 0.97, 0.9, 1)
+/** Half-width (cm) of a world-space Text's implicit layout box at label scale 1 (measured in the preview). */
+const TEXT_HALF_W = 8
 const CHALK_SOFT = new vec4(0.86, 0.84, 0.76, 1)
-const SIGN_OPEN = new vec4(0.62, 0.92, 0.62, 1)
-const SIGN_CLOSED = new vec4(1.0, 0.62, 0.58, 1)
+// dark lettering on the cream enamel plates (readable in the preview; on the glasses dark reads as cut-out letters)
+const SIGN_OPEN = new vec4(0.10, 0.35, 0.20, 1)
+const SIGN_CLOSED = new vec4(0.60, 0.10, 0.10, 1)
 
 /** Menu board layout in board-local cm (origin = board centre). The drink lines' Learnable_<id> hit
- *  boxes under MenuBoard sit at (column centre, item y). */
+ *  boxes under MenuBoard sit at (column centre x = -46, item y), 64 x 9 cm. */
 export const MENU_LAYOUT = {
   title: "MENÜ",
   titleY: 29,
   headY: 16,
   columns: [
-    {head: "ITALOK", x0: -74, x1: -6, items: [
+    {head: "ITALOK", x0: -76, x1: -16, items: [
       {id: "tejeskave", name: "tejeskávé", price: "990 Ft", y: 5},
       {id: "presszo", name: "presszó", price: "690 Ft", y: -6},
       {id: "forro_csoki", name: "forró csoki", price: "1090 Ft", y: -17},
     ]},
-    {head: "SÜTEMÉNY", x0: 6, x1: 74, items: [
+    {head: "SÜTEMÉNY", x0: 16, x1: 76, items: [
       {id: "repatorta", name: "répatorta", price: "1290 Ft", y: 5},
       {id: "perec", name: "perec", price: "590 Ft", y: -6},
       {id: "kakaos_csiga", name: "kakaós csiga", price: "690 Ft", y: -17},
@@ -92,8 +95,7 @@ export class WbwSignageUI extends BaseScriptComponent {
     if (this.neonAnchor) {
       this.neonAnchor.createComponent("Component.Canvas")
       // neon letters ~16 cm tall (text size is capped, so scale the label)
-      this.label(this.neonAnchor, "NeonLine1", this.neonText, 4.0, this.neonColor, new vec3(0, 20, 0.6))
-      this.label(this.neonAnchor, "NeonLine2", this.neonText, 4.0, this.neonColor, new vec3(0, -14, 0.6))
+      this.label(this.neonAnchor, "NeonLine1", this.neonText, 4.0, this.neonColor, new vec3(0, 0, 0.6))
     }
     if (this.chalkboardAnchor) {
       this.chalkboardAnchor.createComponent("Component.Canvas")
@@ -126,8 +128,10 @@ export class WbwSignageUI extends BaseScriptComponent {
     for (const col of MENU_LAYOUT.columns) {
       this.label(anchor, `MenuHead_${col.head}`, col.head, 1.25, CHALK_SOFT, new vec3((col.x0 + col.x1) / 2, MENU_LAYOUT.headY, z))
       for (const it of col.items) {
-        this.label(anchor, `MenuItem_${it.id}`, it.name, 1.05, CHALK, new vec3(col.x0, it.y, z), HorizontalAlignment.Left)
-        this.label(anchor, `MenuPrice_${it.id}`, it.price, 1.05, CHALK_SOFT, new vec3(col.x1, it.y, z), HorizontalAlignment.Right)
+        // world-space Text aligns inside a layout box centred on its anchor (half-width about 8 cm per unit
+        // of label scale), so the anchors sit that far inside the column edges
+        this.label(anchor, `MenuItem_${it.id}`, it.name, 1.05, CHALK, new vec3(col.x0 + TEXT_HALF_W * 1.05, it.y, z), HorizontalAlignment.Left)
+        this.label(anchor, `MenuPrice_${it.id}`, it.price, 1.05, CHALK_SOFT, new vec3(col.x1 - TEXT_HALF_W * 1.05, it.y, z), HorizontalAlignment.Right)
       }
     }
   }

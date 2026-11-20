@@ -20,7 +20,7 @@ function send(method: string, path: string, body: any): Promise<any> {
 const auth = pluginSystem.findInterface(Editor.IAuthorization);
 if (!auth || !auth.isAuthorized) { return { status: "NOT_SIGNED_IN" }; }
 
-const PENDING: any = {"EmptyCup_1": "189e6807-5077-40b8-89c9-8cebb3041340", "TakeawayCups_1": "920278ea-6289-48f2-b8a5-df88da15149c", "Croissant_1": "0fe05802-3bb1-427b-a804-c9e25dce0ace"};
+const PENDING: any = {"PepperStrips_1": "71deba34-51e5-464f-ae9a-cc2184c0310e", "Meatballs_2": "ac5f550d-d613-4fea-b78a-7d21f45c9d8e", "Croissant_2": "d50d4864-9885-479d-a7d4-995829242d35", "KakaosCsiga_2": "d04997e0-1a37-4e07-92fc-834884d21a94", "Pogacsa_2": "72b7aee8-7c40-4c30-86d0-df629fe481eb"};
 const URLS_PATH = new Editor.Path("C:/LensProjects/Word_by_Word_SPECS_Hackhaton/agent/staging/mesh/urls_new.json");
 const urls: any = {};
 const out: any = {};

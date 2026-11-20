@@ -11,6 +11,7 @@ import {DC5_Practice} from "./DC5_Practice"
 import {DC6_Entrance} from "./DC6_Entrance"
 import {StoryTour} from "./StoryTour"
 import {SHOTS_MenuWords} from "./SHOTS_MenuWords"
+import {SHOTS_Barista} from "./SHOTS_Barista"
 
 @component
 export class LeafIndex extends BaseScriptComponent {
@@ -24,5 +25,6 @@ export class LeafIndex extends BaseScriptComponent {
     {id: "DC6_Entrance", typename: DC6_Entrance.getTypeName()},
     {id: "TOUR_Story", typename: StoryTour.getTypeName()},
     {id: "SHOTS_MenuWords", typename: SHOTS_MenuWords.getTypeName()},
+    {id: "SHOTS_Barista", typename: SHOTS_Barista.getTypeName()},
   ]
 }

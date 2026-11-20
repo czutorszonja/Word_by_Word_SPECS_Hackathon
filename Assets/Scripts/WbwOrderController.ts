@@ -468,6 +468,7 @@ export class WbwOrderController extends BaseScriptComponent {
     this.speechDetected = source === "mic"
     this.vad?.disarm()
     this.speakPrompt?.showHeard()   // "Heard you ✓" stays for a moment, also across the step change
+    this.server.acknowledge()       // the server nods: heard you
     if (def) {
       if (def.helper) {
         this.answers.push("fillings")

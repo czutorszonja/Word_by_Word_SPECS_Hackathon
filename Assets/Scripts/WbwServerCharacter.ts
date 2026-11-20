@@ -2,9 +2,12 @@
 // Owns: the server's body (a swappable ObjectPrefab, or a stylised primitive stand-in when
 //       none is assigned), idle motion (breathing, weight shift, glances at the user) and a
 //       speaking animation. Exposes the head position for the caption bubble.
+//       A rigged model (one with an AnimationPlayer, e.g. the Rocketbox barista) is driven by
+//       WbwHumanRig instead: idle/talk clips, a nod on acknowledge(), eye contact, blinks, mouth.
 // Must NOT: run the conversation (WbwOrderController) or create text.
 import {box, cyl, group, rgb, sphere} from "./WbwGeo"
 import {camPos} from "./WbwSpatial"
+import {WbwHumanRig} from "./WbwHumanRig"
 
 @component
 export class WbwServerCharacter extends BaseScriptComponent {
@@ -43,10 +46,18 @@ export class WbwServerCharacter extends BaseScriptComponent {
   private head: SceneObject | null = null
   private torso: SceneObject | null = null
   private t0 = 0
+  private rig: WbwHumanRig | null = null
 
   onAwake(): void {
-    if (this.bodyModel) {
+    if (this.bodyModel && this.bodyModel.enabled) {
       this.body = this.bodyModel // authored model (rotated to face the user in the scene)
+      const rig = new WbwHumanRig(this.bodyModel)
+      if (rig.player) {
+        // rigged person: clips + face, applied after the animation update every frame
+        this.rig = rig
+        this.createEvent("LateUpdateEvent").bind(() => this.rig!.update(getDeltaTime(), this.isSpeaking, camPos()))
+        return
+      }
       this.baseRot = this.body.getTransform().getLocalRotation()
       this.baseScale = this.body.getTransform().getLocalScale()
     } else {
@@ -59,6 +70,16 @@ export class WbwServerCharacter extends BaseScriptComponent {
 
   setSpeaking(on: boolean): void {
     this.isSpeaking = on
+  }
+
+  /** The learner has answered: a small listening nod (rigged model only). */
+  acknowledge(): void {
+    this.rig?.acknowledge()
+  }
+
+  /** True when the body is a rigged person driven by WbwHumanRig. */
+  get isRigged(): boolean {
+    return this.rig !== null
   }
 
   /** World position just above the head — where the caption bubble goes. */

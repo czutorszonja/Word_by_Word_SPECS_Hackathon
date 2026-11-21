@@ -14,6 +14,9 @@ import {button, flexBox, image, lineHeightCm, panel, retire, text, TEXT_SOFT, us
 
 const ICON_CLOSE = requireAsset("../Icons/close.png") as Texture
 const ICON_NEXT = requireAsset("../Icons/arrow_forward.png") as Texture
+/** Shown on every word tile: tapping the tile plays the word (learner feedback 2026-11-21: make listening obvious). */
+const ICON_LISTEN = requireAsset("../Icons/volume_up.png") as Texture
+const LISTEN = 2.4
 
 export type WordSort = "category" | "date" | "alpha"
 
@@ -64,12 +67,12 @@ export class WbwWordListUI extends BaseScriptComponent {
   @input
   @hint("Viewing distance the text is sized for (cm)")
   @widget(new SliderWidget(40, 100, 5))
-  viewDistanceCm: number = 60
+  viewDistanceCm: number = 72   // sized for where WbwMain places it (WORDS_DIST)
 
   @input
   @hint("Panel width (cm)")
   @widget(new SliderWidget(30, 50, 1))
-  widthCm: number = 42
+  widthCm: number = 38          // fits the Specs view at that distance (42 cm was cut off at the sides)
   @ui.group_end
 
   private root: SceneObject | null = null
@@ -216,15 +219,17 @@ export class WbwWordListUI extends BaseScriptComponent {
     this.track(b.btn)
     const face = b.face
     if (e.picture) image(face, "Picture", e.picture, PIC)
-    const col = flexBox(face, "Words", "column", w - PIC - 2, TILE_H - 0.8, {gap: 0, justify: FlexJustify.Center, align: FlexAlign.Start})
+    const tw = w - PIC - LISTEN - 2.6
+    const col = flexBox(face, "Words", "column", tw, TILE_H - 0.8, {gap: 0, justify: FlexJustify.Center, align: FlexAlign.Start})
     const huH = lineHeightCm("Body", d, false), capH = lineHeightCm("Caption", d, false)
-    const hu = text(col, "Hu", e.hu, "Body", d, {w: w - PIC - 2, h: huH, align: "left", onPanel: false})
+    const hu = text(col, "Hu", e.hu, "Body", d, {w: tw, h: huH, align: "left", onPanel: false})
     hu.horizontalOverflow = HorizontalOverflow.Shrink
-    const en = text(col, "En", e.en, "Caption", d, {w: w - PIC - 2, h: capH, align: "left", color: TEXT_SOFT, onPanel: false})
+    const en = text(col, "En", e.en, "Caption", d, {w: tw, h: capH, align: "left", color: TEXT_SOFT, onPanel: false})
     en.horizontalOverflow = HorizontalOverflow.Shrink
-    const tag = text(col, "Tag", `${e.category} · ${whenText(e.daysAgo)}`, "Caption", d, {w: w - PIC - 2, h: capH * 0.85, align: "left", color: TEXT_SOFT, onPanel: false})
+    const tag = text(col, "Tag", `${e.category} · ${whenText(e.daysAgo)}`, "Caption", d, {w: tw, h: capH * 0.85, align: "left", color: TEXT_SOFT, onPanel: false})
     tag.size = tag.size * 0.8
     tag.horizontalOverflow = HorizontalOverflow.Shrink
+    image(face, "Listen", ICON_LISTEN, LISTEN, LISTEN, TEXT_SOFT)
   }
 
   /** Count hovers on our buttons, so the panel stays still while the pointer is on it. */

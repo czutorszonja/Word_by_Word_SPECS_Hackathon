@@ -48,6 +48,6 @@
     - '// @ui {"widget":"label", "label":"WbwSpeakPromptUI – say-it strip (mic indicator + Said it)"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
-    - "// @input float viewDistanceCm = 120 {\"hint\":\"Distance the strip's text is sized for (cm). It lies under the phrase cards / phrase helper on the counter (~125 cm away); sizing for less keeps it compact\", \"widget\":\"slider\", \"min\":60, \"max\":140, \"step\":5}"
+    - "// @input float viewDistanceCm = 140 {\"hint\":\"Distance the strip's text is sized for (cm). It lies under the phrase cards / phrase helper on the counter (~125 cm away); sizing for less keeps it compact\", \"widget\":\"slider\", \"min\":60, \"max\":140, \"step\":5}"
     - "// @input float micPulse = 0.45 {\"hint\":\"How much the mic dot grows with the learner's voice level (0 = it only brightens)\", \"widget\":\"slider\", \"min\":0, \"max\":0.8, \"step\":0.05}"
     - '// @ui {"widget":"group_end"}'

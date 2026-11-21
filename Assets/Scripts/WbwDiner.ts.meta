@@ -24,11 +24,14 @@
   VersionPatch: 0
   VersionPrerelease: ""
   UpdateOrder: 0
-  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ComponentUid: 63268f15-1ed6-4587-8a9f-7cad63f29e0e
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    {}
+    leads: false
+    model: false
+    partner: false
+    smile: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,8 +41,10 @@
   Attachments:
     []
   DefaultScriptInputs:
-    -
-      {}
+    - model: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      partner: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      leads: false
+      smile: 0.150000
   ScriptTypes:
     -
       {}

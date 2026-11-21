@@ -39,13 +39,13 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
   @ui.group_start("Settings")
   @input
   @hint("Distance the text is sized for (cm). The panel lies on the counter like the phrase cards")
-  @widget(new SliderWidget(60, 140, 5))
-  viewDistanceCm: number = 130   // learner feedback 2026-11-21: the phrase boxes were hard to read — bigger text
+  @widget(new SliderWidget(60, 200, 5))
+  viewDistanceCm: number = 160   // learner feedback 2026-11-21: the phrase boxes were hard to read — bigger text
 
   @input
   @hint("Panel width (cm). Fixed, so the frame never jumps when the phrase changes")
-  @widget(new SliderWidget(30, 60, 1))
-  maxWidthCm: number = 52
+  @widget(new SliderWidget(30, 70, 1))
+  maxWidthCm: number = 60
   @ui.group_end
 
   private root: SceneObject | null = null

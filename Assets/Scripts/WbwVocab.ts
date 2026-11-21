@@ -123,7 +123,7 @@ export const EARLIER_WORDS: EarlierWord[] = [
   {id: "kutya", hu: "kutya", en: "dog", audio: "w_kutya", icon: "pets", category: "Park", daysAgo: 1},
   {id: "madar", hu: "madár", en: "bird", audio: "w_madar", icon: "flutter_dash", category: "Park", daysAgo: 1},
   {id: "to", hu: "tó", en: "lake", audio: "w_to", icon: "water", category: "Park", daysAgo: 1},
-  {id: "jatszoter", hu: "játszótér", en: "playground", audio: "w_jatszoter", icon: "toys", category: "Park", daysAgo: 1},
+  {id: "jatszoter", hu: "játszótér", en: "playground", audio: "w_jatszoter", icon: "playground_2", category: "Park", daysAgo: 1},
   {id: "hinta", hu: "hinta", en: "swing", audio: "w_hinta", icon: "attractions", category: "Park", daysAgo: 1},
   {id: "labda", hu: "labda", en: "ball", audio: "w_labda", icon: "sports_soccer", category: "Park", daysAgo: 1},
   {id: "osveny", hu: "ösvény", en: "path", audio: "w_osveny", icon: "route", category: "Park", daysAgo: 1},

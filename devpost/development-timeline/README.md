@@ -20,5 +20,6 @@ File names: `<date>_<time>_<step>_<what it shows>.png`, so they sort in build or
 | 13 | Realistic replacements for the toy-looking foods: loose pepper strips and meatballs in steel pans, spiral kakaós csiga on baking sheets, flaky croissants, pogácsa in a basket |
 | 14 | Details: brick above the door matching the wall, a different photo view in every window and through the door, glass-shaded globe lamps, varied plants (snake plant, monstera, olive tree, box balls outside, a succulent on the counter) |
 | 15 | Real-looking people, starting with the barista: the generated cartoon figure replaced by a textured, rigged adult (Microsoft Rocketbox, MIT) who breathes, gestures and moves his mouth while talking, blinks, keeps eye contact and nods when the learner answers. Checked at counter distance, front and three-quarter |
+| 16 | Full walkaround after the 2026-11-21 feedback: five real seated guests (two friends chatting at table 10), the barista in a canvas apron, hand-lettered chalk menu (Kalam), bigger phrase boxes and cards, the saved-words list with a listen icon on every word, the Menu chip moved out of the way |
 
 `capture-lens-studio.ps1` is the helper that saves a PNG of the Lens Studio window into this folder.

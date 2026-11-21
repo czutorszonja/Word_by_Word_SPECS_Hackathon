@@ -41,7 +41,7 @@ const TOAST_FADE_SEC = 0.35, SUGGEST_PAUSE_SEC = 0.3
 const SUGGESTED_OPTION = "learn"
 /** The menu and the saved-words viewer follow the gaze at this distance / height (cm). */
 const MENU_DIST = 55, MENU_UP = -3
-const WORDS_DIST = 62, WORDS_UP = -2
+const WORDS_DIST = 72, WORDS_UP = -2
 
 @component
 export class WbwMain extends BaseScriptComponent {
@@ -408,6 +408,7 @@ export class WbwMain extends BaseScriptComponent {
   /** An open menu or word list follows where the user looks, and stays still while a button on it is pointed at. */
   private followOpenPanels(): void {
     const dt = getDeltaTime()
+    this.hud.setSuppressed(this.wordListOpen) // the viewer's own Back/Close buttons sit where the Menu chip floats
     if (this.modeMenu.isVisible) {
       this.menuFollowing = lazyFollowStep(this.modeMenu.getSceneObject(), MENU_DIST, MENU_UP, dt, this.menuFollowing, this.modeMenu.hovered)
     }

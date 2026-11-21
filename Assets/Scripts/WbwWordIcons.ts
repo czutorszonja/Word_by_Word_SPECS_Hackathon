@@ -17,6 +17,7 @@ export const WORD_ICONS: {[key: string]: Texture} = {
   "park": requireAsset("../Icons/park.png") as Texture,
   "pedal_bike": requireAsset("../Icons/pedal_bike.png") as Texture,
   "pets": requireAsset("../Icons/pets.png") as Texture,
+  "playground_2": requireAsset("../Icons/playground_2.png") as Texture,
   "route": requireAsset("../Icons/route.png") as Texture,
   "signpost": requireAsset("../Icons/signpost.png") as Texture,
   "sports_soccer": requireAsset("../Icons/sports_soccer.png") as Texture,

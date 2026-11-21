@@ -37,12 +37,12 @@ export class WbwHudUI extends BaseScriptComponent {
   @input
   @hint("Use it live: the HUD collapses to a small Menu chip. Sideways offset of the chip (cm, negative = left edge of view)")
   @widget(new SliderWidget(-30, 30, 0.5))
-  chipOffsetRightCm: number = -13
+  chipOffsetRightCm: number = -15
 
   @input
   @hint("Use it live: vertical offset of the Menu chip (cm, negative = low). Low-left keeps it clear of the server, the caption and the phrase cards")
   @widget(new SliderWidget(-35, 10, 0.5))
-  chipOffsetUpCm: number = -15.5
+  chipOffsetUpCm: number = 9   // upper-left: the enlarged phrase helper/cards fill the low part of the view (2026-11-21)
 
   @input
   @hint("Width of the Menu button on the compact chip (cm); the chip is at least this wide, and wider when the mode name above the button needs it")
@@ -109,6 +109,12 @@ export class WbwHudUI extends BaseScriptComponent {
     this.modeText.enabled = false
     this.render()
     this.follow(true)
+  }
+
+  /** Tuck the Menu button away while a full panel (the saved-words viewer) is open, so it never covers
+   *  that panel's own buttons; it comes back when the panel closes. */
+  setSuppressed(on: boolean): void {
+    if (this.root && this.root.enabled === on) this.root.enabled = !on
   }
 
   hide(): void {

@@ -29,8 +29,8 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
   @ui.group_start("Settings")
   @input
   @hint("Widest the card row should get (cm). Wider rows first wrap phrases to two lines, then use slightly smaller text")
-  @widget(new SliderWidget(20, 70, 1))
-  maxRowWidthCm: number = 64
+  @widget(new SliderWidget(20, 90, 1))
+  maxRowWidthCm: number = 72
 
   @input
   @hint("Size of the small picture on each phrase card (cm)")
@@ -39,13 +39,13 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
 
   @input
   @hint("Distance the card text is sized for (cm). The cards lie ~125 cm away on the counter; sizing for less keeps them compact.")
-  @widget(new SliderWidget(60, 140, 5))
-  viewDistanceCm: number = 130   // learner feedback 2026-11-21: bigger cards and text
+  @widget(new SliderWidget(60, 200, 5))
+  viewDistanceCm: number = 155   // learner feedback 2026-11-21: bigger cards and text
 
   @input
   @hint("Smallest text sizing distance used to fit many cards in the row (cm); keeps the English line readable")
-  @widget(new SliderWidget(60, 120, 5))
-  minViewDistanceCm: number = 110
+  @widget(new SliderWidget(60, 180, 5))
+  minViewDistanceCm: number = 130
 
   @input
   @hint("Show pictures on phrase cards (the learner will decide after the first run)")

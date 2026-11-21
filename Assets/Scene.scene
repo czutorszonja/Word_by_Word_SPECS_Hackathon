@@ -6,8 +6,8 @@
     - !<own> 6359dad0-3fab-4325-9021-b15c5101352c
     - !<own> 00000000-0000-0065-0000-000000000064
     - !<own> 846d1565-cac7-4708-8910-d9a0e505816c
-    - !<own> d0d2bfe7-0014-4a72-b2d4-7c9e6f754018
     - !<own> af12ad43-e4d3-473e-aa76-0d24ddb7834b
+    - !<own> f5d068c0-5825-4fec-9602-eca6224bd9d4
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
     userLayers:
       - id: 1
@@ -17884,22 +17884,6 @@
     []
   Components:
     - !<own> f9d0229b-b2f5-446c-b1da-1ad80b2e9a12
-- !<ScriptComponent/6e025cde-c1b6-4221-9493-c843472cc5e1>
-  PrefabRemaps:
-    []
-  Name: AgentInspectScript
-  Enabled: true
-  ScriptAsset: !<reference> 0b25079c-f5bf-4c6d-96c4-f43b89dfa213
-  ScriptInputsDefault:
-    {}
-  ScriptTypesDefault:
-    {}
-  ScriptInputs:
-    "":
-      {}
-  ScriptTypes:
-    "":
-      {}
 - !<SceneObject/6e306587-b257-46bb-af55-73ca35d99ab1>
   PrefabRemaps:
     - 6e306587-b257-46bb-af55-73ca35d99ab1: 351a1e52-eff5-4616-69db-45f4baf9f3ae
@@ -23316,7 +23300,6 @@
   ScriptInputsDefault:
     followDistanceCm: true
     offsetUpCm: true
-    chipOffsetUpCm: true
     chipWidthCm: true
     chipHeightCm: true
     followSpeed: true
@@ -23327,8 +23310,8 @@
       followDistanceCm: !<float> 60.000000
       offsetRightCm: !<float> -4.000000
       offsetUpCm: !<float> -17.000000
-      chipOffsetRightCm: !<float> -13.000000
-      chipOffsetUpCm: -15.500000
+      chipOffsetRightCm: !<float> -15.000000
+      chipOffsetUpCm: !<float> 9.000000
       chipWidthCm: 7.400000
       chipHeightCm: 3.900000
       followSpeed: !<float> 5.000000
@@ -29609,10 +29592,10 @@
     {}
   ScriptInputs:
     "":
-      maxRowWidthCm: !<float> 64.000000
+      maxRowWidthCm: !<float> 72.000000
       pictureSizeCm: !<float> 4.000000
-      viewDistanceCm: !<float> 130.000000
-      minViewDistanceCm: !<float> 110.000000
+      viewDistanceCm: !<float> 155.000000
+      minViewDistanceCm: !<float> 130.000000
       showPictures: true
   ScriptTypes:
     "":
@@ -29992,6 +29975,22 @@
     - !<own> c44b6801-2b3a-42f6-b415-62641a2aa364
   Components:
     []
+- !<ScriptComponent/c0a7c896-4533-47ef-b9be-adaaf47f10ce>
+  PrefabRemaps:
+    []
+  Name: AgentInspectScript
+  Enabled: true
+  ScriptAsset: !<reference> 0b25079c-f5bf-4c6d-96c4-f43b89dfa213
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      {}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/c0d84aab-fa2b-4027-9551-e5db7f619307>
   PrefabRemaps:
     []
@@ -32265,21 +32264,6 @@
     AK_44_MouthSmileLeft: 0.000000
     AK_45_MouthSmileRight: 0.000000
     HB_07_MouthSmile: 0.000000
-- !<SceneObject/d0d2bfe7-0014-4a72-b2d4-7c9e6f754018>
-  PrefabRemaps:
-    []
-  Name: AiPreviewAgent Handler
-  Enabled: true
-  Layers: 1
-  LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
-    HasSegmentScaleCompensation: false
-  Children:
-    []
-  Components:
-    - !<own> 6e025cde-c1b6-4221-9493-c843472cc5e1
 - !<AnimationPlayer/d0e3ada2-98c9-45e9-9f53-24905b0e918b>
   PrefabRemaps:
     []
@@ -37545,6 +37529,21 @@
     - !<own> b4d0048f-92b9-4cb4-be81-d46944c225b3
   Components:
     []
+- !<SceneObject/f5d068c0-5825-4fec-9602-eca6224bd9d4>
+  PrefabRemaps:
+    []
+  Name: AiPreviewAgent Handler
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> c0a7c896-4533-47ef-b9be-adaaf47f10ce
 - !<SceneObject/f5d74682-203a-4970-81ea-9fa7b88c96bb>
   PrefabRemaps:
     - 012a3973-9507-4230-a6ff-2b8dfd2154fe: e3ec5982-f5aa-45f3-4551-4d3a92a1f432

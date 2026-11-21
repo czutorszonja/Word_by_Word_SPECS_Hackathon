@@ -1,7 +1,8 @@
 # Blender: build one Lens-ready GLB from a Microsoft Rocketbox avatar (MIT licence).
 #   - imports the facial FBX (skin + 81-bone biped + blendshapes), keeps only the face shapes we drive
 #     (visemes, blinks, jaw, smile, brows) so the file stays small
-#   - rebuilds the two materials from the downloaded TGA textures, resized to JPEG/PNG
+#   - rebuilds the materials from the downloaded TGA textures, resized to JPEG/PNG (body, head and,
+#     for long hair / lashes, an "opacity" material with an alpha-clipped colour+alpha PNG)
 #   - retargets Rocketbox motion clips onto the avatar (world-space rotation copy, pelvis location too)
 #     and bakes each into its own NLA track -> one glTF animation per clip
 #   blender --background --python rb_build_glb.py -- <download dir> <avatar fbx> <tex prefix> <out.glb> <work dir> \
@@ -19,7 +20,13 @@ for spec in argv[5:]:
         rng = tuple(int(x) for x in r.split("-"))
     clips.append((name, rest, rng))
 os.makedirs(work, exist_ok=True)
-STEP = 2  # bake every 2nd frame at 30 fps; Lens interpolates in between
+STEP = int(os.environ.get("RB_STEP", "2"))  # bake every Nth frame at 30 fps; Lens interpolates in between
+TEX = int(os.environ.get("RB_TEX", "1024"))
+NTEX = int(os.environ.get("RB_NTEX", str(TEX)))      # normal-map size
+NFMT = os.environ.get("RB_NFMT", "PNG")               # normal-map format: PNG (exact) or JPEG (small, fine at a distance)
+HTEX = int(os.environ.get("RB_HTEX", str(TEX)))      # hair/lash opacity texture size
+KEEP = os.environ.get("RB_KEEP", "")                 # comma-separated face-shape name parts to keep (default: the full speaking set)
+NAME = os.environ.get("RB_NAME", "RB")  # prefix for material/texture names, so several people stay apart in Lens Studio
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 scene = bpy.context.scene
@@ -34,7 +41,7 @@ if rig.animation_data:
     rig.animation_data_clear()
 
 # ── face shapes: keep what the runtime drives ──
-KEEP_TAGS = ("AA_VI_", "EyeBlink", "JawOpen", "MouthSmile", "BrowInnerUp", "BrowOuterUp", "EyeSquint", "MouthClose")
+KEEP_TAGS = tuple(t for t in KEEP.split(",") if t) or ("AA_VI_", "EyeBlink", "JawOpen", "MouthSmile", "BrowInnerUp", "BrowOuterUp", "EyeSquint", "MouthClose")
 if body.data.shape_keys:
     names = [k.name for k in body.data.shape_keys.key_blocks]
     print("SHAPEKEYS_ALL", names)
@@ -57,7 +64,8 @@ def resized(src, dst, size, fmt, noncolor=False):
 
 def material(name, part, size, rough):
     col = resized(f"{tex_prefix}_{part}_color.tga", os.path.join(work, f"{name}_color.jpg"), size, "JPEG")
-    nrm = resized(f"{tex_prefix}_{part}_normal.tga", os.path.join(work, f"{name}_normal.png"), size, "PNG", True)
+    ext = "jpg" if NFMT == "JPEG" else "png"
+    nrm = resized(f"{tex_prefix}_{part}_normal.tga", os.path.join(work, f"{name}_normal.{ext}"), NTEX, NFMT, True)
     m = bpy.data.materials.new(name)
     try:
         m.use_nodes = True
@@ -75,9 +83,50 @@ def material(name, part, size, rough):
     bsdf.inputs["Metallic"].default_value = 0.0
     return m
 
-mats = {"head": material("RB_Head", "head", 1024, 0.55), "body": material("RB_Body", "body", 1024, 0.8)}
+def opacity_material(name, size):
+    """Hair cards / lashes: colour + alpha from <prefix>_opacity_color.tga, alpha-clipped (glTF MASK)."""
+    src = os.path.join(dl, f"{tex_prefix}_opacity_color.tga")
+    im = bpy.data.images.load(src)
+    im.scale(size, size)
+    im.file_format = "PNG"
+    dst = os.path.join(work, f"{name}_color.png")
+    im.save(filepath=dst)
+    bpy.data.images.remove(im)
+    img = bpy.data.images.load(dst)
+    img.alpha_mode = "STRAIGHT"
+    m = bpy.data.materials.new(name)
+    try:
+        m.use_nodes = True
+    except Exception:
+        pass
+    nt = m.node_tree
+    bsdf = next(n for n in nt.nodes if n.type == "BSDF_PRINCIPLED")
+    t = nt.nodes.new("ShaderNodeTexImage"); t.image = img
+    nt.links.new(t.outputs["Color"], bsdf.inputs["Base Color"])
+    rnd = nt.nodes.new("ShaderNodeMath"); rnd.operation = "ROUND"   # the glTF exporter reads Round as alphaMode MASK, cutoff 0.5
+    nt.links.new(t.outputs["Alpha"], rnd.inputs[0])
+    nt.links.new(rnd.outputs[0], bsdf.inputs["Alpha"])
+    bsdf.inputs["Roughness"].default_value = 0.6
+    bsdf.inputs["Metallic"].default_value = 0.0
+    try:
+        m.surface_render_method = "DITHERED"
+    except Exception:
+        pass
+    try:
+        m.use_backface_culling = False
+    except Exception:
+        pass
+    return m
+
+mats = {"head": material(NAME + "_Head", "head", TEX, 0.55), "body": material(NAME + "_Body", "body", TEX, 0.8)}
+if os.path.exists(os.path.join(dl, f"{tex_prefix}_opacity_color.tga")):
+    mats["opacity"] = opacity_material(NAME + "_Hair", HTEX)
 for i, m in enumerate(body.data.materials):
-    body.data.materials[i] = mats["head"] if "head" in m.name else mats["body"]
+    key = "opacity" if "opacity" in m.name else "head" if "head" in m.name else "body"
+    if key not in mats:
+        raise SystemExit(f"material {m.name} needs {tex_prefix}_{key} textures")
+    body.data.materials[i] = mats[key]
+print("MATERIALS", [m.name for m in body.data.materials])
 
 # ── motion clips ──
 for name, fbx, rng in clips:

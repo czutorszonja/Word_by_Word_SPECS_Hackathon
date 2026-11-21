@@ -4,7 +4,8 @@
 //       animation each frame) and the face blendshape weights.
 // Must NOT: decide when the person speaks (the owner calls update(dt, speaking, lookTarget)).
 // Expected rig: Rocketbox biped bone names ("Bip01 Head", "Bip01 LEye", "Bip01 REye"), clips named
-// idle / talk / nod, face shapes AA_VI_* (visemes), AK_09/10 (blinks), AK_44/45 (smile).
+// idle / talk (looping) plus one-shots such as nod (barista) or look (seated diners), face shapes AA_VI_*
+// (visemes), AK_09/10 (blinks), AK_44/45 (smile).
 
 const VOWELS = ["AA_VI_10_aa", "AA_VI_11_E", "AA_VI_12_I", "AA_VI_13_O", "AA_VI_14_U"]
 const CONSONANTS = ["AA_VI_01_PP", "AA_VI_02_FF", "AA_VI_04_DD", "AA_VI_05_KK", "AA_VI_07_SS", "AA_VI_08_nn", "AA_VI_09_RR"]
@@ -37,6 +38,8 @@ export class WbwHumanRig {
   smile = 0.32
   /** How far the head turns toward the look target (fraction of the angle, capped). */
   headFollow = 0.7
+  /** Largest extra head turn toward the look target (radians). */
+  headMax = 0.5
 
   private face: RenderMeshVisual | null = null
   private eyes: Transform[] = []
@@ -46,7 +49,8 @@ export class WbwHumanRig {
   private bodyFwd = new vec3(0, 0, 1)
   private root: Transform
   private talkW = 0
-  private nodT = -1
+  private onceT = -1
+  private onceName = ""
   private headAmt = 0
   private eyeAmt = 0
   private t = 0
@@ -101,7 +105,7 @@ export class WbwHumanRig {
     p.stopAll()
     for (const c of p.clips) {
       c.weight = 0
-      c.playbackMode = c.name === "nod" ? PlaybackMode.Single : PlaybackMode.Loop
+      c.playbackMode = c.name === "idle" || c.name === "talk" ? PlaybackMode.Loop : PlaybackMode.Single
     }
     const idle = this.clip("idle")
     if (idle) {
@@ -112,10 +116,22 @@ export class WbwHumanRig {
 
   /** A short "mm-hm" nod — the listener accepting what was said. */
   acknowledge(): void {
-    const nod = this.clip("nod")
-    if (!nod || !this.player) return
-    this.nodT = 0
-    this.player.playClipAt("nod", 0)
+    this.playOnce("nod")
+  }
+
+  /** Play a one-shot clip (e.g. "nod", or a seated diner's "look" around) blended over idle/talk. */
+  playOnce(name: string): void {
+    const c = this.clip(name)
+    if (!c || !this.player || this.onceT >= 0) return
+    this.onceName = name
+    this.onceT = 0
+    c.playbackMode = PlaybackMode.Single
+    this.player.playClipAt(name, 0)
+  }
+
+  /** True while a one-shot clip is playing. */
+  get busyOnce(): boolean {
+    return this.onceT >= 0
   }
 
   /** Call every frame from LateUpdate (after the AnimationPlayer has posed the skeleton). */
@@ -139,15 +155,16 @@ export class WbwHumanRig {
       talk.weight = this.talkW * this.talkW * (3 - 2 * this.talkW) * 0.85
       if (this.talkW <= 0 && p.getClipIsPlaying("talk")) p.stopClip("talk")
     }
-    const nod = this.clip("nod")
-    if (nod && this.nodT >= 0) {
-      this.nodT += dt
-      const len = nod.end - nod.begin
-      const w = Math.min(1, this.nodT / 0.25, (len - this.nodT) / 0.4)
-      nod.weight = clamp(w, 0, 1) * 0.9
-      if (this.nodT >= len) {
-        this.nodT = -1
-        nod.weight = 0
+    const once = this.onceT >= 0 ? this.clip(this.onceName) : null
+    if (once) {
+      this.onceT += dt
+      const len = once.end - once.begin
+      const w = Math.min(1, this.onceT / 0.3, (len - this.onceT) / 0.5)
+      once.weight = clamp(w, 0, 1) * 0.9
+      if (this.onceT >= len) {
+        this.onceT = -1
+        once.weight = 0
+        p.stopClip(this.onceName)
       }
     }
   }
@@ -164,7 +181,7 @@ export class WbwHumanRig {
       const hr = this.head.getWorldRotation()
       const f = hr.multiplyVec3(this.headFwd).normalize()
       const ang = Math.acos(clamp(f.dot(toN), -1, 1))
-      const want = front ? Math.min(ang * this.headFollow, 0.5) : 0
+      const want = front ? Math.min(ang * this.headFollow, this.headMax) : 0
       this.headAmt += (want - this.headAmt) * Math.min(1, dt * 3)
       if (ang > 1e-3 && this.headAmt > 1e-3) {
         const q = quat.slerp(quat.quatIdentity(), quat.rotationFromTo(f, toN), clamp(this.headAmt / ang, 0, 1))

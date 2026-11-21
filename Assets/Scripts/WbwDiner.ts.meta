@@ -1,0 +1,51 @@
+- !<AssetImportMetadata/90c3b674-12be-4d0e-9bb5-841873a4b678>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 77e68768-ae93-4616-aaf7-18ea0c7685d5
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 77e68768-ae93-4616-aaf7-18ea0c7685d5
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 8f01e0b1-6de8-4314-8404-e89b9209a0fe
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/8f01e0b1-6de8-4314-8404-e89b9209a0fe>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    {}
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    -
+      {}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwDiner – seated café guest (idle, glances, chats with a partner)</span>"}'
+    - '// @input SceneObject model {"hint":"The person model (GLB prefab instance with an AnimationPlayer)"}'
+    - '// @input AssignableType_1 partner {"hint":"The other guest at the same table — they take turns talking and look at each other"}'
+    - "// @input bool leads {\"hint\":\"Runs the pair's conversation (set on one of the two)\"}"
+    - '// @input float smile = 0.15 {"hint":"Resting smile (0–1)", "widget":"slider", "min":0, "max":1, "step":0.05}'

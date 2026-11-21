@@ -50,3 +50,4 @@ agent/staging/**/*.glb
 agent/staging/mesh/urls*.json
 agent/staging/mesh/preview_img/
 __pycache__/
+/.font_tmp/

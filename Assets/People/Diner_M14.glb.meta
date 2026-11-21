@@ -1,0 +1,1663 @@
+- !<AssetImportMetadata/40b0bc57-92f4-4819-bb99-9b4cf0bb2cd6>
+  ImportedAssetIds:
+    .hidden/M14_Body: !<reference> 840f7da4-f976-4ecb-91f8-f12d9817b550
+    02c34969f596b3a6: !<reference> a1758188-fd18-4dff-8278-31327c063cba
+    031179ff861b219e: !<reference> 9a21b5b5-daec-45be-a07c-222cf57df927
+    04797ae3e8d819d4: !<reference> 2aa510ad-9b56-4c3b-8715-647aea0c772b
+    053e75b6d0dc0712: !<reference> 5d82fefe-147b-4da2-b349-d92418b06776
+    0796a849aae93f9d: !<reference> 211719bf-146c-4b1c-a2aa-a14bc17774c3
+    0a97fcd1baebeb61: !<reference> dc2c91d1-c3ac-458d-bb27-7c027a0e8ecf
+    11c00ffcfabead08: !<reference> 4ec126c6-3b7a-41a2-9dc3-e07665e2fa96
+    121457e3c0c666cb: !<reference> 0e17f361-3d11-4118-9081-6687f638e99d
+    1313915cc9b90eb4: !<reference> 72268df1-ca30-4bfd-b21b-65cd292f8ec0
+    18b85f37cd8708fa: !<reference> 93bd211c-bc21-475d-a0c7-14dd784d4a47
+    1c95e5dc1ecf78cd: !<reference> adeecc05-4d32-45fd-92be-f3692acfdd51
+    1cb73d99d6439ad6: !<reference> 37313e99-9645-4127-92af-a0e52645de10
+    1ec08964f45e6904: !<reference> f1783d2b-23d3-48a9-8e3f-37ca4cd88b43
+    20d4fdcc73c11fcb: !<reference> e6ec2e37-3506-4571-8b05-2ed27e425020
+    24b8ede1f071ee7a: !<reference> af28f77a-432a-43af-86db-cf2ef9469d98
+    26ba073d67b9d0dd: !<reference> 69e07a98-fc08-48f0-9793-ceef6b62180b
+    2e1328fd4141bb01: !<reference> 36c2f9fb-9fe5-4001-bc5f-37b466cdf8b5
+    30a3b9958419d9ea: !<reference> b2f20c06-cea7-4683-8a7c-eede8ac90f7d
+    3144de3f49de2b4e: !<reference> a9461fc8-9d29-4163-b2d5-148b0122194d
+    39f9b67abc35ee2a: !<reference> 7a91ac4d-71f8-4cb7-bd1c-e6d639812164
+    3b0ed687f676f148: !<reference> 819a2b83-e2fc-490c-a8d8-97fe015c7493
+    3cfb4843f8005cae: !<reference> dc6b515b-d2b3-43cd-973d-db8aa5e31c62
+    3db226313caec0f7: !<reference> ec5f6fb1-91c8-4f5f-9097-28b9c53b7edc
+    4158cd77c955c4d5: !<reference> 1704686a-b0ea-450a-bc4e-8ad9c162919f
+    41d5779fe9f9330f: !<reference> 0b871cc4-1857-4f9c-a159-01bca8007986
+    42afe32b929a6b00: !<reference> 90762568-3935-4300-a84f-174c2bb29e5f
+    4b365d473c951202: !<reference> 48498ead-1a26-487f-8e1c-7029c806699e
+    4e120b9c27a96c7d: !<reference> a2314a1d-427f-4471-9e05-c65c2a14b390
+    5116474467d7c705: !<reference> 7bde0a4e-a66e-4965-99a9-13e42e43da28
+    56823b121f3a1da6: !<reference> d05e4351-c915-4972-9d0f-e17a21335f28
+    5e38f0d34f5cbf21: !<reference> b15a2783-4639-47d7-bf6b-79504d849bb8
+    5eb5d040c758da04: !<reference> 6b10c6ec-b797-4cd7-be12-62dc1b33600e
+    6456d6516f2e5c03: !<reference> 4604d4e3-110a-4ea7-9c5f-e22e9d975a1e
+    657c264db4d38ac9: !<reference> d7464906-74ed-4b0c-b4b7-e59cffb2a817
+    6737e829190ce9c6: !<reference> edbc8aca-9fce-4e89-abaa-e1d4e6a39c72
+    6e56bee73e06452e: !<reference> e3ab9cad-6ccb-400e-9334-0d5084180a1e
+    703de668be5281a9: !<reference> 9c43b5e0-c2fa-4b81-b187-d2db8bed1539
+    735f08095c67bc0b: !<reference> 3228d865-a0bd-444c-ae69-3db388955c57
+    7573fc705ba26e92: !<reference> 2e54e0cf-dd8b-403d-a3d5-3bb0ffeda31d
+    75915292109b7b1e: !<reference> 15c13f99-07b9-4ada-a70e-0a9ee0b73023
+    7e7dc236974b8959: !<reference> 919e7657-b629-4b20-adb9-a0e47d946f60
+    7ed4ddaa455272eb: !<reference> 1ce19d84-f829-4a86-9f10-ab27780d940d
+    7f0b84f0208091de: !<reference> df7e027c-3165-46d9-9fdc-b91c1f39dd2a
+    81f922a62790d1cc: !<reference> 2a7063b1-845b-4c13-a8e7-c17bb3682cc5
+    84d3a5ccc10e6965: !<reference> 754aa2c5-a3b8-4f62-9fd5-a260e2ac7576
+    88ab437fd121cc69: !<reference> 44ad4394-4203-41c8-b8fe-ea6f554519e2
+    8aab0cb4c0fab952: !<reference> 48b69a91-d2dd-4134-a991-911b3c3ad3fa
+    8d44a8505e2f6c54: !<reference> 314a67b5-b07d-49ff-978e-a232ec9f7a46
+    94588624830ef3d6: !<reference> 8c76fbd1-6247-42bc-ac30-09d7850028eb
+    975e0fc67c62dcca: !<reference> 261aea83-4405-4daf-b400-20d6f5232ac2
+    9aba9fbb9dc23616: !<reference> 1d344022-1099-44ab-b765-a6ae97020267
+    9ae28107dc3a2d3b: !<reference> 5c0895ae-b53f-4902-ba79-d061aa7a9dab
+    9fc7fb55452a1e26: !<reference> ce397cf7-f5c1-48a6-8f13-3a6ecf173866
+    Animations/idle: !<reference> 7bed9fa0-3224-414b-8b31-c21bd9c41b5a
+    Animations/look: !<reference> 9c10a0a1-de5b-4f93-a61e-f056b5b54b6c
+    Animations/talk: !<reference> d248c096-a887-4c77-bd2d-999a38e2b1e7
+    Materials/M14_Body: !<reference> 589965e1-ce43-497a-b1a3-4037e8f67859
+    Materials/M14_Body|M14_Body|GraphPassInfo: !<reference> a1dd6ba8-7e2a-429c-b9f5-c0ec7b868f87
+    Materials/M14_Head: !<reference> de52d5f7-5aa7-4d60-85d3-58db3a139656
+    Materials/M14_Head|M14_Head|GraphPassInfo: !<reference> 079b4f36-665b-41bb-bb9a-4f4499547a64
+    Meshes/Mesh: !<reference> fe43918c-2e63-4fc6-95a9-168f1c94dd61
+    Meshes/Mesh1: !<reference> e28d170d-8877-4701-a699-eab79180876b
+    Scene: !<reference> 7d2ee012-29ae-433e-9d13-0cdd37ac29d4
+    Textures/M14_Body_color: !<reference> 6c65cbfe-76dc-4e04-bb04-6381e7caf851
+    Textures/M14_Body_normal: !<reference> 001b9d9d-0e75-4657-904c-6a22ee50a06c
+    Textures/M14_Head_color: !<reference> 7a4f56d9-b5ff-4aca-ac8c-3e7fed134bed
+    Textures/M14_Head_normal: !<reference> f1e74e86-6208-42fd-acf3-0e498e5fcf59
+    a03f1a8d36f97a5d: !<reference> 4046b709-cdfd-4c79-b54d-41a5b4ef30bc
+    a12147f99bb67217: !<reference> 86aa7703-bf65-4709-bf23-ac29b5806d3b
+    a20fe2fdfbba949b: !<reference> 43c6cbc0-f724-4a4f-9830-ad3325a120eb
+    a2ceedfff51617f4: !<reference> 187310d6-2257-441e-83fe-bb0c94267498
+    a4645d698a2fb156: !<reference> f2a74f17-622c-4f88-b91a-daf59f721fbc
+    a6fa8051639df2dd: !<reference> 2f11892f-b44c-48e1-a323-61d1567f46e4
+    a87407e20ec5f5e7: !<reference> 56f0f31c-ca5a-4f88-ab2d-8c6b642bfa7c
+    af88a7d9ee9f56c8: !<reference> ba5a4495-1919-450a-9f61-b4d435bf0b91
+    b7b322201eaae95e: !<reference> 54803345-ee7e-461e-93e1-6c8d97a5c3eb
+    b9cb82bd7644bd41: !<reference> 2495649c-8fed-419c-be86-54906d735be0
+    c16ed9a05d9355ac: !<reference> ff1b3696-12dd-4a48-8319-e64c7d050b18
+    c2b1efa578bd7178: !<reference> ced01566-16e4-4635-b65b-4d2595e46948
+    c473f2244c5ac494: !<reference> 18b2e406-da3a-4365-a205-4eb14d68e0a8
+    c48bda4d3c58ab66: !<reference> 72d53fed-2004-417d-8ef3-8316d0cf8da6
+    ca69b1906db941df: !<reference> a5cdaf82-a1aa-47ed-8da1-fbb7004d8fff
+    cb9a6728767e5464: !<reference> 84a30238-5c0c-4398-bad2-8c9b8fa0fee0
+    d01f73af1c985c94: !<reference> 659f8ac6-674c-45a0-8d87-fecc092f760f
+    d0604f9edbf25b1e: !<reference> 39104e97-6e31-4cb5-9c28-1f0af47ef397
+    d1209e8db830f4c5: !<reference> f595e16e-91ca-4281-bc71-d0c07e7cf83d
+    d3aee55ad898e9d3: !<reference> dfcae4b1-f815-40d2-afb7-3e73374da81d
+    d7f61464ab34bc4b: !<reference> 70b03bbf-116d-4267-ace5-fc7a9715619f
+    e2ed72a7ea4eaf31: !<reference> 828b11a8-7748-4841-be25-cf4e929a58aa
+    e532d0e842691c9d: !<reference> 4cdcd222-d23e-42b5-a9fa-693823ebc40a
+    e57bfed2ccbd8bd4: !<reference> 834a0cf3-8f04-444b-9eba-f0d2cb0d16ac
+    e697c9fe51630fa2: !<reference> f1db62a4-dff6-4db8-8898-6ce5f3095496
+    e6d677c310d29501: !<reference> fa4e95f4-ed72-4aef-aef2-36cfe5806b9e
+    ea65c06272d4f9ac: !<reference> fc0b0d9f-ce57-43a9-b212-8ac7950ba1c3
+    eb6087c95a86cf84: !<reference> d1206552-8f0d-43a1-8b55-cfda17e36e18
+    ef5ba2edf8fb2683: !<reference> 818b7931-db6d-4268-a302-369b452d0386
+    f0291e42ad2fe374: !<reference> b831ce9c-7870-45c6-8d81-336b204ff39e
+    f3e0f9e07f241ebf: !<reference> 69f85f49-1b3a-403e-8dab-57684094d610
+    f73ade981b487316: !<reference> d3ebc145-9e31-4faa-9795-23a7740a1d9e
+    fb1fbb7e19895eaa: !<reference> 335b4650-4a44-4480-9ede-d1b35090e246
+    fbfaa8cd1fee298c: !<reference> 7b5fb56a-9932-473e-843c-1eaed9d275c4
+    fd6b609729756f82: !<reference> 7662753b-7fe0-42d7-9c40-6c9e9996e051
+    ffe092a42d40aaef: !<reference> e2451df2-1d4e-48d6-bd20-a0173bb2e4ee
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 7d2ee012-29ae-433e-9d13-0cdd37ac29d4
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> eb539c81-1fbd-4393-840e-7e33562adb67
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/0b871cc4-1857-4f9c-5ea6-fe4357ff8679>
+  PrefabRemaps:
+    []
+  Name: Bip01 REyeBlinkTop
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 11.867834, y: 8.439691, z: -3.335812}
+    Rotation: {x: -2.623373, y: 16.934282, z: 68.858429}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/0e17f361-3d11-4118-6f7e-997809c71662>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger32
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.444217, y: -0.000041, z: 0.000009}
+    Rotation: {x: -0.000000, y: -0.000137, z: 2.876037}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/15c13f99-07b9-4ada-58f1-f5611f48cfdc>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Forearm
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 28.580185, y: -0.000009, z: -0.000032}
+    Rotation: {x: -0.000047, y: -0.000028, z: -20.671570}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 48498ead-1a26-487f-71e3-8fd637f99661
+  Components:
+    []
+- !<SceneObject/1704686a-b0ea-450a-43b1-75263e9d6e60>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger01
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.827762, y: -0.000073, z: 0.000000}
+    Rotation: {x: -0.000025, y: -0.000013, z: 12.936516}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 2a7063b1-845b-4c13-5718-3e844c97d33a
+  Components:
+    []
+- !<SceneObject/187310d6-2257-441e-7c01-44f36bd98b67>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Thigh
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: -12.021347, y: -0.372450, z: -8.836847}
+    Rotation: {x: -164.123260, y: 3.032969, z: -179.793503}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> d05e4351-c915-4972-62f0-1e85decca0d7
+  Components:
+    []
+- !<SceneObject/18b2e406-da3a-4365-5dfa-b14eb2971f57>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger11
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.128995, y: -0.000050, z: 0.000011}
+    Rotation: {x: -0.000012, y: 0.000000, z: 10.726506}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 7bde0a4e-a66e-4965-6656-ec1bd1bc25d7
+  Components:
+    []
+- !<SceneObject/1ce19d84-f829-4a86-60ef-54d887f26bf2>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger0
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.676164, y: 0.628332, z: 3.198136}
+    Rotation: {x: -98.417061, y: -31.889278, z: 30.871943}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 1704686a-b0ea-450a-43b1-75263e9d6e60
+  Components:
+    []
+- !<RenderMeshVisual/1d344022-1099-44ab-489a-595168fdfd98>
+  PrefabRemaps:
+    []
+  Name: Mesh
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 589965e1-ce43-497a-b1a3-4037e8f67859
+  Mesh: !<reference> e28d170d-8877-4701-a699-eab79180876b
+  Skin: !<reference> 261aea83-4405-4daf-4bff-df290adcd53d
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    AA_VI_10_aa: 0.000000
+    AA_VI_08_nn: 0.000000
+    AA_VI_07_SS: 0.000000
+    AA_VI_01_PP: 0.000000
+    AA_VI_14_U: 0.000000
+    AA_VI_13_O: 0.000000
+    AA_VI_12_I: 0.000000
+    AA_VI_11_E: 0.000000
+    AK_09_EyeBlinkLeft: 0.000000
+    AK_10_EyeBlinkRight: 0.000000
+    AK_25_JawOpen: 0.000000
+    AK_44_MouthSmileLeft: 0.000000
+    AK_45_MouthSmileRight: 0.000000
+    HB_07_MouthSmile: 0.000000
+- !<SceneObject/211719bf-146c-4b1c-5d55-5eb43e888b3c>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Toe0
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 10.162366, y: 13.629580, z: 0.000008}
+    Rotation: {x: -0.000000, y: -0.000067, z: 90.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/2495649c-8fed-419c-4179-ab6f928ca41f>
+  PrefabRemaps:
+    []
+  Name: Bip01 Pelvis
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: -179.999924, y: 0.000084, z: 90.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> dfcae4b1-f815-40d2-5048-c18cc8b257e2
+  Components:
+    []
+- !<Skin/261aea83-4405-4daf-4bff-df290adcd53d>
+  PrefabRemaps:
+    []
+  Name: component_3
+  Enabled: true
+  skinBones:
+    Bip01 Head: !<reference> fc0b0d9f-ce57-43a9-4ded-75386af45e3c
+    Bip01 L Calf: !<reference> 69f85f49-1b3a-403e-7254-a897bf6b29ef
+    Bip01 L Clavicle: !<reference> 314a67b5-b07d-49ff-6871-5dcd136085b9
+    Bip01 L Finger0: !<reference> a9461fc8-9d29-4163-4d2a-eb74fedde6b2
+    Bip01 L Finger01: !<reference> f595e16e-91ca-4281-438e-2f3f818307c2
+    Bip01 L Finger02: !<reference> df7e027c-3165-46d9-6023-46e3e0c622d5
+    Bip01 L Finger1: !<reference> 43c6cbc0-f724-4a4f-67cf-52ccda5edf14
+    Bip01 L Finger11: !<reference> 18b2e406-da3a-4365-5dfa-b14eb2971f57
+    Bip01 L Finger12: !<reference> 7bde0a4e-a66e-4965-6656-ec1bd1bc25d7
+    Bip01 L Finger2: !<reference> adeecc05-4d32-45fd-6d41-0c96d53022ae
+    Bip01 L Finger21: !<reference> dc2c91d1-c3ac-458d-44d8-83fd85f17130
+    Bip01 L Finger22: !<reference> 818b7931-db6d-4268-5cfd-c964bad2fc79
+    Bip01 L Finger3: !<reference> 659f8ac6-674c-45a0-7278-0133f6d089f0
+    Bip01 L Finger31: !<reference> a5cdaf82-a1aa-47ed-725e-0448ffb27000
+    Bip01 L Finger32: !<reference> 0e17f361-3d11-4118-6f7e-997809c71662
+    Bip01 L Finger4: !<reference> ec5f6fb1-91c8-4f5f-6f68-d7463ac48123
+    Bip01 L Finger41: !<reference> 84a30238-5c0c-4398-452d-7364705f011f
+    Bip01 L Finger42: !<reference> 7a91ac4d-71f8-4cb7-42e3-1929c67ede9b
+    Bip01 L Foot: !<reference> 2e54e0cf-dd8b-403d-5c2a-c44f00125ce2
+    Bip01 L Forearm: !<reference> 15c13f99-07b9-4ada-58f1-f5611f48cfdc
+    Bip01 L Hand: !<reference> 48498ead-1a26-487f-71e3-8fd637f99661
+    Bip01 L Thigh: !<reference> 5c0895ae-b53f-4902-4586-2f9e55856254
+    Bip01 L Toe0: !<reference> 6b10c6ec-b797-4cd7-41ed-9d23e4cc9ff1
+    Bip01 L UpperArm: !<reference> ba5a4495-1919-450a-609e-4b2bca40f46e
+    Bip01 LCaninus: !<reference> 834a0cf3-8f04-444b-6145-0f2d34f2e953
+    Bip01 LCheek: !<reference> b2f20c06-cea7-4683-7583-11217536f082
+    Bip01 LEye: !<reference> 36c2f9fb-9fe5-4001-43a0-c84b9932074a
+    Bip01 LEyeBlinkBottom: !<reference> 9c43b5e0-c2fa-4b81-4e78-2d247412eac6
+    Bip01 LEyeBlinkTop: !<reference> d3ebc145-9e31-4faa-686a-dc588bf5e261
+    Bip01 LInnerEyebrow: !<reference> 39104e97-6e31-4cb5-63d7-e0f50b810c68
+    Bip01 LMasseter: !<reference> 90762568-3935-4300-57b0-e8b3d44d61a0
+    Bip01 LMouthBottom: !<reference> 8c76fbd1-6247-42bc-53cf-f6287affd714
+    Bip01 LMouthCorner: !<reference> 7b5fb56a-9932-473e-7bc3-e151262d8a3b
+    Bip01 LOuterEyebrow: !<reference> 7662753b-7fe0-42d7-63bf-936166691fae
+    Bip01 LUpperlip: !<reference> b15a2783-4639-47d7-4094-86afb27b6447
+    Bip01 MBottomLip: !<reference> 819a2b83-e2fc-490c-5727-6801fea38b6c
+    Bip01 MJaw: !<reference> 86aa7703-bf65-4709-40dc-53d64a7f92c4
+    Bip01 MMiddleEyebrow: !<reference> 48b69a91-d2dd-4134-566e-6ee4c3c52c05
+    Bip01 MNose: !<reference> 335b4650-4a44-4480-6121-2e4caf6f1db9
+    Bip01 MTongue: !<reference> 754aa2c5-a3b8-4f62-602a-5d9f1d538a89
+    Bip01 MUpperLip: !<reference> 56f0f31c-ca5a-4f88-54d2-73949bd40583
+    Bip01 Neck: !<reference> 5d82fefe-147b-4da2-4cb6-26dbe74f9889
+    Bip01 Pelvis: !<reference> 2495649c-8fed-419c-4179-ab6f928ca41f
+    Bip01 R Calf: !<reference> d05e4351-c915-4972-62f0-1e85decca0d7
+    Bip01 R Clavicle: !<reference> dc6b515b-d2b3-43cd-68c2-24755a1ce39d
+    Bip01 R Finger0: !<reference> 1ce19d84-f829-4a86-60ef-54d887f26bf2
+    Bip01 R Finger01: !<reference> 1704686a-b0ea-450a-43b1-75263e9d6e60
+    Bip01 R Finger02: !<reference> 2a7063b1-845b-4c13-5718-3e844c97d33a
+    Bip01 R Finger1: !<reference> e6ec2e37-3506-4571-74fa-d12d81bdafdf
+    Bip01 R Finger11: !<reference> 828b11a8-7748-4841-41da-30b16d65a755
+    Bip01 R Finger12: !<reference> 2aa510ad-9b56-4c3b-78ea-9b8515f388d4
+    Bip01 R Finger2: !<reference> 919e7657-b629-4b20-5246-5f1b826b909f
+    Bip01 R Finger21: !<reference> edbc8aca-9fce-4e89-5455-1e2b195c638d
+    Bip01 R Finger22: !<reference> 4cdcd222-d23e-42b5-5605-96c7dc143bf5
+    Bip01 R Finger3: !<reference> 4ec126c6-3b7a-41a2-623c-1f899a1d0569
+    Bip01 R Finger31: !<reference> a2314a1d-427f-4471-61fa-39a3d5eb4c6f
+    Bip01 R Finger32: !<reference> 2f11892f-b44c-48e1-5cdc-9e2ea980b91b
+    Bip01 R Finger4: !<reference> 72d53fed-2004-417d-710c-7ce92f307259
+    Bip01 R Finger41: !<reference> 4604d4e3-110a-4ea7-63a0-1dd16268a5e1
+    Bip01 R Finger42: !<reference> b831ce9c-7870-45c6-727e-cc94dfb00c61
+    Bip01 R Foot: !<reference> 4046b709-cdfd-4c79-4ab2-be5a4b10cf43
+    Bip01 R Forearm: !<reference> 70b03bbf-116d-4267-531a-038568ea9e60
+    Bip01 R Hand: !<reference> ce397cf7-f5c1-48a6-70ec-c59130e8c799
+    Bip01 R Thigh: !<reference> 187310d6-2257-441e-7c01-44f36bd98b67
+    Bip01 R Toe0: !<reference> 211719bf-146c-4b1c-5d55-5eb43e888b3c
+    Bip01 R UpperArm: !<reference> f1783d2b-23d3-48a9-71c0-c835b32774bc
+    Bip01 RCaninus: !<reference> e3ab9cad-6ccb-400e-6ccb-f2af7be7f5e1
+    Bip01 RCheek: !<reference> 9a21b5b5-daec-45be-5f83-ddd30a8206d8
+    Bip01 REye: !<reference> ced01566-16e4-4635-49a4-b2da6a1b96b7
+    Bip01 REyeBlinkBottom: !<reference> ff1b3696-12dd-4a48-7ce6-19b382faf4e7
+    Bip01 REyeBlinkTop: !<reference> 0b871cc4-1857-4f9c-5ea6-fe4357ff8679
+    Bip01 RInnerEyebrow: !<reference> fa4e95f4-ed72-4aef-510d-c9301a7f9461
+    Bip01 RMasseter: !<reference> d1206552-8f0d-43a1-74aa-3025e81c91e7
+    Bip01 RMouthBottom: !<reference> 93bd211c-bc21-475d-5f38-eb2287b2b5b8
+    Bip01 RMouthCorner: !<reference> a1758188-fd18-4dff-7d87-cecd83f9c345
+    Bip01 ROuterEyebrow: !<reference> e2451df2-1d4e-48d6-42df-5fe8c44d1b11
+    Bip01 RUpperlip: !<reference> af28f77a-432a-43af-7924-30d106b96267
+    Bip01 Spine: !<reference> dfcae4b1-f815-40d2-5048-c18cc8b257e2
+    Bip01 Spine1: !<reference> 72268df1-ca30-4bfd-4de4-9a32d6d0713f
+    Bip01 Spine2: !<reference> 3228d865-a0bd-444c-5196-c24c776aa3a8
+    Body: !<reference> f2a74f17-622c-4f88-46e5-250a608de043
+    Rig: !<reference> f1db62a4-dff6-4db8-7767-931a0cf6ab69
+- !<SceneObject/2a7063b1-845b-4c13-5718-3e844c97d33a>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger02
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.100453, y: -0.000008, z: -0.000096}
+    Rotation: {x: -0.000024, y: -0.000000, z: 12.268506}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/2aa510ad-9b56-4c3b-78ea-9b8515f388d4>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger12
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.379065, y: 0.000011, z: 0.000009}
+    Rotation: {x: -0.000000, y: -0.000000, z: 2.417089}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/2e54e0cf-dd8b-403d-5c2a-c44f00125ce2>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Foot
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 39.668903, y: 0.000016, z: -0.000006}
+    Rotation: {x: 1.611855, y: -2.332431, z: 5.002357}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 6b10c6ec-b797-4cd7-41ed-9d23e4cc9ff1
+  Components:
+    []
+- !<SceneObject/2f11892f-b44c-48e1-5cdc-9e2ea980b91b>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger32
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.444235, y: -0.000035, z: -0.000015}
+    Rotation: {x: 0.000000, y: 0.000000, z: 2.876024}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/314a67b5-b07d-49ff-6871-5dcd136085b9>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Clavicle
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: -6.206599, y: 0.708825, z: 7.282138}
+    Rotation: {x: -5.769639, y: -77.155022, z: 166.184586}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> ba5a4495-1919-450a-609e-4b2bca40f46e
+  Components:
+    []
+- !<SceneObject/3228d865-a0bd-444c-5196-c24c776aa3a8>
+  PrefabRemaps:
+    []
+  Name: Bip01 Spine2
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 15.317582, y: -0.012190, z: 0.000003}
+    Rotation: {x: -0.000000, y: -0.000010, z: 1.783499}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 5d82fefe-147b-4da2-4cb6-26dbe74f9889
+  Components:
+    []
+- !<SceneObject/335b4650-4a44-4480-6121-2e4caf6f1db9>
+  PrefabRemaps:
+    []
+  Name: Bip01 MNose
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 8.708109, y: 12.193335, z: 0.000019}
+    Rotation: {x: -0.000235, y: -0.000222, z: 84.618088}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/36c2f9fb-9fe5-4001-43a0-c84b9932074a>
+  PrefabRemaps:
+    []
+  Name: Bip01 LEye
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 11.082082, y: 6.991803, z: 3.188550}
+    Rotation: {x: -0.001201, y: -0.000245, z: 81.304237}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<AnimationPlayer/37313e99-9645-4127-6d50-5f1ad9ba21ef>
+  PrefabRemaps:
+    []
+  Name: component_2
+  Enabled: true
+  Autoplay: true
+  ClipRangeType: Frames
+  AnimationClips:
+    - !<AnimationClip>
+      AnimationAsset: !<reference> 7bed9fa0-3224-414b-8b31-c21bd9c41b5a
+      Name: idle
+      Weight: 1.000000
+      PlaybackSpeed: 1.000000
+      Begin: 0.000000
+      End: 45.733334
+      Offset: 0.000000
+      Reversed: false
+      Disabled: false
+      BlendMode: Default
+      ScaleMode: Multiply
+      PlaybackMode: Loop
+    - !<AnimationClip>
+      AnimationAsset: !<reference> d248c096-a887-4c77-bd2d-999a38e2b1e7
+      Name: talk
+      Weight: 1.000000
+      PlaybackSpeed: 1.000000
+      Begin: 0.000000
+      End: 16.633333
+      Offset: 0.000000
+      Reversed: false
+      Disabled: false
+      BlendMode: Default
+      ScaleMode: Multiply
+      PlaybackMode: Loop
+    - !<AnimationClip>
+      AnimationAsset: !<reference> 9c10a0a1-de5b-4f93-a61e-f056b5b54b6c
+      Name: look
+      Weight: 1.000000
+      PlaybackSpeed: 1.000000
+      Begin: 0.000000
+      End: 8.633333
+      Offset: 0.000000
+      Reversed: false
+      Disabled: false
+      BlendMode: Default
+      ScaleMode: Multiply
+      PlaybackMode: Loop
+- !<SceneObject/39104e97-6e31-4cb5-63d7-e0f50b810c68>
+  PrefabRemaps:
+    []
+  Name: Bip01 LInnerEyebrow
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 13.005400, y: 9.465114, z: 2.641370}
+    Rotation: {x: 0.864148, y: -9.963067, z: 84.970322}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/4046b709-cdfd-4c79-4ab2-be5a4b10cf43>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Foot
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 39.668919, y: -0.000012, z: 0.000006}
+    Rotation: {x: -1.611798, y: 2.332454, z: 5.002349}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 211719bf-146c-4b1c-5d55-5eb43e888b3c
+  Components:
+    []
+- !<SceneObject/43c6cbc0-f724-4a4f-67cf-52ccda5edf14>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger1
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 9.438946, y: -0.203900, z: -2.242461}
+    Rotation: {x: -0.016991, y: 0.477232, z: 12.301052}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 18b2e406-da3a-4365-5dfa-b14eb2971f57
+  Components:
+    []
+- !<SceneObject/44ad4394-4203-41c8-4701-1590aabae61d>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> d7464906-74ed-4b0c-4b48-1a63004d57e8
+  Components:
+    []
+- !<SceneObject/4604d4e3-110a-4ea7-63a0-1dd16268a5e1>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger41
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.908873, y: -0.000023, z: -0.000021}
+    Rotation: {x: -0.000000, y: -0.000000, z: 2.457629}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> b831ce9c-7870-45c6-727e-cc94dfb00c61
+  Components:
+    []
+- !<SceneObject/48498ead-1a26-487f-71e3-8fd637f99661>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Hand
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 27.091940, y: -0.000105, z: -0.000065}
+    Rotation: {x: -91.268127, y: 3.949916, z: 1.867891}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> a9461fc8-9d29-4163-4d2a-eb74fedde6b2
+    - !<own> 43c6cbc0-f724-4a4f-67cf-52ccda5edf14
+    - !<own> adeecc05-4d32-45fd-6d41-0c96d53022ae
+    - !<own> 659f8ac6-674c-45a0-7278-0133f6d089f0
+    - !<own> ec5f6fb1-91c8-4f5f-6f68-d7463ac48123
+  Components:
+    []
+- !<SceneObject/48b69a91-d2dd-4134-566e-6ee4c3c52c05>
+  PrefabRemaps:
+    []
+  Name: Bip01 MMiddleEyebrow
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 12.706558, y: 10.012962, z: 0.000017}
+    Rotation: {x: -0.000161, y: -0.000158, z: 85.204163}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/4cdcd222-d23e-42b5-5605-96c7dc143bf5>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger22
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.848783, y: 0.000051, z: -0.000002}
+    Rotation: {x: -0.000015, y: 0.000000, z: 10.380944}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/4ec126c6-3b7a-41a2-623c-1f899a1d0569>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger3
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 8.993739, y: 0.227033, z: -2.301779}
+    Rotation: {x: 17.105680, y: -0.989904, z: 21.297581}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> a2314a1d-427f-4471-61fa-39a3d5eb4c6f
+  Components:
+    []
+- !<RenderMeshVisual/54803345-ee7e-461e-6c1e-9372685a3c14>
+  PrefabRemaps:
+    []
+  Name: Mesh
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> de52d5f7-5aa7-4d60-85d3-58db3a139656
+  Mesh: !<reference> fe43918c-2e63-4fc6-95a9-168f1c94dd61
+  Skin: !<reference> 261aea83-4405-4daf-4bff-df290adcd53d
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    AA_VI_10_aa: 0.000000
+    AA_VI_08_nn: 0.000000
+    AA_VI_07_SS: 0.000000
+    AA_VI_01_PP: 0.000000
+    AA_VI_14_U: 0.000000
+    AA_VI_13_O: 0.000000
+    AA_VI_12_I: 0.000000
+    AA_VI_11_E: 0.000000
+    AK_09_EyeBlinkLeft: 0.000000
+    AK_10_EyeBlinkRight: 0.000000
+    AK_25_JawOpen: 0.000000
+    AK_44_MouthSmileLeft: 0.000000
+    AK_45_MouthSmileRight: 0.000000
+    HB_07_MouthSmile: 0.000000
+- !<SceneObject/56f0f31c-ca5a-4f88-54d2-73949bd40583>
+  PrefabRemaps:
+    []
+  Name: Bip01 MUpperLip
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 5.081568, y: 11.831447, z: 0.000018}
+    Rotation: {x: -0.000235, y: -0.000222, z: 85.045746}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/5c0895ae-b53f-4902-4586-2f9e55856254>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Thigh
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: -12.021339, y: -0.372499, z: 8.836848}
+    Rotation: {x: 164.122955, y: -3.032953, z: -179.793488}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 69f85f49-1b3a-403e-7254-a897bf6b29ef
+  Components:
+    []
+- !<SceneObject/5d82fefe-147b-4da2-4cb6-26dbe74f9889>
+  PrefabRemaps:
+    []
+  Name: Bip01 Neck
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 19.914179, y: 1.563401, z: 0.000004}
+    Rotation: {x: -0.000011, y: -0.000070, z: 19.396013}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> fc0b0d9f-ce57-43a9-4ded-75386af45e3c
+    - !<own> 314a67b5-b07d-49ff-6871-5dcd136085b9
+    - !<own> dc6b515b-d2b3-43cd-68c2-24755a1ce39d
+  Components:
+    []
+- !<SceneObject/659f8ac6-674c-45a0-7278-0133f6d089f0>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger3
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 8.993663, y: 0.226988, z: 2.301735}
+    Rotation: {x: -17.105650, y: 0.989938, z: 21.297554}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> a5cdaf82-a1aa-47ed-725e-0448ffb27000
+  Components:
+    []
+- !<SceneObject/69e07a98-fc08-48f0-686c-3110949de7f4>
+  PrefabRemaps:
+    []
+  Name: Diner_M14
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 44ad4394-4203-41c8-4701-1590aabae61d
+  Components:
+    []
+- !<SceneObject/69f85f49-1b3a-403e-7254-a897bf6b29ef>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Calf
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 39.903503, y: -0.000012, z: -0.000006}
+    Rotation: {x: -0.000000, y: 0.000000, z: -7.072399}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 2e54e0cf-dd8b-403d-5c2a-c44f00125ce2
+  Components:
+    []
+- !<SceneObject/6b10c6ec-b797-4cd7-41ed-9d23e4cc9ff1>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Toe0
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 10.162382, y: 13.629582, z: -0.000024}
+    Rotation: {x: -0.000020, y: 0.000127, z: 90.000023}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/70b03bbf-116d-4267-531a-038568ea9e60>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Forearm
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 28.580191, y: -0.000043, z: -0.000003}
+    Rotation: {x: -0.000000, y: 0.000038, z: -20.671623}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> ce397cf7-f5c1-48a6-70ec-c59130e8c799
+  Components:
+    []
+- !<SceneObject/72268df1-ca30-4bfd-4de4-9a32d6d0713f>
+  PrefabRemaps:
+    []
+  Name: Bip01 Spine1
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 15.316839, y: -0.012195, z: 0.000000}
+    Rotation: {x: -0.000000, y: 0.000013, z: -1.567606}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 3228d865-a0bd-444c-5196-c24c776aa3a8
+  Components:
+    []
+- !<SceneObject/72d53fed-2004-417d-710c-7ce92f307259>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger4
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 8.023826, y: 1.201961, z: -3.974753}
+    Rotation: {x: 26.323648, y: -2.199102, z: 31.371971}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4604d4e3-110a-4ea7-63a0-1dd16268a5e1
+  Components:
+    []
+- !<SceneObject/754aa2c5-a3b8-4f62-602a-5d9f1d538a89>
+  PrefabRemaps:
+    []
+  Name: Bip01 MTongue
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 7.251140, y: -1.566588, z: 0.060975}
+    Rotation: {x: 0.073022, y: 1.566276, z: -20.240238}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/7662753b-7fe0-42d7-63bf-936166691fae>
+  PrefabRemaps:
+    []
+  Name: Bip01 LOuterEyebrow
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 12.541517, y: 8.292994, z: 4.926723}
+    Rotation: {x: 0.813649, y: -29.989353, z: 85.335159}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/7a91ac4d-71f8-4cb7-42e3-1929c67ede9b>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger42
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 1.535751, y: 0.000017, z: 0.000102}
+    Rotation: {x: 0.000000, y: -0.000011, z: 2.859489}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/7b5fb56a-9932-473e-7bc3-e151262d8a3b>
+  PrefabRemaps:
+    []
+  Name: Bip01 LMouthCorner
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 4.082600, y: 10.714279, z: 2.770165}
+    Rotation: {x: -5.405921, y: -29.235258, z: 96.754166}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/7bde0a4e-a66e-4965-6656-ec1bd1bc25d7>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger12
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.378994, y: 0.000004, z: -0.000013}
+    Rotation: {x: -0.000000, y: -0.000100, z: 2.417078}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/818b7931-db6d-4268-5cfd-c964bad2fc79>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger22
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.848830, y: 0.000040, z: 0.000010}
+    Rotation: {x: 0.000028, y: 0.000427, z: 10.380942}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/819a2b83-e2fc-490c-5727-6801fea38b6c>
+  PrefabRemaps:
+    []
+  Name: Bip01 MBottomLip
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 10.554058, y: -2.333211, z: -0.089006}
+    Rotation: {x: -0.000109, y: 0.000226, z: -20.000013}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/828b11a8-7748-4841-41da-30b16d65a755>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger11
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.129016, y: -0.000053, z: -0.000022}
+    Rotation: {x: 0.000070, y: 0.000017, z: 10.726555}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 2aa510ad-9b56-4c3b-78ea-9b8515f388d4
+  Components:
+    []
+- !<SceneObject/834a0cf3-8f04-444b-6145-0f2d34f2e953>
+  PrefabRemaps:
+    []
+  Name: Bip01 LCaninus
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 6.248258, y: 10.813050, z: 2.944750}
+    Rotation: {x: 2.829026, y: -29.878956, z: 84.287392}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/84a30238-5c0c-4398-452d-7364705f011f>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger41
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.908838, y: 0.000072, z: 0.000032}
+    Rotation: {x: 0.000000, y: 0.000027, z: 2.457665}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 7a91ac4d-71f8-4cb7-42e3-1929c67ede9b
+  Components:
+    []
+- !<SceneObject/86aa7703-bf65-4709-40dc-53d64a7f92c4>
+  PrefabRemaps:
+    []
+  Name: Bip01 MJaw
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.289466, y: 1.240069, z: 0.000002}
+    Rotation: {x: -0.284101, y: -0.420488, z: 99.656746}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 819a2b83-e2fc-490c-5727-6801fea38b6c
+    - !<own> 754aa2c5-a3b8-4f62-602a-5d9f1d538a89
+    - !<own> 8c76fbd1-6247-42bc-53cf-f6287affd714
+    - !<own> 93bd211c-bc21-475d-5f38-eb2287b2b5b8
+  Components:
+    []
+- !<SceneObject/8c76fbd1-6247-42bc-53cf-f6287affd714>
+  PrefabRemaps:
+    []
+  Name: Bip01 LMouthBottom
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 10.335336, y: -2.435676, z: 1.307277}
+    Rotation: {x: -0.034721, y: -25.353151, z: -19.991222}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/90762568-3935-4300-57b0-e8b3d44d61a0>
+  PrefabRemaps:
+    []
+  Name: Bip01 LMasseter
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 4.580358, y: 7.721060, z: 5.719432}
+    Rotation: {x: -5.071536, y: -44.774651, z: 97.135696}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/919e7657-b629-4b20-5246-5f1b826b909f>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger2
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 9.559338, y: -0.186359, z: -0.145403}
+    Rotation: {x: 16.313213, y: 0.887416, z: 16.929041}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> edbc8aca-9fce-4e89-5455-1e2b195c638d
+  Components:
+    []
+- !<SceneObject/93bd211c-bc21-475d-5f38-eb2287b2b5b8>
+  PrefabRemaps:
+    []
+  Name: Bip01 RMouthBottom
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 10.314963, y: -2.421640, z: -1.482488}
+    Rotation: {x: 0.034685, y: 25.290640, z: -19.991056}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/9a21b5b5-daec-45be-5f83-ddd30a8206d8>
+  PrefabRemaps:
+    []
+  Name: Bip01 RCheek
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 8.475513, y: 9.653810, z: -4.137361}
+    Rotation: {x: 0.388404, y: 21.804127, z: 90.999626}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/9c43b5e0-c2fa-4b81-4e78-2d247412eac6>
+  PrefabRemaps:
+    []
+  Name: Bip01 LEyeBlinkBottom
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 10.374676, y: 8.750588, z: 3.411094}
+    Rotation: {x: 1.313211, y: -14.944003, z: 84.873436}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/a1758188-fd18-4dff-7d87-cecd83f9c345>
+  PrefabRemaps:
+    []
+  Name: Bip01 RMouthCorner
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 4.082545, y: 10.714336, z: -2.770112}
+    Rotation: {x: 5.405405, y: 29.234371, z: 96.754044}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/a2314a1d-427f-4471-61fa-39a3d5eb4c6f>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger31
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.369572, y: 0.000044, z: -0.000015}
+    Rotation: {x: 0.000017, y: -0.000000, z: 5.686823}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 2f11892f-b44c-48e1-5cdc-9e2ea980b91b
+  Components:
+    []
+- !<SceneObject/a5cdaf82-a1aa-47ed-725e-0448ffb27000>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger31
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.369565, y: 0.000044, z: 0.000012}
+    Rotation: {x: -0.000019, y: -0.000017, z: 5.686806}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 0e17f361-3d11-4118-6f7e-997809c71662
+  Components:
+    []
+- !<SceneObject/a9461fc8-9d29-4163-4d2a-eb74fedde6b2>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger0
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.676095, y: 0.628259, z: -3.198210}
+    Rotation: {x: 98.417084, y: 31.889286, z: 30.871923}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> f595e16e-91ca-4281-438e-2f3f818307c2
+  Components:
+    []
+- !<SceneObject/adeecc05-4d32-45fd-6d41-0c96d53022ae>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger2
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 9.559261, y: -0.186395, z: 0.145353}
+    Rotation: {x: -16.313192, y: -0.887382, z: 16.929005}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> dc2c91d1-c3ac-458d-44d8-83fd85f17130
+  Components:
+    []
+- !<SceneObject/af28f77a-432a-43af-7924-30d106b96267>
+  PrefabRemaps:
+    []
+  Name: Bip01 RUpperlip
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 5.024823, y: 11.684242, z: -1.425547}
+    Rotation: {x: 0.033105, y: 27.894197, z: 90.055244}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/b15a2783-4639-47d7-4094-86afb27b6447>
+  PrefabRemaps:
+    []
+  Name: Bip01 LUpperlip
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 5.024885, y: 11.684232, z: 1.425608}
+    Rotation: {x: -0.033428, y: -27.863096, z: 90.055283}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/b2f20c06-cea7-4683-7583-11217536f082>
+  PrefabRemaps:
+    []
+  Name: Bip01 LCheek
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 8.475364, y: 9.653853, z: 4.137448}
+    Rotation: {x: -0.388784, y: -21.805414, z: 90.999702}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/b831ce9c-7870-45c6-727e-cc94dfb00c61>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger42
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 1.535753, y: 0.000002, z: 0.000052}
+    Rotation: {x: -0.000065, y: 0.000000, z: 2.859483}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/ba5a4495-1919-450a-609e-4b2bca40f46e>
+  PrefabRemaps:
+    []
+  Name: Bip01 L UpperArm
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 14.107949, y: -0.000022, z: 0.000072}
+    Rotation: {x: 10.557863, y: 31.160942, z: -0.594117}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 15c13f99-07b9-4ada-58f1-f5611f48cfdc
+  Components:
+    []
+- !<SceneObject/ce397cf7-f5c1-48a6-70ec-c59130e8c799>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Hand
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 27.091860, y: -0.000107, z: -0.000022}
+    Rotation: {x: 91.268127, y: -3.949892, z: 1.867913}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 1ce19d84-f829-4a86-60ef-54d887f26bf2
+    - !<own> e6ec2e37-3506-4571-74fa-d12d81bdafdf
+    - !<own> 919e7657-b629-4b20-5246-5f1b826b909f
+    - !<own> 4ec126c6-3b7a-41a2-623c-1f899a1d0569
+    - !<own> 72d53fed-2004-417d-710c-7ce92f307259
+  Components:
+    []
+- !<SceneObject/ced01566-16e4-4635-49a4-b2da6a1b96b7>
+  PrefabRemaps:
+    []
+  Name: Bip01 REye
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 11.082083, y: 6.991819, z: -3.188505}
+    Rotation: {x: 0.000902, y: -0.000088, z: 81.304237}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/d05e4351-c915-4972-62f0-1e85decca0d7>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Calf
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 39.903492, y: 0.000008, z: 0.000004}
+    Rotation: {x: -0.000045, y: -0.000000, z: -7.072383}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4046b709-cdfd-4c79-4ab2-be5a4b10cf43
+  Components:
+    []
+- !<SceneObject/d1206552-8f0d-43a1-74aa-3025e81c91e7>
+  PrefabRemaps:
+    []
+  Name: Bip01 RMasseter
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 4.580261, y: 7.721159, z: -5.719355}
+    Rotation: {x: 5.071007, y: 44.773991, z: 97.135567}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/d3ebc145-9e31-4faa-686a-dc588bf5e261>
+  PrefabRemaps:
+    []
+  Name: Bip01 LEyeBlinkTop
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 11.867833, y: 8.439676, z: 3.335862}
+    Rotation: {x: 2.623013, y: -16.934612, z: 68.858421}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/d7464906-74ed-4b0c-4b48-1a63004d57e8>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> f1db62a4-dff6-4db8-7767-931a0cf6ab69
+  Components:
+    - !<own> 37313e99-9645-4127-6d50-5f1ad9ba21ef
+    - !<own> 261aea83-4405-4daf-4bff-df290adcd53d
+- !<SceneObject/dc2c91d1-c3ac-458d-44d8-83fd85f17130>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger21
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.801419, y: -0.000069, z: 0.000009}
+    Rotation: {x: 0.000000, y: -0.000040, z: 7.636584}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 818b7931-db6d-4268-5cfd-c964bad2fc79
+  Components:
+    []
+- !<SceneObject/dc6b515b-d2b3-43cd-68c2-24755a1ce39d>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Clavicle
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: -6.206602, y: 0.708865, z: -7.282134}
+    Rotation: {x: 5.768250, y: 77.154922, z: 166.183212}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> f1783d2b-23d3-48a9-71c0-c835b32774bc
+  Components:
+    []
+- !<SceneObject/df7e027c-3165-46d9-6023-46e3e0c622d5>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger02
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.100373, y: 0.000046, z: 0.000011}
+    Rotation: {x: -0.000015, y: -0.000021, z: 12.268531}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/dfcae4b1-f815-40d2-5048-c18cc8b257e2>
+  PrefabRemaps:
+    []
+  Name: Bip01 Spine
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 12.025978, y: -0.162854, z: -0.000018}
+    Rotation: {x: -0.000242, y: 0.000083, z: -2.550561}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 72268df1-ca30-4bfd-4de4-9a32d6d0713f
+    - !<own> 5c0895ae-b53f-4902-4586-2f9e55856254
+    - !<own> 187310d6-2257-441e-7c01-44f36bd98b67
+  Components:
+    []
+- !<SceneObject/e2451df2-1d4e-48d6-42df-5fe8c44d1b11>
+  PrefabRemaps:
+    []
+  Name: Bip01 ROuterEyebrow
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 12.541661, y: 8.293026, z: -4.926664}
+    Rotation: {x: -0.813993, y: 29.989035, z: 85.335159}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/e3ab9cad-6ccb-400e-6ccb-f2af7be7f5e1>
+  PrefabRemaps:
+    []
+  Name: Bip01 RCaninus
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 6.248183, y: 10.813078, z: -2.944697}
+    Rotation: {x: -2.829348, y: 29.878614, z: 84.287399}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/e6ec2e37-3506-4571-74fa-d12d81bdafdf>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger1
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 9.438965, y: -0.203897, z: 2.242388}
+    Rotation: {x: 0.017036, y: -0.477217, z: 12.301033}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 828b11a8-7748-4841-41da-30b16d65a755
+  Components:
+    []
+- !<ObjectPrefabAssetData/eb539c81-1fbd-4393-840e-7e33562adb67>
+  Prototype: !<ObjectOwner/73da0402-2c62-43b0-a7be-99df3e01b3d9>
+    PackagePath: ""
+    objects:
+      - !<own> 69e07a98-fc08-48f0-686c-3110949de7f4
+- !<SceneObject/ec5f6fb1-91c8-4f5f-6f68-d7463ac48123>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger4
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 8.023838, y: 1.201881, z: 3.974720}
+    Rotation: {x: -26.323563, y: 2.199135, z: 31.371885}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 84a30238-5c0c-4398-452d-7364705f011f
+  Components:
+    []
+- !<SceneObject/edbc8aca-9fce-4e89-5455-1e2b195c638d>
+  PrefabRemaps:
+    []
+  Name: Bip01 R Finger21
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 3.801433, y: -0.000055, z: -0.000017}
+    Rotation: {x: 0.000000, y: -0.000000, z: 7.636588}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4cdcd222-d23e-42b5-5605-96c7dc143bf5
+  Components:
+    []
+- !<SceneObject/f1783d2b-23d3-48a9-71c0-c835b32774bc>
+  PrefabRemaps:
+    []
+  Name: Bip01 R UpperArm
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 14.107959, y: -0.000001, z: -0.000061}
+    Rotation: {x: -10.557851, y: -31.160973, z: -0.594079}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 70b03bbf-116d-4267-531a-038568ea9e60
+  Components:
+    []
+- !<SceneObject/f1db62a4-dff6-4db8-7767-931a0cf6ab69>
+  PrefabRemaps:
+    []
+  Name: Rig
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.895185, z: 0.000000}
+    Rotation: {x: 0.000000, y: -90.000000, z: 0.000000}
+    Scale: {x: 0.010000, y: 0.010000, z: 0.010000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> f2a74f17-622c-4f88-46e5-250a608de043
+    - !<own> 2495649c-8fed-419c-4179-ab6f928ca41f
+  Components:
+    []
+- !<SceneObject/f2a74f17-622c-4f88-46e5-250a608de043>
+  PrefabRemaps:
+    []
+  Name: Body
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 54803345-ee7e-461e-6c1e-9372685a3c14
+    - !<own> 1d344022-1099-44ab-489a-595168fdfd98
+- !<SceneObject/f595e16e-91ca-4281-438e-2f3f818307c2>
+  PrefabRemaps:
+    []
+  Name: Bip01 L Finger01
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 2.827852, y: -0.000027, z: 0.000082}
+    Rotation: {x: 0.000015, y: 0.000054, z: 12.936494}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> df7e027c-3165-46d9-6023-46e3e0c622d5
+  Components:
+    []
+- !<SceneObject/fa4e95f4-ed72-4aef-510d-c9301a7f9461>
+  PrefabRemaps:
+    []
+  Name: Bip01 RInnerEyebrow
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 13.005369, y: 9.465123, z: -2.641318}
+    Rotation: {x: -0.864515, y: 9.962755, z: 84.970314}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/fc0b0d9f-ce57-43a9-4ded-75386af45e3c>
+  PrefabRemaps:
+    []
+  Name: Bip01 Head
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 6.926485, y: -0.000065, z: -0.000004}
+    Rotation: {x: -0.000000, y: 0.000050, z: -8.365582}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> ced01566-16e4-4635-49a4-b2da6a1b96b7
+    - !<own> 36c2f9fb-9fe5-4001-43a0-c84b9932074a
+    - !<own> 86aa7703-bf65-4709-40dc-53d64a7f92c4
+    - !<own> d1206552-8f0d-43a1-74aa-3025e81c91e7
+    - !<own> 90762568-3935-4300-57b0-e8b3d44d61a0
+    - !<own> 56f0f31c-ca5a-4f88-54d2-73949bd40583
+    - !<own> e3ab9cad-6ccb-400e-6ccb-f2af7be7f5e1
+    - !<own> 834a0cf3-8f04-444b-6145-0f2d34f2e953
+    - !<own> ff1b3696-12dd-4a48-7ce6-19b382faf4e7
+    - !<own> 9c43b5e0-c2fa-4b81-4e78-2d247412eac6
+    - !<own> af28f77a-432a-43af-7924-30d106b96267
+    - !<own> b15a2783-4639-47d7-4094-86afb27b6447
+    - !<own> a1758188-fd18-4dff-7d87-cecd83f9c345
+    - !<own> 7b5fb56a-9932-473e-7bc3-e151262d8a3b
+    - !<own> 9a21b5b5-daec-45be-5f83-ddd30a8206d8
+    - !<own> b2f20c06-cea7-4683-7583-11217536f082
+    - !<own> 0b871cc4-1857-4f9c-5ea6-fe4357ff8679
+    - !<own> d3ebc145-9e31-4faa-686a-dc588bf5e261
+    - !<own> fa4e95f4-ed72-4aef-510d-c9301a7f9461
+    - !<own> 39104e97-6e31-4cb5-63d7-e0f50b810c68
+    - !<own> 48b69a91-d2dd-4134-566e-6ee4c3c52c05
+    - !<own> e2451df2-1d4e-48d6-42df-5fe8c44d1b11
+    - !<own> 7662753b-7fe0-42d7-63bf-936166691fae
+    - !<own> 335b4650-4a44-4480-6121-2e4caf6f1db9
+  Components:
+    []
+- !<SceneObject/ff1b3696-12dd-4a48-7ce6-19b382faf4e7>
+  PrefabRemaps:
+    []
+  Name: Bip01 REyeBlinkBottom
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 10.374648, y: 8.750615, z: -3.411051}
+    Rotation: {x: -1.313546, y: 14.943698, z: 84.873436}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []

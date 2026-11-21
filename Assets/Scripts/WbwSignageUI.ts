@@ -9,6 +9,8 @@
 import {obj} from "./WbwSharedUI"
 
 const CHALK = new vec4(0.98, 0.97, 0.9, 1)
+/** Hand-lettered chalk font for the boards (Kalam, Google Fonts, OFL) — readable, not typed-looking. */
+const CHALK_FONT = requireAsset("../Fonts/Kalam.ttf") as Font
 /** Half-width (cm) of a world-space Text's implicit layout box at label scale 1 (measured in the preview). */
 const TEXT_HALF_W = 8
 const CHALK_SOFT = new vec4(0.86, 0.84, 0.76, 1)
@@ -101,7 +103,7 @@ export class WbwSignageUI extends BaseScriptComponent {
       this.chalkboardAnchor.createComponent("Component.Canvas")
       const lines = this.chalkText.split("|")
       for (let i = 0; i < lines.length; i++) {
-        this.label(this.chalkboardAnchor, `Chalk${i}`, lines[i], 1.9, new vec4(0.98, 0.97, 0.9, 1), new vec3(0, 14 - i * 14, 0.6))
+        this.label(this.chalkboardAnchor, `Chalk${i}`, lines[i], 1.9, new vec4(0.98, 0.97, 0.9, 1), new vec3(0, 14 - i * 14, 0.6), HorizontalAlignment.Center, CHALK_FONT)
       }
     }
     if (this.menuAnchor) this.buildMenu(this.menuAnchor)
@@ -124,22 +126,23 @@ export class WbwSignageUI extends BaseScriptComponent {
   private buildMenu(anchor: SceneObject): void {
     anchor.createComponent("Component.Canvas")
     const z = 0.6
-    this.label(anchor, "MenuTitle", MENU_LAYOUT.title, 2.2, CHALK, new vec3(0, MENU_LAYOUT.titleY, z))
+    this.label(anchor, "MenuTitle", MENU_LAYOUT.title, 2.4, CHALK, new vec3(0, MENU_LAYOUT.titleY, z), HorizontalAlignment.Center, CHALK_FONT)
     for (const col of MENU_LAYOUT.columns) {
-      this.label(anchor, `MenuHead_${col.head}`, col.head, 1.25, CHALK_SOFT, new vec3((col.x0 + col.x1) / 2, MENU_LAYOUT.headY, z))
+      this.label(anchor, `MenuHead_${col.head}`, col.head, 1.3, CHALK_SOFT, new vec3((col.x0 + col.x1) / 2, MENU_LAYOUT.headY, z), HorizontalAlignment.Center, CHALK_FONT)
       for (const it of col.items) {
         // world-space Text aligns inside a layout box centred on its anchor (half-width about 8 cm per unit
         // of label scale), so the anchors sit that far inside the column edges
-        this.label(anchor, `MenuItem_${it.id}`, it.name, 1.05, CHALK, new vec3(col.x0 + TEXT_HALF_W * 1.05, it.y, z), HorizontalAlignment.Left)
-        this.label(anchor, `MenuPrice_${it.id}`, it.price, 1.05, CHALK_SOFT, new vec3(col.x1 - TEXT_HALF_W * 1.05, it.y, z), HorizontalAlignment.Right)
+        this.label(anchor, `MenuItem_${it.id}`, it.name, 1.1, CHALK, new vec3(col.x0 + TEXT_HALF_W * 1.1, it.y, z), HorizontalAlignment.Left, CHALK_FONT)
+        this.label(anchor, `MenuPrice_${it.id}`, it.price, 1.1, CHALK_SOFT, new vec3(col.x1 - TEXT_HALF_W * 1.1, it.y, z), HorizontalAlignment.Right, CHALK_FONT)
       }
     }
   }
 
-  private label(parent: SceneObject, name: string, s: string, scale: number, color: vec4, pos: vec3, align: HorizontalAlignment = HorizontalAlignment.Center): void {
+  private label(parent: SceneObject, name: string, s: string, scale: number, color: vec4, pos: vec3, align: HorizontalAlignment = HorizontalAlignment.Center, font?: Font): void {
     const so = obj(parent, name, pos)
     so.getTransform().setLocalScale(new vec3(scale, scale, 1))
     const t = so.createComponent("Component.Text") as Text
+    if (font) t.font = font
     t.text = s
     t.size = 200
     t.depthTest = true

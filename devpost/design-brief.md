@@ -163,6 +163,19 @@ Each one can be checked in Lens Studio's preview.
 - Write LEAF scenarios for each done criterion, run them in preview, and report which pass. Say which criteria have no test.
 - Don't record, identify, or follow people.
 
+## Working rules (the learner's standing instructions)
+Follow these on every build session; they were repeated because they were sometimes forgotten.
+- **Screenshots and GitHub after every bigger piece of work.** Finish a part → take development-timeline screenshots into `devpost/development-timeline/` (file names `<date>_<time>_<stage>_<what it shows>.png`) and add the stage to its README table → commit → push to GitHub → only then start the next part. Never leave a finished part uncommitted or unpushed.
+- **Walk around before calling it done.** Do a full walkaround in the preview from every angle the learner will see (outside the door, entrance, counter, pastry case, coffee station, menu board, seating, each table, back toward the counter), run every task in the checklist below, send the learner the screenshots, and ask honestly: is this what the learner asked for, given all earlier feedback? Then fix what isn't.
+- **Voices are placeholders until the end.** Every clip the app can play must exist under its final file name in `Assets/Audio/hu/`, generated with the agreed Microsoft neural voices (Noémi for the learner's words and phrases, Tamás for the barista). The learner will replace them at the very end with more human recordings saved under the same names in the same folder. Keep `devpost/audio-recording-list.md` complete, including pre-saved words.
+- **Natural colours** for the café and the people; the soft mode colours belong only to the interface panels.
+
+## Demo checklist (learner, 2026-11-21)
+- Text is readable and every button is clickable.
+- The café matches the style of the reference photos and looks like a real café: no oddly placed furniture or people, no cluttered corners and no empty-looking areas, and every item is easy to recognise at a glance.
+- The flow works end to end: pointing (the mouse pointer stands in for the finger) shows the word in English and Hungarian; clicking plays it; I can save it, use it in a sentence, go to a table and sit down, bring up the menu to practise, and play the word-matching game; I can look back at my saved words sorted A–Z, by the time I saved them, or by category, and listen to each one.
+- From this round of feedback: the barista wears a café apron (he looked like "a finance bro behind the bar"); the menu boards use hand-lettered but readable writing instead of a typed font; the phrase boxes are bigger with bigger writing. Not a priority: younger diners in clothes that suit the café's slightly bohemian style.
+
 ## After the build: judge it
 This part is for you, after CLAD finishes.
 

@@ -1,6 +1,6 @@
 - !<AssetImportMetadata/736feef3-b303-423e-8e25-30a6428fcca4>
   ImportedAssetIds:
-    .hidden/RB_Body: !<reference> b015d6ad-405e-40ec-97a2-34534ab18d16
+    .hidden/RB_Apron: !<reference> 33bd9dee-62c3-4ed2-817c-eeca3f4878f2
     02c34969f596b3a6: !<reference> 5475e4e9-9afb-4251-a2fc-fcf520a867b3
     031179ff861b219e: !<reference> 3b5bda5e-2b2f-45ea-8367-141c89a8bab0
     04797ae3e8d819d4: !<reference> 8091d1b9-a8db-46ee-ba0b-d379f49042f6
@@ -20,6 +20,7 @@
     2e1328fd4141bb01: !<reference> bd05e850-864b-49d5-a206-6e5afd709707
     30a3b9958419d9ea: !<reference> c02b63cc-95b2-436c-9573-86a3672aab8c
     3144de3f49de2b4e: !<reference> 45ae2c02-e060-4f36-8c41-26f5b0b99b87
+    325fd25e0b26cf12: !<reference> 2c0120ca-4e34-41b8-bd96-49988446a45e
     39f9b67abc35ee2a: !<reference> dd108b6e-f24b-460b-b70e-70880b149f94
     3b0ed687f676f148: !<reference> 87c0f371-c246-46fc-bb44-0a48b49f60bf
     3cfb4843f8005cae: !<reference> fb0e3726-51a0-49fb-b8bd-e354f70e1ed4
@@ -49,6 +50,7 @@
     88ab437fd121cc69: !<reference> 253aa647-4ef3-452f-b813-668c1ed4c642
     8aab0cb4c0fab952: !<reference> 2c24eeb6-7203-423c-a8c3-62dfd2007cfa
     8d44a8505e2f6c54: !<reference> 8ebcac7e-8a1d-4050-942a-02544f64629c
+    91130795163dafe3: !<reference> d98f415e-d5e7-4ec4-87bc-34df0376e4c0
     94588624830ef3d6: !<reference> c11f3be2-32d8-43ea-8668-9f3b4f6fd678
     975e0fc67c62dcca: !<reference> 7bee59f7-6e7f-4b66-8151-8359237eae34
     9aba9fbb9dc23616: !<reference> 4739406e-4503-49e7-b23f-d56a7eb00cee
@@ -57,14 +59,18 @@
     Animations/idle: !<reference> 0a1f3dc4-7cb6-4c60-9ab2-6069b1475279
     Animations/nod: !<reference> 71877510-e53d-48fe-a65c-fc93a0fe9abe
     Animations/talk: !<reference> 3c64a706-7f62-4356-a6ef-494ad135bff9
-    Animations/talk2: !<reference> 416ba86e-73fd-4296-bde3-ac40104e1fe3
+    Materials/RB_Apron: !<reference> 13253e5a-b33e-4d43-a5c3-c2a959000fb6
+    Materials/RB_Apron|RB_Apron|GraphPassInfo: !<reference> 02b83afe-fa41-4d8a-83ed-78ac45385ec1
     Materials/RB_Body: !<reference> 50cdfa81-69df-4d83-9b8c-7295d73bf187
     Materials/RB_Body|RB_Body|GraphPassInfo: !<reference> 31ede2df-27a1-4a5a-bb46-935ca62cf9f7
     Materials/RB_Head: !<reference> 5c261df3-326f-44ca-bf9b-8a160b565d35
     Materials/RB_Head|RB_Head|GraphPassInfo: !<reference> d7ebfe9d-6600-4440-a20d-c0845b950338
+    Meshes/Apron: !<reference> 9eee615b-04e3-4a9a-b736-85df34b18ebb
     Meshes/Mesh: !<reference> b956c42d-4c54-4e66-9eae-c3e83281cde4
     Meshes/Mesh1: !<reference> d1e260f0-f17f-4dea-a53c-6fd641bbbfb5
     Scene: !<reference> 379fe50b-e8e4-408d-aa0b-a2726a8b7fca
+    Textures/RB_Apron_color: !<reference> 8caa220f-26d0-4997-8e2d-c5c2752c1670
+    Textures/RB_Apron_normal: !<reference> de1071df-0e4d-4e9a-8012-db6159129b40
     Textures/RB_Body_color: !<reference> b84baaca-400a-4c34-ab52-65e753f25295
     Textures/RB_Body_normal: !<reference> 436c3ceb-5557-4917-9a68-4804aca5f186
     Textures/RB_Head_color: !<reference> 454c2c67-877c-4856-b401-e6675eab20c3
@@ -73,21 +79,21 @@
     a12147f99bb67217: !<reference> 9c776e1d-df62-48b4-a784-76e10276494f
     a20fe2fdfbba949b: !<reference> d569e019-7c0a-4c93-b41e-154ce7064894
     a2ceedfff51617f4: !<reference> 47b9decb-4823-46fc-bdc1-cf7cabe2382d
-    a4645d698a2fb156: !<reference> c4535dce-0058-455a-ae00-efde17f7fe55
     a6fa8051639df2dd: !<reference> 2dab9845-f8be-4698-92eb-9e2835fd3ad6
     a87407e20ec5f5e7: !<reference> acca1d24-10d2-49fc-b313-40f505a3516e
     af88a7d9ee9f56c8: !<reference> 4dfb8dd1-c010-4db3-a5d1-fa5ff104470e
     b7b322201eaae95e: !<reference> 714a5f38-b10f-4dff-836d-ff9f85ed916d
-    b9cb82bd7644bd41: !<reference> dd611f11-3950-47c2-9578-e4302faa123e
     c16ed9a05d9355ac: !<reference> 0ba22e49-8532-4354-b3cc-cb8424438dc7
     c2b1efa578bd7178: !<reference> 07f1e064-efe9-4ccf-8773-83ca2274bd45
     c473f2244c5ac494: !<reference> bf45b00c-cd7a-49fb-a286-dd2b85d2b615
     c48bda4d3c58ab66: !<reference> c366b917-b3ba-4892-ad1e-37f036fd14a9
     ca69b1906db941df: !<reference> 9c56041b-99e7-4db9-a47f-3ede1acfca24
     cb9a6728767e5464: !<reference> 6eaafbb6-d569-474e-96b7-e1a83a0632f7
+    cc8e27a5985ac2bf: !<reference> 288724f7-000c-408c-af86-4639e9f775ae
     d01f73af1c985c94: !<reference> 8a77130d-8432-41de-afb4-37460ad34e38
     d0604f9edbf25b1e: !<reference> 2cfd27ae-a9f0-4f0d-b097-477ec089fa9c
     d1209e8db830f4c5: !<reference> 46812aa3-ccfd-4b3a-b018-6cf0874169ed
+    d1684b1135a798b3: !<reference> 0c725661-f029-49b3-8a98-bdc6bd87a6f5
     d3aee55ad898e9d3: !<reference> 27b528df-825e-4d36-a967-fe886726ed18
     d7f61464ab34bc4b: !<reference> 1b736c1a-51fc-4125-94ac-da1d966c61ae
     e2ed72a7ea4eaf31: !<reference> a4c30aef-3a56-4e04-b774-4fc046c90891
@@ -691,13 +697,13 @@
   BlendNormals: false
   BlendShapes:
     AA_VI_00_Sil: 0.000000
-    AA_VI_07_SS: 0.000000
-    AA_VI_06_CH: 0.000000
-    AA_VI_05_KK: 0.000000
-    AA_VI_04_DD: 0.000000
-    AA_VI_03_TH: 0.000000
-    AA_VI_02_FF: 0.000000
     AA_VI_01_PP: 0.000000
+    AA_VI_02_FF: 0.000000
+    AA_VI_03_TH: 0.000000
+    AA_VI_04_DD: 0.000000
+    AA_VI_05_KK: 0.000000
+    AA_VI_06_CH: 0.000000
+    AA_VI_07_SS: 0.000000
     AA_VI_08_nn: 0.000000
     AA_VI_09_RR: 0.000000
     AA_VI_10_aa: 0.000000
@@ -706,7 +712,6 @@
     AA_VI_13_O: 0.000000
     AA_VI_14_U: 0.000000
     AK_03_BrowInnerUp: 0.000000
-    AK_45_MouthSmileRight: 0.000000
     AK_04_BrowOuterUpLeft: 0.000000
     AK_05_BrowOuterUpRight: 0.000000
     AK_09_EyeBlinkLeft: 0.000000
@@ -716,6 +721,7 @@
     AK_25_JawOpen: 0.000000
     AK_27_MouthClose: 0.000000
     AK_44_MouthSmileLeft: 0.000000
+    AK_45_MouthSmileRight: 0.000000
     HB_07_MouthSmile: 0.000000
 - !<SceneObject/47b9decb-4823-46fc-423e-3083541dc7d2>
   PrefabRemaps:
@@ -872,13 +878,13 @@
   BlendNormals: false
   BlendShapes:
     AA_VI_00_Sil: 0.000000
-    AA_VI_07_SS: 0.000000
-    AA_VI_06_CH: 0.000000
-    AA_VI_05_KK: 0.000000
-    AA_VI_04_DD: 0.000000
-    AA_VI_03_TH: 0.000000
-    AA_VI_02_FF: 0.000000
     AA_VI_01_PP: 0.000000
+    AA_VI_02_FF: 0.000000
+    AA_VI_03_TH: 0.000000
+    AA_VI_04_DD: 0.000000
+    AA_VI_05_KK: 0.000000
+    AA_VI_06_CH: 0.000000
+    AA_VI_07_SS: 0.000000
     AA_VI_08_nn: 0.000000
     AA_VI_09_RR: 0.000000
     AA_VI_10_aa: 0.000000
@@ -887,7 +893,6 @@
     AA_VI_13_O: 0.000000
     AA_VI_14_U: 0.000000
     AK_03_BrowInnerUp: 0.000000
-    AK_45_MouthSmileRight: 0.000000
     AK_04_BrowOuterUpLeft: 0.000000
     AK_05_BrowOuterUpRight: 0.000000
     AK_09_EyeBlinkLeft: 0.000000
@@ -897,6 +902,7 @@
     AK_25_JawOpen: 0.000000
     AK_27_MouthClose: 0.000000
     AK_44_MouthSmileLeft: 0.000000
+    AK_45_MouthSmileRight: 0.000000
     HB_07_MouthSmile: 0.000000
 - !<SceneObject/7230834f-649c-4aee-5e59-ffe423258b15>
   PrefabRemaps:

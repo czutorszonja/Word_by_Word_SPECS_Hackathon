@@ -55,7 +55,7 @@ export class WbwSpeakPromptUI extends BaseScriptComponent {
   @input
   @hint("Distance the strip's text is sized for (cm). It lies under the phrase cards / phrase helper on the counter (~125 cm away); sizing for less keeps it compact")
   @widget(new SliderWidget(60, 140, 5))
-  viewDistanceCm: number = 100
+  viewDistanceCm: number = 120
 
   @input
   @hint("How much the mic dot grows with the learner's voice level (0 = it only brightens)")

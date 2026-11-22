@@ -698,6 +698,8 @@ export class WbwOrderController extends BaseScriptComponent {
 
   private showCaption(hu: string, en: string): void {
     this.caption.show(hu, en)
+    // in front of his chest like a subtitle: above his head it floated over the menu board's text,
+    // beside his head it ran off the edge of the narrow view
     placeFacingUser(this.caption.getSceneObject(), this.server.getCaptionAnchor(), true)
     this.captionHideAt = -1
   }

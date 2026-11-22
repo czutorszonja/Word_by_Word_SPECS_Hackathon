@@ -25,7 +25,8 @@ is the learning layer.
 | 11-19 | 06–09 | Phase A mode colours (later softened); Phase B bigger café and varied people, Plain Studio preview backdrop; Phase C point-to-reveal, word card, reusable phrase helper, "say it"; Phase D story tour; re-layout (coffee bar service-only, window bar); Menu (demo) button, saved-words viewer; counter details, entrance with NYITVA/ZÁRVA, wall menu board, 13 new words |
 | 11-20 | 12–15 | Visual audit fixes; realistic foods; details (brick, windows, lamps, plants); the barista replaced by a realistic rigged adult (Microsoft Rocketbox) |
 | 11-21 | 16 | Five realistic seated guests, barista apron, hand-lettered chalk font, bigger phrase boxes, full walkaround and fixes (saved words fit the view, listen icons, Menu chip no longer covers panels); recording list completed |
-| 11-22 | — | Younger guests (F07, F08, M09) built and seat-tested in Blender; scene swap pending; brief clarified (café = demo stand-in) |
+| 11-22 | — | Younger guests (F07, F08, M09) built and seat-tested in Blender; brief clarified (café = demo stand-in) |
+| 11-22 | 17 | Younger guests seated, hidden old people and 10 unused model files deleted; first whole-café screenshot set (dollhouse overviews, four inside corners, every walkaround spot); street windows show the café inside; gallery + shelves on the bare wall behind tables 8–12; caption as a subtitle under the barista's face, Menu button low-left (mode chip in Use it live), practice board at 65 cm; F11's boots off the table base; LEAF DC1–DC6 and TOUR_Story pass with no soft-check failures |
 
 ## Problems we ran into and how they were solved
 
@@ -47,6 +48,18 @@ is the learning layer.
   a fresh key every launch. If it was closed when a chat session started, open it and start a new session.
   (`.mcp.json` is git-ignored; it holds a key.)
 - **Never call Lens Studio over HTTP** (curl etc.): only its tools. One such attempt was blocked on 21 Nov.
+- **Any editor change or recompile resets the preview, and the café re-anchors around wherever the preview camera
+  is at that moment** (22 Nov: a recompile while the camera was up at a 25 m overview put the café in the air;
+  the next screenshots were black). Reset the preview camera (`MovePreviewCamera reset`) before editing or
+  recompiling, and re-read the `Cafe` transform before placing the camera by coordinates (café-local (x, z, h)
+  -> world = cafePos + (z, h, -x) with the usual 90° turn).
+- **The preview keeps running while Lens Studio is minimized** (22 Nov), but a window capture of a minimized
+  window is a 391×61 strip. The story-tour screenshots were taken by a small watcher script that restores the
+  window without focus, captures 1.8 s after each `beat` line in the log and minimizes it again.
+- **LEAF runs outlast the tool's time limit**: `run_leaf_scenario` reports a timeout but the scenario keeps
+  running; read PASSED/FAILED from the log.
+- **The Scene panel camera cannot be steered by the agent** (no editor API; desktop control was declined), so
+  the wide views are dollhouse cutaways from the preview with the ceiling switched off for the shot.
 - Smaller ones: an ES_ASSERT crash when many TypeScript files were reimported at once; creating materials by
   code failed ("Value is not a native object"), so materials are made by copying `.mat` files with new IDs (this
   leaves harmless "duplicate id" log warnings on reimport); Lens Studio signed out overnight once.
@@ -58,6 +71,12 @@ is the learning layer.
 - **Menu hit boxes rendered black**: hidden after sizing the colliders.
 - **Repeated details** (same window view five times, same plant six times, flat globe lamps, mismatched brick over
   the door): fixed with a different photo per window, varied plants, glass globes, matching brick.
+- **From the street the windows were black** (22 Nov, first facade shot): the outside glass was a near-black
+  material, which reads as a hole and turns see-through on the additive display. Each street window now shows a
+  view into the café captured from inside that window, with a faint sky reflection.
+- **An empty-looking wall** (22 Nov, whole-café review): the 11 m wall behind tables 8–12 was bare brick. Added a
+  gallery of three framed prints (generated: Chain Bridge photo, coffee-plant botanical, tram watercolour; the
+  tram's destination board has made-up lettering, small at frame size) and two different wall shelves.
 
 ### The people
 - **The generated people looked like toddler cartoons.** Replaced with Microsoft Rocketbox avatars (MIT licence,
@@ -72,15 +91,25 @@ is the learning layer.
 - **Two guests at one small table collided under it** (legs crossing, a shoe sticking out). Solved by pairing two
   people whose legs angle to their own right so they sit diagonally (`rb_pair_test.py`).
 - Known leftovers: hair-card edges look ragged in close-ups; long hair/ponytails move as one stiff piece in the
-  leaning talk gesture; some shoes touch the table base. Not visible at normal viewing distance.
+  leaning talk gesture. Not visible at normal viewing distance. (22 Nov: the shoes were checked low down at every
+  table; only F11's boots stood on the base plate: she moved 10 cm sideways and 2 cm back, hands still on the
+  table. Hair was left alone: the hair cards use alpha-to-coverage inside the imported models, and editing those
+  embedded materials means unpacking the models, risky for little gain.)
 - The learner's later feedback: the barista looked like "a finance bro" → canvas apron added; guests should be
-  younger and suit the bohemian café → F07, F08, M09 (pending scene swap).
+  younger and suit the bohemian café → F07, F08, M09, seated on 22 Nov; the hidden old figures and their model
+  files were deleted (learner-approved).
 
 ### The interface
 - Panels with a see-through hole, colours too bright (cobalt/violet/magenta → soft powder blue, lavender,
   dusty rose), the phrase boxes hard to read at counter distance (enlarged twice), the saved-words viewer wider
   than the view (cut off), no visible way to listen to saved words (speaker icon added), the Menu (demo) chip
   covering the phrase box and the viewer's Back button (moved/hidden), "játszótér" shown with a toy-car icon.
+- 22 Nov tour review: one shared upper-left spot for the Menu button covered the word card's word ("ıborka"),
+  the practice board's title and the menu board's drinks → low-left in Learn/Practice (as the brief says), mid-left
+  with a "Use it live" chip in Use it live, rising over the apron while looking down so it never hides "Kérek …".
+  The barista's caption floated over the menu board → beside his head it ran off the narrow view → now a subtitle
+  in front of his chest. The practice board could only move toward a seated user (57 cm) → it may now sit up to
+  15 cm past the table centre, 65 cm away.
 
 ### Process
 - Screenshots and commits were sometimes forgotten → now written into the design brief's "Working rules".
@@ -278,7 +307,11 @@ File names start with date_time_stage. The preview shows the Specs field of view
 - `2026-11-18_2226_05_ui-rework_panel-hole-fixed.png`
 - `2026-11-19_0447_07_phase-b_faces-evidence_new-head-reference-image.png`
 
-**Gaps:** no whole-café overview from the corners and no outside facade from the street (only the door). Planned: a whole-café set from Lens Studio's wide scene camera plus the Specs view (open item 2).
+**Whole café (stage 17, 22 Nov)**: `*_17_whole-cafe_*` has dollhouse overviews from three corners (ceiling hidden),
+the four inside corners, the street facade, the door with NYITVA, just inside, counter wide/close, pastry case, coffee
+station, menu board, seating from the counter, tables 2/5/7/10, the gallery wall, both new shelves, window bar, lounge,
+back to the counter, ZÁRVA from inside. `*_17_tour_*`: 18 frames of the story tour after the placement fixes.
+Not covered: a true Scene-panel wide shot (its camera can't be steered by the agent).
 
 ## Reflection notes for the demo (progress, easy, hard, what happened)
 
@@ -319,22 +352,23 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
 - Chat sessions don't share history; this build log is the shared memory.
 - Clarified late: the café and people only stand in for real life in the demo; the product is the learning layer.
 
-## Open items (as of 22 Nov)
-**Next (needs Lens Studio open and a fresh chat session):**
-1. Swap the younger guests into the scene: run `agent/staging/eec_seat_diners.ts` (F07 + F08 at table 10, M09 at
-   table 5; F14, F02, M14 switched off), check them in the preview, run LEAF DC1–DC6, timeline screenshots, push.
-2. Whole-café screenshot set (corners, entrance, outside, every area, plus a wide scene-camera view); fix the
-   walkaround tour's outside/facade viewpoint.
-3. A fresh full walkaround + story tour after the swap, reviewed against the design brief's demo checklist.
-3b. Delete the hidden old generated people (ServerModel with the old barista, the SeatedDiner objects, and the retired Rocketbox guests F14, F02, M14) from the scene and remove their unused model files — the learner approved this on 22 Nov.
+## Open items (as of 22 Nov, end of the stage-17 session)
+**Next:**
+1. The learner looks through the stage-17 screenshots (whole café first) and says what still feels off.
+2. The longest caption ("Hányas asztalnál ül?" + "What's your table number? (Turn around: tap an empty table's
+   number.)") spans the whole view width at counter distance: readable, but it touches both edges; shorten the
+   English or let it wrap.
+3. "Duplicate id" warnings: the older hand-made materials no longer warn; the five materials added on 22 Nov
+   (Wbw_WindowInterior4/5, Wbw_Art*) report a duplicate of their own id on reimport (the same harmless
+   self-duplicate). Check after the next Lens Studio restart whether it is gone.
 
 **Polish (small, optional):**
-4. The barista's speech caption floats over the menu board text (readable, but busy) — lift or offset it.
-5. The compact Menu chip doesn't show the mode name; the practice board opens ~8 cm closer than intended (soft test notes).
-6. Hair-card edges look ragged up close; long hair/ponytails are stiff in the talk lean; some shoes touch the table base.
-7. "Duplicate id" warnings for hand-made materials on reimport (harmless; could be cleaned by letting Lens Studio re-save them).
+4. Hair-card edges look ragged up close; long hair/ponytails are stiff in the talk lean (needs Blender, with Lens
+   Studio closed).
+5. The tram watercolour's destination board has made-up lettering (generated image); regenerate if it bothers.
+6. From the street the café is a single-storey box with black sky above the wall (Plain Studio backdrop).
 
 **Before submitting:**
-8. (moved to 3b)
-9. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).
-10. Record the demo video (under 3 minutes) right after a sign-in refresh, make the repo public, submit.
+7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).
+8. Record the demo video (under 3 minutes) right after a sign-in refresh (every ~50 min; the log says "Next OAuth
+   token refresh"), make the repo public, submit.

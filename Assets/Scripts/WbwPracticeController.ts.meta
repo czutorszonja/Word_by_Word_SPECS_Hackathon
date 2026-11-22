@@ -60,5 +60,5 @@
     - '// @input float pairsPerSet = 4 {"hint":"Pairs per set (brief: 4)", "widget":"slider", "min":2, "max":6, "step":1}'
     - '// @input float boardAboveTableCm = 30 {"hint":"Height of the board centre above the table top (cm)", "widget":"slider", "min":10, "max":60, "step":1}'
     - '// @input float nearTableCm = 250 {"hint":"If the user is farther than this from their table (cm), the board opens in front of them instead", "widget":"slider", "min":100, "max":600, "step":10}'
-    - '// @input float boardDistanceCm = 65 {"hint":"Distance of the board from the user when it opens in front of them (cm) — brief: 50–60", "widget":"slider", "min":40, "max":90, "step":1}'
+    - '// @input float boardDistanceCm = 65 {"hint":"Distance of the board from the user (cm), at the table and when it opens in front of them", "widget":"slider", "min":40, "max":90, "step":1}'
     - '// @ui {"widget":"group_end"}'

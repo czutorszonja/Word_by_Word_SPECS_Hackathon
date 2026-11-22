@@ -20,7 +20,7 @@ const GUESTS: any[] = [
   { name: "F08", table: "Table_10", side: 1, fwd: 3, up: 2.7, sy: 0.91, lat: 18, yaw: 0, partner: "F07" },
   { name: "M02", table: "Table_2", side: -1, fwd: -2, up: 1.5, sy: 0.86, lat: 0, yaw: 0 },
   { name: "M09", table: "Table_5", side: 1, fwd: 0, up: 0.5, sy: 0.85, lat: 0, yaw: 0 },
-  { name: "F11", table: "Table_7", side: 1, fwd: 5, up: 3, sy: 0.87, lat: 12, yaw: 0 },
+  { name: "F11", table: "Table_7", side: 1, fwd: 3, up: 3, sy: 0.87, lat: 22, yaw: 0 }, // 2026-11-22: lat 12→22, fwd 5→3 so her boots clear the base plate
 ];
 
 const chairPf = prefab("GeneratedMeshes/LeatherChair.glb");

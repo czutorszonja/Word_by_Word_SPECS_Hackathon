@@ -6,8 +6,8 @@
     - !<own> 6359dad0-3fab-4325-9021-b15c5101352c
     - !<own> 00000000-0000-0065-0000-000000000064
     - !<own> 846d1565-cac7-4708-8910-d9a0e505816c
-    - !<own> f5d068c0-5825-4fec-9602-eca6224bd9d4
     - !<own> f6d87f14-ad1f-4944-81e1-70243e0ac449
+    - !<own> c5cb49ed-19b6-40bd-881c-3ef70da7576b
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
     userLayers:
       - id: 1
@@ -5335,7 +5335,7 @@
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
-    Position: {x: 45.000000, y: 3.000000, z: -12.000000}
+    Position: {x: 47.000000, y: 3.000000, z: -22.000000}
     Rotation: {x: 0.000000, y: -90.000000, z: 0.000000}
     Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
     HasSegmentScaleCompensation: false
@@ -24470,7 +24470,6 @@
   ScriptAsset: !<reference> 54a49f19-3e08-48cf-be27-56ecb070ac05
   ScriptInputsDefault:
     followDistanceCm: true
-    offsetUpCm: true
     chipWidthCm: true
     chipHeightCm: true
     followSpeed: true
@@ -24480,9 +24479,9 @@
     "":
       followDistanceCm: !<float> 60.000000
       offsetRightCm: !<float> -4.000000
-      offsetUpCm: !<float> -17.000000
+      offsetUpCm: !<float> -19.000000
       chipOffsetRightCm: !<float> -15.000000
-      chipOffsetUpCm: !<float> 9.000000
+      chipOffsetUpCm: !<float> 1.000000
       chipWidthCm: 7.400000
       chipHeightCm: 3.900000
       followSpeed: !<float> 5.000000
@@ -31440,22 +31439,6 @@
     AK_44_MouthSmileLeft: 0.000000
     AK_45_MouthSmileRight: 0.000000
     HB_07_MouthSmile: 0.000000
-- !<ScriptComponent/c0a7c896-4533-47ef-b9be-adaaf47f10ce>
-  PrefabRemaps:
-    []
-  Name: AgentInspectScript
-  Enabled: true
-  ScriptAsset: !<reference> 0b25079c-f5bf-4c6d-96c4-f43b89dfa213
-  ScriptInputsDefault:
-    {}
-  ScriptTypesDefault:
-    {}
-  ScriptInputs:
-    "":
-      {}
-  ScriptTypes:
-    "":
-      {}
 - !<SceneObject/c0d84aab-fa2b-4027-9551-e5db7f619307>
   PrefabRemaps:
     []
@@ -32094,6 +32077,21 @@
     - !<own> 963aeed6-05c1-4b5c-b135-cd0ea3d2adf0
   Components:
     []
+- !<SceneObject/c5cb49ed-19b6-40bd-881c-3ef70da7576b>
+  PrefabRemaps:
+    []
+  Name: AiPreviewAgent Handler
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> c860f068-a674-4766-876f-53d3b9f36c76
 - !<SceneObject/c63e54a4-3d91-44bf-8712-73710c5b8895>
   PrefabRemaps:
     []
@@ -32323,6 +32321,22 @@
     []
   Components:
     - !<own> 3bb24dfe-67b8-4d5a-bcd2-d7dcd13e23e2
+- !<ScriptComponent/c860f068-a674-4766-876f-53d3b9f36c76>
+  PrefabRemaps:
+    []
+  Name: AgentInspectScript
+  Enabled: true
+  ScriptAsset: !<reference> 0b25079c-f5bf-4c6d-96c4-f43b89dfa213
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      {}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/c863b6d0-db9e-445c-9943-48c043317f54>
   PrefabRemaps:
     []
@@ -34960,7 +34974,7 @@
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
-    Position: {x: 50.000000, y: 0.000000, z: -12.000000}
+    Position: {x: 50.000000, y: 0.000000, z: -22.000000}
     Rotation: {x: 0.000000, y: 90.000000, z: 0.000000}
     Scale: {x: 100.000000, y: 87.000000, z: 100.000000}
     HasSegmentScaleCompensation: false
@@ -39692,21 +39706,6 @@
     - !<own> a464c0b6-5c2d-46ff-a8f6-f134ec2b67d4
   Components:
     []
-- !<SceneObject/f5d068c0-5825-4fec-9602-eca6224bd9d4>
-  PrefabRemaps:
-    []
-  Name: AiPreviewAgent Handler
-  Enabled: true
-  Layers: 1
-  LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
-    HasSegmentScaleCompensation: false
-  Children:
-    []
-  Components:
-    - !<own> c0a7c896-4533-47ef-b9be-adaaf47f10ce
 - !<SceneObject/f5d74682-203a-4970-81ea-9fa7b88c96bb>
   PrefabRemaps:
     - 012a3973-9507-4230-a6ff-2b8dfd2154fe: e3ec5982-f5aa-45f3-4551-4d3a92a1f432

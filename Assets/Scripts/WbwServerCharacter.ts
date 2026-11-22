@@ -83,8 +83,16 @@ export class WbwServerCharacter extends BaseScriptComponent {
   }
 
   /** World position just above the head — where the caption bubble goes. */
-  getCaptionAnchor(): vec3 {
-    return this.sceneObject.getTransform().getWorldPosition().add(new vec3(0, this.heightCm + 18, 0))
+  /** Where the speech caption goes. Default: like a subtitle, centred in front of his chest and a
+   *  little toward the user — below his face (eye contact stays free), below the menu board on the
+   *  wall behind him, above the phrase cards on the counter, and inside the narrow view (a caption
+   *  beside his head ran off the edge). aboveHead: the old spot over his head. */
+  getCaptionAnchor(aboveHead: boolean = false): vec3 {
+    const p = this.sceneObject.getTransform().getWorldPosition()
+    if (aboveHead) return p.add(new vec3(0, this.heightCm + 18, 0))
+    const d = camPos().sub(p)
+    const len = Math.hypot(d.x, d.z) || 1
+    return p.add(new vec3(d.x / len * 25, this.heightCm - 50, d.z / len * 25))
   }
 
   private buildStandIn(): void {

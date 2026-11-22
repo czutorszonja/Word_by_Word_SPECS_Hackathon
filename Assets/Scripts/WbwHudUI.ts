@@ -7,7 +7,7 @@
 //               can still read the saved count and the mode.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {button, panel, retire, text, textWidthCm, useTone, toneOf} from "./WbwSharedUI"
+import {button, modeChip, modeChipH, panel, retire, text, textWidthCm, useTone, toneOf} from "./WbwSharedUI"
 import {camLook, camPos, camRightFlat, faceRotation} from "./WbwSpatial"
 
 const ICON_HAND = requireAsset("../Icons/back_hand.png") as Texture
@@ -30,9 +30,9 @@ export class WbwHudUI extends BaseScriptComponent {
   offsetRightCm: number = -4
 
   @input
-  @hint("Vertical offset from eye level (cm, negative = low)")
+  @hint("Learn / Practice: vertical offset of the Menu button from eye level (cm, negative = low)")
   @widget(new SliderWidget(-35, 10, 0.5))
-  offsetUpCm: number = -17
+  offsetUpCm: number = -19
 
   @input
   @hint("Use it live: the HUD collapses to a small Menu chip. Sideways offset of the chip (cm, negative = left edge of view)")
@@ -42,7 +42,7 @@ export class WbwHudUI extends BaseScriptComponent {
   @input
   @hint("Use it live: vertical offset of the Menu chip (cm, negative = low). Low-left keeps it clear of the server, the caption and the phrase cards")
   @widget(new SliderWidget(-35, 10, 0.5))
-  chipOffsetUpCm: number = 9   // upper-left: the enlarged phrase helper/cards fill the low part of the view (2026-11-21)
+  chipOffsetUpCm: number = 1   // mid-left: the phrase helper/cards fill the low part, the menu board the top (2026-11-22)
 
   @input
   @hint("Width of the Menu button on the compact chip (cm); the chip is at least this wide, and wider when the mode name above the button needs it")
@@ -96,11 +96,16 @@ export class WbwHudUI extends BaseScriptComponent {
     // One small button, low at the side of the view: the stand-in for raising the hand. "(demo)" says
     // so. The current mode and the saved words live in the menu it opens, not here.
     const w = Math.max(this.chipWidthCm, textWidthCm(MENU_LABEL.length, "Button", d, false) + 4), h = Math.max(3.8, this.chipHeightCm)
-    const W = w + 0.6, H = h + 0.6
-    const p = panel(this.sceneObject, "Hud", W, H, {padY: 0.3, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
+    // Use it live (compact): the mode is named in a small chip above the button, so colour is never
+    // the only cue while the full panels are away. The button itself stays plain.
+    const chipGap = 0.4
+    const chipH = this.compact ? modeChipH(d) : 0
+    const W = w + 0.6, H = h + 0.6 + (this.compact ? chipH + chipGap : 0)
+    const p = panel(this.sceneObject, "Hud", W, H, {padY: 0.3, gap: chipGap, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
     this.root = p.root
     this.compactW = W
     this.compactH = H
+    if (this.compact) modeChip(p.content, d, "HudModeChip")
     button(p.content, "MenuButton", w, h, MENU_LABEL, d, () => this._onMenu.invoke(), {icon: ICON_HAND})
     // saved count + mode stay as (hidden) text objects so their state is still readable by tests
     this.savedText = text(p.root, "SavedBadge", "", "Subheadline", d)
@@ -149,10 +154,20 @@ export class WbwHudUI extends BaseScriptComponent {
 
   private target(): vec3 {
     const look = camLook()
-    // always the small button at the low-left edge (clear of the server, the cards and the counter).
+    // The small button sits at the left edge: low (offsetUpCm) as the brief says, clear of the word
+    // card, the practice board and the menu board on the wall; in Use it live (compact) the phrase
+    // helper and cards fill the low part of the view, so it rises to mid-left (chipOffsetUpCm),
+    // beside the server rather than over the board above him. (2026-11-22: one shared upper-left spot
+    // covered the word card's word, the practice board's title and the menu board's drinks.)
     // The offsets place a chip of chipWidthCm x chipHeightCm; a larger built chip keeps that chip's
     // left and bottom edge and grows to the right and upward.
-    let right = this.chipOffsetRightCm, up = this.chipOffsetUpCm
+    let right = this.chipOffsetRightCm, up = this.compact ? this.chipOffsetUpCm : this.offsetUpCm
+    if (this.compact) {
+      // looking down at the phrase helper on the counter: rise above it (over the server's apron, no UI
+      // there) so the chip never covers the start of the phrase; back to mid-left when looking up
+      const t = Math.max(0, Math.min(1, (-look.y - 0.25) / 0.15))
+      up += t * 9
+    }
     if (this.compactW > 0) {
       right += (this.compactW - this.chipWidthCm) / 2
       up += (this.compactH - Math.max(3.8, this.chipHeightCm)) / 2

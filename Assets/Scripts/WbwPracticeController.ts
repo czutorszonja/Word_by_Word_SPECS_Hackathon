@@ -38,7 +38,7 @@ export class WbwPracticeController extends BaseScriptComponent {
   nearTableCm: number = 250
 
   @input
-  @hint("Distance of the board from the user when it opens in front of them (cm) — brief: 50–60")
+  @hint("Distance of the board from the user (cm), at the table and when it opens in front of them")
   @widget(new SliderWidget(40, 90, 1))
   boardDistanceCm: number = 65
   @ui.group_end
@@ -190,9 +190,12 @@ export class WbwPracticeController extends BaseScriptComponent {
     }
     const tp = table ? this.cafe.getTablePosition(table) : null
     if (tp && horizDist(tp, cam) < this.nearTableCm) {
-      // upright just above the table, nudged toward the user so it sits ~50–60 cm away
+      // upright just above the table, shifted along the user's line so it sits boardDistanceCm away:
+      // toward a user standing back from the table, or past the centre (at most 15 cm, still over the
+      // top) when they sit close — seated at a small table they are only ~57 cm from its centre
       const toUser = flat(cam.sub(tp))
-      const pos = tp.add(new vec3(0, 76 + this.boardAboveTableCm, 0)).add(toUser.uniformScale(Math.max(0, Math.min(25, horizDist(tp, cam) - this.boardDistanceCm))))
+      const shift = Math.max(-15, Math.min(25, horizDist(tp, cam) - this.boardDistanceCm))
+      const pos = tp.add(new vec3(0, 76 + this.boardAboveTableCm, 0)).add(toUser.uniformScale(shift))
       placeFacingUser(this.board.getSceneObject(), pos)
       this.placedAt = "table"
       this.boardTable = table

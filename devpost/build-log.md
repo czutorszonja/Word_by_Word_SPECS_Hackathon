@@ -320,12 +320,20 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
 - Clarified late: the café and people only stand in for real life in the demo; the product is the learning layer.
 
 ## Open items (as of 22 Nov)
+**Next (needs Lens Studio open and a fresh chat session):**
 1. Swap the younger guests into the scene: run `agent/staging/eec_seat_diners.ts` (F07 + F08 at table 10, M09 at
-   table 5; F14, F02, M14 switched off), check in the preview, run LEAF DC1–DC6, timeline screenshots, push.
-2. A whole-café screenshot set (corners, entrance, outside, every area, plus a wide scene-camera view); the
-   walkaround tour's outside/facade viewpoint needs fixing.
-3. Remove the disabled old generated people from the scene before publishing (size).
-4. The learner records more human voice clips at the end, same file names (`audio-recording-list.md`, 145 clips).
-5. Soft test notes: the compact menu chip does not show the mode name; the practice board opens ~8 cm closer than
-   intended.
-6. Record the demo video (under 3 minutes), make the repo public, submit.
+   table 5; F14, F02, M14 switched off), check them in the preview, run LEAF DC1–DC6, timeline screenshots, push.
+2. Whole-café screenshot set (corners, entrance, outside, every area, plus a wide scene-camera view); fix the
+   walkaround tour's outside/facade viewpoint.
+3. A fresh full walkaround + story tour after the swap, reviewed against the design brief's demo checklist.
+
+**Polish (small, optional):**
+4. The barista's speech caption floats over the menu board text (readable, but busy) — lift or offset it.
+5. The compact Menu chip doesn't show the mode name; the practice board opens ~8 cm closer than intended (soft test notes).
+6. Hair-card edges look ragged up close; long hair/ponytails are stiff in the talk lean; some shoes touch the table base.
+7. "Duplicate id" warnings for hand-made materials on reimport (harmless; could be cleaned by letting Lens Studio re-save them).
+
+**Before submitting:**
+8. Remove the disabled old generated people from the scene (size).
+9. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).
+10. Record the demo video (under 3 minutes) right after a sign-in refresh, make the repo public, submit.

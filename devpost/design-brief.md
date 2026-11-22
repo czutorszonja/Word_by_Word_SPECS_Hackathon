@@ -170,6 +170,7 @@ Follow these on every build session; they were repeated because they were someti
 - **Walk around before calling it done.** Do a full walkaround in the preview from every angle the learner will see (outside the door, entrance, counter, pastry case, coffee station, menu board, seating, each table, back toward the counter), run every task in the checklist below, send the learner the screenshots, and ask honestly: is this what the learner asked for, given all earlier feedback? Then fix what isn't.
 - **Voices are placeholders until the end.** Every clip the app can play must exist under its final file name in `Assets/Audio/hu/`, generated with the agreed Microsoft neural voices (Noémi for the learner's words and phrases, Tamás for the barista). The learner will replace them at the very end with more human recordings saved under the same names in the same folder. Keep `devpost/audio-recording-list.md` complete, including pre-saved words.
 - **Natural colours** for the café and the people; the soft mode colours belong only to the interface panels.
+- **Keep `devpost/build-log.md` up to date** at the end of every session: what was built, what went wrong and how it was solved, what is open. Chat sessions don't share history; this file does.
 
 ## Demo checklist (learner, 2026-11-21)
 - Text is readable and every button is clickable.

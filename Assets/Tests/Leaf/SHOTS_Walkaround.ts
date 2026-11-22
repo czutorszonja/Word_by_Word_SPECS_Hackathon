@@ -47,7 +47,9 @@ export class SHOTS_Walkaround extends Scenario {
       await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLearnButton"), "arrival suggestion", 8000)
       await t.tap("SuggestLearnButton")
       await waitFor(() => m.currentMode === "learn", "Learn picked")
-      await shot("02-outside-facade", at(-900, 20, 170), posOf("Entrance", 150))
+      // from the far edge of the pavement, at an angle: the narrow Specs view only fits the name board, the door
+      // and both street windows (which show the café inside) when the shop front is seen obliquely
+      await shot("02-outside-facade", at(-1080, 545, 170), at(-553, 185, 145))
 
       // ── inside ──
       await shot("03-just-inside", at(-430, 40), at(0, 120, 120))

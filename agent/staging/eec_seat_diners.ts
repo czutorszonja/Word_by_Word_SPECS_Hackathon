@@ -15,10 +15,11 @@ function prefab(path: string): any { const m = am.getFileMeta(new Editor.Path(pa
 const CHAIR_SY = 0.88;
 // name, table, side (-1 left / +1 right), params tuned in Blender (rb_seat_test.py), partner, leads
 const GUESTS: any[] = [
-  { name: "F14", table: "Table_10", side: -1, fwd: 2, up: 3, sy: 0.915, lat: 18, yaw: 0, partner: "F02", leads: true },
-  { name: "F02", table: "Table_10", side: 1, fwd: 3, up: 3.8, sy: 0.85, lat: 6, yaw: -15, partner: "F14" },
+  // 2026-11-22: younger guests in the café's style (learner feedback) — F07 + F08 at table 10, M09 at table 5
+  { name: "F07", table: "Table_10", side: -1, fwd: 2.5, up: 3.4, sy: 0.935, lat: 14, yaw: 0, partner: "F08", leads: true },
+  { name: "F08", table: "Table_10", side: 1, fwd: 3, up: 2.7, sy: 0.91, lat: 18, yaw: 0, partner: "F07" },
   { name: "M02", table: "Table_2", side: -1, fwd: -2, up: 1.5, sy: 0.86, lat: 0, yaw: 0 },
-  { name: "M14", table: "Table_5", side: 1, fwd: 0, up: 1.2, sy: 0.87, lat: 0, yaw: 0 },
+  { name: "M09", table: "Table_5", side: 1, fwd: 0, up: 0.5, sy: 0.85, lat: 0, yaw: 0 },
   { name: "F11", table: "Table_7", side: 1, fwd: 5, up: 3, sy: 0.87, lat: 12, yaw: 0 },
 ];
 
@@ -37,6 +38,10 @@ for (const g of GUESTS) {
   const table = kid(seating, g.table);
   if (!table) { log.push("no " + g.table); continue; }
   // retire the old generated figures on this side of the table
+  // retire earlier guests on this seat (older Rocketbox guests replaced on 2026-11-22: F14, F02, M14)
+  for (const c of table.children) {
+    if (/^Guest_/.test(c.name) && c.name !== "Guest_" + g.name && Math.sign(c.localTransform.position.x) === g.side) c.enabled = false;
+  }
   for (const c of table.children) {
     if (/^SeatedDiner/.test(c.name)) {
       const x = c.localTransform.position.x;

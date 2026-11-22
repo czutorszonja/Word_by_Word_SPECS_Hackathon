@@ -154,6 +154,7 @@ Each one can be checked in Lens Studio's preview.
 - **Feel unproven:** subtlety of aim-and-pinch in public, comfort over time, real hand tracking.
 
 ## Build notes for CLAD
+- **The café and its people are a stand-in for the real world, for the demo only.** On real Specs the learner stands in a real café with real staff and guests; only the learning layer (labels, word cards, phrase help, practice, saved words, audio) would be rendered. The 3D room, food and animated people exist so the preview video shows the situation convincingly. Judge the product on the learning experience; judge the 3D café only on whether it looks real enough not to distract. (Clarified by the learner 2026-11-22.)
 - Build for SPECS so it runs and can be demonstrated in Lens Studio's preview. No SPECS device is available.
 - Use Spectacles Interaction Kit (SIK) and UI Kit for all interactions, so they work with the mouse in Interactive Preview and with LEAF.
 - Build any stand-in exactly as described above, and keep it obvious in the scene.

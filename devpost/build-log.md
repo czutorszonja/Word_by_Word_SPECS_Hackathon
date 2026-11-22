@@ -87,6 +87,238 @@ is the learning layer.
 - Parallel helper agents sped up model building but caused the GPU overload above; they now run only while
   Lens Studio is closed.
 
+## Screenshots of the space (index of `development-timeline/`)
+
+File names start with date_time_stage. The preview shows the Specs field of view, so every shot is a slice of the room; there is no single whole-café image yet. Some files appear under two areas. Stage 16 (21 Nov) still shows the older guests at tables 5 and 10; the younger guests replace them next.
+
+**Outside, entrance and door** (7)
+- `2026-11-20_1017_12_fixes_door-from-inside-zarva.png`
+- `2026-11-20_1017_12_fixes_entrance-outside.png`
+- `2026-11-20_1125_14_details_door-lintel-inside.png`
+- `2026-11-20_1125_14_details_entrance-planters.png`
+- `2026-11-20_1125_14_details_entrance-wall-inside.png`
+- `2026-11-21_1720_16_walkaround_door-zarva-from-inside.png`
+- `2026-11-21_1720_16_walkaround_setup-at-the-door.png`
+
+**Whole room and overviews** (9)
+- `2026-11-18_1806_01_first-build-stand-in-shapes_counter-overview.png`
+- `2026-11-18_2130_03_realistic-rebuild_shell-overview.png`
+- `2026-11-19_0452_07_phase-b_room-overview.png`
+- `2026-11-19_1338_07_phase-b_cut-line-fixed_start-view.png`
+- `2026-11-19_1407_08_phase-d_tour_P7_cafe-view-end.png`
+- `2026-11-19_1417_08_phase-d_tour_P7_cafe-view-end.png`
+- `2026-11-21_1720_16_walkaround_back-to-counter-overview.png`
+- `2026-11-21_1720_16_walkaround_seating-with-guests.png`
+- `2026-11-21_1720_16_walkaround_table-10-from-the-aisle.png`
+
+**Sandwich counter and ingredients** (14)
+- `2026-11-18_1843_02_basic-flow_phrase-cards-on-counter.png`
+- `2026-11-18_1850_03_realistic-rebuild_counter-ingredients.png`
+- `2026-11-18_1917_03_realistic-rebuild_ordering-on-counter.png`
+- `2026-11-18_2119_03_realistic-rebuild_containers-fixed.png`
+- `2026-11-18_2130_03_realistic-rebuild_final_counter.png`
+- `2026-11-18_2131_03_realistic-rebuild_final_ordering-on-counter.png`
+- `2026-11-18_2238_05_ui-rework_phrase-prompt-on-counter.png`
+- `2026-11-18_2309_05_ui-rework_live-compact_looking-at-counter.png`
+- `2026-11-19_0006_06_phase-a_new-ingredients-counter.png`
+- `2026-11-19_0451_07_phase-b_counter-from-start.png`
+- `2026-11-20_1017_12_fixes_counter-containers.png`
+- `2026-11-20_1100_13_foods_counter-pans.png`
+- `2026-11-20_1205_15_people_barista-front-counter-distance.png`
+- `2026-11-20_1205_15_people_barista-wide-counter.png`
+
+**Barista** (15)
+- `2026-11-18_1917_03_realistic-rebuild_server-close-up.png`
+- `2026-11-18_2131_03_realistic-rebuild_final_server.png`
+- `2026-11-18_2308_05_ui-rework_live-compact_looking-at-server.png`
+- `2026-11-19_0036_07_phase-b_before_server-cartoon.png`
+- `2026-11-19_0055_07_phase-b_rejected_barista-attempt1.png`
+- `2026-11-19_0211_07_phase-b_rejected_barista-attempt2_smeared-face.png`
+- `2026-11-19_0447_07_phase-b_faces-evidence_old-barista_4k-2k-1k-texture.png`
+- `2026-11-19_0452_07_phase-b_cut-line-fixed_final-barista.png`
+- `2026-11-19_0452_07_phase-b_faces-closeup_server.png`
+- `2026-11-20_1205_15_people_barista-front-counter-distance.png`
+- `2026-11-20_1205_15_people_barista-nod.png`
+- `2026-11-20_1205_15_people_barista-talking.png`
+- `2026-11-20_1205_15_people_barista-three-quarter.png`
+- `2026-11-20_1205_15_people_barista-wide-counter.png`
+- `2026-11-21_1720_16_walkaround_menu-board-chalk-font-barista-apron.png`
+
+**Pastry case** (2)
+- `2026-11-20_1017_12_fixes_pastry-case.png`
+- `2026-11-20_1100_13_foods_pastry-case.png`
+
+**Coffee station / coffee bar** (5)
+- `2026-11-18_1902_03_realistic-rebuild_coffee-bar.png`
+- `2026-11-18_2130_03_realistic-rebuild_final_coffee-bar.png`
+- `2026-11-19_1432_09_relayout_coffee-bar-service-only.png`
+- `2026-11-20_1017_12_fixes_coffee-station.png`
+- `2026-11-21_1720_16_walkaround_coffee-station.png`
+
+**Menu board, chalkboard, neon** (3)
+- `2026-11-18_2127_03_realistic-rebuild_neon-chalkboard.png`
+- `2026-11-20_1017_12_fixes_menu-board.png`
+- `2026-11-21_1720_16_walkaround_menu-board-chalk-font-barista-apron.png`
+
+**Seating, tables and guests** (24)
+- `2026-11-18_1806_01_first-build-stand-in-shapes_seating.png`
+- `2026-11-18_1839_03_realistic-rebuild_in-progress_seating-diners.png`
+- `2026-11-18_1910_03_realistic-rebuild_seating-diners.png`
+- `2026-11-18_2123_03_realistic-rebuild_diners-fixed.png`
+- `2026-11-18_2131_03_realistic-rebuild_final_seating.png`
+- `2026-11-19_0037_07_phase-b_before_diners-cartoon.png`
+- `2026-11-19_0212_07_phase-b_rejected_diners-caricature.png`
+- `2026-11-19_0447_07_phase-b_faces-evidence_new-diners-models.png`
+- `2026-11-19_0451_07_phase-b_seating.png`
+- `2026-11-19_0452_07_phase-b_faces-closeup_table2.png`
+- `2026-11-19_0452_07_phase-b_faces-closeup_table5.png`
+- `2026-11-19_0452_07_phase-b_faces-closeup_table7.png`
+- `2026-11-19_0453_07_phase-b_faces-closeup_table10.png`
+- `2026-11-19_1406_08_phase-d_tour_U14_table-8-nyolc.png`
+- `2026-11-19_1416_08_phase-d_tour_U14_table-8-nyolc.png`
+- `2026-11-19_1432_09_relayout_window-bar-seating.png`
+- `2026-11-21_1720_16_walkaround_seating-with-guests.png`
+- `2026-11-21_1720_16_walkaround_table-10-close.png`
+- `2026-11-21_1720_16_walkaround_table-10-friends-chatting.png`
+- `2026-11-21_1720_16_walkaround_table-10-from-the-aisle.png`
+- `2026-11-21_1720_16_walkaround_table-2-guest.png`
+- `2026-11-21_1720_16_walkaround_table-5-guest.png`
+- `2026-11-21_1720_16_walkaround_table-7-guest.png`
+- `2026-11-21_1720_16_walkaround_window-bar-and-guest.png`
+
+**Lounge and window bar** (6)
+- `2026-11-18_1911_03_realistic-rebuild_lounge.png`
+- `2026-11-18_2131_03_realistic-rebuild_final_lounge.png`
+- `2026-11-19_0451_07_phase-b_lounge.png`
+- `2026-11-19_1432_09_relayout_window-bar-seating.png`
+- `2026-11-21_1720_16_walkaround_lounge.png`
+- `2026-11-21_1720_16_walkaround_window-bar-and-guest.png`
+
+**Walls, windows, lamps, plants** (13)
+- `2026-11-19_0128_07_phase-b_backdrop-before.png`
+- `2026-11-19_0132_07_phase-b_backdrop-plain-studio.png`
+- `2026-11-19_0427_07_phase-b_cut-line-before.png`
+- `2026-11-19_0428_07_phase-b_cut-line-toprail-hidden.png`
+- `2026-11-19_0429_07_phase-b_cut-line-fixed.png`
+- `2026-11-19_0451_07_phase-b_walls-fixed.png`
+- `2026-11-19_0452_07_phase-b_cut-line-fixed_final-barista.png`
+- `2026-11-19_1338_07_phase-b_cut-line-fixed_start-view.png`
+- `2026-11-20_1125_14_details_door-lintel-inside.png`
+- `2026-11-20_1125_14_details_entrance-planters.png`
+- `2026-11-20_1125_14_details_entrance-wall-inside.png`
+- `2026-11-20_1125_14_details_globe-lamps.png`
+- `2026-11-20_1125_14_details_right-wall-windows.png`
+
+**Interface: setup, word card, labels** (21)
+- `2026-11-18_1841_02_basic-flow_setup-panel.png`
+- `2026-11-18_1842_02_basic-flow_word-card-olives.png`
+- `2026-11-18_2235_05_ui-rework_word-card.png`
+- `2026-11-18_2236_05_ui-rework_hover-vs-pressed.png`
+- `2026-11-18_2240_05_ui-rework_setup-languages.png`
+- `2026-11-19_0004_06_phase-a_setup-languages.png`
+- `2026-11-19_0007_06_phase-a_learn-cobalt.png`
+- `2026-11-19_0158_07_phase-b_soft-colours_learn.png`
+- `2026-11-19_1404_08_phase-d_tour_A4_arrival-suggestion.png`
+- `2026-11-19_1404_08_phase-d_tour_L1_look-around-markers.png`
+- `2026-11-19_1404_08_phase-d_tour_L3_point-to-reveal-uborka.png`
+- `2026-11-19_1404_08_phase-d_tour_L5_select-to-listen-card.png`
+- `2026-11-19_1404_08_phase-d_tour_L8_save-saved-check.png`
+- `2026-11-19_1414_08_phase-d_tour_A4_arrival-suggestion.png`
+- `2026-11-19_1414_08_phase-d_tour_L1_look-around-markers.png`
+- `2026-11-19_1414_08_phase-d_tour_L3_point-to-reveal-uborka.png`
+- `2026-11-19_1414_08_phase-d_tour_L5_select-to-listen-card.png`
+- `2026-11-19_1414_08_phase-d_tour_L8_save-saved-check.png`
+- `2026-11-21_1720_16_walkaround_saved-words-listen-icons.png`
+- `2026-11-21_1720_16_walkaround_setup-at-the-door.png`
+- `2026-11-21_1720_16_walkaround_word-card.png`
+
+**Interface: ordering (Use it live)** (19)
+- `2026-11-18_1842_02_basic-flow_word-card-olives.png`
+- `2026-11-18_1843_02_basic-flow_phrase-cards-on-counter.png`
+- `2026-11-18_1917_03_realistic-rebuild_ordering-on-counter.png`
+- `2026-11-18_2131_03_realistic-rebuild_final_ordering-on-counter.png`
+- `2026-11-18_2238_05_ui-rework_phrase-prompt-on-counter.png`
+- `2026-11-18_2308_05_ui-rework_live-compact_looking-at-server.png`
+- `2026-11-18_2309_05_ui-rework_live-compact_looking-at-counter.png`
+- `2026-11-19_0009_06_phase-a_live-violet.png`
+- `2026-11-19_0201_07_phase-b_soft-colours_live.png`
+- `2026-11-19_1405_08_phase-d_tour_U1_use-it-live-phrase-helper.png`
+- `2026-11-19_1405_08_phase-d_tour_U3_use-this-word-szalami.png`
+- `2026-11-19_1405_08_phase-d_tour_U4_add-es-combined-phrase.png`
+- `2026-11-19_1405_08_phase-d_tour_U8_step2-say-it.png`
+- `2026-11-19_1414_08_phase-d_tour_U1_use-it-live-phrase-helper.png`
+- `2026-11-19_1415_08_phase-d_tour_U3_use-this-word-szalami.png`
+- `2026-11-19_1415_08_phase-d_tour_U4_add-es-combined-phrase.png`
+- `2026-11-19_1415_08_phase-d_tour_U8_step2-say-it.png`
+- `2026-11-21_1720_16_walkaround_phrase-card-bigger.png`
+- `2026-11-21_1720_16_walkaround_phrase-helper-bigger.png`
+
+**Interface: practice** (9)
+- `2026-11-18_1846_02_basic-flow_practice-board.png`
+- `2026-11-18_2240_05_ui-rework_practice-board.png`
+- `2026-11-19_0012_06_phase-a_practice-magenta.png`
+- `2026-11-19_0203_07_phase-b_soft-colours_practice.png`
+- `2026-11-19_1406_08_phase-d_tour_P5_practice-matching.png`
+- `2026-11-19_1407_08_phase-d_tour_P6_practice-complete.png`
+- `2026-11-19_1416_08_phase-d_tour_P5_practice-matching.png`
+- `2026-11-19_1416_08_phase-d_tour_P6_practice-complete.png`
+- `2026-11-21_1720_16_walkaround_practice-board.png`
+
+**Interface: saved words** (1)
+- `2026-11-21_1720_16_walkaround_saved-words-listen-icons.png`
+
+**Tests (LEAF)** (2)
+- `2026-11-18_2158_04_leaf-tests_results-panel.png`
+- `2026-11-18_2205_04_leaf-tests_all-5-passed-rerun.png`
+
+**Other** (5)
+- `2026-11-18_1806_01_first-build-stand-in-shapes_lens-studio.png`
+- `2026-11-18_1919_03_realistic-rebuild_paused-checkpoint.png`
+- `2026-11-18_2218_05_ui-rework_before-panel-hole.png`
+- `2026-11-18_2226_05_ui-rework_panel-hole-fixed.png`
+- `2026-11-19_0447_07_phase-b_faces-evidence_new-head-reference-image.png`
+
+**Gaps:** no whole-café overview from the corners and no outside facade from the street (only the door). Planned: a whole-café set from Lens Studio's wide scene camera plus the Specs view (open item 2).
+
+## Reflection notes for the demo (progress, easy, hard, what happened)
+
+Use these when presenting. Picture pairs are in `development-timeline/` (search the file name).
+
+**Progress you can show (before → after)**
+- Café: stand-in boxes (`01_first-build-stand-in-shapes_counter-overview`) → realistic rebuild
+  (`03_realistic-rebuild_final_counter`) → audited details (`14_details_*`) → full walkaround (`16_walkaround_back-to-counter-overview`).
+- People: cartoon barista and diners (`07_phase-b_before_server-cartoon`, `07_phase-b_before_diners-cartoon`,
+  `07_phase-b_rejected_*`) → realistic barista (`15_people_barista-*`) → apron and real seated guests (`16_walkaround_*`).
+- Interface: first panels with a see-through hole (`05_ui-rework_before-panel-hole`) → bright mode colours
+  (`06_phase-a_*`) → soft colours (`07_phase-b_soft-colours_*`) → bigger, readable phrase boxes (`16_walkaround_phrase-*`).
+- Flow: the story tour from arrival to practice (`08_phase-d_tour_*`), all LEAF tests passing (`04_leaf-tests_*`).
+
+**What was easy (or easier than expected)**
+- The learning logic itself: point → word → listen → save → reuse in a sentence → practise worked early and stayed
+  stable; LEAF tests caught regressions every time the scene changed.
+- Generated Hungarian voices: one script made all 145 clips under stable names, so swapping in human recordings
+  later needs no code change.
+- Once a pipeline existed (Rocketbox → Blender → Lens), adding more people was mostly mechanical.
+
+**What was hard**
+- Making it look real, not like a game: generated 3D props and people looked toy-like; every area needed several
+  rounds (containers, floating items, repeated details, faces).
+- People: faces that are comfortable to look at needed real scanned/rigged avatars; seating them believably at a
+  small pedestal table (hands on the table, feet clear of the base, two people not colliding) took the most tuning.
+- Readability on a narrow see-through display: panels and phrase boxes had to be enlarged repeatedly, and floating
+  buttons kept covering other panels.
+- Tool stability: Lens Studio froze or crashed under GPU load, paused when minimized, and reset its preview every
+  ~50 minutes; long automated test runs had to be timed around that.
+
+**What happened / lessons**
+- Design decisions changed with feedback: pinch-only answers became saying it out loud; phrase cards moved onto the
+  counter; colours were softened; the café grew (entrance, menu board, coffee station); people were replaced twice.
+- Running many helper agents in parallel was fast but overloaded the laptop's graphics card and crashed Lens Studio:
+  heavy rendering now happens only while Lens Studio is closed.
+- Screenshots and commits were sometimes forgotten until they became written rules in the design brief.
+- Chat sessions don't share history; this build log is the shared memory.
+- Clarified late: the café and people only stand in for real life in the demo; the product is the learning layer.
+
 ## Open items (as of 22 Nov)
 1. Swap the younger guests into the scene: run `agent/staging/eec_seat_diners.ts` (F07 + F08 at table 10, M09 at
    table 5; F14, F02, M14 switched off), check in the preview, run LEAF DC1–DC6, timeline screenshots, push.

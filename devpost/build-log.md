@@ -326,6 +326,7 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
 2. Whole-café screenshot set (corners, entrance, outside, every area, plus a wide scene-camera view); fix the
    walkaround tour's outside/facade viewpoint.
 3. A fresh full walkaround + story tour after the swap, reviewed against the design brief's demo checklist.
+3b. Delete the hidden old generated people (ServerModel with the old barista, the SeatedDiner objects, and the retired Rocketbox guests F14, F02, M14) from the scene and remove their unused model files — the learner approved this on 22 Nov.
 
 **Polish (small, optional):**
 4. The barista's speech caption floats over the menu board text (readable, but busy) — lift or offset it.
@@ -334,6 +335,6 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
 7. "Duplicate id" warnings for hand-made materials on reimport (harmless; could be cleaned by letting Lens Studio re-save them).
 
 **Before submitting:**
-8. Remove the disabled old generated people from the scene (size).
+8. (moved to 3b)
 9. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).
 10. Record the demo video (under 3 minutes) right after a sign-in refresh, make the repo public, submit.

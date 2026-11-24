@@ -59,6 +59,9 @@ is the learning layer.
 - **The preview keeps running while Lens Studio is minimized** (22 Nov), but a window capture of a minimized
   window is a 391×61 strip. The story-tour screenshots were taken by a small watcher script that restores the
   window without focus, captures 1.8 s after each `beat` line in the log and minimizes it again.
+- **Material changes made through the editor API are not always written to the `.mat` file** (24 Nov): the
+  panorama materials showed the new texture in the preview while the files still pointed at deleted textures, so a
+  restart would have lost it. After changing a material's texture by code, check the `.mat` file's `baseTex` id.
 - **LEAF runs outlast the tool's time limit**: `run_leaf_scenario` reports a timeout but the scenario keeps
   running; read PASSED/FAILED from the log.
 - **The Scene panel camera cannot be steered by the agent** (no editor API; desktop control was declined), so

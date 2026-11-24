@@ -1,0 +1,68 @@
+- !<AssetImportMetadata/70f4a7d6-b0a5-4728-adba-c7d3f3746c0e>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> fc12238d-81c5-4768-8469-9481615c73c2
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> fc12238d-81c5-4768-8469-9481615c73c2
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> be2723d1-e6f6-4663-abec-8b55e8a5dfa0
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/be2723d1-e6f6-4663-abec-8b55e8a5dfa0>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 2281ca08-cbde-489f-82a2-daa189bd95cb
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    centreHeightCm: false
+    halfA: false
+    halfB: false
+    headingOffsetDeg: false
+    latBottomDeg: false
+    latTopDeg: false
+    radiusCm: false
+    renderOrder: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - halfA: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      halfB: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      radiusCm: !<float> 2000.000000
+      latTopDeg: !<float> 55.000000
+      latBottomDeg: !<float> -70.000000
+      headingOffsetDeg: !<float> -30.000000
+      centreHeightCm: !<float> 150.000000
+      renderOrder: !<float> -100.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WbwPanorama – 360° street outside the windows</span>"}'
+    - '// @input Asset.Material halfA {"hint":"Unlit material with the left half of the panorama (image columns 0–50 %)"}'
+    - '// @input Asset.Material halfB {"hint":"Unlit material with the right half of the panorama (image columns 50–100 %)"}'
+    - '// @input float radiusCm = 2000 {"hint":"Radius of the band around the café (cm) — beyond the walls and the street outside", "widget":"slider", "min":800, "max":4000, "step":10}'
+    - "// @input float latTopDeg = 55 {\"hint\":\"Latitude of the band's top edge (degrees) — must match the texture crop\"}"
+    - "// @input float latBottomDeg = -70 {\"hint\":\"Latitude of the band's bottom edge (degrees) — must match the texture crop\"}"
+    - '// @input float headingOffsetDeg = -30 {"hint":"Turns the panorama: the image column at heading H is placed at H + this (degrees). 270 = café-local -X (the door side)", "widget":"slider", "min":-180, "max":180, "step":1}'
+    - "// @input float centreHeightCm = 150 {\"hint\":\"Height of the band's centre above the floor (cm) — about eye height, where the photo was taken\"}"
+    - '// @input float renderOrder = -100 {"hint":"Render order: lower than the window openings (which are lower than the walls)"}'

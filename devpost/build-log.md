@@ -27,7 +27,8 @@ is the learning layer.
 | 11-21 | 16 | Five realistic seated guests, barista apron, hand-lettered chalk font, bigger phrase boxes, full walkaround and fixes (saved words fit the view, listen icons, Menu chip no longer covers panels); recording list completed |
 | 11-22 | — | Younger guests (F07, F08, M09) built and seat-tested in Blender; brief clarified (café = demo stand-in) |
 | 11-22 | 17 | Younger guests seated, hidden old people and 10 unused model files deleted; first whole-café screenshot set (dollhouse overviews, four inside corners, every walkaround spot); street windows show the café inside; gallery + shelves on the bare wall behind tables 8–12; caption as a subtitle under the barista's face, Menu button low-left (mode chip in Use it live), practice board at 65 cm; F11's boots off the table base; LEAF DC1–DC6 and TOUR_Story pass with no soft-check failures |
-| 11-24 | 18 | Visual build timeline (`devpost/timeline/index.html`); one coherent outside: the window-bar windows look onto one leafy square, the door side onto one tram street, same late-spring morning, each window its own angle |
+| 11-24 | 18 | Visual build timeline (`devpost/timeline/index.html`); a first try at coherent window views (six generated photos, rejected by the learner the same day) |
+| 11-24 | 19 | One real street outside: a 360° street panorama (Poly Haven, CC0) around the café, windows as real openings; DC6 passes |
 
 ## Problems we ran into and how they were solved
 
@@ -82,6 +83,15 @@ is the learning layer.
   the door), each from its own angle, cropped free of baked-in frames and café tables. The generator only makes
   768×1344 portrait images, so one wide photo sliced per window was not possible. The view through the door was
   also enlarged and lowered so the far pavement, trees and tram sit at ground level behind the door.
+- **...and six coherent photos were still six unrelated pictures** (learner, 24 Nov; the tram looked as if it would
+  drive into the café). Final solution: one real 360° panorama of a Central European street corner in summer
+  (Poly Haven "Zawiszy Czarnego", CC0, downloaded with the learner's OK, 8192×4096 tonemapped JPG) on a band of
+  radius 20 m around the café (`WbwPanorama.ts`, latitudes +55°…−70°, two 4096 px halves, unlit, render order −100).
+  The five window photos became real openings: depth-only panes (`Wbw_WindowOpening`, render order −50) drawn
+  after the panorama and before the walls, so the wall behind each window is skipped and the panorama shows.
+  Every window and the door now look at the same place from their own position; the door backdrop is gone; outside,
+  the start point stands in a real street instead of a black void. The street-facing glass seen from outside was
+  recaptured so it shows the current interior.
 - **An empty-looking wall** (22 Nov, whole-café review): the 11 m wall behind tables 8–12 was bare brick. Added a
   gallery of three framed prints (generated: Chain Bridge photo, coffee-plant botanical, tram watercolour; the
   tram's destination board has made-up lettering, small at frame size) and two different wall shelves.

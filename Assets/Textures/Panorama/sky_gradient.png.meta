@@ -1,8 +1,8 @@
-- !<AssetImportMetadata/8c5b7dd3-26ba-42cc-bdac-6a0e3c36e84d>
+- !<AssetImportMetadata/5cbe89db-d63f-4347-92f3-3d9b4207d01d>
   ImportedAssetIds:
-    Texture: !<reference> 62053930-38db-4dc2-b990-ec31caed3b5a
+    Texture: !<reference> 4c94ed5e-da22-4c7c-a3d8-b51aee08172c
   ImporterName: FileTextureImporter
-  PrimaryAsset: !<reference> 62053930-38db-4dc2-b990-ec31caed3b5a
+  PrimaryAsset: !<reference> 4c94ed5e-da22-4c7c-a3d8-b51aee08172c
   PackageType: NotAPackage
   LegacyPackagePolicy: ~
   ExtraData:

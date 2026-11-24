@@ -30,6 +30,7 @@ is the learning layer.
 | 11-24 | 18 | Visual build timeline (`devpost/timeline/index.html`); a first try at coherent window views (six generated photos, rejected by the learner the same day) |
 | 11-24 | 19 | One real street outside: a 360° street panorama (Poly Haven, CC0) around the café, windows as real openings; DC6 passes |
 | 11-24 | 20 | The learner found that street too dark and not fitting; swapped for a sunny Palermo square (Piazza Bologni), turned so the window bar looks across the square |
+| 11-24 | 21 | Photos still stood out next to the 3D café: replaced by a simple 3D street and park of our own, with things from the Street and Park word lists to spot outside; DC6 passes |
 
 ## Problems we ran into and how they were solved
 
@@ -100,6 +101,20 @@ is the learning layer.
   (sunny Palermo old-town square, cream and ochre facades, a café terrace, an olive tree; CC0, downloaded with the
   learner's OK), brightened a little when cut (gamma 0.85, ×1.08) so it sits with the bright café. Turned
   (headingOffsetDeg −60) so the window-bar side looks across the open square rather than at a close ground floor.
+- **Any photo stands out next to the 3D café** (learner, 24 Nov: "it stands out from the rest, pls just build
+  something simple"). Replaced the panorama with a small 3D street built by `agent/staging/eec_build_outside.ts`
+  (idempotent, rebuilds `Cafe/Outside`): houses as boxes with generated cream/ochre facade textures, limestone
+  pavement, asphalt road with lane marks and a zebra crossing, a painted muted lawn, and eight generated models
+  (tram stop, traffic light, bicycle, car, bench, flower bed, fountain, tree). It also serves the story: outside,
+  before going in, the learner can look left and right and see words from earlier outings (Street: megálló, lámpa,
+  bicikli, autó, utca, járda, posta, gyógyszertár, bolt; Park: fa, pad, szökőkút, virág, fű, ösvény). The sky band
+  (`WbwPanorama`) now carries a plain blue-to-pale gradient. Pitfalls: the generated models are centred on their
+  origin (half sunk into the ground), so the builder lifts each one by its own mesh box (`mesh.info.aabbMin`);
+  the café and car models came out chunky (car scaled to 350 cm); the lawn texture needed mipmaps on, or it
+  shimmered; one long box per pavement stretches its texture, so keep slab-textured boxes short. The street-facing
+  glass seen from outside was recaptured again. Lens Studio froze for ~10 minutes right after the build (it came
+  back by itself at the hourly sign-in refresh), and once came back with `WbwPanorama` unbound until a forced
+  recompile.
 - **An empty-looking wall** (22 Nov, whole-café review): the 11 m wall behind tables 8–12 was bare brick. Added a
   gallery of three framed prints (generated: Chain Bridge photo, coffee-plant botanical, tram watercolour; the
   tram's destination board has made-up lettering, small at frame size) and two different wall shelves.
@@ -392,7 +407,9 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
 4. Hair-card edges look ragged up close; long hair/ponytails are stiff in the talk lean (needs Blender, with Lens
    Studio closed).
 5. The tram watercolour's destination board has made-up lettering (generated image); regenerate if it bothers.
-6. From the street the café is a single-storey box with black sky above the wall (Plain Studio backdrop).
+6. From the street the café is a single-storey box between taller houses (24 Nov: the black sky is gone; a sky
+   gradient and a simple 3D street now surround it). The outside things (tram stop, bench, fountain…) are only
+   scenery so far; they could become pointable words for a short outdoor review before entering.
 
 **Before submitting:**
 7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).

@@ -63,6 +63,6 @@
     - '// @input float radiusCm = 2000 {"hint":"Radius of the band around the café (cm) — beyond the walls and the street outside", "widget":"slider", "min":800, "max":4000, "step":10}'
     - "// @input float latTopDeg = 55 {\"hint\":\"Latitude of the band's top edge (degrees) — must match the texture crop\"}"
     - "// @input float latBottomDeg = -70 {\"hint\":\"Latitude of the band's bottom edge (degrees) — must match the texture crop\"}"
-    - '// @input float headingOffsetDeg = 15 {"hint":"Turns the panorama: the image column at heading H is placed at H + this (degrees). 270 = café-local -X (the door side)", "widget":"slider", "min":-180, "max":180, "step":1}'
+    - '// @input float headingOffsetDeg = -60 {"hint":"Turns the panorama: the image column at heading H is placed at H + this (degrees). 270 = café-local -X (the door side)", "widget":"slider", "min":-180, "max":180, "step":1}'
     - "// @input float centreHeightCm = 150 {\"hint\":\"Height of the band's centre above the floor (cm) — about eye height, where the photo was taken\"}"
     - '// @input float renderOrder = -100 {"hint":"Render order: lower than the window openings (which are lower than the walls)"}'

@@ -1,7 +1,6 @@
-// WbwPanorama.ts — the world outside the café: one real 360° panorama of a sunny old-town square
-// (Poly Haven "Piazza Bologni", Palermo, CC0) on a large band around the room, seen through the
-// windows and the door. The window-bar side looks across the open square (olive tree, warm stone
-// facades); the door faces the monument and a café terrace.
+// WbwPanorama.ts — the sky around the café: a plain gradient (soft blue overhead, pale at the
+// horizon, warm grey below it) on a large band around the room, behind the simple 3D street and park
+// outside (Outside group). (24 Nov: photo panoramas looked out of place next to the 3D café.)
 // Owns: building the band mesh at start (two halves, one texture each), its heading and render order.
 // Must NOT: touch the room; the windows are made see-through by their own depth-only panes
 //           (Wbw_WindowOpening, render order between this band and the walls).

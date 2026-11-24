@@ -61,7 +61,7 @@
     - Port_WorldTangent_N004:
         typeIdx: 4
         value: {x: 0.000000, y: 0.000000, z: 1.000000}
-  DepthWrite: true
+  DepthWrite: false
   DepthTest: true
   DepthFunction: LessEqual
   TwoSided: false
@@ -94,7 +94,7 @@
     baseTex:
       typeIdx: 9
       value:
-        id: 4bdaab6d-ff2b-41b8-bb41-20a32693b9bd
+        id: 4c94ed5e-da22-4c7c-a3d8-b51aee08172c
         sampler:
           filteringMode: Trilinear
           wrapModeU: ClampToEdge

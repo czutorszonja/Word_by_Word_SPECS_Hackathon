@@ -5,6 +5,8 @@ They show how the café Lens changed from first stand-in shapes to the finished 
 
 File names: `<date>_<time>_<step>_<what it shows>.png`, so they sort in build order.
 
+**Visual timeline:** [`../timeline/index.html`](../timeline/index.html) shows the build stage by stage (18–22 Nov), one card per stage with what changed and its best screenshots (63, cropped to the Specs view); open it in a browser and click a picture to enlarge it.
+
 | Stage | What to expect |
 |---|---|
 | 01 | Blocky first build: the café made of simple boxes and cylinders (stand-in shapes) |

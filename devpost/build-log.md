@@ -27,6 +27,7 @@ is the learning layer.
 | 11-21 | 16 | Five realistic seated guests, barista apron, hand-lettered chalk font, bigger phrase boxes, full walkaround and fixes (saved words fit the view, listen icons, Menu chip no longer covers panels); recording list completed |
 | 11-22 | — | Younger guests (F07, F08, M09) built and seat-tested in Blender; brief clarified (café = demo stand-in) |
 | 11-22 | 17 | Younger guests seated, hidden old people and 10 unused model files deleted; first whole-café screenshot set (dollhouse overviews, four inside corners, every walkaround spot); street windows show the café inside; gallery + shelves on the bare wall behind tables 8–12; caption as a subtitle under the barista's face, Menu button low-left (mode chip in Use it live), practice board at 65 cm; F11's boots off the table base; LEAF DC1–DC6 and TOUR_Story pass with no soft-check failures |
+| 11-24 | 18 | Visual build timeline (`devpost/timeline/index.html`); one coherent outside: the window-bar windows look onto one leafy square, the door side onto one tram street, same late-spring morning, each window its own angle |
 
 ## Problems we ran into and how they were solved
 
@@ -74,6 +75,13 @@ is the learning layer.
 - **From the street the windows were black** (22 Nov, first facade shot): the outside glass was a near-black
   material, which reads as a hole and turns see-through on the additive display. Each street window now shows a
   view into the café captured from inside that window, with a faint sky reflection.
+- **Every window showed a different place and season** (learner, 24 Nov): bare autumn trees, a summer park, the
+  Danube from high up, photos with their own window frames. Replaced by six generated views from one shared
+  description (Budapest, sunny late-spring morning, cream and ochre 19th-century buildings, plane trees): a leafy
+  square on the window-bar side (windows 1–3), a tram street on the door side (windows 4–5 and the view through
+  the door), each from its own angle, cropped free of baked-in frames and café tables. The generator only makes
+  768×1344 portrait images, so one wide photo sliced per window was not possible. The view through the door was
+  also enlarged and lowered so the far pavement, trees and tram sit at ground level behind the door.
 - **An empty-looking wall** (22 Nov, whole-café review): the 11 m wall behind tables 8–12 was bare brick. Added a
   gallery of three framed prints (generated: Chain Bridge photo, coffee-plant botanical, tram watercolour; the
   tram's destination board has made-up lettering, small at frame size) and two different wall shelves.

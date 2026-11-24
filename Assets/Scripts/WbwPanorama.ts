@@ -1,5 +1,7 @@
-// WbwPanorama.ts — the world outside the café: one real 360° street panorama (Poly Haven "Zawiszy
-// Czarnego", CC0) on a large band around the room, seen through the windows and the door.
+// WbwPanorama.ts — the world outside the café: one real 360° panorama of a sunny old-town square
+// (Poly Haven "Piazza Bologni", Palermo, CC0) on a large band around the room, seen through the
+// windows and the door. The window-bar side looks across the open square (olive tree, warm stone
+// facades); the door faces the monument and a café terrace.
 // Owns: building the band mesh at start (two halves, one texture each), its heading and render order.
 // Must NOT: touch the room; the windows are made see-through by their own depth-only panes
 //           (Wbw_WindowOpening, render order between this band and the walls).
@@ -24,7 +26,7 @@ export class WbwPanorama extends BaseScriptComponent {
 
   @input @hint("Turns the panorama: the image column at heading H is placed at H + this (degrees). 270 = café-local -X (the door side)")
   @widget(new SliderWidget(-180, 180, 1))
-  headingOffsetDeg: number = -30
+  headingOffsetDeg: number = -60
 
   @input @hint("Height of the band's centre above the floor (cm) — about eye height, where the photo was taken")
   centreHeightCm: number = 150

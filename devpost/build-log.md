@@ -29,6 +29,7 @@ is the learning layer.
 | 11-22 | 17 | Younger guests seated, hidden old people and 10 unused model files deleted; first whole-café screenshot set (dollhouse overviews, four inside corners, every walkaround spot); street windows show the café inside; gallery + shelves on the bare wall behind tables 8–12; caption as a subtitle under the barista's face, Menu button low-left (mode chip in Use it live), practice board at 65 cm; F11's boots off the table base; LEAF DC1–DC6 and TOUR_Story pass with no soft-check failures |
 | 11-24 | 18 | Visual build timeline (`devpost/timeline/index.html`); a first try at coherent window views (six generated photos, rejected by the learner the same day) |
 | 11-24 | 19 | One real street outside: a 360° street panorama (Poly Haven, CC0) around the café, windows as real openings; DC6 passes |
+| 11-24 | 20 | The learner found that street too dark and not fitting; swapped for a sunny Palermo square (Piazza Bologni), turned so the window bar looks across the square |
 
 ## Problems we ran into and how they were solved
 
@@ -92,6 +93,10 @@ is the learning layer.
   Every window and the door now look at the same place from their own position; the door backdrop is gone; outside,
   the start point stands in a real street instead of a black void. The street-facing glass seen from outside was
   recaptured so it shows the current interior.
+- **That street was too dark and did not fit** (learner, 24 Nov). Swapped for Poly Haven "Piazza Bologni"
+  (sunny Palermo old-town square, cream and ochre facades, a café terrace, an olive tree; CC0, downloaded with the
+  learner's OK), brightened a little when cut (gamma 0.85, ×1.08) so it sits with the bright café. Turned
+  (headingOffsetDeg −60) so the window-bar side looks across the open square rather than at a close ground floor.
 - **An empty-looking wall** (22 Nov, whole-café review): the 11 m wall behind tables 8–12 was bare brick. Added a
   gallery of three framed prints (generated: Chain Bridge photo, coffee-plant botanical, tram watercolour; the
   tram's destination board has made-up lettering, small at frame size) and two different wall shelves.

@@ -177,6 +177,11 @@ export class WbwNameLabelUI extends BaseScriptComponent {
   pullTowardEyeCm: number = 10
 
   @input
+  @hint("The label is never placed farther than this (cm): far things outside (a fountain behind trees) would otherwise have their label hidden by nearer objects. It is sized for its distance, so it looks the same")
+  @widget(new SliderWidget(120, 600, 10))
+  maxLabelDistanceCm: number = 250
+
+  @input
   @hint("Gap between the object's bracket and the label (cm)")
   @widget(new SliderWidget(0, 6, 0.1))
   gapCm: number = 1.5
@@ -569,7 +574,7 @@ export class WbwNameLabelUI extends BaseScriptComponent {
     const b = worldBox(t.so, t.size)
     const objR = screenRectOfBox(f, b)
     const dNear = Math.max(25, distanceToBox(f.cam, b))
-    const dL = Math.max(35, dNear - this.pullTowardEyeCm)
+    const dL = Math.min(this.maxLabelDistanceCm, Math.max(35, dNear - this.pullTowardEyeCm))
     this.layout(dL)
     const hw = (DEG * (this.surfaceW / 2)) / dL
     const hh = (DEG * (this.surfaceH / 2)) / dL

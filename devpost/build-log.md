@@ -31,6 +31,7 @@ is the learning layer.
 | 11-24 | 19 | One real street outside: a 360° street panorama (Poly Haven, CC0) around the café, windows as real openings; DC6 passes |
 | 11-24 | 20 | The learner found that street too dark and not fitting; swapped for a sunny Palermo square (Piazza Bologni), turned so the window bar looks across the square |
 | 11-24 | 21 | Photos still stood out next to the 3D café: replaced by a simple 3D street and park of our own, with things from the Street and Park word lists to spot outside; DC6 passes |
+| 11-25 | 21 | The outside things became pointable words from earlier outings (review before going in; saved cards in Learn); new test DC7; DC2/3/6/7 pass. Timeline page: the three outside trials merged into one card |
 
 ## Problems we ran into and how they were solved
 
@@ -115,6 +116,16 @@ is the learning layer.
   glass seen from outside was recaptured again. Lens Studio froze for ~10 minutes right after the build (it came
   back by itself at the hourly sign-in refresh), and once came back with `WbwPanorama` unbound until a forced
   recompile.
+- **Words outside** (learner, 25 Nov: "make them words"). 15 things outside are `Learnable_<id>` objects for words
+  saved on earlier outings (`WbwVocab.learnableWord` falls back to `EARLIER_WORDS`; ordering, practice and the saved
+  list are untouched). With no mode picked (outside, before going in, or after "Later") pointing is a quiet
+  review: only these words show a label and a pinch says the word (`pointMode "review"`, a label filter in the
+  hover arbiter); in Learn their card shows "Saved ✓" without Use it live. Three snags: (1) the collider size came
+  from the world bounding box but sits in the object's own axes, so with the café turned 90° a long object (road,
+  bench) got length and depth swapped — now converted; (2) the label is placed just in front of its object, so a
+  fountain 10 m away had its label hidden by nearer trees — labels now stay within 2.5 m (sized for that
+  distance, so they look the same); (3) the café's own corner hides the park from the start spot, so the learner
+  takes a few steps along the pavement to see it.
 - **An empty-looking wall** (22 Nov, whole-café review): the 11 m wall behind tables 8–12 was bare brick. Added a
   gallery of three framed prints (generated: Chain Bridge photo, coffee-plant botanical, tram watercolour; the
   tram's destination board has made-up lettering, small at frame size) and two different wall shelves.
@@ -408,8 +419,8 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
    Studio closed).
 5. The tram watercolour's destination board has made-up lettering (generated image); regenerate if it bothers.
 6. From the street the café is a single-storey box between taller houses (24 Nov: the black sky is gone; a sky
-   gradient and a simple 3D street now surround it). The outside things (tram stop, bench, fountain…) are only
-   scenery so far; they could become pointable words for a short outdoor review before entering.
+   gradient and a simple 3D street now surround it; on 25 Nov its things became pointable words from earlier
+   outings). Next (learner, 25 Nov): make the word cards and labels calmer and easier to read, with less on each.
 
 **Before submitting:**
 7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).

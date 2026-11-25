@@ -5,13 +5,14 @@
 //     with startOutside, turns the café around the user so they start outside the entrance,
 //     facing the door with the NYITVA sign (useCounterStart() restores the counter start),
 //   • finds every authored learnable object `Learnable_<id>` (under SandwichCounter,
-//     PastryDisplay, CoffeeArea, Entrance and MenuBoard) and gives it a box collider fitted to its mesh + a SIK
-//     Interactable. Non-learnable props (tongs, cup stacks, glasses) get nothing and never
-//     highlight.
+//     PastryDisplay, CoffeeArea, Entrance, MenuBoard and the street outside, child `Outside` of this
+//     object) and gives it a box collider fitted to its mesh + a SIK Interactable. Non-learnable props
+//     (tongs, cup stacks, glasses) get nothing and never highlight. Outside, the ids are words saved
+//     on earlier outings (WbwVocab.learnableWord).
 // Must NOT: build visible geometry, run Learn/Order/Practice logic, or create text/UI.
 import {Interactable} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Interactable/Interactable"
 import {camPos} from "./WbwSpatial"
-import {wordById} from "./WbwVocab"
+import {learnableWord} from "./WbwVocab"
 
 export interface Learnable {
   id: string
@@ -104,7 +105,9 @@ export class WbwCafeBuilder extends BaseScriptComponent {
         else ev.enabled = false
       })
     }
-    for (const root of [this.sandwichCounter, this.pastryDisplay, this.coffeeArea, this.entrance, this.menuBoard]) {
+    // the street outside is found by name: agent/staging/eec_build_outside.ts rebuilds it, so an input would break
+    const outside = this.childNamed("Outside")
+    for (const root of [this.sandwichCounter, this.pastryDisplay, this.coffeeArea, this.entrance, this.menuBoard, outside]) {
       if (root) this.collectLearnables(root)
     }
     print(`WbwCafeBuilder: found ${this.learnables.length} authored learnable objects`)
@@ -144,9 +147,17 @@ export class WbwCafeBuilder extends BaseScriptComponent {
     if (Math.abs(p.y - y) > 0.5 || Math.abs(p.x - x) > 0.5 || Math.abs(p.z - z) > 0.5) t.setWorldPosition(new vec3(x, y, z))
   }
 
+  private childNamed(name: string): SceneObject | null {
+    for (let i = 0; i < this.sceneObject.getChildrenCount(); i++) {
+      const c = this.sceneObject.getChild(i)
+      if (c.name === name) return c
+    }
+    return null
+  }
+
   private collectLearnables(so: SceneObject): void {
     const m = /^Learnable_(\w+)$/.exec(so.name)
-    if (m && wordById(m[1])) {
+    if (m && learnableWord(m[1])) {
       this.makeInteractive(so, m[1])
       return
     }
@@ -155,7 +166,11 @@ export class WbwCafeBuilder extends BaseScriptComponent {
 
   /** Fit a box collider to the authored mesh (the wrapper sits at the mesh's centre) + Interactable. */
   private makeInteractive(so: SceneObject, id: string): void {
-    const size = this.meshSize(so)
+    // the mesh box is measured in world axes, the collider lives in the object's own axes: with the café turned
+    // (outside start, 90°) a long object (road, bench, tram stop) would otherwise get its length and depth swapped
+    const ws = this.meshSize(so)
+    const ls = so.getTransform().getWorldRotation().invert().multiplyVec3(ws)
+    const size = new vec3(Math.abs(ls.x), Math.abs(ls.y), Math.abs(ls.z))
     const pad = this.colliderPaddingCm * 2
     const boxSize = new vec3(Math.max(4, size.x + pad), Math.max(4, size.y + pad), Math.max(4, size.z + pad))
     const col = so.createComponent("Physics.ColliderComponent") as ColliderComponent

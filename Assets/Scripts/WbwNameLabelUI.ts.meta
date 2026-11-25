@@ -33,6 +33,7 @@
     drawPointerDot: false
     gapCm: false
     labelBoost: false
+    maxLabelDistanceCm: false
     pullTowardEyeCm: false
     replaceMoveCm: false
     replaceTurnDeg: false
@@ -50,6 +51,7 @@
     - viewHalfWidthDeg: !<float> 16.000000
       viewHalfHeightDeg: !<float> 19.000000
       pullTowardEyeCm: !<float> 10.000000
+      maxLabelDistanceCm: !<float> 250.000000
       gapCm: 1.500000
       replaceMoveCm: !<float> 10.000000
       replaceTurnDeg: !<float> 8.000000
@@ -67,6 +69,7 @@
     - '// @input float viewHalfWidthDeg = 16 {"hint":"Half width of the Specs view (deg): the label stays inside it", "widget":"slider", "min":10, "max":30, "step":0.5}'
     - '// @input float viewHalfHeightDeg = 19 {"hint":"Half height of the Specs view (deg)", "widget":"slider", "min":10, "max":30, "step":0.5}'
     - '// @input float pullTowardEyeCm = 10 {"hint":"The label floats this much nearer the eye than the object, so it never cuts into neighbouring pans (cm)", "widget":"slider", "min":0, "max":30, "step":1}'
+    - '// @input float maxLabelDistanceCm = 250 {"hint":"The label is never placed farther than this (cm): far things outside (a fountain behind trees) would otherwise have their label hidden by nearer objects. It is sized for its distance, so it looks the same", "widget":"slider", "min":120, "max":600, "step":10}'
     - "// @input float gapCm = 1.5 {\"hint\":\"Gap between the object's bracket and the label (cm)\", \"widget\":\"slider\", \"min\":0, \"max\":6, \"step\":0.1}"
     - '// @input float replaceMoveCm = 10 {"hint":"Re-place the (world-locked) label when the head moved this far since it was placed (cm)", "widget":"slider", "min":2, "max":40, "step":1}'
     - '// @input float replaceTurnDeg = 8 {"hint":"Re-place the label when the head turned this far since it was placed (deg)", "widget":"slider", "min":2, "max":30, "step":1}'

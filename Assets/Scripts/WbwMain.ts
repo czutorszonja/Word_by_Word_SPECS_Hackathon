@@ -163,6 +163,8 @@ export class WbwMain extends BaseScriptComponent {
     this.ensureViews()
     this.createVoiceDetector()
     this.learn.init(this.session, this.audio, this.hud, this.cafe.learnables)
+    // no mode yet (outside, before going in): the street and park words from earlier outings answer to pointing
+    if (this.session.mode === "none") this.learn.setPointMode("review")
     this.order.init(this.session, this.audio, this.learn, this.vad)
     this.practice.init(this.session, this.audio, this.cafe, this.order, () => this.selectMode("none"))
     this.session.onSavedChanged.add((s) => this.hud.setSaved(s.length))
@@ -442,7 +444,8 @@ export class WbwMain extends BaseScriptComponent {
     this.learn.setActive(m === "learn")
     // pointing labels: Learn (select opens the card) and Use it live (phrase buttons); set before the order
     // controller activates, so the live slots it pushes are styled in the new mode
-    this.learn.setPointMode(m === "learn" ? "learn" : m === "live" ? "live" : "off")
+    // none = review: only the street / park words outside answer (label; a pinch says the word)
+    this.learn.setPointMode(m === "learn" ? "learn" : m === "live" ? "live" : m === "none" ? "review" : "off")
     this.order.setActive(m === "live")
     this.practice.setActive(m === "practice")
     this.hud.setMode(MODE_LABEL[m])

@@ -8,7 +8,7 @@
 // Audio keys are the exact file base names in Assets/Audio/hu/ (see WbwAudioBank.ts);
 // illustration keys are file base names in Assets/Illustrations/ (see WbwIllustrations.ts).
 
-export type WordArea = "entrance" | "sandwich" | "pastry" | "coffee"
+export type WordArea = "entrance" | "sandwich" | "pastry" | "coffee" | "outside"
 
 export interface WordEntry {
   id: string            // stable id, also used in SceneObject names: Learnable_<id>
@@ -185,6 +185,24 @@ export const ORDER_STEPS: OrderStep[] = [
 export function wordById(id: string): WordEntry | null {
   for (const w of WORDS) if (w.id === id) return w
   return null
+}
+/** A word saved on an earlier outing (Street / Park), or null. */
+export function earlierWordById(id: string): EarlierWord | null {
+  for (const e of EARLIER_WORDS) if (e.id === id) return e
+  return null
+}
+/**
+ * Any word a `Learnable_<id>` object can name: a café word, or a word saved on an earlier outing that
+ * stands in the street and park outside the café (area "outside": no example sentence or illustration;
+ * it is already saved, so its card shows "Saved ✓" and has no Use it live link).
+ * Ordering, practice and the saved-words list keep using wordById() / EARLIER_WORDS.
+ */
+export function learnableWord(id: string): WordEntry | null {
+  const w = wordById(id)
+  if (w) return w
+  const e = earlierWordById(id)
+  if (!e) return null
+  return {id: e.id, hu: e.hu, en: e.en, exampleHu: "", exampleEn: "", exampleAudio: "", audio: e.audio, picture: "", area: "outside"}
 }
 export function phraseById(id: string): PhraseEntry | null {
   for (const p of PHRASES) if (p.id === id) return p

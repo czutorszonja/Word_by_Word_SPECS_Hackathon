@@ -39,6 +39,8 @@ export interface WordCardData {
   hu: string
   en: string
   saved: boolean
+  /** Show the "Use it live →" link (default true). Off for words from earlier outings (street, park). */
+  live?: boolean
 }
 
 @component
@@ -109,8 +111,9 @@ export class WbwWordCardUI extends BaseScriptComponent {
     const lbl = (n: number) => textWidthCm(n, "Button", d, false) + 1.4
     const playW = Math.max(6, lbl(LISTEN_LABEL.length))
     const saveW = Math.max(6, lbl(Math.max(SAVE_LABEL.length, SAVED_LABEL.length)))
+    const withLive = data.live !== false
     const liveW = Math.max(6, lbl(USE_LIVE_LABEL.length))
-    const btnRowW = playW + saveW + liveW + 2 * btnGap
+    const btnRowW = playW + saveW + (withLive ? liveW + btnGap : 0) + btnGap
     // nothing on the card wraps, so the widest row sets the width
     const inner = Math.max(headerW, statusW, btnRowW)
     const W = inner + 2 * pad
@@ -144,7 +147,7 @@ export class WbwWordCardUI extends BaseScriptComponent {
       if (!this.savedShown) this._onSave.invoke()
     }, {icon: data.saved ? ICON_CHECK : ICON_SAVE, labelColor: data.saved ? GREEN : TEXT_LIGHT, primary: !data.saved, column: true, iconSize: ICON_SIZE})
     // the way into Use it live wears that mode's tone, so the link names where it leads
-    button(row, "WordCardUseLiveButton", liveW, btnH, USE_LIVE_LABEL, d, () => this._onUseLive.invoke(), {icon: ICON_LIVE, column: true, iconSize: ICON_SIZE, tone: TONE_LIVE})
+    if (withLive) button(row, "WordCardUseLiveButton", liveW, btnH, USE_LIVE_LABEL, d, () => this._onUseLive.invoke(), {icon: ICON_LIVE, column: true, iconSize: ICON_SIZE, tone: TONE_LIVE})
     this.cardSize = new vec2(W, H)
     this.playing = ""
   }

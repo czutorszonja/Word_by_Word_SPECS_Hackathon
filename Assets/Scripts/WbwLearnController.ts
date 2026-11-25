@@ -7,6 +7,8 @@
 //       "Use it live" link (→ onUseLive); closing the card on its close button, another select,
 //       walk-away or leaving Learn. In Use it live the label's buttons are only forwarded
 //       (onUse / onAdd) and pinching an ingredient only pins its label.
+//       Review (no mode picked yet, e.g. outside before going in): only the street and park things
+//       outside (words saved on earlier outings) answer to pointing; a pinch says the word once.
 // Expects: init(session, audio, hud, learnables) from WbwMain; @input wordCard; nameLabel wired in
 //          the scene or assigned by WbwMain before init() (without it there are no hover labels).
 // Must NOT: own the saved-word list (WbwSession does), touch order or phrase state, play any sound
@@ -22,7 +24,7 @@ import {WbwAudioController} from "./WbwAudioController"
 import {WbwHudUI} from "./WbwHudUI"
 import {Learnable} from "./WbwCafeBuilder"
 import {WbwSession} from "./WbwSession"
-import {WORDS, WordEntry, wordById} from "./WbwVocab"
+import {WORDS, WordEntry, earlierWordById, learnableWord} from "./WbwVocab"
 import {box, group, tint} from "./WbwGeo"
 import {angleToDeg, camLook, camPos, flat, horizDist, placeFacingUser} from "./WbwSpatial"
 
@@ -114,10 +116,15 @@ export class WbwLearnController extends BaseScriptComponent {
   learnableIds: string[] = []
   /** Ids highlighted outside Learn mode (ingredients named by the offered phrases or the phrase helper). */
   highlightIds: string[] = []
-  /** "learn" | "live" while a hover label is up, else "". */
+  /** "learn" | "live" | "review" while a hover label is up, else "". */
   labelMode: string = ""
-  /** "off" | "learn" | "live": whether pointing shows a label, and in which mode's style (set by WbwMain). */
+  /** "off" | "learn" | "live" | "review": whether pointing shows a label, and in which mode's style (set by WbwMain).
+   *  "review" = no mode picked yet: only the earlier-outing words outside answer (label; a pinch says the word). */
   pointMode: string = "off"
+  /** Review pinches that played a word (tests). */
+  reviewPlays: number = 0
+  /** Word id of the last review pinch ("" if none). */
+  lastReviewId: string = ""
   /** Pronunciation plays for the card that is open (1 right after it opens). */
   cardPlayCount: number = 0
   /** Raw: the learnable pointed at right now ("" = none). */
@@ -157,7 +164,7 @@ export class WbwLearnController extends BaseScriptComponent {
     this.audio = audio
     this.hud = hud
     for (const l of learnables) {
-      const w = wordById(l.id)
+      const w = learnableWord(l.id)
       if (!w) continue
       this.tracked.push({l: l, word: w, bracket: this.makeBracket(l), look: "learn"})
       this.learnableIds.push(l.id)
@@ -170,6 +177,7 @@ export class WbwLearnController extends BaseScriptComponent {
     this.hover = hover
     hover.setHoldSource(() => !!this.nameLabel && this.nameLabel.hovered) // the pointer on the label keeps it up
     hover.setSuppressSource(() => (this.wordCard.isVisible ? this.activeCardWordId : "")) // the card already names it
+    hover.setLabelFilter((id) => this.pointMode !== "review" || !!earlierWordById(id)) // review: only the outside words
     hover.onLabelChanged.add((c) => {
       if (c.id) this.showLabel(c.id)
       else this.hideLabel()
@@ -185,6 +193,7 @@ export class WbwLearnController extends BaseScriptComponent {
       // Learn: selecting the label is selecting the object. Use it live: the label surface does nothing.
       this.nameLabel.onSelect.add((s) => {
         if (this.pointMode === "learn") this.selectById(s.id)
+        else if (this.pointMode === "review") this.reviewSay(s.id)
       })
       this.nameLabel.onUseWord.add((id) => this._onUse.invoke(id))
       this.nameLabel.onAddWord.add((id) => this._onAdd.invoke(id))
@@ -224,7 +233,7 @@ export class WbwLearnController extends BaseScriptComponent {
   }
 
   /** Whether pointing shows a label, and in which mode's style. Called by WbwMain on every mode change. */
-  setPointMode(m: "off" | "learn" | "live"): void {
+  setPointMode(m: "off" | "learn" | "live" | "review"): void {
     this.pointMode = m
     if (!this.hover) return
     this.hover.setLabelsEnabled(m !== "off" && !!this.nameLabel) // off hides the label at once and drops a pin
@@ -257,7 +266,20 @@ export class WbwLearnController extends BaseScriptComponent {
     } else if (this.pointMode === "live") {
       // a pinch on an ingredient only pins its label; only the label's buttons change the phrase
       if (this.hover) this.hover.pin(id, LIVE_PIN_SEC)
+    } else if (this.pointMode === "review") {
+      this.reviewSay(id)
     }
+  }
+
+  /** Review: a pinch on (or on the label of) a street / park thing outside says its word once. */
+  private reviewSay(id: string): void {
+    if (!earlierWordById(id)) return
+    const t = this.trackedById(id)
+    if (!t) return
+    this.reviewPlays++
+    this.lastReviewId = id
+    this.audio.playVoice(t.word.audio, () => {})
+    if (this.hover) this.hover.pin(id, LIVE_PIN_SEC) // the label stays while the word plays
   }
 
   private showLabel(id: string): void {
@@ -266,7 +288,8 @@ export class WbwLearnController extends BaseScriptComponent {
     if (this.nameLabel) {
       this.nameLabel.show(
         {id: id, hu: t.word.hu, en: t.word.en, so: t.l.so, size: t.l.size},
-        {mode: this.pointMode, live: this.liveStateFor(id), card: this.cardObstacle()},
+        // review labels wear the Learn style (no buttons; the pinch says the word)
+        {mode: this.pointMode === "review" ? "learn" : this.pointMode, live: this.liveStateFor(id), card: this.cardObstacle()},
       )
     }
     this.labelMode = this.pointMode
@@ -313,7 +336,9 @@ export class WbwLearnController extends BaseScriptComponent {
       this.speak(w.audio, "word")
       return
     }
-    this.wordCard.show({id: w.id, hu: w.hu, en: w.en, saved: this.session.isSaved(w.id)})
+    // a word from an earlier outing (outside) is saved already and is not part of ordering: no Use it live link
+    const earlier = !!earlierWordById(w.id)
+    this.wordCard.show({id: w.id, hu: w.hu, en: w.en, saved: earlier || this.session.isSaved(w.id), live: !earlier})
     this.activeCardWordId = w.id
     this.activeCardWord = w.hu
     this.cardPlayCount = 0
@@ -356,7 +381,7 @@ export class WbwLearnController extends BaseScriptComponent {
 
   /** "Listen again" on the card. */
   private playWord(): void {
-    const w = wordById(this.activeCardWordId)
+    const w = learnableWord(this.activeCardWordId)
     if (w) this.speak(w.audio, "word")
   }
 

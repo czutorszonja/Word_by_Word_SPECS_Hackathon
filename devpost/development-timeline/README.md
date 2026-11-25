@@ -5,7 +5,7 @@ They show how the café Lens changed from first stand-in shapes to the finished 
 
 File names: `<date>_<time>_<step>_<what it shows>.png`, so they sort in build order.
 
-**Visual timeline:** [`../timeline/index.html`](../timeline/index.html) shows the build stage by stage (18–24 Nov; the page numbers the stages 1–19 in order, the file names keep their original numbers), one card per stage with what changed and its best screenshots (63, cropped to the Specs view); open it in a browser and click a picture to enlarge it.
+**Visual timeline:** [`../timeline/index.html`](../timeline/index.html) shows the build stage by stage (18–25 Nov; the page numbers the stages 1–17 in order and shows the three outside trials, stages 18–20 here, as one card; the file names keep their original numbers), one card per stage with what changed and its best screenshots (63, cropped to the Specs view); open it in a browser and click a picture to enlarge it.
 
 | Stage | What to expect |
 |---|---|
@@ -28,5 +28,6 @@ File names: `<date>_<time>_<step>_<what it shows>.png`, so they sort in build or
 | 19 | 24 Nov: one real street outside. The learner found the six generated photos still unrelated (and the tram seemed to drive into the café). A real 360° street panorama (Poly Haven "Zawiszy Czarnego", CC0) now wraps around the café, and the windows are real openings, so every window and the door show the same street corner from their own position and the view shifts as you move; outside, the start point stands in that street instead of a black void. Replaced the same day: the street was too dark and brick-heavy for the warm café |
 | 20 | 24 Nov: a sunny square outside. Same panorama technique with Poly Haven "Piazza Bologni" (Palermo, CC0), slightly brightened: the window-bar windows look across the square to an olive tree and warm stone facades, the door faces a monument and a café terrace, and the start point outside stands beside that terrace. Replaced the same day: it still read as a photo pasted around a 3D room |
 | 21 | 24 Nov: a simple street of our own. No photo: a small 3D street in the café's style (cream and ochre houses, limestone pavement, road, parked car, a calm lawn, a soft blue sky gradient). Outside, before going in, the learner can look left (tram stop, traffic light, bicycle: Street words), right (park with bench, flower bed, fountain, trees: Park words) and behind (POSTA, GYÓGYSZERTÁR, BOLT across the road). The windows show the same street and park; DC6 passes |
+| 21 (25 Nov) | The street and park things became words: before going in, with no mode picked yet, pointing at the tram stop, traffic light, bicycle, car, the three shops, the bench, flower bed, fountain, a tree, the road, pavement, lawn or path names a word saved on an earlier outing (Street / Park) and a pinch says it; café words stay quiet until a mode is picked. In Learn their card shows "Saved ✓" and has no Use it live link. New test DC7_OutsideWords; DC2, DC3, DC6, DC7 pass |
 
 `capture-lens-studio.ps1` is the helper that saves a PNG of the Lens Studio window into this folder.

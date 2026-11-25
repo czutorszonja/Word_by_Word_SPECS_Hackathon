@@ -189,6 +189,7 @@ export class WbwHoverArbiter {
   private activeKey: HoverKey | null = null
   private holdSource: (() => boolean) | null = null
   private suppressSource: (() => string) | null = null
+  private labelFilter: ((id: string) => boolean) | null = null
   private candId = ""
   private candSince = 0
   private lostAt = -1
@@ -266,6 +267,12 @@ export class WbwHoverArbiter {
    *  update(): a label for that id is hidden at once (no grace), and it counts as a deliberate hide. */
   setSuppressSource(fn: (() => string) | null): void {
     this.suppressSource = fn
+  }
+
+  /** Which learnables may show a label at all right now (null = every one). Read every update(): a label up
+   *  for an id that no longer passes goes at once; the pointer dot follows the same rule. */
+  setLabelFilter(fn: ((id: string) => boolean) | null): void {
+    this.labelFilter = fn
   }
 
   /** Live pinch: keep this id's label up for `seconds` while nothing else is pointed at. */
@@ -351,9 +358,10 @@ export class WbwHoverArbiter {
     this.suppressedId = suppressed
     // The open card already names this word: its label goes at once (no grace) — a deliberate hide.
     if (suppressed !== "" && this.labelForId === suppressed) this.setLabel("", true)
+    if (this.labelForId !== "" && !this.passes(this.labelForId)) this.setLabel("", true)
     let want = this.hoveredId
     if (want === "" && this.pinnedId !== "" && now < this.pinnedUntil) want = this.pinnedId // live pinch pin
-    if (!this.labelsEnabled || (want !== "" && want === suppressed)) want = ""
+    if (!this.labelsEnabled || (want !== "" && want === suppressed) || (want !== "" && !this.passes(want))) want = ""
     if (want !== "" && want !== this.labelForId) {
       if (this.candId !== want) {
         this.candId = want
@@ -389,6 +397,15 @@ export class WbwHoverArbiter {
       return !!this.holdSource()
     } catch (err) {
       return false
+    }
+  }
+
+  private passes(id: string): boolean {
+    if (!this.labelFilter) return true
+    try {
+      return !!this.labelFilter(id)
+    } catch (err) {
+      return true
     }
   }
 
@@ -435,7 +452,7 @@ export class WbwHoverArbiter {
   //    WbwNameLabelUI. Silent, like everything on the pointing path. ──
   private updatePointerDot(): void {
     const on = this.editor && this.options.previewPointerDot && this.labelsEnabled && this.hoveredId !== ""
-      && (this.activeInput & HAND_INPUT) === 0
+      && this.passes(this.hoveredId) && (this.activeInput & HAND_INPUT) === 0
     const pos = on ? this.hitPoint(this.activeKey, this.hoveredId) : null
     this.pointerDotVisible = pos !== null
     this.pointerDotPos = pos

@@ -46,6 +46,16 @@ part(ground, "Lawn_Park", [472, -1, (620 + Z1) / 2], [2056, 2, Z1 - 620], "Wbw_L
 part(ground, "Lawn_Back", [1026, -1, 60], [946, 2, 1120], "Wbw_Lawn");
 part(ground, "Path", [-178, 0.4, 1240], [756, 1, 120], "Wbw_StoneTop");
 
+// Learnables (WbwCafeBuilder finds `Learnable_<id>` under Outside; its collider is centred on the wrapper and
+// sized from the meshes inside it). A child named "HitBox" sizes the collider and is hidden at runtime.
+function learnable(parent: any, id: string, c: number[]) { const o = scene.addSceneObject(parent); o.name = "Learnable_" + id; setT(o, c, [0, 0, 0], [1, 1, 1]); return o; }
+function hitBox(parent: any, s: number[]) { return part(parent, "HitBox", [0, 0, 0], s, "Wbw_Paper"); }
+// pointable ground patches near the start: the road, the pavement, the lawn and the path
+hitBox(learnable(ground, "utca", [-1352, 1, 0]), [700, 2, 1800]);
+hitBox(learnable(ground, "jarda", [-778, 1, 1000]), [444, 2, 760]);
+hitBox(learnable(ground, "fu", [300, 1, 1600]), [700, 2, 500]);
+hitBox(learnable(ground, "osveny", [-178, 1.5, 1240]), [756, 3, 120]);
+
 // ── buildings: across the road (posta, gyógyszertár, bolt), next door on the left, at the back ──
 const bld = group("Buildings");
 // a continuous row across the road, alternating ochre / cream, slightly different heights
@@ -63,9 +73,12 @@ for (let k = 0; k < 5; k++) {
 for (let z = -2600, k = 0; z <= 3400; z += 600, k++) part(bld, "Back_" + z, [1650, 500, z], [300, 1000, 600], k % 2 ? "Wbw_FacadeOchre" : "Wbw_FacadeCream");
 // shop signs over the ground-floor windows across the road (they face the café, +x)
 const signs = group("ShopSigns");
-part(signs, "Sign_Posta", [-1999, 255, -600], [3, 55, 220], "Wbw_SignPosta", 180);
-part(signs, "Sign_Gyogyszertar", [-1999, 255, 0], [3, 55, 260], "Wbw_SignGyogyszertar", 180);
-part(signs, "Sign_Bolt", [-1999, 255, 600], [3, 55, 220], "Wbw_SignBolt", 180);
+// each shop front is a learnable: the sign plus an invisible hit box over the ground floor
+for (const [id, z, w, m] of [["posta", -600, 220, "Wbw_SignPosta"], ["gyogyszertar", 0, 260, "Wbw_SignGyogyszertar"], ["bolt", 600, 220, "Wbw_SignBolt"]] as any[]) {
+  const L = learnable(signs, id, [-2000, 150, z]);
+  part(L, "Sign", [1, 105, 0], [3, 55, w], m, 180);
+  hitBox(L, [6, 300, 320]);
+}
 
 // ── things to recognise: street on the left, park on the right ──
 const props = group("Props");
@@ -73,30 +86,39 @@ const P = "GeneratedMeshes/Outside/";
 const items = [
   // name, glb, café-local position, rotY, longest side (cm)
   // (the generated meshes are centred on their origin; each one is lifted by its own mesh box below)
-  ["Megallo_TramStop", "TramStop", [-930, 0, -620], 90, 280], // long side along the kerb
-  ["Lampa_TrafficLight", "TrafficLight", [-965, 0, -990], 0, 300],
-  ["Bicikli_Bicycle", "CityBicycle", [-605, 0, -470], 90, 175],
-  ["Auto_Car", "CompactCar", [-1115, 0, 380], 180, 350], // mesh is long along z = along the road
-  ["Pad_Bench", "ParkBench", [-420, 0, 930], 0, 180], // mesh is long along z = parallel to the street
-  ["Virag_FlowerBed", "FlowerBed", [-400, 0, 700], 0, 200],
-  ["Szokokut_Fountain", "SmallFountain", [-120, 0, 1520], 0, 220],
-  ["Fa_Tree1", "ParkTree", [-330, 0, 1080], 0, 600],
-  ["Fa_Tree2", "ParkTree", [300, 0, 1680], 120, 650],
-  ["Fa_Tree3", "ParkTree", [-480, 0, 1780], 240, 560],
-  ["Fa_Tree4", "ParkTree", [1150, 0, -60], 60, 620], // far enough back that it doesn't fill the window-bar panes
-  ["Fa_Tree5", "ParkTree", [1120, 0, 470], 200, 580],
-  ["Fa_Tree6", "ParkTree", [200, 0, 2500], 300, 620],
-  ["Fa_Tree7", "ParkTree", [-420, 0, 2900], 30, 580],
-  ["Fa_Tree8", "ParkTree", [900, 0, 2200], 150, 640],
+  // name, glb, café-local position, rotY, longest side (cm), learnable word id ("" = scenery only; ids are unique)
+  ["Megallo_TramStop", "TramStop", [-930, 0, -620], 90, 280, "megallo"], // long side along the kerb
+  ["Lampa_TrafficLight", "TrafficLight", [-965, 0, -990], 0, 300, "lampa"],
+  ["Bicikli_Bicycle", "CityBicycle", [-605, 0, -470], 90, 175, "bicikli"],
+  ["Auto_Car", "CompactCar", [-1115, 0, 380], 180, 350, "auto"], // mesh is long along z = along the road
+  ["Pad_Bench", "ParkBench", [-420, 0, 930], 0, 180, "pad"], // mesh is long along z = parallel to the street
+  ["Virag_FlowerBed", "FlowerBed", [-400, 0, 700], 0, 200, "virag"],
+  ["Szokokut_Fountain", "SmallFountain", [-120, 0, 1520], 0, 220, "szokokut"],
+  ["Fa_Tree1", "ParkTree", [-330, 0, 1080], 0, 600, "fa"],
+  ["Fa_Tree2", "ParkTree", [300, 0, 1680], 120, 650, ""],
+  ["Fa_Tree3", "ParkTree", [-480, 0, 1780], 240, 560, ""],
+  ["Fa_Tree4", "ParkTree", [1150, 0, -60], 60, 620, ""], // far enough back that it doesn't fill the window-bar panes
+  ["Fa_Tree5", "ParkTree", [1120, 0, 470], 200, 580, ""],
+  ["Fa_Tree6", "ParkTree", [200, 0, 2500], 300, 620, ""],
+  ["Fa_Tree7", "ParkTree", [-420, 0, 2900], 30, 580, ""],
+  ["Fa_Tree8", "ParkTree", [900, 0, 2200], 150, 640, ""],
 ] as any[];
-for (const [name, glb, p, ry, size] of items) {
+for (const [name, glb, p, ry, size, id] of items) {
   const pf = prefab(P + glb + ".glb");
   if (!pf) { log.push("missing " + glb); continue; }
   const o = scene.instantiatePrefab(pf, props); o.name = name;
   let minY = 0;
   const lowest = (x: any) => { for (const c of x.components) if (c.getTypeName() === "RenderMeshVisual" && c.mesh) minY = Math.min(minY, c.mesh.info.aabbMin.y); for (const k of x.children) lowest(k); };
   lowest(o);
-  setT(o, [p[0], p[1] - minY * size, p[2]], [0, ry, 0], [size, size, size]);
+  const centre = [p[0], p[1] - minY * size, p[2]];
+  if (id) {
+    // the wrapper sits at the mesh's centre (the model's origin), the model inside it carries turn and size
+    const L = learnable(props, id, centre);
+    o.setParent(L);
+    setT(o, [0, 0, 0], [0, ry, 0], [size, size, size]);
+  } else {
+    setT(o, centre, [0, ry, 0], [size, size, size]);
+  }
 }
 
 // ── render order: everything outside (and the entrance pavement/planters) before the window openings ──

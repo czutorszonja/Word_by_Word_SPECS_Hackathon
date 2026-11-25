@@ -137,7 +137,7 @@ const LABEL_IN_PHRASE = "In your phrase"
 /** Space between the object's silhouette and its bracket (cm). */
 const BRACKET_MARGIN_CM = 1.2
 /** Live buttons: about 2.5° tall (Small Wins used 3.8 cm at 70 cm = 3.1°; the label is a compact strip). */
-const LIVE_BUTTON_DEG = 2.5
+const LIVE_BUTTON_DEG = 3.0 // 2026-11-25: taller with the larger label text (was 2.5)
 const LIVE_BUTTON_GAP_DEG = 0.8
 /** z offsets inside the label (cm, toward the user): words in front of the face, child buttons nearer still. */
 const WORDS_Z = 0.6
@@ -200,7 +200,7 @@ export class WbwNameLabelUI extends BaseScriptComponent {
   @input
   @hint("Text size factor for the label's real distance. Word cards use READ_BOOST 2.0; a smaller value keeps the label small (about a 2.2 cm Hungarian line at ~110 cm)")
   @widget(new SliderWidget(0.8, 2.0, 0.05))
-  labelBoost: number = 1.25
+  labelBoost: number = 1.5 // 2026-11-25 readability pass: was 1.25
 
   @input
   @hint("Draw the discreet focus bracket around the pointed-at object")
@@ -410,7 +410,7 @@ export class WbwNameLabelUI extends BaseScriptComponent {
     else parts.btn.onInitialized.add(() => this.afterSurfaceInit())
     // words: plain Text children of the button (no flex), sized and placed in layout()
     this.huText = text(parts.so, "NameLabelHu", "", "Headline1", d0, {w: 6, h: 2, align: "left", onPanel: false, boost: this.labelBoost, z: WORDS_Z})
-    this.enText = text(parts.so, "NameLabelEn", "", "Caption", d0, {w: 6, h: 1.4, align: "left", color: TEXT_SOFT, onPanel: false, boost: this.labelBoost, z: WORDS_Z})
+    this.enText = text(parts.so, "NameLabelEn", "", "Body", d0, {w: 6, h: 1.4, align: "left", color: TEXT_SOFT, onPanel: false, boost: this.labelBoost, z: WORDS_Z})
     this.huText.horizontalOverflow = HorizontalOverflow.Shrink
     this.enText.horizontalOverflow = HorizontalOverflow.Shrink
     // live status: check icon + "In your phrase" (success = green + check, never colour alone)
@@ -549,7 +549,7 @@ export class WbwNameLabelUI extends BaseScriptComponent {
 
   /** button() sizes its label text with READ_BOOST; this distance gives the label's own boost instead. */
   private buttonDist(dL: number): number {
-    return (dL * this.labelBoost) / READ_BOOST
+    return (dL * this.labelBoost * 1.35) / READ_BOOST // 2026-11-25: button labels 35 % larger than the label text scale
   }
 
   /** PointingUI sits at the world origin with identity rotation and unit scale, so local = world below it. */
@@ -654,9 +654,9 @@ export class WbwNameLabelUI extends BaseScriptComponent {
     const k = (dL / 110) * B
     const padX = 0.85 * k, padY = 0.5 * k
     const huH = lineHeightCm("Headline1", dL, false, B)
-    const enH = lineHeightCm("Caption", dL, false, B)
+    const enH = lineHeightCm("Body", dL, false, B)
     const huW = textWidthCm(t.hu.length, "Headline1", dL, false, B)
-    const enW = textWidthCm(t.en.length, "Caption", dL, false, B)
+    const enW = textWidthCm(t.en.length, "Body", dL, false, B)
     const row = this.liveRowSpec(dL, k)
     const rowGap = row.kind === "none" ? 0 : 0.6 * k
     const innerW = Math.max(huW, enW, row.w, 4 * k) + 0.3 * k
@@ -681,7 +681,7 @@ export class WbwNameLabelUI extends BaseScriptComponent {
     hu.getSceneObject().getTransform().setLocalPosition(new vec3(0, y - huH / 2, WORDS_Z))
     y -= huH
     en.text = t.en
-    applyTextRole(en, "Caption", dL, B)
+    applyTextRole(en, "Body", dL, B)
     en.layoutRect = Rect.create(-innerW / 2, innerW / 2, -enH / 2, enH / 2)
     setTextColor(en, TEXT_SOFT)
     en.getSceneObject().getTransform().setLocalPosition(new vec3(0, y - enH / 2, WORDS_Z))

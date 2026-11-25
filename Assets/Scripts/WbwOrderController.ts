@@ -31,6 +31,9 @@ import {camLook, camLookFlat, camPos, camTransform, flat, placeFacingUser} from 
 // Gap between the answer surface and the say-it strip below it (cm)
 const PROMPT_GAP_CM = 1
 
+/** Coach hint while the learner picks a table (the caption only translates the server's question). */
+const TABLE_HINT = "Turn around and tap an empty table's number"
+
 @component
 export class WbwOrderController extends BaseScriptComponent {
   @ui.label('<span style="color: #60A5FA;">WbwOrderController – Use it live (scripted order + tables)</span>')
@@ -338,7 +341,10 @@ export class WbwOrderController extends BaseScriptComponent {
         this.offerTablePhrase()
       } else {
         this.waitingFor = "table"
-        this.showCaption(lineById(def.line)!.hu, "What's your table number? (Turn around: tap an empty table's number.)")
+        // the caption only translates; the instruction is the coach hint, which follows the learner as they
+        // turn (2026-11-25: the one-line version was wider than the view)
+        this.showCaption(lineById(def.line)!.hu, lineById(def.line)!.en)
+        this.hint.showHint(TABLE_HINT, -1, 11) // high in the view: the caption sits low over the server
         this.captionHideAt = -1
         this.arrowTarget = this.seatingCenter()
       }
@@ -432,7 +438,7 @@ export class WbwOrderController extends BaseScriptComponent {
     this.phrases.hide()
     const t = this.chosenTable || 8
     this.arrowTarget = this.tablePos(t)
-    this.hint.showHint(`Walk to table ${t}. While you wait, open ✋ Menu and choose Practice.`, 12)
+    this.hint.showHint(`Walk to table ${t}. Then try Practice in ✋ Menu.`, 12)
   }
 
   // ── speak turns: one per answer. Showing, choosing, listening and editing never answer ──
@@ -613,6 +619,7 @@ export class WbwOrderController extends BaseScriptComponent {
     }
     if (tableStep) {
       this.chosenTable = n
+      if (this.hint.hintText === TABLE_HINT) this.hint.hideHint()
       if (this.waitingFor === "table" || this.waitingFor === "user") {
         const ev = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
         ev.bind(() => {

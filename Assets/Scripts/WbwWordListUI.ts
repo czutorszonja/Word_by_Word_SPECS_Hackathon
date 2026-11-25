@@ -1,7 +1,8 @@
 // WbwWordListUI.ts — the saved-words viewer (passive view), opened from the menu's "Words saved".
 // Owns: one panel in the Learn tone: a header with close, three sort buttons (Category · Date added ·
 //       A–Z), an index row (category buttons, or the letters that have words, to jump straight there),
-//       six word tiles per page (picture, Hungarian word, meaning, where/when it was saved) and a pager.
+//       six word tiles per page (picture, Hungarian word in bold, meaning; when it was saved only while sorted
+//       by date — 2026-11-25 readability pass: two lines per tile, not three) and a pager.
 //       Tapping a tile asks to hear the word (onPlay). Rebuilt in place when the sort or page changes.
 // Must NOT: play audio itself, own the saved words (WbwMain passes them in), or place itself.
 // Stable names: WordList, WordsCloseButton, WordsSortCategory, WordsSortDate, WordsSortAlpha,
@@ -212,7 +213,7 @@ export class WbwWordListUI extends BaseScriptComponent {
     this.track(next.btn)
   }
 
-  /** One word: picture, Hungarian (large), meaning, and where/when it was saved. Tapping plays it. */
+  /** One word: picture, Hungarian (bold), meaning, and — sorted by date only — when it was saved. Tapping plays it. */
   private tile(row: SceneObject, e: WordListEntry, w: number): void {
     const d = this.viewDistanceCm
     const b = button(row, `WordTile_${e.id}`, w, TILE_H, "", d, () => this._onPlay.invoke(e))
@@ -221,14 +222,16 @@ export class WbwWordListUI extends BaseScriptComponent {
     if (e.picture) image(face, "Picture", e.picture, PIC)
     const tw = w - PIC - LISTEN - 2.6
     const col = flexBox(face, "Words", "column", tw, TILE_H - 0.8, {gap: 0, justify: FlexJustify.Center, align: FlexAlign.Start})
-    const huH = lineHeightCm("Body", d, false), capH = lineHeightCm("Caption", d, false)
-    const hu = text(col, "Hu", e.hu, "Body", d, {w: tw, h: huH, align: "left", onPanel: false})
+    const huH = lineHeightCm("Subheadline", d, false), enH = lineHeightCm("Body", d, false), capH = lineHeightCm("Caption", d, false)
+    const hu = text(col, "Hu", e.hu, "Subheadline", d, {w: tw, h: huH, align: "left", onPanel: false})
     hu.horizontalOverflow = HorizontalOverflow.Shrink
-    const en = text(col, "En", e.en, "Caption", d, {w: tw, h: capH, align: "left", color: TEXT_SOFT, onPanel: false})
+    const en = text(col, "En", e.en, "Body", d, {w: tw, h: enH, align: "left", color: TEXT_SOFT, onPanel: false})
     en.horizontalOverflow = HorizontalOverflow.Shrink
-    const tag = text(col, "Tag", `${e.category} · ${whenText(e.daysAgo)}`, "Caption", d, {w: tw, h: capH * 0.85, align: "left", color: TEXT_SOFT, onPanel: false})
-    tag.size = tag.size * 0.8
-    tag.horizontalOverflow = HorizontalOverflow.Shrink
+    if (this.sort === "date") {
+      const tag = text(col, "Tag", whenText(e.daysAgo), "Caption", d, {w: tw, h: capH * 0.85, align: "left", color: TEXT_SOFT, onPanel: false})
+      tag.size = tag.size * 0.85
+      tag.horizontalOverflow = HorizontalOverflow.Shrink
+    }
     image(face, "Listen", ICON_LISTEN, LISTEN, LISTEN, TEXT_SOFT)
   }
 

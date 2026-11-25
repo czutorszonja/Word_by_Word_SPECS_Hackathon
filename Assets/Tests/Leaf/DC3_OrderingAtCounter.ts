@@ -59,8 +59,7 @@ export async function orderUpToTable(t: WbwTester): Promise<void> {
   expect(t.phrases.isVisible, "no phrase cards in prep").toBe(false)
   const helper0 = findEnabled("PhraseHelper")
   expect(helper0 !== undefined, "PhraseHelper visible").toBe(true)
-  expect(textOf("PhraseHelperTitle", helper0), "helper heading").toBe("SAY IT AT THE COUNTER")
-  expect(textOf("ChipLabel", helper0), "helper mode chip").toBe("Use it live")
+  expect(textOf("ChipLabel", findEnabled("HudModeChip")), "the HUD chip names the mode (the phrase panel has none)").toBe("Use it live")
   expect(o.phraseHu, "empty phrase (nothing carried)").toBe("Kérek … a szendvicsembe.")
   expect(o.phraseEn, "empty phrase EN").toBe("I'd like … in my sandwich.")
   expect(o.phraseAudioKey, "nothing to play").toBe("")
@@ -181,7 +180,7 @@ export class DC3_OrderingAtCounter extends Scenario {
       expect(t.order.active, "order controller active").toBe(true)
       await orderUpToTable(t)
       expect(t.caption.currentHu, "table question caption stays up").toBe("Hányas asztalnál ül?")
-      expect((t.caption.currentEn).indexOf("Turn around") >= 0, "caption tells the user to turn around").toBe(true)
+      expect(t.hint.hintText.indexOf("Turn around") >= 0, "the coach hint tells the user to turn around").toBe(true)
       expect(t.hint.arrowVisible, "edge arrow points to the seating behind the user").toBe(true)
       log("DC3 done")
     } finally {

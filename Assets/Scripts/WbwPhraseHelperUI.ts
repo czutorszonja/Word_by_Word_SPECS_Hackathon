@@ -1,5 +1,6 @@
-// WbwPhraseHelperUI.ts — "SAY IT AT THE COUNTER": the reusable phrase of Use it live (passive view).
-// Owns: ONE compact panel in the Use it live tone with the mode chip, a small title, the Hungarian phrase
+// WbwPhraseHelperUI.ts — the reusable phrase of Use it live (passive view).
+// Owns: ONE compact panel in the Use it live tone (2026-11-25 readability pass: no mode chip or title —
+//       the HUD's chip names the mode — so the phrase is the first thing to read): the Hungarian phrase
 //       on two fixed lines (line 1 "Kérek" + the ingredient slot, line 2 the tail "a szendvicsembe." or
 //       "nélkül, kérem."), the English line, a hint while the phrase is empty, Listen, the pattern pair
 //       ("Kérek …" / "… nélkül") and, in the prep state only, "Ready to order".
@@ -9,19 +10,18 @@
 //       so the PhraseHelper object stays the same across edits.
 // Must NOT: play audio, judge whether a phrase can be heard (the controller passes canListen), place
 //           itself (WbwOrderController moves the host), or know the order step.
-// Stable names: PhraseHelper, Head, ModeChip, PhraseHelperTitle, PhraseHelperHu, PhraseHelperHead,
+// Stable names: PhraseHelper, PhraseHelperHu, PhraseHelperHead,
 //               PhraseHelperSlot, PhraseHelperTail, PhraseHelperEn, PhraseHelperHint,
 //               PhraseHelperListenButton, PatternWantButton, PatternWithoutButton, ReadyToOrderButton.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 import {PhraseBuild, PhrasePattern} from "./WbwPhraseHelperModel"
-import {button, ButtonParts, flexBox, item, lineHeightCm, modeChip, modeChipH, obj, panel, register, retire, setTextColor, setToggleLater, text, textWidthCm, useTone, TEXT_LIGHT, TEXT_SOFT, TONE_LIVE} from "./WbwSharedUI"
+import {button, ButtonParts, flexBox, item, lineHeightCm, obj, panel, register, retire, setTextColor, setToggleLater, text, textWidthCm, useTone, TEXT_LIGHT, TEXT_SOFT, TONE_LIVE} from "./WbwSharedUI"
 
 const ICON_PLAY = requireAsset("../Icons/volume_up.png") as Texture
 const ICON_GO = requireAsset("../Icons/arrow_forward.png") as Texture
 
-const TITLE = "SAY IT AT THE COUNTER"
-const HINT = "Point at an ingredient, then choose Use this word"
+const HINT = "Point at an ingredient, then Use this word"
 const LISTEN = "Listen"
 const WANT = "Kérek …"
 const WITHOUT = "… nélkül"
@@ -34,7 +34,7 @@ const BTN_H = 3.8, READY_H = 4.4
 
 @component
 export class WbwPhraseHelperUI extends BaseScriptComponent {
-  @ui.label("WbwPhraseHelperUI – SAY IT AT THE COUNTER (reusable phrase)")
+  @ui.label("WbwPhraseHelperUI – the reusable phrase of Use it live")
   @ui.separator
   @ui.group_start("Settings")
   @input
@@ -153,21 +153,20 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
   }
 
   /** Fixed size per variant: sized for the frame, never for the current phrase. */
-  private measure(withReady: boolean): {W: number; H: number; innerW: number; headW: number; chipRowH: number;
+  private measure(withReady: boolean): {W: number; H: number; innerW: number; headW: number;
                                          line1H: number; line2H: number; enH: number; hintH: number; btnW: number; patW: number} {
     const d = this.viewDistanceCm
     const W = this.maxWidthCm, innerW = W - 2 * PAD_X
-    const chipRowH = modeChipH(d)
-    const line1H = lineHeightCm("Subheadline", d)
-    const line2H = lineHeightCm("Subheadline", d)
-    const enH = lineHeightCm("Caption", d)
-    const hintH = lineHeightCm("Caption", d)
-    const headW = textWidthCm(HEAD_WANT.length, "Subheadline", d) + 0.2
+    const line1H = lineHeightCm("Headline2", d)
+    const line2H = lineHeightCm("Headline2", d)
+    const enH = lineHeightCm("Body", d)
+    const hintH = lineHeightCm("Body", d)
+    const headW = textWidthCm(HEAD_WANT.length, "Headline2", d) + 0.2
     const btnW = Math.max(9, textWidthCm(LISTEN.length, "Button", d, false) + 4.2)
     const patW = Math.max(8.5, textWidthCm(WANT.length, "Button", d, false) + 1.6)
-    let H = 2 * PAD_Y + chipRowH + GAP + line1H + line2H + GAP + enH + GAP + hintH + GAP + BTN_H
+    let H = 2 * PAD_Y + line1H + line2H + GAP + enH + GAP + hintH + GAP + BTN_H
     if (withReady) H += BTN_GAP + READY_H
-    return {W, H, innerW, headW, chipRowH, line1H, line2H, enH, hintH, btnW, patW}
+    return {W, H, innerW, headW, line1H, line2H, enH, hintH, btnW, patW}
   }
 
   private build(withReady: boolean): void {
@@ -179,31 +178,25 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
     this.builtReady = withReady
     this.showCount++
 
-    // head: the mode is always named, then the small title
-    const head = flexBox(p.content, "Head", "row", m.innerW, m.chipRowH, {gap: 0.8, justify: FlexJustify.Start, align: FlexAlign.Center})
-    modeChip(head, d)
-    const chipW = textWidthCm(TONE_LIVE.label.length, "Caption", d, false) + 1.4
-    text(head, "PhraseHelperTitle", TITLE, "Caption", d, {w: Math.max(4, m.innerW - chipW - 0.8), h: m.chipRowH, align: "left", color: TEXT_SOFT})
-
     // the phrase: line 1 "Kérek" + slot (placed by hand so the slot can start at the left edge),
     // line 2 the tail on its own, so neither "Kérek" nor the tail ever moves
     const hu = obj(p.content, "PhraseHelperHu", new vec3(0, 0, 0.02))
     register(p.content, item(hu, m.innerW, m.line1H + m.line2H))
     const line1 = obj(hu, "Line1", new vec3(0, m.line2H / 2, 0))
-    const headT = text(line1, "PhraseHelperHead", HEAD_WANT, "Subheadline", d, {w: m.headW, h: m.line1H, align: "left", color: TEXT_LIGHT})
+    const headT = text(line1, "PhraseHelperHead", HEAD_WANT, "Headline2", d, {w: m.headW, h: m.line1H, align: "left", color: TEXT_LIGHT})
     headT.getSceneObject().getTransform().setLocalPosition(new vec3(-m.innerW / 2 + m.headW / 2, 0, 0.05))
-    const slotT = text(line1, "PhraseHelperSlot", "…", "Subheadline", d, {w: m.innerW, h: m.line1H, align: "left", color: TONE_LIVE.tint})
+    const slotT = text(line1, "PhraseHelperSlot", "…", "Headline2", d, {w: m.innerW, h: m.line1H, align: "left", color: TONE_LIVE.tint})
     slotT.horizontalOverflow = HorizontalOverflow.Shrink
-    const tailT = text(hu, "PhraseHelperTail", "", "Subheadline", d, {w: m.innerW, h: m.line2H, align: "left", color: TEXT_LIGHT})
+    const tailT = text(hu, "PhraseHelperTail", "", "Headline2", d, {w: m.innerW, h: m.line2H, align: "left", color: TEXT_LIGHT})
     tailT.getSceneObject().getTransform().setLocalPosition(new vec3(0, -m.line1H / 2, 0.05))
     this.headT = headT
     this.slotT = slotT
     this.tailT = tailT
 
-    const enT = text(p.content, "PhraseHelperEn", "", "Caption", d, {w: m.innerW, h: m.enH, align: "left", color: TEXT_SOFT})
+    const enT = text(p.content, "PhraseHelperEn", "", "Body", d, {w: m.innerW, h: m.enH, align: "left", color: TEXT_SOFT})
     enT.horizontalOverflow = HorizontalOverflow.Shrink
     this.enT = enT
-    const hintT = text(p.content, "PhraseHelperHint", HINT, "Caption", d, {w: m.innerW, h: m.hintH, align: "left", color: TEXT_SOFT})
+    const hintT = text(p.content, "PhraseHelperHint", HINT, "Body", d, {w: m.innerW, h: m.hintH, align: "left", color: TEXT_SOFT})
     hintT.horizontalOverflow = HorizontalOverflow.Shrink
     this.hintSo = hintT.getSceneObject()
 

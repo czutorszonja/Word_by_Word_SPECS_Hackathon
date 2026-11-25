@@ -1,7 +1,8 @@
 // WbwHudUI.ts — the "✋ Menu (demo)" button low at the side of the view (passive view).
 // Owns: lazy view-follow placement (low-left of view) and the one Menu button, which stands in for
-//       the raise-hand gesture (not testable in Preview). Emits onMenu. The current mode and the
-//       saved words live in the menu it opens, not on the HUD.
+//       the raise-hand gesture (not testable in Preview). Emits onMenu. Once a mode is picked, a small
+//       chip above the button names it (HudModeChip) — the one place the mode is named; the cards
+//       and panels only wear its colour. The saved words live in the menu it opens.
 // Must NOT: own saved words or mode (WbwSession does — pushed in via setters).
 // Stable names: Hud, MenuButton. SavedBadge and ModeLabel exist with their Text hidden, so tests
 //               can still read the saved count and the mode.
@@ -96,16 +97,17 @@ export class WbwHudUI extends BaseScriptComponent {
     // One small button, low at the side of the view: the stand-in for raising the hand. "(demo)" says
     // so. The current mode and the saved words live in the menu it opens, not here.
     const w = Math.max(this.chipWidthCm, textWidthCm(MENU_LABEL.length, "Button", d, false) + 4), h = Math.max(3.8, this.chipHeightCm)
-    // Use it live (compact): the mode is named in a small chip above the button, so colour is never
-    // the only cue while the full panels are away. The button itself stays plain.
+    // Once a mode is picked it is named in a small chip above the button (2026-11-25: the ONE place the
+    // mode is named, so the word card and the phrase panel no longer repeat it). The button stays plain.
     const chipGap = 0.4
-    const chipH = this.compact ? modeChipH(d) : 0
-    const W = w + 0.6, H = h + 0.6 + (this.compact ? chipH + chipGap : 0)
+    const withChip = this.compact || this.hasMode
+    const chipH = withChip ? modeChipH(d) : 0
+    const W = w + 0.6, H = h + 0.6 + (withChip ? chipH + chipGap : 0)
     const p = panel(this.sceneObject, "Hud", W, H, {padY: 0.3, gap: chipGap, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
     this.root = p.root
     this.compactW = W
     this.compactH = H
-    if (this.compact) modeChip(p.content, d, "HudModeChip")
+    if (withChip) modeChip(p.content, d, "HudModeChip")
     button(p.content, "MenuButton", w, h, MENU_LABEL, d, () => this._onMenu.invoke(), {icon: ICON_HAND})
     // saved count + mode stay as (hidden) text objects so their state is still readable by tests
     this.savedText = text(p.root, "SavedBadge", "", "Subheadline", d)
@@ -136,11 +138,14 @@ export class WbwHudUI extends BaseScriptComponent {
   }
 
   setMode(label: string): void {
-    const toneChanged = toneOf(label) !== toneOf(this.modeLabel)
+    const rebuild = label !== this.modeLabel // the HUD wears the colour of the current mode and names it
     this.modeLabel = label
-    if (toneChanged && this.root) this.show() // the HUD wears the colour of the current mode
+    if (rebuild && this.root) this.show()
     else this.render()
   }
+
+  /** A mode is picked (the chip above the Menu button names it). */
+  private get hasMode(): boolean { return this.modeLabel !== "" && this.modeLabel !== "—" }
 
   /** World position of the saved badge (target for the word card's fly-to animation). */
   getBadgeWorldPos(): vec3 {

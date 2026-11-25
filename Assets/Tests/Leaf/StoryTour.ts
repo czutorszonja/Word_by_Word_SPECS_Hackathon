@@ -425,10 +425,9 @@ export class StoryTour extends Scenario {
       const cardRoot = findEnabled("WordCard")!
       expect(textOf("WordCardHu", cardRoot), "card Hungarian").toBe("uborka")
       expect(textOf("WordCardEn", cardRoot), "card English").toBe("cucumber")
-      soft(textOf("WordCardStatus", cardRoot) === "Playing pronunciation", `status while playing (got '${textOf("WordCardStatus", cardRoot)}')`)
-      await waitFor(() => textOf("WordCardStatus", findEnabled("WordCard")) === "Ready to listen again" && card.playing === "",
-        "status 'Ready to listen again' after the clip", 6000)
-      expect(textOf("Label", findEnabled("WordCardPlayButton")), "Listen again label").toBe("Listen again")
+      soft(textOf("Label", findEnabled("WordCardPlayButton")) === "Playing…", `the Listen button shows playback (got '${textOf("Label", findEnabled("WordCardPlayButton"))}')`)
+      await waitFor(() => textOf("Label", findEnabled("WordCardPlayButton")) === "Listen" && card.playing === "",
+        "the Listen button is back after the clip", 6000)
       await pause(1.5)
 
       tour.beat("L6", "Listen again")
@@ -508,8 +507,7 @@ export class StoryTour extends Scenario {
       expect(S.orderStepName(), "prep step name").toBe("prep")
       expect(t.caption.isVisible, "the server stays quiet in prep (no caption)").toBe(false)
       expect(a.voicePlayCount, "nothing plays when Use it live opens").toBe(voiceBeforeLive)
-      expect(textOf("PhraseHelperTitle", helper), "helper heading").toBe("SAY IT AT THE COUNTER")
-      expect(textOf("ChipLabel", helper), "helper mode chip").toBe("Use it live")
+      expect(textOf("ChipLabel", findEnabled("HudModeChip")), "the HUD chip names the mode (the phrase panel has none)").toBe("Use it live")
       expect(S.phraseSlotIds(), "carried word").toBe("uborka_friss")
       expect(S.phrasePattern(), "pattern").toBe("want")
       expect(S.phraseHu(), "phrase HU").toBe("Kérek uborkát a szendvicsembe.")
@@ -646,7 +644,7 @@ export class StoryTour extends Scenario {
       await waitFor(() => o.orderStep === 5 && o.waitingFor === "table", "the order waits for a table", 15000)
       soft(a.lastSfxKey === "AttentionChime", `attention chime (got '${a.lastSfxKey}')`)
       expect(t.hint.arrowVisible, "edge arrow toward the seating").toBe(true)
-      expect(t.caption.currentEn.indexOf("Turn around") >= 0, "caption says turn around").toBe(true)
+      expect(t.hint.hintText.indexOf("Turn around") >= 0, "the coach hint says turn around").toBe(true)
       await pause(1.4)
 
       tour.beat("U12", "turn around to the seating (the door I came in through is ahead)")

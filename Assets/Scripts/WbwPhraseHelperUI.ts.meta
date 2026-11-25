@@ -45,7 +45,7 @@
     -
       {}
   InputLines:
-    - '// @ui {"widget":"label", "label":"WbwPhraseHelperUI – SAY IT AT THE COUNTER (reusable phrase)"}'
+    - '// @ui {"widget":"label", "label":"WbwPhraseHelperUI – the reusable phrase of Use it live"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input float viewDistanceCm = 160 {"hint":"Distance the text is sized for (cm). The panel lies on the counter like the phrase cards", "widget":"slider", "min":60, "max":200, "step":5}'

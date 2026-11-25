@@ -1,6 +1,6 @@
 // WbwSpeakPromptUI.ts — the "Say it out loud" strip of Use it live (passive view).
 // Owns: ONE solid strip in the Use it live tone, shown under the answer surface while a speak turn is
-//       open: the mode chip, a mic dot that grows and brightens with the learner's voice level, one
+//       open (no mode chip: the HUD names the mode): a mic dot that grows and brightens with the learner's voice level, one
 //       status line ("Say it out loud" → "Heard you…" → "Heard you ✓") and the always-available
 //       "Said it" button. Built once on the first show(), then only enabled / disabled, so the scene
 //       never holds two SaidItButton objects. Emits onSaidIt.
@@ -12,7 +12,7 @@
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 import {RoundedRectangle} from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangle"
-import {button, ButtonParts, flexBox, item, lineHeightCm, obj, panel, register, text, textWidthCm, toward, useTone, GREEN, MUTED, TONE_LIVE, modeChip, modeChipH} from "./WbwSharedUI"
+import {button, ButtonParts, flexBox, item, lineHeightCm, obj, panel, register, text, textWidthCm, toward, useTone, GREEN, MUTED, TONE_LIVE} from "./WbwSharedUI"
 
 const ICON_CHECK = requireAsset("../Icons/check_circle.png") as Texture
 const ICON_SIZE = 2.2 // Said it icon (cm)
@@ -23,8 +23,8 @@ const SAY_IT = "Say it out loud"                          // guard, calibrating,
 const HEARD_SPEAKING = "Heard you…"                       // speech: the learner is talking
 const HEARD_DONE = "Heard you ✓"                          // done: the answer was taken
 const MIC_OFF = "Mic off · tap Said it"                   // nosignal: no microphone signal
-const NUDGE = "Say it out loud, or tap Said it"           // nudge: waited a while, any state but speech / done
-const DETECTION_OFF = "Say it out loud, then tap Said it" // off: voice detection is switched off
+const NUDGE = "Say it, or tap Said it"           // nudge: waited a while, any state but speech / done
+const DETECTION_OFF = "Say it, then tap Said it" // off: voice detection is switched off
 const SAID_IT = "Said it"
 const LONGEST_LINE = [SAY_IT, HEARD_SPEAKING, HEARD_DONE, MIC_OFF, NUDGE, DETECTION_OFF].reduce((n, s) => Math.max(n, s.length), 0)
 
@@ -172,12 +172,12 @@ export class WbwSpeakPromptUI extends BaseScriptComponent {
   /** Fixed strip: sized for the longest status line, so nothing moves when the state changes. */
   private measure(): StripLayout {
     const d = this.viewDistanceCm
-    const lineH = lineHeightCm("Caption", d, false)
-    const chipW = textWidthCm(TONE_LIVE.label.length, "Caption", d, false) + 1.4 // as modeChip() sizes it
+    // 2026-11-25 readability pass: one larger line, no mode chip (the HUD's chip names the mode)
+    const lineH = lineHeightCm("Headline2", d, false)
     const dotD = Math.max(0.9, lineH * 0.5)
-    const textW = textWidthCm(LONGEST_LINE, "Caption", d, false) * WIDTH_FIT + 0.4
-    const statusW = Math.max(chipW, dotD + DOT_GAP + textW)
-    const statusH = modeChipH(d) + ROW_GAP + lineH
+    const textW = textWidthCm(LONGEST_LINE, "Headline2", d, false) * WIDTH_FIT + 0.4
+    const statusW = dotD + DOT_GAP + textW
+    const statusH = lineH
     // icon beside a short label; at least 3.8 cm tall so it stays easy to pinch
     const btnW = Math.max(9, textWidthCm(SAID_IT.length, "Button", d, false) + ICON_SIZE + 2.1)
     const btnH = Math.max(3.8, Math.min(4.4, statusH))
@@ -194,9 +194,8 @@ export class WbwSpeakPromptUI extends BaseScriptComponent {
     const p = panel(this.sceneObject, "SpeakPrompt", m.W, m.H, {padX: PAD_X, padY: PAD_Y, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
     this.root = p.root
     const row = flexBox(p.content, "SpeakPromptRow", "row", m.innerW, m.innerH, {gap: COL_GAP, justify: FlexJustify.SpaceBetween, align: FlexAlign.Center})
-    // left: the mode is always named (chip), then the mic dot with the status line
+    // left: the mic dot with the status line
     const status = flexBox(row, "SpeakPromptStatus", "column", m.statusW, m.statusH, {gap: ROW_GAP, justify: FlexJustify.Center, align: FlexAlign.Start})
-    modeChip(status, d)
     const line = flexBox(status, "SpeakPromptLine", "row", m.statusW, m.lineH, {gap: DOT_GAP, justify: FlexJustify.Start, align: FlexAlign.Center})
     const dotSo = obj(line, "MicIndicator", new vec3(0, 0, 0.03))
     const rr = dotSo.createComponent(RoundedRectangle.getTypeName()) as RoundedRectangle
@@ -207,7 +206,7 @@ export class WbwSpeakPromptUI extends BaseScriptComponent {
     register(line, item(dotSo, m.dotD, m.dotD))
     this.dot = rr
     this.dotT = dotSo.getTransform()
-    this.label = text(line, "SpeakPromptText", this.stateText, "Caption", d, {w: m.textW, h: m.lineH, align: "left", onPanel: false})
+    this.label = text(line, "SpeakPromptText", this.stateText, "Headline2", d, {w: m.textW, h: m.lineH, align: "left", onPanel: false})
     this.label.horizontalOverflow = HorizontalOverflow.Shrink
     // right: the way on that never depends on the microphone
     this.said = button(row, "SaidItButton", m.btnW, m.btnH, SAID_IT, d, () => this._onSaidIt.invoke(), {icon: ICON_CHECK, iconSize: ICON_SIZE, primary: true})

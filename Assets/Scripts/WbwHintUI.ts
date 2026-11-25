@@ -52,7 +52,8 @@ export class WbwHintUI extends BaseScriptComponent {
     this.createEvent("UpdateEvent").bind(() => this.tick())
   }
 
-  showHint(msg: string, seconds: number = -1): void {
+  /** `upCm` overrides hintOffsetUpCm for this hint (e.g. high in the view, clear of the server's caption). */
+  showHint(msg: string, seconds: number = -1, upCm?: number): void {
     this.hideHint()
     this.hintText = msg
     const d = this.followDistanceCm
@@ -63,7 +64,7 @@ export class WbwHintUI extends BaseScriptComponent {
     const lh = lineHeightCm("Body", d)
     useTone(TONE_LIVE)
     const p = panel(this.sceneObject, "Hint", tw + 3, lines * lh + 1.6, {justify: FlexJustify.Center, align: FlexAlign.Center, padX: 1.5}, true)
-    p.root.getTransform().setLocalPosition(new vec3(0, this.hintOffsetUpCm, 0))
+    p.root.getTransform().setLocalPosition(new vec3(0, upCm ?? this.hintOffsetUpCm, 0))
     text(p.content, "HintText", msg, "Body", d, {h: lines * lh, wrap: true})
     this.hintRoot = p.root
     this.hideAt = seconds > 0 ? getTime() + seconds : -1

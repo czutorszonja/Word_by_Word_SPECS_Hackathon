@@ -109,12 +109,12 @@ export class DC2_Learn extends Scenario {
       expect(textOf("WordCardEn", cardRoot), "card English").toBe("olives")
       expect(child(cardRoot, "Illustration") === undefined, "no illustration on the compact card").toBe(true)
       expect(textOf("ExampleHu", cardRoot) === null, "no example sentence on the compact card").toBe(true)
-      expect(textOf("ChipLabel", cardRoot), "card mode chip").toBe("Learn")
+      expect(textOf("ChipLabel", findEnabled("HudModeChip")), "the HUD chip names the mode (the card has none)").toBe("Learn")
+      expect(child(cardRoot, "ModeChip") === undefined, "no mode chip on the card").toBe(true)
       expect(learn.cardPlayCount, "pronunciation played once on open").toBe(1)
       expect(audio.lastVoiceKey, "opening the card plays the word").toBe("w_olivabogyo")
       expect(audio.voicePlayCount, "one voice clip started on open").toBe(plays0 + 1)
-      await waitFor(() => textOf("WordCardStatus", findEnabled("WordCard")) === "Ready to listen again" && card.playing === "", "status after the clip", 6000)
-      expect(textOf("Label", findEnabled("WordCardPlayButton")), "Listen again label").toBe("Listen again")
+      await waitFor(() => textOf("Label", findEnabled("WordCardPlayButton")) === "Listen" && card.playing === "", "Listen button back after the clip", 6000)
       expect((textOf("Label", findEnabled("WordCardUseLiveButton")) ?? "").indexOf("Use it live") === 0, "Use it live link").toBe(true)
 
       // ── Listen again ──

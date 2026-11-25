@@ -32,6 +32,7 @@ is the learning layer.
 | 11-24 | 20 | The learner found that street too dark and not fitting; swapped for a sunny Palermo square (Piazza Bologni), turned so the window bar looks across the square |
 | 11-24 | 21 | Photos still stood out next to the 3D café: replaced by a simple 3D street and park of our own, with things from the Street and Park word lists to spot outside; DC6 passes |
 | 11-25 | 21 | The outside things became pointable words from earlier outings (review before going in; saved cards in Learn); new test DC7; DC2/3/6/7 pass. Timeline page: the three outside trials merged into one card |
+| 11-25 | 22 | Calmer cards: every card and panel cut down to one thing to read (word card, phrase panel, labels, speak strip, table caption, saved words); the mode is named once, on the Menu chip; DC1–DC7 and the tour pass |
 
 ## Problems we ran into and how they were solved
 
@@ -129,6 +130,14 @@ is the learning layer.
 - **An empty-looking wall** (22 Nov, whole-café review): the 11 m wall behind tables 8–12 was bare brick. Added a
   gallery of three framed prints (generated: Chain Bridge photo, coffee-plant botanical, tram watercolour; the
   tram's destination board has made-up lettering, small at frame size) and two different wall shelves.
+
+- **Cards were overwhelming** (learner, 25 Nov: "improve the cards' readability and how much information is in one card").
+  Audit of every panel from the story-tour captures, then one rule set (in the design brief, "Calm cards"): one thing to
+  read first, at most one supporting line, no status sentences (state shows on the control), the mode named in one
+  place (the Menu chip), nothing wider than the view. The worst offenders were the word card (seven elements), the
+  phrase panel (chip + heading + three small lines + four buttons) and the table caption (a 72-character line, about
+  112 cm wide at the server's distance, wider than the view). Moving its instruction into a hint first put the hint
+  over the caption (both sit low in the view while facing the server), so that hint now sits high in the view.
 
 ### The people
 - **The generated people looked like toddler cartoons.** Replaced with Microsoft Rocketbox avatars (MIT licence,
@@ -420,7 +429,7 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
 5. The tram watercolour's destination board has made-up lettering (generated image); regenerate if it bothers.
 6. From the street the café is a single-storey box between taller houses (24 Nov: the black sky is gone; a sky
    gradient and a simple 3D street now surround it; on 25 Nov its things became pointable words from earlier
-   outings). Next (learner, 25 Nov): make the word cards and labels calmer and easier to read, with less on each.
+   outings).
 
 **Before submitting:**
 7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).

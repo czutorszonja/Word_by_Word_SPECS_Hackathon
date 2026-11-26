@@ -96,6 +96,16 @@ export async function orderUpToTable(t: WbwTester): Promise<void> {
   expect(o.answers.length, "nothing answered").toBe(0)
   expect(o.lastServerLine, "the server has not spoken").toBe("")
   expect(a.voicePlayCount > v0, "the learner's own phrase played").toBe(true)
+  // looking down at the counter in front of him (building the sentence) is not facing him
+  {
+    const eye = t.camPos()
+    const server = o.server.getSceneObject().getTransform().getWorldPosition()
+    await t.setHead(eye, t.yawToward(eye, server), -40)
+    o.serverNotices = true
+    await sleep(2500)
+    expect(o.waitingFor, "looking down at the counter does not make the server greet").toBe("ready")
+    o.serverNotices = false
+  }
   await t.startOrdering()
 
   // step 1 — greet (two cards; the helper is hidden)

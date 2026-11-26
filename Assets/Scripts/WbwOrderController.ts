@@ -791,8 +791,13 @@ export class WbwOrderController extends BaseScriptComponent {
     }
     if (!this.serverNotices) return
     const sp = this.server.getSceneObject().getTransform().getWorldPosition()
-    const ang = (Math.acos(Math.max(-1, Math.min(1, flat(sp.sub(cam)).dot(camLookFlat())))) * 180) / Math.PI
-    if (horizDist(cam, sp) <= this.serverNoticeCm && ang <= this.serverNoticeDeg) this.noticeT += getDeltaTime()
+    // facing = looking up at his face, not down at the counter: building the sentence by pointing at the
+    // ingredients in front of him must not count (26 Nov: a flat angle made him greet mid-sentence)
+    const face = sp.add(new vec3(0, this.server.heightCm - 12, 0))
+    const toFace = face.sub(cam)
+    const ang = toFace.length < 1 ? 180 : (Math.acos(Math.max(-1, Math.min(1, toFace.normalize().dot(camLook())))) * 180) / Math.PI
+    const busy = !!this.learn && this.learn.hoveredId !== "" // pointing at something: still preparing
+    if (horizDist(cam, sp) <= this.serverNoticeCm && ang <= this.serverNoticeDeg && !busy) this.noticeT += getDeltaTime()
     else this.noticeT = 0
     if (this.noticeT >= this.serverNoticeSec) {
       this.noticeT = 0

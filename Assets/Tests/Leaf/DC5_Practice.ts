@@ -131,6 +131,22 @@ export class DC5_Practice extends Scenario {
       expect(m.currentMode, "closing the board leaves Practice").toBe("none")
       expect(p.active, "practice inactive").toBe(false)
 
+      // ── turned away from every table: the board opens in front of the learner (26 Nov: it used to
+      //    open over the nearest table even behind them, so "nothing opened") ──
+      await t.setHead(seat, t.yawToward(seat, table) + 180, -10)
+      await t.switchModeViaMenu("ModePracticeButton", "practice")
+      await waitFor(() => p.active && b.state === "board" && p.pairsTotal === 4, "practice board opens while facing away from the tables", 5000)
+      expect(p.placedAt, "board placed in front of the learner").toBe("front")
+      const fp = findEnabled("PracticeBoard")!.getTransform().getWorldPosition()
+      const cam = t.camPos()
+      const look = t.cameraObject().getTransform().back
+      const toBoard = fp.sub(cam)
+      const flatLook = new vec3(look.x, 0, look.z).normalize(), flatTo = new vec3(toBoard.x, 0, toBoard.z)
+      expect(flatTo.normalize().dot(flatLook) > 0.9, `board straight ahead (dot ${flatTo.normalize().dot(flatLook).toFixed(2)})`).toBe(true)
+      expect(flatTo.length > 45 && flatTo.length < 90, `board within reach (${flatTo.length.toFixed(0)} cm)`).toBe(true)
+      await t.tap("PracticeCloseButton")
+      await waitFor(() => !b.isVisible, "front board closed")
+
       // ── return to another mode through the menu ──
       await t.switchModeViaMenu("ModeLearnButton", "learn")
       expect(t.learn.active, "Learn active again").toBe(true)

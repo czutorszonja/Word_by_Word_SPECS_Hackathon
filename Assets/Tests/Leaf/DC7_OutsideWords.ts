@@ -47,10 +47,16 @@ export class DC7_OutsideWords extends Scenario {
       expect(m.currentMode, "no mode yet").toBe("none")
       expect(learn.pointMode, "pointing reviews the outside words").toBe("review")
       // the hand / mouse ray reaches the street (SIK stops at 5 m; the shop signs stand ~12 m away)
-      for (const i of InteractionManager.getInstance().getInteractorsByType(InteractorInputType.All)) {
+      // (the learner's hands, mouse and phone; LEAF's own test pointer is a CustomController made later)
+      let checked = 0
+      const userInputs = InteractorInputType.BothHands | InteractorInputType.Mobile | InteractorInputType.Mouse
+      for (const i of InteractionManager.getInstance().getInteractorsByType(userInputs)) {
         const reach = (i as unknown as {_maxRaycastDistance: number})._maxRaycastDistance
-        if (typeof reach === "number") expect(reach >= 2000, `interactor ${i.inputType} reaches 20 m+ (got ${reach} cm)`).toBe(true)
+        if (typeof reach !== "number") continue
+        expect(reach >= 2000, `interactor ${i.inputType} reaches 20 m+ (got ${reach} cm)`).toBe(true)
+        checked++
       }
+      expect(checked >= 2, `hand / mouse interactors checked (${checked})`).toBe(true)
 
       // ── left: the tram stop (Street) ──
       await lookAt(posOf("megallo"))

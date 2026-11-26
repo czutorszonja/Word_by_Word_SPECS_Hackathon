@@ -1,11 +1,16 @@
-// WbwOrderController.ts — "Use it live": the prep state with the phrase helper, then the scripted
-// order with the server (steps 1–6, 7 = done), plus the table number cards (always active:
-// selecting an empty table shows "8 = nyolc" + audio).
+// WbwOrderController.ts — "Use it live": real-life conversation help at the counter. The phrase helper
+// is the learner's own sentence, prepared by pointing at things; the server starts talking when the
+// learner walks up to him (no "Ready to order" button: the glasses only help, the learner orders out
+// loud), his words show as a subtitle, and each answer is offered as "You could say" (steps 1–6,
+// 7 = done). Table numbers: looking at an empty table's number (or tapping it) shows "8 = nyolc" +
+// audio; at the table question this fills "A … asztalnál ülök." (26 Nov redesign: no coach hint,
+// chime or arrow sending the learner around like a game).
 // Owns: order state (step, answers said, chosen table); the phrase being built (one
-//       PhraseHelperModel: Use this word / Add (+ és) / pattern); server line timing (audio →
-//       caption → answer surface); the speak turns (choose or build → hear → say it: only voice
-//       activity or Said it records an answer and lets the server go on); where the answer surface
-//       and the say-it strip go; the table step's chime + edge-of-view arrow; and the final hint.
+//       PhraseHelperModel: Use this word / Add (+ és) / pattern); when the server notices the learner
+//       (near the counter, facing him, for a moment); server line timing (audio → subtitle → answer
+//       surface); the speak turns (choose or build → hear → say it: only voice activity or Said it
+//       records an answer and lets the server go on); where the answer surface and the say-it strip go;
+//       and reading the table number the learner looks at.
 // Expects: init(session, audio, learn?, vad?) from WbwMain; @inputs for caption, phrase cards, hint,
 //          server and the seating root (Table_<n>/TableCard_<n> children); the phrase helper and
 //          speak prompt views (wired in the scene, or assigned by WbwMain before init()).
@@ -26,13 +31,16 @@ import {WbwLearnController} from "./WbwLearnController"
 import {ORDER_STEPS, OrderStep, WORDS, lineById, phraseById, tableByNum} from "./WbwVocab"
 import {PhraseBuild, PhraseHelperModel, PhrasePattern, canListen, canUseInPhrase, checkAgainstVocab, missingClips} from "./WbwPhraseHelperModel"
 import {PICTURES} from "./WbwIllustrations"
-import {camLook, camLookFlat, camPos, camTransform, flat, placeFacingUser} from "./WbwSpatial"
+import {camLook, camLookFlat, camPos, camTransform, flat, horizDist, placeFacingUser} from "./WbwSpatial"
 
 // Gap between the answer surface and the say-it strip below it (cm)
 const PROMPT_GAP_CM = 1
 
-/** Coach hint while the learner picks a table (the caption only translates the server's question). */
-const TABLE_HINT = "Turn around and tap an empty table's number"
+/** Answer surface prompt: the replies are suggestions, the learner says one out loud. */
+const SUGGEST = "You could say"
+/** At the table question before a number was read: the reply with its blank, filled by looking at a number. */
+const TABLE_BLANK_HU = "A … asztalnál ülök."
+const TABLE_BLANK_EN = "I'm at table … (look at its number)"
 
 @component
 export class WbwOrderController extends BaseScriptComponent {
@@ -79,6 +87,40 @@ export class WbwOrderController extends BaseScriptComponent {
   phraseDropCm: number = 7
 
   @input
+  @hint("The server starts talking once the learner is this close to him (cm)...")
+  @widget(new SliderWidget(100, 400, 10))
+  serverNoticeCm: number = 260
+
+  @input
+  @hint("...faces him within this angle (deg)...")
+  @widget(new SliderWidget(10, 60, 1))
+  serverNoticeDeg: number = 30
+
+  @input
+  @hint("...for this long (s)")
+  @widget(new SliderWidget(0, 4, 0.1))
+  serverNoticeSec: number = 1.2
+
+  @input
+  @hint("The server notices the learner by himself (near + facing). Off = the order starts only from code (tests)")
+  serverNotices: boolean = true
+
+  @input
+  @hint("A table's number is read when the learner looks within this angle of it (deg)...")
+  @widget(new SliderWidget(2, 20, 0.5))
+  tableLookDeg: number = 8
+
+  @input
+  @hint("...for this long (s)")
+  @widget(new SliderWidget(0.1, 2, 0.05))
+  tableLookSec: number = 0.5
+
+  @input
+  @hint("Farthest a table number can be read by looking (cm)")
+  @widget(new SliderWidget(100, 800, 10))
+  tableLookCm: number = 520
+
+  @input
   @hint("Objects within this angle (deg) of the view direction count as 'in view' for the arrow")
   @widget(new SliderWidget(10, 45, 1))
   arrowInViewDeg: number = 24
@@ -100,7 +142,7 @@ export class WbwOrderController extends BaseScriptComponent {
   /** Name of the current step: "" before Use it live was opened, then prep, greet, fillings, drink,
    *  here_or_takeaway, table, enjoy, done. */
   orderStepName: string = ""
-  /** "" before Use it live was opened · "ready" in prep (the server waits for Ready to order) ·
+  /** "" before Use it live was opened · "ready" in prep (the server has not noticed the learner yet) ·
    *  "server" while a server line plays · "user" while an answer surface waits · "table" while waiting
    *  for an empty table to be selected · "done" when the order is complete. */
   waitingFor: string = ""
@@ -157,6 +199,15 @@ export class WbwOrderController extends BaseScriptComponent {
   private arrowTarget: vec3 | null = null
   private epoch = 0
   private hasClip = (key: string): boolean => this.audio.has(key)
+  private noticeT = 0
+  private lookTable = 0
+  private lookT = 0
+  private placedFrom: vec3 | null = null
+  private placedNearTray = false
+  /** Seconds the learner has been near and facing the server in prep (tests). */
+  get noticeProgress(): number { return this.noticeT }
+  /** How the last table number was read: "look" | "tap" ("" = none yet). */
+  tableReadBy: string = ""
 
   init(session: WbwSession, audio: WbwAudioController, learn?: WbwLearnController, vad?: WbwVoiceActivity | null): void {
     this.session = session
@@ -167,7 +218,6 @@ export class WbwOrderController extends BaseScriptComponent {
     if (this.phraseHelper) {
       this.phraseHelper.onListen.add(() => { this.listenPhrase() })
       this.phraseHelper.onPattern.add((p) => { this.setPattern(p, true) })
-      this.phraseHelper.onReady.add(() => this.readyToOrder())
     } else {
       print("WbwOrder: no phrase helper view: prep and the fillings step have no answer surface")
     }
@@ -233,9 +283,9 @@ export class WbwOrderController extends BaseScriptComponent {
   }
 
   /**
-   * Prep: the phrase helper is up and can be changed and listened to; the server stays quiet until
-   * "Ready to order". Entered when Use it live opens (unless an order is under way) and when it is
-   * picked again in the menu. Keeps the phrase. Plays nothing.
+   * Prep: the phrase helper is up and can be changed and listened to; the server stays quiet until he
+   * notices the learner (near the counter, facing him). Entered when Use it live opens (unless an order
+   * is under way) and when it is picked again in the menu. Keeps the phrase. Plays nothing.
    */
   enterPrep(): void {
     if (!this.active) return
@@ -259,6 +309,7 @@ export class WbwOrderController extends BaseScriptComponent {
     this.hint.setArrow(false)
     this.arrowTarget = null
     this.vad?.setMicActive(true)
+    this.noticeT = 0
     const b = this.phrase.build()
     this.phraseHelper?.show(b, this.canHear(b), true)
     this.placeSurface()
@@ -266,7 +317,7 @@ export class WbwOrderController extends BaseScriptComponent {
     this.refreshEditable()
   }
 
-  /** "Ready to order" on the phrase helper: the server greets and the scripted order starts. */
+  /** The server noticed the learner (or a test says so): he greets and the scripted order starts. */
   readyToOrder(): void {
     if (!this.active || this.waitingFor !== "ready") return
     this.startOrder()
@@ -319,7 +370,6 @@ export class WbwOrderController extends BaseScriptComponent {
     }
     this.refreshHighlight()
     this.refreshEditable()
-    if (def.name === "table") this.audio.playSfx("AttentionChime")
     this.audio.playVoice(line.audio, () => this.lineEnded(def, ep))
   }
 
@@ -340,13 +390,18 @@ export class WbwOrderController extends BaseScriptComponent {
       if (this.chosenTable > 0) {
         this.offerTablePhrase()
       } else {
+        // real life: the learner glances at their table's number; the glasses read it (tickTableLook) and
+        // fill the reply. Until then the reply shows its blank. No coach hint, chime or arrow (26 Nov).
         this.waitingFor = "table"
-        // the caption only translates; the instruction is the coach hint, which follows the learner as they
-        // turn (2026-11-25: the one-line version was wider than the view)
         this.showCaption(lineById(def.line)!.hu, lineById(def.line)!.en)
-        this.hint.showHint(TABLE_HINT, -1, 11) // high in the view: the caption sits low over the server
         this.captionHideAt = -1
-        this.arrowTarget = this.seatingCenter()
+        this.closeSpeakTurn()
+        this.chosenPhraseId = ""
+        this.offeredPhraseIds = []
+        this.phrases.show([{id: "table_blank", hu: TABLE_BLANK_HU, en: TABLE_BLANK_EN, picture: null, chosen: false, blank: true}], SUGGEST)
+        this.placeSurface()
+        this.lookTable = 0
+        this.lookT = 0
       }
       return
     }
@@ -390,7 +445,7 @@ export class WbwOrderController extends BaseScriptComponent {
     }
     this.waitingFor = "user"
     this.offeredPhraseIds = list
-    this.phrases.show(cards, "Choose your answer, then say it")
+    this.phrases.show(cards, SUGGEST)
     this.placeSurface()
     this.refreshHighlight()
     this.refreshEditable()
@@ -436,9 +491,9 @@ export class WbwOrderController extends BaseScriptComponent {
     this.waitingFor = "done"
     this.stepDef = null
     this.phrases.hide()
-    const t = this.chosenTable || 8
-    this.arrowTarget = this.tablePos(t)
-    this.hint.showHint(`Walk to table ${t}. Then try Practice in ✋ Menu.`, 12)
+    // the conversation is over: nothing tells the learner where to go next (it is their café visit)
+    this.arrowTarget = null
+    this.hint.setArrow(false)
   }
 
   // ── speak turns: one per answer. Showing, choosing, listening and editing never answer ──
@@ -596,9 +651,16 @@ export class WbwOrderController extends BaseScriptComponent {
   }
 
   // ── tables ──
+  /** Tapping an empty table's number card (the look path calls readTable directly). */
   private onTable(n: number): void {
+    this.readTable(n, "tap")
+  }
+
+  /** An empty table's number was read (looked at in the table step, or tapped): "8 = nyolc" + audio. */
+  private readTable(n: number, by: string): void {
     const info = tableByNum(n)
     if (!info || !info.empty) return
+    this.tableReadBy = by
     this.lastTableTapped = n
     const card = this.tableCards[n]
     if (card) card.showTranslation(`${n} = ${info.hu}`)
@@ -619,7 +681,6 @@ export class WbwOrderController extends BaseScriptComponent {
     }
     if (tableStep) {
       this.chosenTable = n
-      if (this.hint.hintText === TABLE_HINT) this.hint.hideHint()
       if (this.waitingFor === "table" || this.waitingFor === "user") {
         const ev = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
         ev.bind(() => {
@@ -637,7 +698,6 @@ export class WbwOrderController extends BaseScriptComponent {
   private offerTablePhrase(): void {
     const info = tableByNum(this.chosenTable)
     if (!info) return
-    this.arrowTarget = this.server.getSceneObject().getTransform().getWorldPosition().add(new vec3(0, 150, 0))
     const line = lineById("hanyas_asztal")!
     this.showCaption(line.hu, line.en)
     this.captionHideAt = getTime() + 8
@@ -669,12 +729,18 @@ export class WbwOrderController extends BaseScriptComponent {
     return null
   }
 
+  private nearTray(): boolean {
+    return this.phraseTray ? this.phraseTray.getTransform().getWorldPosition().distance(camPos()) <= this.maxTrayDistanceCm : false
+  }
+
   /** Put the answer surface where the phrase row goes, and the say-it strip below it. */
   private placeSurface(): void {
     const s = this.surface()
+    const nearTray = this.nearTray()
+    this.placedFrom = camPos()
+    this.placedNearTray = nearTray
     if (s) {
       // after walking away from the counter, the cards come to the user instead of staying on the tray
-      const nearTray = this.phraseTray ? this.phraseTray.getTransform().getWorldPosition().distance(camPos()) <= this.maxTrayDistanceCm : false
       if (this.phrasesOnCounter && this.phraseTray && nearTray) {
         // lying on the counter in front of the user, tilted up toward them (authored tray)
         const tt = this.phraseTray.getTransform(), pt = s.so.getTransform()
@@ -711,19 +777,60 @@ export class WbwOrderController extends BaseScriptComponent {
     this.captionHideAt = -1
   }
 
-  private seatingCenter(): vec3 {
-    return this.seating.getTransform().getWorldPosition().add(new vec3(0, 80, 320))
+  /** Prep: the server notices a learner who stands near the counter and faces him for a moment. */
+  private tickNotice(): void {
+    if (!this.active || this.waitingFor !== "ready") {
+      this.noticeT = 0
+      return
+    }
+    const cam = camPos()
+    // walking in with the sentence half-built: the panel comes along until the counter tray takes it
+    if (this.phraseHelperVisible && this.placedFrom) {
+      const near = this.nearTray()
+      if (near !== this.placedNearTray || (!near && horizDist(cam, this.placedFrom) > 120)) this.placeSurface()
+    }
+    if (!this.serverNotices) return
+    const sp = this.server.getSceneObject().getTransform().getWorldPosition()
+    const ang = (Math.acos(Math.max(-1, Math.min(1, flat(sp.sub(cam)).dot(camLookFlat())))) * 180) / Math.PI
+    if (horizDist(cam, sp) <= this.serverNoticeCm && ang <= this.serverNoticeDeg) this.noticeT += getDeltaTime()
+    else this.noticeT = 0
+    if (this.noticeT >= this.serverNoticeSec) {
+      this.noticeT = 0
+      this.readyToOrder()
+    }
   }
 
-  private tablePos(n: number): vec3 {
-    for (let i = 0; i < this.seating.getChildrenCount(); i++) {
-      const c = this.seating.getChild(i)
-      if (c.name === `Table_${n}`) return c.getTransform().getWorldPosition().add(new vec3(0, 80, 0))
+  /** Table question: the empty table number the learner keeps looking at is read like a tap. */
+  private tickTableLook(): void {
+    if (!this.active || this.waitingFor !== "table") return
+    const cam = camPos(), look = camLook()
+    let best = 0, bestAng = this.tableLookDeg
+    for (const k in this.tableCards) {
+      const card = this.tableCards[k]
+      const info = tableByNum(card.tableNumber)
+      if (!info || !info.empty) continue
+      const to = card.getSceneObject().getTransform().getWorldPosition().sub(cam)
+      if (to.length > this.tableLookCm) continue
+      const ang = (Math.acos(Math.max(-1, Math.min(1, to.normalize().dot(look)))) * 180) / Math.PI
+      if (ang <= bestAng) { bestAng = ang; best = card.tableNumber }
     }
-    return this.seatingCenter()
+    if (best !== this.lookTable) {
+      this.lookTable = best
+      this.lookT = 0
+      return
+    }
+    if (!best) return
+    this.lookT += getDeltaTime()
+    if (this.lookT >= this.tableLookSec) {
+      this.lookT = 0
+      this.lookTable = 0
+      this.readTable(best, "look")
+    }
   }
 
   private tick(): void {
+    this.tickNotice()
+    this.tickTableLook()
     if (this.captionHideAt > 0 && getTime() > this.captionHideAt) {
       this.captionHideAt = -1
       if (this.waitingFor !== "table") this.caption.hide()

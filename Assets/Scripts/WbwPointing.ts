@@ -74,6 +74,7 @@ import {
   RAY_VISIBILITY_THRESHOLD,
 } from "SpectaclesInteractionKit.lspkg/Components/Interaction/InteractorRayVisual/InteractorRayVisual"
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
+import {InteractionManager} from "SpectaclesInteractionKit.lspkg/Core/InteractionManager/InteractionManager"
 
 /** Anything with a stable id and a SIK Interactable — WbwCafeBuilder's `Learnable` fits as is. */
 export interface PointerTarget {
@@ -547,4 +548,33 @@ function findRayVisuals(): InteractorRayVisual[] {
   }
   for (let i = 0; i < global.scene.getRootObjectsCount(); i++) walk(global.scene.getRootObject(i))
   return out
+}
+
+/**
+ * SIK's hand, mouse and phone rays stop at 5 m (BaseInteractor._maxRaycastDistance = 500, not an @input).
+ * The street and park words outside the café stand 6–15 m away, so pointing at them never hit
+ * (learner, 26 Nov: "I wasn't able to point at any of the words outside"). The target providers keep
+ * their config object and read config.maxRayDistance on every cast (IndirectTargetProvider.ts:97/:141,
+ * MouseTargetProvider.ts:154), so raising it at start is enough. Call once in OnStart (after SIK's
+ * onAwake built the providers). Returns how many interactors were changed.
+ */
+export function extendPointerReach(cm: number): number {
+  let n = 0
+  try {
+    for (const i of InteractionManager.getInstance().getInteractorsByType(InteractorInputType.All)) {
+      if (!i || isNull(i)) continue
+      const a = i as unknown as {[k: string]: any}
+      if (typeof a._maxRaycastDistance === "number") a._maxRaycastDistance = Math.max(a._maxRaycastDistance, cm)
+      for (const key of ["indirectTargetProvider", "mouseTargetProvider", "mobileTargetProvider", "activeTargetProvider"]) {
+        const prov = a[key]
+        if (prov && prov.config && typeof prov.config.maxRayDistance === "number") {
+          prov.config.maxRayDistance = Math.max(prov.config.maxRayDistance, cm)
+        }
+      }
+      n++
+    }
+  } catch (e) {
+    print(`WbwPointing: could not extend the pointer reach (${e})`)
+  }
+  return n
 }

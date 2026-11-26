@@ -4,7 +4,7 @@
 //  saved words."
 // Drives: real SIK triggers on SetupConfirmButton, SuggestLearnButton, Learnable_olivabogyo,
 //         WordCardSaveButton, WordCardCloseButton, MenuButton, ModeLearnButton / ModePracticeButton /
-//         ModeUseLiveButton, ReadyToOrderButton, ModeMenuCloseButton.
+//         ModeUseLiveButton, ModeMenuCloseButton, and the saved-words steps (WordsView*, WordsCategory_*, WordsPeriod_*, WordsBackButton).
 // Use it live opens in its prep state (phrase helper shown, the server waits): a saved word never
 // fills the phrase, and nothing is ordered until "Ready to order".
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
@@ -76,7 +76,7 @@ export class DC1_ModeMenu extends Scenario {
       expect(m.savedWords.indexOf("olivabogyo") >= 0, "olives still saved after 3 mode switches").toBe(true)
       await waitFor(() => textOf("SavedBadge") === "Saved: 1", "HUD still 'Saved: 1'")
 
-      // ── Words saved: the saved-words viewer (6 per page, by category / date added / A–Z) ──
+      // ── Words saved: one step at a time (26 Nov): how to look → category / time range → the words ──
       await t.tap("MenuButton")
       await waitFor(() => m.menuOpen, "menu open (for Words saved)")
       await t.tap("WordsSavedButton")
@@ -84,35 +84,69 @@ export class DC1_ModeMenu extends Scenario {
       expect(m.menuOpen, "the menu gives way to the viewer").toBe(false)
       const wl = m.wordList!
       expect(wl.entryCount, "1 café word + 12 street + 12 park words").toBe(25)
-      expect(wl.pageCount, "6 words per page").toBe(5)
-      expect(wl.shownIds.length, "a full page shows 6 words").toBe(6)
-      expect(wl.sort, "opens sorted by category").toBe("category")
-      expect(wl.shownIds[0], "the café word comes first by category").toBe("olivabogyo")
-      for (const b of ["WordsSortCategory", "WordsSortDate", "WordsSortAlpha", "WordsJump_Café", "WordsJump_Street", "WordsJump_Park", "WordsNextButton", "WordsCloseButton", "WordTile_olivabogyo"]) {
-        expect(t.hasEnabledInteractable(b), `viewer shows ${b}`).toBe(true)
+      expect(wl.screen, "opens on the first step").toBe("home")
+      expect(textOf("WordsTitle"), "first step title").toBe("Saved words")
+      for (const b of ["WordsViewCategory", "WordsViewDate", "WordsViewAlpha", "WordsCloseButton"]) {
+        expect(t.hasEnabledInteractable(b), `first step shows ${b}`).toBe(true)
       }
-      expect(textOf("WordsPage"), "page indicator").toBe("Page 1 / 5")
+      expect(findEnabled("WordTile_olivabogyo") === undefined, "no words on the first step").toBe(true)
+      expect(findEnabled("WordsBackButton") === undefined, "no Back on the first step").toBe(true)
+
+      // by category: only the categories (A–Z), then one category's words
+      await t.tap("WordsViewCategory")
+      await waitFor(() => wl.screen === "categories", "By category lists the categories")
+      expect(wl.categories().join(","), "categories in alphabetical order").toBe("Café,Park,Street")
+      for (const c of ["Café", "Park", "Street"]) expect(t.hasEnabledInteractable(`WordsCategory_${c}`), `category ${c} offered`).toBe(true)
+      expect(findEnabled("WordTile_fa") === undefined, "no words on the category step").toBe(true)
+      await t.tap("WordsCategory_Park")
+      await waitFor(() => wl.screen === "words" && wl.category === "Park", "a category opens its words")
+      expect(textOf("WordsTitle"), "the list is titled with its category").toBe("Park")
+      expect(wl.listCount, "12 park words").toBe(12)
+      expect(wl.shownIds[0], "park words A–Z: fa first").toBe("fa")
+      expect(wl.shownIds.indexOf("olivabogyo") < 0, "no café word in the park list").toBe(true)
+      expect(textOf("WordsPage"), "page indicator").toBe("1 / 2")
       await t.tap("WordsNextButton")
       await waitFor(() => wl.page === 1, "Next goes to page 2")
-      expect(textOf("WordsPage"), "page indicator after Next").toBe("Page 2 / 5")
+      expect(wl.shownIds.indexOf("virag") >= 0, "virág is on the last park page").toBe(true)
       await t.tap("WordsPrevButton")
-      await waitFor(() => wl.page === 0, "Back returns to page 1")
-      await t.tap("WordsJump_Park")
-      await waitFor(() => wl.page === 2, "Park jumps to the page with the first park word")
-      expect(wl.shownIds.indexOf("fa") >= 0, "the park page shows fa (tree)").toBe(true)
-      await t.tap("WordsSortAlpha")
-      await waitFor(() => wl.sort === "alpha" && wl.page === 0, "A–Z sorts alphabetically")
-      expect(wl.shownIds[0], "autó comes first A–Z").toBe("auto")
-      expect(wl.indexKeys().indexOf("Ö") > wl.indexKeys().indexOf("O"), "Hungarian order: Ö after O").toBe(true)
-      await t.tap("WordsLetter_V")
-      // V starts at word 24 of 25 (Hungarian order), which is on page 4 of 5
-      await waitFor(() => wl.shownIds.indexOf("villamos") >= 0, "V jumps to the page with villamos")
-      expect(wl.page, "the V page is page 4").toBe(3)
-      await t.tap("WordsSortDate")
-      await waitFor(() => wl.sort === "date", "Date added sorts newest first")
-      expect(wl.shownIds[0], "today's café word is newest").toBe("olivabogyo")
+      await waitFor(() => wl.page === 0, "Previous returns to page 1")
+      await t.tap("WordsBackButton")
+      await waitFor(() => wl.screen === "categories", "Back returns to the categories")
+      await t.tap("WordsBackButton")
+      await waitFor(() => wl.screen === "home", "Back again returns to the first step")
+
+      // by date added: pick a time range, then newest / oldest first
+      await t.tap("WordsViewDate")
+      await waitFor(() => wl.screen === "periods", "By date added lists the time ranges")
+      for (const p of ["recent", "week", "month", "all"]) expect(t.hasEnabledInteractable(`WordsPeriod_${p}`), `range ${p} offered`).toBe(true)
+      await t.tap("WordsPeriod_recent")
+      await waitFor(() => wl.screen === "words" && wl.period === "recent", "Most recent opens its words")
+      expect(wl.shownIds.join(","), "most recent = today's café word").toBe("olivabogyo")
+      expect(findEnabled("WordsNextButton") === undefined, "one page: no pager").toBe(true)
+      await t.tap("WordsBackButton")
+      await waitFor(() => wl.screen === "periods", "Back returns to the time ranges")
+      await t.tap("WordsPeriod_week")
+      await waitFor(() => wl.screen === "words" && wl.period === "week", "Last 7 days opens its words")
+      expect(wl.listCount, "all 25 words are from the last week").toBe(25)
+      expect(wl.shownIds[0], "newest first: today's café word").toBe("olivabogyo")
+      await t.tap("WordsOldestFirst")
+      await waitFor(() => wl.dateOrder === "oldest", "Oldest first")
+      expect(wl.shownIds.indexOf("olivabogyo") < 0, "oldest first: today's word is not on the first page").toBe(true)
+      expect(wl.shownIds[0], "oldest first: a street word from three days ago").toBe("utca")
+      await t.tap("WordsNewestFirst")
+      await waitFor(() => wl.dateOrder === "newest" && wl.shownIds[0] === "olivabogyo", "Newest first again")
       await t.tap("WordTile_olivabogyo")
       await waitFor(() => t.audio.lastVoiceKey === "w_olivabogyo", "tapping a word plays it")
+      await t.tap("WordsBackButton")
+      await t.tap("WordsBackButton")
+      await waitFor(() => wl.screen === "home", "back to the first step")
+
+      // A to Z: straight to every word, Hungarian order
+      await t.tap("WordsViewAlpha")
+      await waitFor(() => wl.screen === "words" && wl.view === "alpha", "A to Z opens every word")
+      expect(wl.listCount, "all 25 words").toBe(25)
+      expect(wl.shownIds[0], "autó comes first A–Z").toBe("auto")
+      expect(wl.pageCount, "6 words per page").toBe(5)
       await t.tap("WordsCloseButton")
       await waitFor(() => !m.wordListOpen, "the viewer closes")
       expect(m.currentMode, "browsing words keeps the mode").toBe("learn")

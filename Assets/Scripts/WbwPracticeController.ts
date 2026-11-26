@@ -1,7 +1,9 @@
 // WbwPracticeController.ts — Practice mode: match 4 saved Hungarian words with their English.
-// Owns: set selection from saved words (needs >= pairsPerSet), shuffling, selection, match
-//       judging, progress, completion, and placing the board upright just above the user's
-//       table (or in front of the user when they are not near a table).
+// Owns: set selection from saved words (today's café words first, then words saved on earlier
+//       outings, so a set can always be made), shuffling, selection, match judging, progress,
+//       completion, and placing the board upright just above the user's table when that table is in
+//       front of them, else in front of the user (26 Nov: it opened over a table behind the learner,
+//       so "nothing opened").
 // Expects: init(session, audio, cafe, order) from WbwMain; @input board.
 // Must NOT: own saved words (WbwSession) or build UI.
 import {WbwPracticeBoardUI, PracticeLeft, PracticePick, PracticeRight} from "./WbwPracticeBoardUI"
@@ -9,9 +11,10 @@ import {WbwAudioController} from "./WbwAudioController"
 import {WbwCafeBuilder} from "./WbwCafeBuilder"
 import {WbwOrderController} from "./WbwOrderController"
 import {WbwSession} from "./WbwSession"
-import {wordById} from "./WbwVocab"
+import {EARLIER_WORDS, earlierWordById, learnableWord, wordById} from "./WbwVocab"
 import {PICTURES} from "./WbwIllustrations"
-import {camPos, flat, horizDist, inView, placeFacingUser} from "./WbwSpatial"
+import {WORD_ICONS} from "./WbwWordIcons"
+import {camLookFlat, camPos, flat, horizDist, inView, placeFacingUser} from "./WbwSpatial"
 import {TABLES} from "./WbwVocab"
 
 @component
@@ -36,6 +39,11 @@ export class WbwPracticeController extends BaseScriptComponent {
   @hint("If the user is farther than this from their table (cm), the board opens in front of them instead")
   @widget(new SliderWidget(100, 600, 10))
   nearTableCm: number = 250
+
+  @input
+  @hint("The board goes over the table only while the table is within this angle of where the user looks (deg); else in front of them")
+  @widget(new SliderWidget(15, 90, 1))
+  tableInViewDeg: number = 40
 
   @input
   @hint("Distance of the board from the user (cm), at the table and when it opens in front of them")
@@ -103,7 +111,10 @@ export class WbwPracticeController extends BaseScriptComponent {
     this.selected = ""
     this.complete = false
     this.wrongAttempts = 0
-    const saved = this.session.saved
+    // today's café words first; words saved on earlier outings (street, park) fill up the set
+    const today = this.session.saved.filter((id) => !!wordById(id))
+    const earlier = EARLIER_WORDS.map((e) => e.id).filter((id) => today.indexOf(id) < 0)
+    const saved = today.concat(earlier)
     if (saved.length < this.pairsPerSet) {
       this.pairsTotal = 0
       this.leftIds = []
@@ -111,21 +122,18 @@ export class WbwPracticeController extends BaseScriptComponent {
       this.board.showNeedWords(saved.length, this.pairsPerSet)
       return
     }
-    // prefer words not used in the previous set
-    const fresh = this.shuffle(saved.filter((w) => this.lastSet.indexOf(w) < 0))
-    const old = this.shuffle(saved.filter((w) => this.lastSet.indexOf(w) >= 0))
-    const pick = fresh.concat(old).slice(0, this.pairsPerSet)
+    // prefer today's words, then words not used in the previous set
+    const fresh = (ids: string[]) => this.shuffle(ids.filter((w) => this.lastSet.indexOf(w) < 0))
+    const old = (ids: string[]) => this.shuffle(ids.filter((w) => this.lastSet.indexOf(w) >= 0))
+    const pick = fresh(today).concat(fresh(earlier), old(today), old(earlier)).slice(0, this.pairsPerSet)
     this.lastSet = pick
     this.leftIds = this.shuffle(pick)
     this.rightIds = this.shuffle(pick)
     // never show the columns in the same order
     if (this.rightIds.join() === this.leftIds.join()) this.rightIds.push(this.rightIds.shift()!)
     this.pairsTotal = pick.length
-    const left: PracticeLeft[] = this.leftIds.map((id) => {
-      const w = wordById(id)!
-      return {id: id, hu: w.hu, picture: PICTURES[w.picture] ?? null}
-    })
-    const right: PracticeRight[] = this.rightIds.map((id) => ({id: id, en: wordById(id)!.en}))
+    const left: PracticeLeft[] = this.leftIds.map((id) => ({id: id, hu: learnableWord(id)!.hu, picture: this.pictureOf(id)}))
+    const right: PracticeRight[] = this.rightIds.map((id) => ({id: id, en: learnableWord(id)!.en}))
     this.board.showSet(left, right, 0, this.pairsTotal)
   }
 
@@ -157,9 +165,10 @@ export class WbwPracticeController extends BaseScriptComponent {
       this.pairsMatched++
       this.board.markMatched(id)
       this.board.setProgress(this.pairsMatched, this.pairsTotal)
-      this.board.setFeedback(`${wordById(id)!.hu} = ${wordById(id)!.en}`, true)
+      const w = learnableWord(id)!
+      this.board.setFeedback(`${w.hu} = ${w.en}`, true)
       this.audio.playSfx("MatchCorrect")
-      this.audio.playVoice(wordById(id)!.audio, () => {
+      this.audio.playVoice(w.audio, () => {
         if (this.pairsMatched >= this.pairsTotal && this.active && !this.complete) this.completeSet()
       })
     } else {
@@ -189,7 +198,10 @@ export class WbwPracticeController extends BaseScriptComponent {
       }
     }
     const tp = table ? this.cafe.getTablePosition(table) : null
-    if (tp && horizDist(tp, cam) < this.nearTableCm) {
+    // only over a table the user is facing: a board behind them looks like nothing opened
+    const toTable = tp ? flat(tp.sub(cam)) : null
+    const facing = !!toTable && (Math.acos(Math.max(-1, Math.min(1, toTable.dot(camLookFlat())))) * 180) / Math.PI <= this.tableInViewDeg
+    if (tp && facing && horizDist(tp, cam) < this.nearTableCm) {
       // upright just above the table, shifted along the user's line so it sits boardDistanceCm away:
       // toward a user standing back from the table, or past the centre (at most 15 cm, still over the
       // top) when they sit close — seated at a small table they are only ~57 cm from its centre
@@ -204,6 +216,14 @@ export class WbwPracticeController extends BaseScriptComponent {
       this.placedAt = "front"
       this.boardTable = 0
     }
+  }
+
+  /** Café words have an illustration; street and park words their icon. */
+  private pictureOf(id: string): Texture | null {
+    const w = wordById(id)
+    if (w) return PICTURES[w.picture] ?? null
+    const e = earlierWordById(id)
+    return e ? WORD_ICONS[e.icon] ?? null : null
   }
 
   private shuffle<T>(a: T[]): T[] {

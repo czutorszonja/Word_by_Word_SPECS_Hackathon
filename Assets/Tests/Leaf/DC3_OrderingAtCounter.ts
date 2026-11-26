@@ -1,8 +1,9 @@
 // DC3_OrderingAtCounter — Done criterion 3 (Use it live, ordering).
-// "Use it live opens with the phrase helper ('SAY IT AT THE COUNTER') while the server waits. I
+// "Use it live opens with the phrase helper while the server has not noticed me yet. I
 //  reuse one phrase with the ingredients I point at ('Kérek szalámit és paradicsomot a
 //  szendvicsembe.'), including leaving one out ('Savanyú uborka nélkül, kérem.'), and can listen
-//  to it: none of that orders anything. After 'Ready to order' I go through ordering a sandwich
+//  to it: none of that orders anything. When I face the server at the counter he greets me (no
+//  'Ready to order' button since 26 Nov: the glasses only help) and I go through ordering a sandwich
 //  and coffee: the server's scripted questions ('Mit kér?', 'Mit kér bele?', 'Inni valamit?',
 //  'Itt fogyasztja vagy elvitelre?') each play with a caption. I answer by choosing a phrase card
 //  (picture + Hungarian + English) that plays its audio, or, for the fillings, with my prepared
@@ -10,7 +11,7 @@
 //  'Itt eszem.'"
 // Drives: real SIK triggers on MenuButton → ModeUseLiveButton, a held hover on Learnable_<id> plus
 //         the label's UseThisWordButton / AddWordButton, the helper's PatternWantButton /
-//         PatternWithoutButton / PhraseHelperListenButton / ReadyToOrderButton, the PhraseCard_<id>
+//         PatternWithoutButton / PhraseHelperListenButton, a head turn toward the server, the PhraseCard_<id>
 //         buttons lying on the counter, and SaidItButton (the Preview stand-in for speaking).
 //         Waits on order state (audio-gated), never on fixed sleeps (one 0.8 s check excepted).
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
@@ -64,7 +65,7 @@ export async function orderUpToTable(t: WbwTester): Promise<void> {
   expect(o.phraseEn, "empty phrase EN").toBe("I'd like … in my sandwich.")
   expect(o.phraseAudioKey, "nothing to play").toBe("")
   expect(t.hasEnabledInteractable("PhraseHelperListenButton"), "Listen inactive while empty").toBe(false)
-  expect(t.hasEnabledInteractable("ReadyToOrderButton"), "Ready to order offered").toBe(true)
+  expect(findEnabled("ReadyToOrderButton") === undefined, "no Ready to order button (the server notices the learner)").toBe(true)
   expect(o.waitingForSpeech, "nothing to say in prep").toBe(false)
   // reuse the same phrase: leave something out …
   await t.useWord("uborka")
@@ -91,7 +92,7 @@ export async function orderUpToTable(t: WbwTester): Promise<void> {
   await t.tap("PhraseHelperListenButton")
   await waitFor(() => a.voicePlayCount > lv0 && a.lastVoiceKey === o.phraseAudioKey, "Listen plays the phrase again")
   expect(o.orderStep, "showing, editing and listening never submit").toBe(0)
-  expect(o.waitingFor, "still waiting for Ready to order").toBe("ready")
+  expect(o.waitingFor, "the server has not noticed the learner yet").toBe("ready")
   expect(o.answers.length, "nothing answered").toBe(0)
   expect(o.lastServerLine, "the server has not spoken").toBe("")
   expect(a.voicePlayCount > v0, "the learner's own phrase played").toBe(true)
@@ -129,7 +130,6 @@ export async function orderUpToTable(t: WbwTester): Promise<void> {
     expect(findEnabled(`PhraseCard_${old}`) === undefined, `no PhraseCard_${old}`).toBe(true)
   }
   expect(findEnabled("PhraseHelper") !== undefined && o.phraseHelperVisible, "phrase helper is the answer surface").toBe(true)
-  expect(t.hasEnabledInteractable("ReadyToOrderButton"), "no Ready to order at step 2").toBe(false)
   expect(o.phraseHu, "prepared phrase kept").toBe("Kérek szalámit és paradicsomot a szendvicsembe.")
   await waitFor(() => o.waitingForSpeech && t.hasEnabledInteractable("SaidItButton"), "the turn opens when the question ends (phrase ready)", 3000)
   await t.tap("PatternWithoutButton") // an edit with the turn open
@@ -180,8 +180,14 @@ export class DC3_OrderingAtCounter extends Scenario {
       expect(t.order.active, "order controller active").toBe(true)
       await orderUpToTable(t)
       expect(t.caption.currentHu, "table question caption stays up").toBe("Hányas asztalnál ül?")
-      expect(t.hint.hintText.indexOf("Turn around") >= 0, "the coach hint tells the user to turn around").toBe(true)
-      expect(t.hint.arrowVisible, "edge arrow points to the seating behind the user").toBe(true)
+      // real life: no coach hint or arrow; the reply waits with its blank until a table number is read
+      expect(t.hint.hintText, "no coach hint at the table question").toBe("")
+      expect(t.hint.arrowVisible, "no edge arrow at the table question").toBe(false)
+      const blank = findEnabled("PhraseCard_table_blank")
+      expect(blank !== undefined, "the table reply shows with its blank").toBe(true)
+      expect(textOf("Hu", blank!), "table reply with a blank").toBe("A … asztalnál ülök.")
+      expect(t.hasEnabledInteractable("PhraseCard_table_blank"), "the blank reply is not pressable").toBe(false)
+      expect(textOf("Prompt", findEnabled("PhraseChoices")), "replies are suggestions").toBe("You could say")
       log("DC3 done")
     } finally {
       t.restoreHead()

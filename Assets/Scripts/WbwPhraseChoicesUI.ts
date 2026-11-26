@@ -1,15 +1,18 @@
 // WbwPhraseChoicesUI.ts — the row of phrase cards for "Use it live" (passive view).
-// Owns: phrase cards (picture + Hungarian + English) and which ONE card is chosen (selected state).
+// Owns: phrase cards (picture + Hungarian + English) under a short prompt ("You could say": they are
+//       suggested replies, the learner says one out loud; no mode chip since the 26 Nov pass — the HUD's
+//       Menu chip names the mode), and which ONE card is chosen (selected state). A `blank` card is a
+//       reply with a gap still to fill (e.g. "A … asztalnál ülök."): plain text, not pressable.
 //       Emits onPick(phraseId) on every card press, also on the card that is already chosen
 //       (= listen again). Choosing is not answering: the controller records an answer only once the
 //       learner has said it.
 // Must NOT: decide which phrases to offer, advance the order, play audio, or place itself.
-// Stable names: PhraseChoices, Head / ModeChip / Prompt, Cards, PhraseCard_<phraseId>
+// Stable names: PhraseChoices, Head / Prompt, Cards, PhraseCard_<phraseId>
 //               (e.g. PhraseCard_szendvicset) with Face / Picture and Words / Hu / En.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
-import {flexBox, image, item, lineHeightCm, obj, panel, register, retire, setToggleLater, styleWhenReady, text, textWidthCm, READ_BOOST, TEXT_SOFT, useTone, TONE_LIVE, modeChip, modeChipH} from "./WbwSharedUI"
+import {flexBox, image, item, lineHeightCm, obj, panel, register, retire, setToggleLater, styleWhenReady, text, textWidthCm, READ_BOOST, TEXT_SOFT, useTone, TONE_LIVE} from "./WbwSharedUI"
 
 // English line and the prompt are secondary: ~80 % of the Hungarian size
 const EN_SCALE = 0.8
@@ -20,6 +23,8 @@ export interface PhraseCardData {
   en: string
   picture: Texture | null
   chosen: boolean
+  /** A reply with a gap still to fill: shown as plain text, not a button. */
+  blank?: boolean
 }
 
 @component
@@ -102,18 +107,15 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
     const widths = textWs.map((tw) => tw + m.extra)
     const promptH = lineHeightCm("Caption", d, false, enBoost)
     const promptW = textWidthCm(prompt.length, "Caption", d, false, enBoost) + 0.6
-    // The heading (mode chip + prompt) has to fit the panel as well: a single short card ("Köszönöm!")
-    // is narrower than it. Chip width as modeChip() sizes it for this tone.
-    const headW = textWidthCm(TONE_LIVE.label.length, "Caption", d, false) + 1.4 + headGap + promptW
-    const innerW = Math.max(rowW, headW)
+    // The prompt has to fit the panel as well: a single short card ("Köszönöm!") is narrower than it.
+    const innerW = Math.max(rowW, promptW)
     const W = innerW + 2 * pad
-    const H = 2 * pad + Math.max(promptH, modeChipH(d)) + 0.4 + ch
+    const H = 2 * pad + promptH + 0.4 + ch
     this.lastSizeCm = new vec2(W, H)
     useTone(TONE_LIVE)
     const p = panel(this.sceneObject, "PhraseChoices", W, H, {gap: 0.4, padX: pad, padY: pad, justify: FlexJustify.Center, align: FlexAlign.Center})
     this.root = p.root
-    const head = flexBox(p.content, "Head", "row", innerW, Math.max(promptH, modeChipH(d)), {gap: headGap, justify: FlexJustify.Center, align: FlexAlign.Center})
-    modeChip(head, d)
+    const head = flexBox(p.content, "Head", "row", innerW, promptH, {gap: headGap, justify: FlexJustify.Center, align: FlexAlign.Center})
     text(head, "Prompt", prompt, "Caption", d, {w: promptW, h: promptH, color: TEXT_SOFT, onPanel: false, boost: enBoost})
     const row = flexBox(p.content, "Cards", "row", rowW, ch, {gap: gap, justify: FlexJustify.Center, align: FlexAlign.Center})
     this.cards = {}
@@ -121,6 +123,7 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
     let chosen = ""
     cards.forEach((c, i) => {
       this.makeCard(row, c, widths[i], ch, d, textWs[i], huH, enH, picS, enBoost, cardPadX, picGap)
+      if (c.blank) return
       this.offeredIds.push(c.id)
       if (c.chosen) chosen = c.id
     })
@@ -150,6 +153,16 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
   private makeCard(parent: SceneObject, c: PhraseCardData, w: number, h: number, d: number, textW: number,
                    huH: number, enH: number, picS: number, enBoost: number, padX: number, picGap: number): void {
     const so = obj(parent, `PhraseCard_${c.id}`, new vec3(0, 0, 0.1))
+    if (c.blank) {
+      // the reply with its gap: the same words in the same place, but nothing to press yet
+      const face = flexBox(so, "Face", "row", w, h, {gap: picGap, padX: padX, justify: FlexJustify.Center, align: FlexAlign.Center})
+      face.getTransform().setLocalPosition(new vec3(0, 0, 0.08))
+      const col = flexBox(face, "Words", "column", textW, huH + enH, {gap: 0, justify: FlexJustify.Center, align: FlexAlign.Center})
+      text(col, "Hu", c.hu, "Callout", d, {w: textW, h: huH, wrap: true, onPanel: true, align: "left"})
+      text(col, "En", c.en, "Caption", d, {w: textW, h: enH, color: TEXT_SOFT, wrap: true, onPanel: true, align: "left", boost: enBoost})
+      register(parent, item(so, w, h))
+      return
+    }
     const btn = so.createComponent(Button.getTypeName()) as Button
     btn.size = new vec3(w, h, 1)
     btn.setIsToggleable(true)

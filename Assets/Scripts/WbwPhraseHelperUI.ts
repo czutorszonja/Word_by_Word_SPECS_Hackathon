@@ -2,35 +2,34 @@
 // Owns: ONE compact panel in the Use it live tone (2026-11-25 readability pass: no mode chip or title —
 //       the HUD's chip names the mode — so the phrase is the first thing to read): the Hungarian phrase
 //       on two fixed lines (line 1 "Kérek" + the ingredient slot, line 2 the tail "a szendvicsembe." or
-//       "nélkül, kérem."), the English line, a hint while the phrase is empty, Listen, the pattern pair
-//       ("Kérek …" / "… nélkül") and, in the prep state only, "Ready to order".
+//       "nélkül, kérem."), the English line, a hint while the phrase is empty, Listen and the pattern pair
+//       ("Kérek …" / "… nélkül"). No "Ready to order" (26 Nov): the learner orders out loud from the real
+//       server; the glasses only help prepare and hear the sentence.
 //       The reusable part never moves: everything is left-aligned, "Kérek" and the tail keep their place,
 //       and only the slot text changes (gently emphasised in the tone's light tint).
-//       Built once per variant (with / without Ready); setPhrase() and setEditable() update it in place,
+//       Built once; setPhrase() and setEditable() update it in place,
 //       so the PhraseHelper object stays the same across edits.
 // Must NOT: play audio, judge whether a phrase can be heard (the controller passes canListen), place
 //           itself (WbwOrderController moves the host), or know the order step.
 // Stable names: PhraseHelper, PhraseHelperHu, PhraseHelperHead,
 //               PhraseHelperSlot, PhraseHelperTail, PhraseHelperEn, PhraseHelperHint,
-//               PhraseHelperListenButton, PatternWantButton, PatternWithoutButton, ReadyToOrderButton.
+//               PhraseHelperListenButton, PatternWantButton, PatternWithoutButton.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 import {PhraseBuild, PhrasePattern} from "./WbwPhraseHelperModel"
 import {button, ButtonParts, flexBox, item, lineHeightCm, obj, panel, register, retire, setTextColor, setToggleLater, text, textWidthCm, useTone, TEXT_LIGHT, TEXT_SOFT, TONE_LIVE} from "./WbwSharedUI"
 
 const ICON_PLAY = requireAsset("../Icons/volume_up.png") as Texture
-const ICON_GO = requireAsset("../Icons/arrow_forward.png") as Texture
 
 const HINT = "Point at an ingredient, then Use this word"
 const LISTEN = "Listen"
 const WANT = "Kérek …"
 const WITHOUT = "… nélkül"
-const READY = "Ready to order"
 const HEAD_WANT = "Kérek"
 
 // layout (cm)
 const PAD_X = 1.4, PAD_Y = 1.0, GAP = 0.5, BTN_GAP = 1.3, HEAD_GAP = 0.45
-const BTN_H = 3.8, READY_H = 4.4
+const BTN_H = 3.8
 
 @component
 export class WbwPhraseHelperUI extends BaseScriptComponent {
@@ -58,17 +57,14 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
   private listen: ButtonParts | null = null
   private want: ButtonParts | null = null
   private without: ButtonParts | null = null
-  private ready: ButtonParts | null = null
   private canHear = false
   private stored: PhraseBuild | null = null
   private lastSize: vec2 | null = null
 
   private _onListen = new Event<void>()
   private _onPattern = new Event<PhrasePattern>()
-  private _onReady = new Event<void>()
   get onListen(): PublicApi<void> { return this._onListen.publicApi() }
   get onPattern(): PublicApi<PhrasePattern> { return this._onPattern.publicApi() }
-  get onReady(): PublicApi<void> { return this._onReady.publicApi() }
 
   /** [LEAF] Hungarian phrase shown ("" before the first show / setPhrase). */
   plainHu: string = ""
@@ -77,6 +73,7 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
   pattern: PhrasePattern = "want"
   editable: boolean = false
   listenEnabled: boolean = false
+  /** Kept for tests: always false (there is no Ready to order button any more). */
   readyShown: boolean = false
   /** +1 each time the panel object is (re)built. */
   showCount: number = 0
@@ -89,11 +86,11 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
     return new vec2(m.W, m.H)
   }
 
-  /** Build (or update in place) and show. A different `ready` rebuilds the panel. */
-  show(b: PhraseBuild, canListen: boolean, ready: boolean): void {
-    if (!this.root || isNull(this.root) || this.builtReady !== ready) this.build(ready)
+  /** Build (or update in place) and show. `prep` (before the server talks) looks the same today. */
+  show(b: PhraseBuild, canListen: boolean, prep: boolean = false): void {
+    if (!this.root || isNull(this.root) || this.builtReady === null) this.build(false)
     if (this.root) this.root.enabled = true
-    this.readyShown = ready
+    this.readyShown = false
     this.setPhrase(b, canListen)
   }
 
@@ -138,7 +135,7 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
     this.readyShown = false
     this.headT = this.slotT = this.tailT = this.enT = null
     this.hintSo = null
-    this.listen = this.want = this.without = this.ready = null
+    this.listen = this.want = this.without = null
   }
 
   private applyButtons(): void {
@@ -165,7 +162,6 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
     const btnW = Math.max(9, textWidthCm(LISTEN.length, "Button", d, false) + 4.2)
     const patW = Math.max(8.5, textWidthCm(WANT.length, "Button", d, false) + 1.6)
     let H = 2 * PAD_Y + line1H + line2H + GAP + enH + GAP + hintH + GAP + BTN_H
-    if (withReady) H += BTN_GAP + READY_H
     return {W, H, innerW, headW, line1H, line2H, enH, hintH, btnW, patW}
   }
 
@@ -206,11 +202,6 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
     this.want = button(row, "PatternWantButton", m.patW, BTN_H, WANT, d, () => this.pickPattern("want"), {toggle: true})
     this.without = button(row, "PatternWithoutButton", m.patW, BTN_H, WITHOUT, d, () => this.pickPattern("without"), {toggle: true})
 
-    if (withReady) {
-      this.ready = button(p.content, "ReadyToOrderButton", m.innerW, READY_H, READY, d, () => this._onReady.invoke(), {icon: ICON_GO, primary: true})
-    } else {
-      this.ready = null
-    }
     this.lastSize = new vec2(m.W, m.H)
     // re-apply the stored phrase onto the new objects
     if (this.stored) this.setPhrase(this.stored, this.canHear)

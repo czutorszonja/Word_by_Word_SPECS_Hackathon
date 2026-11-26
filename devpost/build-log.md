@@ -32,6 +32,7 @@ is the learning layer.
 | 11-24 | 20 | The learner found that street too dark and not fitting; swapped for a sunny Palermo square (Piazza Bologni), turned so the window bar looks across the square |
 | 11-24 | 21 | Photos still stood out next to the 3D café: replaced by a simple 3D street and park of our own, with things from the Street and Park word lists to spot outside; DC6 passes |
 | 11-25 | 21 | The outside things became pointable words from earlier outings (review before going in; saved cards in Learn); new test DC7; DC2/3/6/7 pass. Timeline page: the three outside trials merged into one card |
+| 11-26 | 23 | Learner feedback after trying it: saved words became one step at a time (how to look → category / time range → words); Practice opened behind the learner (now in view, and earlier-outing words always make a set); outside words could not be pointed at (SIK's 5 m ray, now 25 m); Use it live redesigned as real-life help (no Ready to order, the server notices you, "You could say" replies, table number read by looking, no coach hint / arrow / chime). Code type-checks; preview run still to do (the PC restarted mid-session) |
 | 11-25 | 22 | Calmer cards: every card and panel cut down to one thing to read (word card, phrase panel, labels, speak strip, table caption, saved words); the mode is named once, on the Menu chip; DC1–DC7 and the tour pass |
 
 ## Problems we ran into and how they were solved
@@ -138,6 +139,23 @@ is the learning layer.
   phrase panel (chip + heading + three small lines + four buttons) and the table caption (a 72-character line, about
   112 cm wide at the server's distance, wider than the view). Moving its instruction into a hint first put the hint
   over the caption (both sit low in the view while facing the server), so that hint now sits high in the view.
+
+- **Learner test, 26 Nov.** (1) *Saved words overwhelming:* category / date / A–Z buttons, jump buttons and words
+  were all on one page → the viewer now shows one step at a time (three ways in → categories A–Z or time ranges →
+  the words; Back steps up). (2) *Practice "did not open":* the log showed the board was built three times
+  (05:55), but over the nearest empty table even when it was behind the learner → it now goes over a table only
+  when the learner faces it (within 40°), else in front of them; sets also fill up with earlier-outing words, so
+  "save 4 words first" never blocks it. (3) *Outside words not pointable in Learn:* SIK's hand / mouse ray stops
+  at 5 m (`BaseInteractor._maxRaycastDistance`, not an input) while the street things stand 6–15 m away; DC7 had
+  only used the test pointer hook → `extendPointerReach(2500)` raises the target providers' `maxRayDistance` at
+  start (DC7 now checks it). (4) *Use it live too game-like:* "Ready to order" (you don't order through glasses),
+  "Turn around and tap an empty table's number", the chime and arrow → the server notices you at the counter,
+  replies are "You could say" suggestions, the table reply waits with a blank and the number you look at fills
+  it, nothing tells you where to go afterwards. Research notes: live-subtitle glasses keep eye contact with the
+  speaker (Google's AR translation prototype, captioning glasses); AR café-ordering studies label real objects
+  and ground practice in the surroundings — the redesign keeps the help next to the person and the things.
+  The PC had to restart mid-session (Lens Studio closed), so this was type-checked with Lens Studio's own
+  compiler (`lensifyts tsc-only`) but not yet run in the preview.
 
 ### The people
 - **The generated people looked like toddler cartoons.** Replaced with Microsoft Rocketbox avatars (MIT licence,
@@ -430,6 +448,10 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
 6. From the street the café is a single-storey box between taller houses (24 Nov: the black sky is gone; a sky
    gradient and a simple 3D street now surround it; on 25 Nov its things became pointable words from earlier
    outings).
+
+**Next (26 Nov):** open Lens Studio, start a new chat session (its tools connect only at session start),
+run DC1, DC3, DC4, DC5, DC7 and the story tour, then take screenshots of the new saved-words steps and the
+Use it live table reply for timeline stage 23.
 
 **Before submitting:**
 7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).

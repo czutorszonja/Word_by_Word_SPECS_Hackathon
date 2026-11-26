@@ -13,6 +13,8 @@ import {expect} from "Leaf.lspkg/Utils/common/Expect"
 import {findInteractablesByName} from "Leaf.lspkg/Interactors/InteractableUtils"
 import {sleep} from "Leaf.lspkg/Utils/common/Utils"
 import {findEnabled, log, textOf, waitFor, WbwTester} from "./WbwLeafHelpers"
+import {InteractionManager} from "SpectaclesInteractionKit.lspkg/Core/InteractionManager/InteractionManager"
+import {InteractorInputType} from "SpectaclesInteractionKit.lspkg/Core/Interactor/Interactor"
 
 const D2R = Math.PI / 180
 
@@ -44,6 +46,11 @@ export class DC7_OutsideWords extends Scenario {
       await waitFor(() => m.setupComplete && !m.setupPanel.isVisible, "setup complete")
       expect(m.currentMode, "no mode yet").toBe("none")
       expect(learn.pointMode, "pointing reviews the outside words").toBe("review")
+      // the hand / mouse ray reaches the street (SIK stops at 5 m; the shop signs stand ~12 m away)
+      for (const i of InteractionManager.getInstance().getInteractorsByType(InteractorInputType.All)) {
+        const reach = (i as unknown as {_maxRaycastDistance: number})._maxRaycastDistance
+        if (typeof reach === "number") expect(reach >= 2000, `interactor ${i.inputType} reaches 20 m+ (got ${reach} cm)`).toBe(true)
+      }
 
       // ── left: the tram stop (Street) ──
       await lookAt(posOf("megallo"))

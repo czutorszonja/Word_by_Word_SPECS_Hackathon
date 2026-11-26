@@ -498,7 +498,7 @@ export class StoryTour extends Scenario {
       await pause(0.5)
 
       // ════════════════════ ACT 3 — Use it live (≈ 0:52–2:13) ════════════════════
-      tour.beat("U1", "prep: SAY IT AT THE COUNTER holds the carried word; the server waits")
+      tour.beat("U1", "prep: the phrase helper holds the carried word; the server has not noticed me yet")
       await tour.look(0, -27, 0.8)
       await waitFor(() => S.waitingFor() === "ready" && S.phraseHelperVisible() && findEnabled("PhraseHelper") !== undefined,
         "Use it live opens in its prep state with the phrase helper", 4000)
@@ -513,7 +513,7 @@ export class StoryTour extends Scenario {
       expect(S.phraseHu(), "phrase HU").toBe("Kérek uborkát a szendvicsembe.")
       expect(S.phraseEn(), "phrase EN").toBe("I'd like cucumber in my sandwich.")
       expect(S.phraseAudioKey(), "phrase audio").toBe("p_kerek_uborka_friss")
-      expect(t.hasEnabledInteractable("ReadyToOrderButton"), "Ready to order offered").toBe(true)
+      expect(findEnabled("ReadyToOrderButton") === undefined, "no Ready to order button: the glasses only help").toBe(true)
       expect(S.waitingForSpeech(), "showing the helper opens no speak turn").toBe(false)
       soft(findEnabled("HudModeChip") !== undefined, "the compact HUD names the mode (HudModeChip)")
       await pause(READ_LONG)
@@ -591,15 +591,15 @@ export class StoryTour extends Scenario {
         await tour.waitAudioIdle(14000)
       }
 
-      tour.beat("U6", "Ready to order: look up, the server greets")
-      await tour.point("ReadyToOrderButton", 0.6)
+      tour.beat("U6", "look up at the server: he notices me and greets")
       await tour.lookUpAtServer(0.9)
       expect(S.waitingFor(), "the server waited while the phrase was reused").toBe("ready")
       expect(o.orderStep, "reusing the phrase ordered nothing").toBe(0)
       expect(o.answers.length, "nothing answered in prep").toBe(0)
       expect(o.lastServerLine, "the server has not spoken yet").toBe("")
-      await tour.tap("ReadyToOrderButton") // frees the pointer first (same target)
-      await waitFor(() => o.orderStep === 1 && o.lastServerLine === "Jó napot! Mit kér?", "Ready to order starts the greeting (step 1)", 4000)
+      o.serverNotices = true // the scenario held him back while the phrase was prepared at the counter
+      await waitFor(() => o.orderStep === 1 && o.lastServerLine === "Jó napot! Mit kér?", "facing the server starts his greeting (step 1)", 6000)
+      o.serverNotices = false
       soft(a.lastVoiceKey === "s_mit_ker", `server clip s_mit_ker (got '${a.lastVoiceKey}')`)
       expect(S.phraseHelperVisible(), "the helper steps aside during step 1").toBe(false)
       expect(S.phraseHu(), "prepared phrase kept for step 2").toBe("Kérek szalámit és paradicsomot a szendvicsembe.")
@@ -640,30 +640,34 @@ export class StoryTour extends Scenario {
       await tour.answerTurn(4, "itt_eszem", "p_itt_eszem")
       await tour.lookUpAtServer(0.7)
 
-      tour.beat("U11", "step 5 'Hányas asztalnál ül?': chime + arrow")
+      tour.beat("U11", "step 5 'Hányas asztalnál ül?': the reply waits with its blank")
       await waitFor(() => o.orderStep === 5 && o.waitingFor === "table", "the order waits for a table", 15000)
-      soft(a.lastSfxKey === "AttentionChime", `attention chime (got '${a.lastSfxKey}')`)
-      expect(t.hint.arrowVisible, "edge arrow toward the seating").toBe(true)
-      expect(t.hint.hintText.indexOf("Turn around") >= 0, "the coach hint says turn around").toBe(true)
+      expect(t.hint.arrowVisible, "no edge arrow (real life: nothing sends me round)").toBe(false)
+      expect(t.hint.hintText, "no coach hint at the table question").toBe("")
+      expect(findEnabled("PhraseCard_table_blank") !== undefined, "'A … asztalnál ülök.' waits with its blank").toBe(true)
+      // reading by looking waits until the head rests on table 8's number (the turn sweeps past other tables)
+      const lookSec = o.tableLookSec
+      o.tableLookSec = 60
       await pause(1.4)
 
       tour.beat("U12", "turn around to the seating (the door I came in through is ahead)")
       await tour.look(180, -8, 2.0, "left")
-      try {
-        await waitFor(() => !t.hint.arrowVisible, "arrow hides once the seating is in view", 3000)
-      } catch (e) {
-        soft(false, "arrow hides once the seating is in view")
-      }
       await pause(0.6)
 
       tour.beat("U13", "walk toward table 8")
       await tour.glide({x: -140, z: 90, look: findEnabled("TableNumberButton_8") ? "TableNumberButton_8" : undefined, yaw: 141, pitch: -10}, 2.4)
       await pause(0.5)
 
-      tour.beat("U14", "select table 8's number card → '8 = nyolc'")
-      await tour.point("TableNumberButton_8", 0.7)
-      await tour.tap("TableNumberButton_8")
-      await waitFor(() => tableCard(8).popupText === "8 = nyolc", "table 8 popup", 3000)
+      tour.beat("U14", "look at table 8's number → '8 = nyolc'")
+      o.tableLookSec = lookSec
+      try {
+        await waitFor(() => tableCard(8).popupText === "8 = nyolc", "looking at table 8 reads it", 3000)
+        soft(o.tableReadBy === "look", `table 8 read by looking (got '${o.tableReadBy}')`)
+      } catch (e) {
+        soft(false, "looking at table 8 reads it (tapped instead)")
+        await tour.tap("TableNumberButton_8")
+        await waitFor(() => tableCard(8).popupText === "8 = nyolc", "table 8 popup", 3000)
+      }
       expect(a.lastVoiceKey, "number audio").toBe("n_8")
       expect(o.chosenTable, "chosen table").toBe(8)
       await pause(2.0)
@@ -678,8 +682,7 @@ export class StoryTour extends Scenario {
       tour.beat("U16", "step 6 'Jó étvágyat!' → 'Köszönöm!'")
       await tour.answerTurn(6, "koszonom", "p_koszonom")
       await waitFor(() => o.orderStep === 7 && o.waitingFor === "done", "order complete", 8000)
-      expect(t.hint.hintText.indexOf("Walk to table 8") >= 0, "final hint names table 8").toBe(true)
-      expect(t.hint.hintText.indexOf("Practice") >= 0, "final hint suggests Practice").toBe(true)
+      expect(t.hint.hintText, "no instruction after the order: it is my visit").toBe("")
       await tour.lookUpAtServer(0.7)
       await pause(2.0)
 

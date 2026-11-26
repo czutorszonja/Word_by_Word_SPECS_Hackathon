@@ -23,11 +23,9 @@ const LATER = "Later"
 const DESC_SUGGESTED = "Suggested here: start with " // + the suggested mode's name
 const DESC_LEARN = "Point at food to see its Hungarian name"
 const DESC_PRACTICE = "Match the words you saved"
-const DESC_PRACTICE_NEEDS_WORDS = "Save 4 words first, then match them"
-const DESC_LIVE = "Order at the counter in Hungarian"
+const DESC_LIVE = "Subtitles and replies to say at the counter"
 const DESC_LATER = "Close; the Menu has every mode"
 /** Saved words the matching game needs. */
-const PRACTICE_NEEDS = 4
 
 // Same order as the mode menu. Each tile wears its own mode tone and is labelled with that mode's name
 // (Tone.label, the text the mode chips use), so the colours become learnable.
@@ -90,7 +88,7 @@ export class WbwSuggestionUI extends BaseScriptComponent {
   }
 
   /** Show the panel. `suggested` ("learn" | "practice" | "live") gets the primary outline and is named
-   *  in the description; `savedCount` decides what the Practice description says. */
+   *  in the description. `savedCount` is kept for callers (Practice no longer depends on it). */
   show(savedCount: number, suggested: string): void {
     this.hide()
     this.savedCount = savedCount
@@ -172,7 +170,8 @@ export class WbwSuggestionUI extends BaseScriptComponent {
 
   private descriptionFor(option: string): string {
     if (option === "learn") return DESC_LEARN
-    if (option === "practice") return this.savedCount >= PRACTICE_NEEDS ? DESC_PRACTICE : DESC_PRACTICE_NEEDS_WORDS
+    // earlier outings always give enough words for a set (26 Nov), so Practice never needs saving first
+    if (option === "practice") return DESC_PRACTICE
     if (option === "live") return DESC_LIVE
     if (option === "later") return DESC_LATER
     return DESC_SUGGESTED + this.suggestedTile().tone.label

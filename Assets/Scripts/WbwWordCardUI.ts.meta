@@ -43,7 +43,7 @@
     -
       {}
   InputLines:
-    - '// @ui {"widget":"label", "label":"WbwWordCardUI – compact steady word card (word, meaning, status line, three buttons)"}'
+    - '// @ui {"widget":"label", "label":"WbwWordCardUI – calm word card (word, meaning, three buttons)"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - "// @input float viewDistanceCm = 70 {\"hint\":\"Viewing distance the text is sized for (cm) — match the Learn controller's card distance\", \"widget\":\"slider\", \"min\":40, \"max\":110, \"step\":5}"

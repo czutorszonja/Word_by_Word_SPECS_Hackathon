@@ -1,10 +1,11 @@
 // DC4_TableNumber — Done criterion 4 (Use it live, table).
-// "After 'Hányas asztalnál ül?', I turn around, see occupied and empty tables, select the number
-//  card on an empty table (4, 8 or 12) and see and hear it (e.g. '8 = nyolc'). Back at the
-//  counter I can answer with the matching phrase ('A nyolcas asztalnál ülök.'), and the server
-//  answers 'Jó étvágyat!'"
+// "After 'Hányas asztalnál ül?', the reply 'A … asztalnál ülök.' waits with its blank. I look round
+//  at the tables (nothing tells me to); occupied tables stay as they are, and when I look at the
+//  number on an empty table (4, 8 or 12) I see and hear it (e.g. '8 = nyolc'). Back at the counter I
+//  can answer with the matching phrase ('A nyolcas asztalnál ülök.'), and the server answers
+//  'Jó étvágyat!'. Nothing tells me where to go afterwards." (26 Nov: no coach hint, arrow or chime)
 // Drives: real SIK triggers through the whole order (prep and steps 1–4 shared with DC3), a real
-//         head turn (camera yaw 180° → seating, back to 0° → counter), TableNumberButton_8,
+//         head turn (camera yaw 180° → seating, a look at table 8's number, back to 0° → counter),
 //         PhraseCard_nyolcas_asztal and PhraseCard_koszonom, each answered with SaidItButton
 //         (choosing a card plays it; only saying it moves the order on).
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
@@ -25,13 +26,15 @@ export class DC4_TableNumber extends Scenario {
       await t.switchModeViaMenu("ModeUseLiveButton", "live")
       await orderUpToTable(t)
 
-      // facing the counter, the seating is behind: the edge arrow asks the user to turn
+      // no arrow or hint asks the user to turn
       await sleep(200)
-      expect(t.hint.arrowVisible, "edge arrow visible while the seating is behind the user").toBe(true)
+      expect(t.hint.arrowVisible, "no edge arrow at the table question").toBe(false)
+      expect(t.hint.hintText, "no coach hint at the table question").toBe("")
 
-      // ── turn around to the seating ──
+      // ── turn around to the seating (reading by looking is paused for the occupied-table checks) ──
+      const lookSec = o.tableLookSec
+      o.tableLookSec = 60
       await t.setHead(t.eyeAt(0, 0), 180, -5)
-      await waitFor(() => !t.hint.arrowVisible, "edge arrow hides once the seating is in view", 3000)
 
       // occupied tables: plain number cards (not selectable); empty tables: selectable buttons
       // (UIKit's BackPlate always adds a passive Interactable, so "not selectable" is checked
@@ -56,9 +59,11 @@ export class DC4_TableNumber extends Scenario {
         expect(textOf("Number", findEnabled(`TableNumberButton_${n}`)), `empty table ${n} number text`).toBe(`${n}`)
       }
 
-      // ── select table 8: "8 = nyolc" + audio ──
-      await t.tap("TableNumberButton_8")
-      await waitFor(() => tableCard(8).popupText === "8 = nyolc", "table 8 popup '8 = nyolc'", 3000)
+      // ── look at table 8's number: "8 = nyolc" + audio ──
+      o.tableLookSec = lookSec
+      await t.lookAt(t.eyeAt(0, 0), tableCard(8).getSceneObject().getTransform().getWorldPosition())
+      await waitFor(() => tableCard(8).popupText === "8 = nyolc", "looking at table 8 reads it: '8 = nyolc'", 4000)
+      expect(o.tableReadBy, "read by looking, not tapping").toBe("look")
       expect(findEnabled("TableTranslation_8") !== undefined, "TableTranslation_8 popup visible").toBe(true)
       expect(textOf("Line", findEnabled("TableTranslation_8")), "popup text").toBe("8 = nyolc")
       expect(a.lastVoiceKey, "number audio n_8 played").toBe("n_8")
@@ -85,8 +90,8 @@ export class DC4_TableNumber extends Scenario {
       await t.sayIt()
       await waitFor(() => o.orderStep === 7 && o.waitingFor === "done", "order complete (step 7)", 15000)
       expect(a.lastVoiceKey, "Köszönöm audio").toBe("p_koszonom")
-      expect(t.hint.hintText.indexOf("Walk to table 8") >= 0, `final hint names table 8 (got '${t.hint.hintText}')`).toBe(true)
-      expect(t.hint.hintText.indexOf("Practice") >= 0, "final hint suggests Practice").toBe(true)
+      expect(t.hint.hintText, "no instruction after the order: it is the learner's visit").toBe("")
+      expect(t.hint.arrowVisible, "no arrow after the order").toBe(false)
       log("DC4 done")
     } finally {
       t.restoreHead()

@@ -18,7 +18,7 @@
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {WbwWordCardUI} from "./WbwWordCardUI"
 import {markerTint, NameLabelLiveState, WbwNameLabelUI} from "./WbwNameLabelUI"
-import {WbwHoverArbiter} from "./WbwPointing"
+import {WbwHoverArbiter, extendPointerReach} from "./WbwPointing"
 import {canUseInPhrase, MAX_SLOTS} from "./WbwPhraseHelperModel"
 import {WbwAudioController} from "./WbwAudioController"
 import {WbwHudUI} from "./WbwHudUI"
@@ -27,6 +27,9 @@ import {WbwSession} from "./WbwSession"
 import {WORDS, WordEntry, earlierWordById, learnableWord} from "./WbwVocab"
 import {box, group, tint} from "./WbwGeo"
 import {angleToDeg, camLook, camPos, flat, horizDist, placeFacingUser} from "./WbwSpatial"
+
+/** How far the hand / mouse ray reaches (cm): the street and park outside stand up to ~15 m away (SIK stops at 5 m). */
+const POINTER_REACH_CM = 2500
 
 /** Use it live: a pinch on an ingredient keeps its label up this long (s). It changes nothing else. */
 const LIVE_PIN_SEC = 2
@@ -169,6 +172,7 @@ export class WbwLearnController extends BaseScriptComponent {
       this.tracked.push({l: l, word: w, bracket: this.makeBracket(l), look: "learn"})
       this.learnableIds.push(l.id)
     }
+    const reached = extendPointerReach(POINTER_REACH_CM)
     // The ONE hover arbiter: it holds the only hover / trigger subscriptions on the learnables.
     const hover = new WbwHoverArbiter(
       this.tracked.map((t) => ({id: t.l.id, interactable: t.l.interactable})),
@@ -203,7 +207,7 @@ export class WbwLearnController extends BaseScriptComponent {
     this.createEvent("OnDestroyEvent").bind(() => {
       if (this.hover) this.hover.dispose()
     })
-    print(`WbwLearn: tracking ${this.tracked.length} learnable objects (${WORDS.length} words in vocab)`)
+    print(`WbwLearn: tracking ${this.tracked.length} learnable objects (${WORDS.length} words in vocab); pointer reach ${POINTER_REACH_CM / 100} m on ${reached} interactors`)
   }
 
   setActive(on: boolean): void {

@@ -129,6 +129,9 @@ export class WbwTester {
     this.interactor = new DefaultLeafInteractor("WbwLeafInteractor")
     this.pointer = new WbwPointer("WbwLeafPointer")
     this.quietMouse()
+    // the server notices a learner who faces him at the counter (26 Nov: no Ready to order button). The
+    // scenarios check the prep state standing at the counter, so he waits until startOrdering() lets him.
+    this.main.order.serverNotices = false
     // the microphone is NOT silenced here: WbwMain creates the voice detector in its OnStart, which may
     // run after this constructor. quietMic() is called lazily by completeSetup() and sayIt().
   }
@@ -273,6 +276,13 @@ export class WbwTester {
     return Math.atan2(-(to.x - from.x), -(to.z - from.z)) / D2R
   }
 
+  /** Look from `pos` straight at `target` (yaw and pitch). */
+  async lookAt(pos: vec3, target: vec3): Promise<void> {
+    const d = target.sub(pos)
+    const pitch = Math.atan2(d.y, Math.sqrt(d.x * d.x + d.z * d.z)) / D2R
+    await this.setHead(pos, this.yawToward(pos, target), pitch)
+  }
+
   /** Face the sandwich counter from the start spot (keeps the current head position). */
   async faceCounter(pitchDeg: number = -15): Promise<void> {
     await this.setHead(this.camPos(), 0, pitchDeg)
@@ -284,6 +294,7 @@ export class WbwTester {
     if (this.disabledTracking && !isNull(this.disabledTracking)) this.disabledTracking.enabled = true
     this.disabledTracking = null
     this.restoreMouse()
+    this.order.serverNotices = true
     void this.pointer.release() // fire and forget: release() never throws
   }
 
@@ -353,13 +364,18 @@ export class WbwTester {
       `order step ${step} waiting for the user (got step ${this.order.orderStep}, waitingFor '${this.order.waitingFor}')`, timeoutMs)
   }
 
-  /** Use it live: leave the prep state with "Ready to order"; the server's greeting has started (step 1). */
+  /** Use it live: the learner faces the server at the counter and he notices them; his greeting has
+   *  started (step 1). There is no Ready to order button (26 Nov). */
   async startOrdering(): Promise<void> {
-    await waitFor(() => this.order.active && this.order.waitingFor === "ready" && this.order.phraseHelperVisible && this.hasEnabledInteractable("ReadyToOrderButton"),
-      "Use it live prep state with Ready to order", 6000)
+    await waitFor(() => this.order.active && this.order.waitingFor === "ready" && this.order.phraseHelperVisible,
+      "Use it live prep state (the server has not noticed the learner yet)", 6000)
     if (this.order.orderStep !== 0) throw new Error(`prep must keep orderStep 0, got ${this.order.orderStep}`)
-    await this.tap("ReadyToOrderButton")
-    await waitFor(() => this.order.orderStep === 1 && this.order.waitingFor !== "ready", "Ready to order starts the greeting (step 1)", 4000)
+    const eye = this.camPos()
+    const server = this.order.server.getSceneObject().getTransform().getWorldPosition()
+    await this.setHead(eye, this.yawToward(eye, server), -12)
+    this.order.serverNotices = true
+    await waitFor(() => this.order.orderStep === 1 && this.order.waitingFor !== "ready", "facing the server at the counter starts his greeting (step 1)", 6000)
+    this.order.serverNotices = false // a later prep (menu → Use it live again) waits for the scenario again
   }
 
   /** Answer the open speak turn with the Said it button (the Preview stand-in for speaking). */

@@ -384,12 +384,12 @@ export class WbwMain extends BaseScriptComponent {
     this.menuFollowing = false
   }
 
-  /** The menu's "Words saved": the saved-words viewer replaces the menu, sorted by category first. */
+  /** The menu's "Words saved": the saved-words viewer replaces the menu, on its first step (how to look at them). */
   openWordList(): void {
     if (!this.wordList) return
     this.modeMenu.hide()
     this.audio.playSfx("UiClick")
-    this.wordList.show(this.wordEntries(), "category")
+    this.wordList.show(this.wordEntries())
     placeFacingUser(this.wordList.getSceneObject(), inView(WORDS_DIST, WORDS_UP))
     this.wordsFollowing = false
   }
@@ -438,7 +438,7 @@ export class WbwMain extends BaseScriptComponent {
     if (restart) {
       if (m === "practice") this.practice.setActive(false)
       if (m === "learn") this.learn.setActive(false)
-      // Use it live starts over in its prep state: the phrase helper, the server waits for "Ready to order"
+      // Use it live starts over in its prep state: the phrase helper, until the server notices the learner at the counter
       if (m === "live") this.order.enterPrep()
     }
     this.learn.setActive(m === "learn")

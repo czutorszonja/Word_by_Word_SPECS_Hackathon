@@ -32,7 +32,7 @@ is the learning layer.
 | 11-24 | 20 | The learner found that street too dark and not fitting; swapped for a sunny Palermo square (Piazza Bologni), turned so the window bar looks across the square |
 | 11-24 | 21 | Photos still stood out next to the 3D café: replaced by a simple 3D street and park of our own, with things from the Street and Park word lists to spot outside; DC6 passes |
 | 11-25 | 21 | The outside things became pointable words from earlier outings (review before going in; saved cards in Learn); new test DC7; DC2/3/6/7 pass. Timeline page: the three outside trials merged into one card |
-| 11-26 | 23 | Learner feedback after trying it: saved words became one step at a time (how to look → category / time range → words); Practice opened behind the learner (now in view, and earlier-outing words always make a set); outside words could not be pointed at (SIK's 5 m ray, now 25 m); Use it live redesigned as real-life help (no Ready to order, the server notices you, "You could say" replies, table number read by looking, no coach hint / arrow / chime). Code type-checks; preview run still to do (the PC restarted mid-session) |
+| 11-26 | 23 | Learner feedback after trying it: saved words became one step at a time (how to look → category / time range → words); Practice opened behind the learner (now in view, and earlier-outing words always make a set); outside words could not be pointed at (SIK's 5 m ray, now 25 m); Use it live redesigned as real-life help (no Ready to order, the server notices you, "You could say" replies, table number read by looking, no coach hint / arrow / chime). Evening run in the preview: DC1–DC7 and TOUR_Story pass with no soft-check failures (DC7's reach check fixed, DC5 now also checks Practice opening in front); the server no longer greets while you look down at the counter. Screenshots and polish wait on a Lens Studio permission dialog |
 | 11-25 | 22 | Calmer cards: every card and panel cut down to one thing to read (word card, phrase panel, labels, speak strip, table caption, saved words); the mode is named once, on the Menu chip; DC1–DC7 and the tour pass |
 
 ## Problems we ran into and how they were solved
@@ -70,6 +70,12 @@ is the learning layer.
   running; read PASSED/FAILED from the log.
 - **The Scene panel camera cannot be steered by the agent** (no editor API; desktop control was declined), so
   the wide views are dollhouse cutaways from the preview with the ceiling switched off for the shot.
+- **The agent's PreviewInteractTool installs packages and can stall Lens Studio** (26 Nov): its first call
+  installed `AiPreviewAgentInteract`, `Icons` and `Motion` into `Packages/`, reset the Lens, and the Icons
+  package opened a "Loading Icon Atlas — requesting filesystem access (Trust and Load / Block)" window behind
+  the minimized main window. Asset import and TypeScript compiling waited on it, so the preview stayed
+  "not compiled" until someone answered it. Avoid PreviewInteractTool here; drive interactions through LEAF
+  (the `WbwTester` helpers) or `InjectPreviewGesture`. These packages are not committed.
 - Smaller ones: an ES_ASSERT crash when many TypeScript files were reimported at once; creating materials by
   code failed ("Value is not a native object"), so materials are made by copying `.mat` files with new IDs (this
   leaves harmless "duplicate id" log warnings on reimport); Lens Studio signed out overnight once.
@@ -156,6 +162,15 @@ is the learning layer.
   and ground practice in the surroundings — the redesign keeps the help next to the person and the things.
   The PC had to restart mid-session (Lens Studio closed), so this was type-checked with Lens Studio's own
   compiler (`lensifyts tsc-only`) but not yet run in the preview.
+  *First preview run (26 Nov evening):* DC1, DC2, DC3, DC4, DC5, DC6 and TOUR_Story passed on the first try;
+  DC7 failed on its own new check: it also measured LEAF's test pointer (a CustomController interactor created
+  after the app had raised the reach), which still had SIK's 5 m. The app was right (log: "pointer reach 25 m on
+  4 interactors"), so DC7 now checks only the hand, mouse and phone interactors. DC5 gained a check that, turned
+  away from every table, the board opens straight ahead 45–90 cm away. *The server greeted mid-sentence:* his
+  "notice" compared only the flat direction, so standing at the counter looking *down* at the ingredients counted
+  as facing him (the tour had to hold him back by code while the phrase was built). He now notices only when the
+  learner looks up at his face (3D angle) and not while they are pointing at something; DC3 checks 2.5 s of
+  looking down. That change is type-checked but not yet run in the preview (see the dialog below).
 
 ### The people
 - **The generated people looked like toddler cartoons.** Replaced with Microsoft Rocketbox avatars (MIT licence,
@@ -449,9 +464,23 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
    gradient and a simple 3D street now surround it; on 25 Nov its things became pointable words from earlier
    outings).
 
-**Next (26 Nov):** open Lens Studio, start a new chat session (its tools connect only at session start),
-run DC1, DC3, DC4, DC5, DC7 and the story tour, then take screenshots of the new saved-words steps and the
-Use it live table reply for timeline stage 23.
+**Waiting for the learner (26 Nov evening):** Lens Studio shows a window "Loading Icon Atlas — requesting
+permission(s) to access: filesystem" (Trust and Load / Block), behind the minimized main window. The agent did not
+answer it (a permission decision is the learner's; recommendation: **Block**). Until it is answered Lens Studio
+cannot import or compile, so the preview says "TypeScript is not compiled".
+- Installed by PreviewInteractTool on 26 Nov, learner to decide whether to keep them (not committed):
+  `Packages/AiPreviewAgentInteract.lspkg`, `Packages/Icons.lspkg`, `Packages/Motion.lspkg` (+ their `.meta`) and
+  `Plugins/0e1758e5-…/b7e4c1a9-…/IconAtlas/` (the editor plugin that asks for the filesystem). The project file
+  (`Word_by_Word_SPECS_Hackhaton.esproj`) and `Assets/Scene.scene` were unchanged on disk; Lens Studio may hold the
+  package registration in memory until it saves.
+- Still needs the preview, after the dialog: rerun DC3 and TOUR_Story (server-notice change); check with the real
+  mouse (`InjectPreviewGesture`, not test hooks) that the street words outside (shop signs ~12–14 m, e.g. posta)
+  can be pointed at; run SHOTS_MenuWords and capture stage 23 (saved-words steps, the table question with the
+  blank reply, the "You could say" cards, Practice opening in front, an outside word label in Learn) as
+  `devpost/development-timeline/2026-11-26_HHMM_23_<name>.png`; review them against the calm-cards rules and
+  polish (to check: after walking toward the tables the filled table reply is placed 68 cm ahead, 7 cm below eye
+  level, and may cover the "8 = nyolc" popup; saved-words panel heights; the Menu chip overlapping anything);
+  then timeline stage 23 on the timeline page (`devpost/timeline/`) and republish the artifact.
 
 **Before submitting:**
 7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).

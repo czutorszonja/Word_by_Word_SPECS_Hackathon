@@ -33,6 +33,7 @@
     cafe: false
     firstMode: false
     hud: false
+    languages: false
     learn: false
     micAudio: false
     modeMenu: false
@@ -70,6 +71,7 @@
       audio: !<MappingBased.AssignableType_9> 00000000-0000-0000-0000-000000000000
       suggestion: !<MappingBased.AssignableType_10> 00000000-0000-0000-0000-000000000000
       wordList: !<MappingBased.AssignableType_11> 00000000-0000-0000-0000-000000000000
+      languages: !<MappingBased.AssignableType_12> 00000000-0000-0000-0000-000000000000
       micAudio: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
       toastText: Café detected (demo)
       toastSeconds: !<float> 3.000000
@@ -99,6 +101,7 @@
     - '// @input AssignableType_9 audio {"hint":"Audio controller"}'
     - '// @input AssignableType_10 suggestion {"hint":"Arrival suggestion panel (Learn / Practice / Use it live / Later). Empty = created at start"}'
     - "// @input AssignableType_11 wordList {\"hint\":\"Saved-words viewer (opened from the menu's Words saved). Empty = created at start\"}"
+    - "// @input AssignableType_12 languages {\"hint\":\"Language settings (opened from the menu's Languages). Empty = created at start\"}"
     - "// @input Asset.AudioTrackAsset micAudio {\"hint\":\"Microphone Audio asset (Asset Browser → + → Microphone Audio) for 'say it out loud' in Use it live. Empty = only the Said it button ends a speak turn\"}"
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'

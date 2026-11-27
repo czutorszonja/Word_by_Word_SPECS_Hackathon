@@ -84,9 +84,11 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
     const measure = (d: number) => {
       const picS = this.showPictures ? (this.pictureSizeCm * d) / this.viewDistanceCm : 0
       const extra = 2 * cardPadX + (picS > 0 ? picS + picGap : 0)
-      // the generic width estimate runs ~20 % wide for these fonts; 0.95 keeps a safety margin
-      const huWs = cards.map((c) => (textWidthCm(c.hu.length, "Callout", d, false) + 0.3) * 0.95)
-      const enWs = cards.map((c) => (textWidthCm(c.en.length, "Caption", d, false, enBoost) + 0.3) * 0.95)
+      // the generic width estimate runs ~20 % wide for these fonts on phrases; 0.95 keeps a safety margin.
+      // A short word has few narrow letters to average out ("Köszönöm!" wrapped its "!"), so it gets more.
+      const fit = (n: number) => n <= 12 ? 1.1 : 0.95
+      const huWs = cards.map((c) => (textWidthCm(c.hu.length, "Callout", d, false) + 0.3) * fit(c.hu.length))
+      const enWs = cards.map((c) => (textWidthCm(c.en.length, "Caption", d, false, enBoost) + 0.3) * fit(c.en.length))
       const single = cards.map((c, i) => Math.max(3.5, huWs[i], enWs[i]))
       const rowOf = (ws: number[]) => ws.reduce((a, b) => a + b + extra, 0) + (cards.length - 1) * gap
       const oneLine = rowOf(single) <= this.maxRowWidthCm

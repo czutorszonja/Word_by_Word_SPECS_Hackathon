@@ -48,6 +48,14 @@ export class WbwPracticeBoardUI extends BaseScriptComponent {
   get onNewSet(): PublicApi<void> { return this._onNewSet.publicApi() }
   get onClose(): PublicApi<void> { return this._onClose.publicApi() }
   get isVisible(): boolean { return this.root !== null }
+  /** True while the board is tucked away behind another panel (see setTucked). */
+  get tucked(): boolean { return this.root !== null && !isNull(this.root) && !this.root.enabled }
+
+  /** Hides the board, keeping its state, while the saved words or the language settings are open: those
+   *  open farther away, so the board would sit in front of them. */
+  setTucked(on: boolean): void {
+    if (this.root && !isNull(this.root) && this.root.enabled === on) this.root.enabled = !on
+  }
   /** "board" | "complete" | "needWords" | "" (hidden) */
   state: string = ""
   /** Text of the progress line, e.g. "1 / 4 pairs". */

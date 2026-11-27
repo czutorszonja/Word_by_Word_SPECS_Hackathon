@@ -434,7 +434,9 @@ export class WbwMain extends BaseScriptComponent {
   /** An open menu or word list follows where the user looks, and stays still while a button on it is pointed at. */
   private followOpenPanels(): void {
     const dt = getDeltaTime()
-    this.hud.setSuppressed(this.wordListOpen || this.languagesOpen) // the viewer's own Back/Close buttons sit where the Menu chip floats
+    const viewerOpen = this.wordListOpen || this.languagesOpen
+    this.hud.setSuppressed(viewerOpen) // the viewer's own Back/Close buttons sit where the Menu chip floats
+    this.practice.board.setTucked(viewerOpen) // the viewers open at 80 cm, behind a practice board at 65 cm
     if (this.modeMenu.isVisible) {
       this.menuFollowing = lazyFollowStep(this.modeMenu.getSceneObject(), MENU_DIST, MENU_UP, dt, this.menuFollowing, this.modeMenu.hovered)
     }

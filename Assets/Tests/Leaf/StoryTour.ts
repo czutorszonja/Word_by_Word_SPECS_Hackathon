@@ -35,6 +35,10 @@ const RECORDING_PACE = 1.0
 /** Scales every pause and glide: 1 = recording pace, 0.25 = regression pace. Set at the start of each
  *  run from the optional scenario parameter "pace". */
 let PACE = RECORDING_PACE
+/** DEMO_Video reuses the Tour moves at recording pace (PACE persists between runs in one Lens session). */
+export function setTourPace(p: number): void {
+  PACE = p
+}
 const GLANCE = 0.6, READ = 1.5, READ_LONG = 2.5, SPEAK = 1.3
 /** Optional beats (U1b Listen, U5b pattern switch, the "Jó napot!" greeting) add about 9 s. */
 const OPTIONAL_BEATS = false
@@ -118,7 +122,7 @@ function phaseCState(t: WbwTester) {
 }
 type PhaseCState = ReturnType<typeof phaseCState>
 
-class Tour {
+export class Tour {
   yaw = 0
   pitch = 0
   readonly S: PhaseCState

@@ -1,5 +1,5 @@
 // LeafIndex.ts — registers the Word by Word LEAF scenarios (one per done criterion in
-// devpost/design-brief.md, plus the watchable story tour, and a screenshot helper). Attached to the root SceneObject
+// devpost/design-brief.md, plus the watchable story tour, the hands-free demo video and the screenshot helpers). Attached to the root SceneObject
 // "LeafIndex". Run scenarios one at a time.
 import {scenariosIndex} from "Leaf.lspkg/Scenarios/decorator/ScenarioIndexDecorator"
 import {ScenarioMetadata} from "Leaf.lspkg/Scenarios/scenario/ScenarioMetadata"
@@ -16,6 +16,8 @@ import {SHOTS_Barista} from "./SHOTS_Barista"
 import {SHOTS_Walkaround} from "./SHOTS_Walkaround"
 import {SHOTS_OutsideWords} from "./SHOTS_OutsideWords"
 import {SHOTS_Stage23} from "./SHOTS_Stage23"
+import {SHOTS_Stage24} from "./SHOTS_Stage24"
+import {DEMO_Video} from "./DEMO_Video"
 
 @component
 export class LeafIndex extends BaseScriptComponent {
@@ -29,10 +31,12 @@ export class LeafIndex extends BaseScriptComponent {
     {id: "DC6_Entrance", typename: DC6_Entrance.getTypeName()},
     {id: "DC7_OutsideWords", typename: DC7_OutsideWords.getTypeName()},
     {id: "TOUR_Story", typename: StoryTour.getTypeName()},
+    {id: "DEMO_Video", typename: DEMO_Video.getTypeName()},
     {id: "SHOTS_MenuWords", typename: SHOTS_MenuWords.getTypeName()},
     {id: "SHOTS_Barista", typename: SHOTS_Barista.getTypeName()},
     {id: "SHOTS_Walkaround", typename: SHOTS_Walkaround.getTypeName()},
     {id: "SHOTS_OutsideWords", typename: SHOTS_OutsideWords.getTypeName()},
     {id: "SHOTS_Stage23", typename: SHOTS_Stage23.getTypeName()},
+    {id: "SHOTS_Stage24", typename: SHOTS_Stage24.getTypeName()},
   ]
 }

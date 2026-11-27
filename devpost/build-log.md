@@ -35,6 +35,7 @@ is the learning layer.
 | 11-26 | 23 | Learner feedback after trying it: saved words became one step at a time (how to look → category / time range → words); Practice opened behind the learner (now in view, and earlier-outing words always make a set); outside words could not be pointed at (SIK's 5 m ray, now 25 m); Use it live redesigned as real-life help (no Ready to order, the server notices you, "You could say" replies, table number read by looking, no coach hint / arrow / chime). Evening run in the preview: DC1–DC7 and TOUR_Story pass with no soft-check failures (DC7's reach check fixed, DC5 now also checks Practice opening in front); the server no longer greets while you look down at the counter |
 | 11-25 | 22 | Calmer cards: every card and panel cut down to one thing to read (word card, phrase panel, labels, speak strip, table caption, saved words); the mode is named once, on the Menu chip; DC1–DC7 and the tour pass |
 | 11-27 | 23 | After the permission dialog was answered: one package the agent's tool had added broke compiling and was moved out of the project; DC3 and the tour pass with the server-notice change; the real mouse labels the post office (~14 m) and opens the tram stop's card (~6.6 m). Stage-23 screenshots (saved-words steps, "You could say", the table reply with its blank and filled, "8 = nyolc", Practice in front, an outside label in Learn) reviewed against the Specs UI sizes: the Menu chip is kept inside the view, the saved words open at 80 cm with a margin, Practice follows a downward gaze. DC1–DC7 and the tour pass; timeline stage 19 on the page |
+| 11-27 | 24 | Word by Word is not a Hungarian app (learner): a Languages screen in the menu (I speak English / I'm learning Hungarian · Magyar; other languages listed and say they are not in this demo yet), Words saved and Languages share one menu row so it fits the view, the setup note points to Languages. DEMO_Video: a hands-free demo run to record, 172 s, tuned in the preview (path to table 8, the ending, pauses). Found while recording: "Köszönöm!" wrapped, the practice board covered the viewers. DC1–DC7, TOUR_Story and DEMO_Video pass |
 
 ## Problems we ran into and how they were solved
 
@@ -84,6 +85,13 @@ is the learning layer.
 - **Window captures land ~4 s after the request** when Lens Studio is minimized (the capture script restores it
   first), so short-lived things (the 4 s "8 = nyolc" popup) can be gone. The screenshot scenario keeps such
   things up longer; the log may print a line twice, so the capture watcher skips names it has already taken.
+- **IconSelector reuses an asset with the same name** (27 Nov): asked for Material "translate", it returned SIK's
+  own `translate.png` cursor (a move-arrows icon inside the package) and wrote no file. The glyph was drawn as an
+  SVG and converted with ConvertSvgToTexture into `Assets/Icons/translate.png` (white, 512 px, like the others).
+  An `.svg` written straight into `Assets/` is not picked up; it has to be imported through the Editor API
+  (`importExternalFileAsync`) first.
+- **`requireAsset` needs a literal path:** a helper that passed the path in a variable inside try/catch always
+  returned null, so the Languages button first showed no icon.
 - Smaller ones: an ES_ASSERT crash when many TypeScript files were reimported at once; creating materials by
   code failed ("Value is not a native object"), so materials are made by copying `.mat` files with new IDs (this
   leaves harmless "duplicate id" log warnings on reimport); Lens Studio signed out overnight once.
@@ -226,8 +234,24 @@ is the learning layer.
   looking down at the counter put its title at the top edge (the board followed the gaze only to 30° down) → 45°.
   The "You could say" replies lie on the counter tray by design, so the shots look down at the tray as the learner
   does.
+- 27 Nov stage-24 review (Languages and the demo run): with a fifth full-width row (Languages) the menu ran off
+  the bottom of the view at 55 cm → Words saved and Languages share one row. The Languages home note broke
+  "English → / Hungarian." across lines → reworded so the pair stays on one line; the English tile read "English /
+  English · in this demo" → "In this demo". "Köszönöm!" wrapped its "!" onto a second line: the card width estimate
+  takes 5 % off for long phrases (narrow letters average out), which a short word with wide letters doesn't get →
+  short words get 10 % more. The finished practice board (65 cm) covered Words saved and Languages (80 cm) → it
+  tucks away while either is open.
 
 ### Process
+- **The demo run (DEMO_Video, 27 Nov).** The guessed walk to table 8 went straight through table 2's right-hand
+  chair, next to a seated guest, then faced a wall corner. The café layout (row 1 at z 220, row 2 at z 410, table
+  8's one chair at x −250) was read from the running scene, and the walk now goes along the open floor in front of
+  the counter and up the aisle between tables 2 and 4, eyes on table 8. The fountain glance stared at the café
+  wall (the fountain is behind it from the pavement), so it was left out. The ending forced a right turn and spun
+  270° in under two seconds → the short way. LEAF makes its overlay (`LeafDebugUICamera`) on its first log line, so
+  the run hides it again at every beat. Timing: 200.8 s → 172.1 s, from shorter pauses, the tour's moves at 0.85
+  of TOUR_Story's pace and no fountain. Runs differ by up to ~4 s, and capturing the window every few seconds
+  slows the preview a little (178.7 s), so record without the frame capture running.
 - Screenshots and commits were sometimes forgotten → now written into the design brief's "Working rules".
 - Parallel helper agents sped up model building but caused the GPU overload above; they now run only while
   Lens Studio is closed.
@@ -435,6 +459,12 @@ a time (how to look, categories, a category's words, time ranges, last 7 days, A
 "A … asztalnál ülök." with its blank (at the counter and turned to the tables), table 8 read by looking, the filled
 reply and Practice opening in front. Taken by `SHOTS_MenuWords` and `SHOTS_Stage23` after the review fixes.
 
+**Languages and the demo run (stage 24, 27 Nov)**: `*_24_languages_*` is the setup panel's new note, the menu with
+Words saved and Languages in one row, the Languages home, the I'm-learning and I-speak lists, and "Deutsch is not
+in this demo yet" (taken by `SHOTS_Stage24`); `*_24_demo-video_*` is six frames of `DEMO_Video`: the tram stop
+word and the suggestion outside, walking in, the sentence ready at the counter, table 8 read by a glance, Practice
+seated at table 8, and the Deutsch note.
+
 ## Reflection notes for the demo (progress, easy, hard, what happened)
 
 Use these when presenting. Picture pairs are in `development-timeline/` (search the file name).
@@ -492,10 +522,10 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
    gradient and a simple 3D street now surround it; on 25 Nov its things became pointable words from earlier
    outings).
 
-**Packages the agent's tool added (learner to decide; 27 Nov):** the "Loading Icon Atlas" dialog was answered
-with Trust and Load. Installed by PreviewInteractTool on 26 Nov, not committed:
-- `Packages/Icons.lspkg`, `Packages/Motion.lspkg` (+ `.meta`) and `Plugins/0e1758e5-…/b7e4c1a9-…/IconAtlas/` are
-  still in the project (untracked). Nothing in the app uses them; keep or delete.
+**Packages the agent's tool added (27 Nov):** the "Loading Icon Atlas" dialog was answered with Trust and Load.
+Installed by PreviewInteractTool on 26 Nov:
+- `Packages/Icons.lspkg`, `Packages/Motion.lspkg` (+ `.meta`) and `Plugins/0e1758e5-…/b7e4c1a9-…/IconAtlas/` were
+  kept and committed (8b7d1d0, 7300fa7). Nothing in the app uses them.
 - `Packages/AiPreviewAgentInteract.lspkg` (+ `.meta`) broke compiling and was moved (not deleted) to
   `C:\LensProjects\_wbw-removed-packages\`. Delete it there, or put it back only together with the kits it expects.
 - The project file and `Assets/Scene.scene` were not changed by them.
@@ -509,7 +539,13 @@ fixes, timeline stage 19 on the page and the artifact (version 8). Small things 
 - In the preview the stand-in café's walls do not block pointing (a park tree behind the wall could be labelled).
   This doesn't matter on the glasses.
 
+**Stage 24 is done** (27 Nov): the Languages screen, the five-tile menu, DEMO_Video (172 s), the review fixes and
+the screenshots. Beats in the run without capture: outside 0.0 s, street 9.4, arrive 15.0, learn 27.2, prepare
+44.7, order 57.0, table 90.9, practice 117.8, words 148.5, languages 158.5, end 168.0, done 172.1 s.
+To record: run DEMO_Video alone from the LEAF panel, Preview large, mouse off the Preview, Preview mic off, and
+stop at "DEMO done" (the camera then jumps back to the start pose).
+
 **Before submitting:**
 7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).
-8. Record the demo video (under 3 minutes) right after a sign-in refresh (every ~50 min; the log says "Next OAuth
+8. Record the demo video (DEMO_Video, about 2:52) right after a sign-in refresh (every ~50 min; the log says "Next OAuth
    token refresh"), make the repo public, submit.

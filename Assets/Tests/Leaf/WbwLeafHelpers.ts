@@ -313,9 +313,9 @@ export class WbwTester {
     this.main.cafe.useCounterStart()
     // face the counter as a user standing at the start spot would
     await this.faceCounter()
-    // UI rework: functional heading; "soon" languages are a small muted line, not selectable buttons
+    // functional heading; a small muted line says the pair can be changed later in the menu's Languages
     await waitFor(() => textOf("Title", this.main.setupPanel.getSceneObject()) === "Choose your languages", "setup heading 'Choose your languages'")
-    await waitFor(() => (textOf("SetupSoon", this.main.setupPanel.getSceneObject()) ?? "").indexOf("soon") >= 0, "muted 'more languages soon' line")
+    await waitFor(() => (textOf("SetupNote", this.main.setupPanel.getSceneObject()) ?? "").indexOf("Languages") >= 0, "muted line: change the pair later in Languages")
     if (this.hasEnabledInteractable("SetupSpeakOther")) throw new Error("unavailable languages must not be selectable")
     await this.tap("SetupSpeakEnglish")
     await this.tap("SetupLearnHungarian")

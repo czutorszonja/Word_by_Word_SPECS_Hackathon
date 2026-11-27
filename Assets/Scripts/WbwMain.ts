@@ -2,6 +2,7 @@
 // Owns: start-up sequence (build café → host the views that are not wired + the voice detector →
 //       setup panel → arrival: walk in → "Café detected (demo)" toast → suggestion panel; no mode
 //       starts by itself), the mode menu (opened from the "✋ Menu" stand-in), mode switching, the
+//       saved-words viewer and the language settings (both opened from the menu), the
 //       hand-off of a word card's "Use it live →" word, and the WbwSession instance. Exposes
 //       readable session and arrival state for tests.
 // Expects @inputs: the UI modules (setup, toast, HUD, mode menu), the café builder, the three
@@ -19,6 +20,7 @@ import {WbwNameLabelUI} from "./WbwNameLabelUI"
 import {WbwPhraseHelperUI} from "./WbwPhraseHelperUI"
 import {WbwSpeakPromptUI} from "./WbwSpeakPromptUI"
 import {WbwWordListUI, WordListEntry} from "./WbwWordListUI"
+import {WbwLanguagesUI} from "./WbwLanguagesUI"
 import {CAFE_CATEGORY, EARLIER_WORDS, wordById} from "./WbwVocab"
 import {PICTURES} from "./WbwIllustrations"
 import {WORD_ICONS} from "./WbwWordIcons"
@@ -60,6 +62,7 @@ export class WbwMain extends BaseScriptComponent {
   @input @hint("Audio controller") audio!: WbwAudioController
   @input @allowUndefined @hint("Arrival suggestion panel (Learn / Practice / Use it live / Later). Empty = created at start") suggestion: WbwSuggestionUI | undefined
   @input @allowUndefined @hint("Saved-words viewer (opened from the menu's Words saved). Empty = created at start") wordList: WbwWordListUI | undefined
+  @input @allowUndefined @hint("Language settings (opened from the menu's Languages). Empty = created at start") languages: WbwLanguagesUI | undefined
   @input @allowUndefined @hint("Microphone Audio asset (Asset Browser → + → Microphone Audio) for 'say it out loud' in Use it live. Empty = only the Said it button ends a speak turn") micAudio: AudioTrackAsset | undefined
   @ui.group_end
   @ui.group_start("Settings")
@@ -121,6 +124,7 @@ export class WbwMain extends BaseScriptComponent {
   private suggestFollowing = false
   private menuFollowing = false
   private wordsFollowing = false
+  private languagesFollowing = false
 
   // ── readable state for tests ──
   get currentMode(): string { return this.session.mode }
@@ -131,6 +135,8 @@ export class WbwMain extends BaseScriptComponent {
   get menuOpen(): boolean { return this.modeMenu ? this.modeMenu.isVisible : false }
   /** True while the saved-words viewer is open. */
   get wordListOpen(): boolean { return !!this.wordList && this.wordList.isVisible }
+  /** True while the language settings are open. */
+  get languagesOpen(): boolean { return !!this.languages && this.languages.isVisible }
   /** Number of mode switches this session. */
   modeSwitches: number = 0
   /** Arrival: "setup" → "walkIn" → "toast" → "suggest" → "done". */
@@ -174,6 +180,8 @@ export class WbwMain extends BaseScriptComponent {
     this.modeMenu.onPick.add((m) => this.selectMode(m as Mode))
     this.modeMenu.onClose.add(() => this.modeMenu.hide())
     this.modeMenu.onWords.add(() => this.openWordList())
+    this.modeMenu.onLanguages.add(() => this.openLanguages())
+    if (this.languages) this.languages.onClose.add(() => this.languages!.hide())
     if (this.wordList) {
       this.wordList.onClose.add(() => this.wordList!.hide())
       this.wordList.onPlay.add((e) => this.audio.playVoice(e.audio))
@@ -222,6 +230,9 @@ export class WbwMain extends BaseScriptComponent {
     }
     if (!this.wordList) {
       this.hostView("WordListRoot", made, (so) => { this.wordList = so.createComponent(WbwWordListUI.getTypeName()) as WbwWordListUI })
+    }
+    if (!this.languages) {
+      this.hostView("LanguagesRoot", made, (so) => { this.languages = so.createComponent(WbwLanguagesUI.getTypeName()) as WbwLanguagesUI })
     }
     if (!this.suggestion) {
       this.hostView("SuggestionRoot", made, (so) => { this.suggestion = so.createComponent(WbwSuggestionUI.getTypeName()) as WbwSuggestionUI })
@@ -380,6 +391,7 @@ export class WbwMain extends BaseScriptComponent {
   private openMenuAt(pos: vec3): void {
     this.audio.playSfx("ToastPop")
     if (this.wordList) this.wordList.hide()
+    if (this.languages) this.languages.hide()
     this.modeMenu.show(this.session.mode, MODE_LABEL[this.session.mode])
     placeFacingUser(this.modeMenu.getSceneObject(), pos)
     this.menuFollowing = false
@@ -393,6 +405,17 @@ export class WbwMain extends BaseScriptComponent {
     this.wordList.show(this.wordEntries())
     placeFacingUser(this.wordList.getSceneObject(), inView(WORDS_DIST, WORDS_UP))
     this.wordsFollowing = false
+  }
+
+  /** The menu's "Languages": the language settings replace the menu (I speak / I'm learning). */
+  openLanguages(): void {
+    if (!this.languages) return
+    this.modeMenu.hide()
+    if (this.wordList) this.wordList.hide()
+    this.audio.playSfx("UiClick")
+    this.languages.show()
+    placeFacingUser(this.languages.getSceneObject(), inView(WORDS_DIST, WORDS_UP))
+    this.languagesFollowing = false
   }
 
   /** Words saved in this session (category Café, today) plus the words saved on earlier outings. */
@@ -411,12 +434,15 @@ export class WbwMain extends BaseScriptComponent {
   /** An open menu or word list follows where the user looks, and stays still while a button on it is pointed at. */
   private followOpenPanels(): void {
     const dt = getDeltaTime()
-    this.hud.setSuppressed(this.wordListOpen) // the viewer's own Back/Close buttons sit where the Menu chip floats
+    this.hud.setSuppressed(this.wordListOpen || this.languagesOpen) // the viewer's own Back/Close buttons sit where the Menu chip floats
     if (this.modeMenu.isVisible) {
       this.menuFollowing = lazyFollowStep(this.modeMenu.getSceneObject(), MENU_DIST, MENU_UP, dt, this.menuFollowing, this.modeMenu.hovered)
     }
     if (this.wordList && this.wordList.isVisible) {
       this.wordsFollowing = lazyFollowStep(this.wordList.getSceneObject(), WORDS_DIST, WORDS_UP, dt, this.wordsFollowing, this.wordList.hovered)
+    }
+    if (this.languages && this.languages.isVisible) {
+      this.languagesFollowing = lazyFollowStep(this.languages.getSceneObject(), WORDS_DIST, WORDS_UP, dt, this.languagesFollowing, this.languages.hovered)
     }
   }
 

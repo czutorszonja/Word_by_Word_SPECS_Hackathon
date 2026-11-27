@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/18078466-50cf-43da-996c-b3d0e7f38c16>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> e5076fe3-f0dd-4c88-a945-33226fc9a64e
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> e5076fe3-f0dd-4c88-a945-33226fc9a64e
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> d0a2d5d3-7e86-4c40-ade3-6960a6ff20de
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/d0a2d5d3-7e86-4c40-ade3-6960a6ff20de>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 0f62ce13-f721-4692-8db1-f9bbad6a313b
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    viewDistanceCm: false
+    widthCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - viewDistanceCm: !<float> 72.000000
+      widthCm: !<float> 38.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - "// @ui {\"widget\":\"label\", \"label\":\"WbwLanguagesUI – I speak / I'm learning (the demo carries English → Hungarian)\"}"
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float viewDistanceCm = 72 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":100, "step":5}'
+    - '// @input float widthCm = 38 {"hint":"Panel width (cm)", "widget":"slider", "min":30, "max":50, "step":1}'
+    - '// @ui {"widget":"group_end"}'

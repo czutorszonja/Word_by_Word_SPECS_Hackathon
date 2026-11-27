@@ -4,7 +4,8 @@
 //  saved words."
 // Drives: real SIK triggers on SetupConfirmButton, SuggestLearnButton, Learnable_olivabogyo,
 //         WordCardSaveButton, WordCardCloseButton, MenuButton, ModeLearnButton / ModePracticeButton /
-//         ModeUseLiveButton, ModeMenuCloseButton, and the saved-words steps (WordsView*, WordsCategory_*, WordsPeriod_*, WordsBackButton).
+//         ModeUseLiveButton, ModeMenuCloseButton, the saved-words steps (WordsView*, WordsCategory_*, WordsPeriod_*, WordsBackButton)
+//         and the language settings (LanguagesButton, LanguagesLearn, Language_de, Language_hu, LanguagesCloseButton).
 // Use it live opens in its prep state (phrase helper shown, the server waits): a saved word never
 // fills the phrase, and nothing is ordered until "Ready to order".
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
@@ -150,6 +151,29 @@ export class DC1_ModeMenu extends Scenario {
       await t.tap("WordsCloseButton")
       await waitFor(() => !m.wordListOpen, "the viewer closes")
       expect(m.currentMode, "browsing words keeps the mode").toBe("learn")
+
+      // ── Languages: the pair is a setting (the demo carries English → Hungarian) ──
+      await t.tap("MenuButton")
+      await waitFor(() => m.menuOpen && t.hasEnabledInteractable("LanguagesButton"), "menu offers Languages")
+      await t.tap("LanguagesButton")
+      await waitFor(() => m.languagesOpen && !m.menuOpen, "Languages replaces the menu")
+      const lg = m.languages!
+      expect(lg.screen, "Languages opens on its first step").toBe("home")
+      expect(textOf("Value", findEnabled("LanguagesSpeak")), "I speak").toBe("English")
+      expect(textOf("Value", findEnabled("LanguagesLearn")), "I'm learning").toBe("Hungarian · Magyar")
+      await t.tap("LanguagesLearn")
+      await waitFor(() => lg.screen === "learn", "I'm learning lists the languages")
+      expect(lg.shownCodes.join(","), "languages to learn (not the one I speak)").toBe("hu,de,es,fr,it")
+      expect(findEnabled("Language_hu")!.getComponent(Button.getTypeName()).isOn, "Hungarian is the current choice").toBe(true)
+      await t.tap("Language_de")
+      await waitFor(() => lg.note.indexOf("Deutsch is not in this demo") === 0, "German says it is not in this demo")
+      expect(lg.learn, "a pack that is not in the demo does not switch").toBe("hu")
+      expect(lg.screen, "still on the list").toBe("learn")
+      await t.tap("Language_hu")
+      await waitFor(() => lg.screen === "home" && lg.learn === "hu", "choosing Hungarian returns to the first step")
+      await t.tap("LanguagesCloseButton")
+      await waitFor(() => !m.languagesOpen, "Languages closes")
+      expect(m.currentMode, "language settings keep the mode").toBe("learn")
 
       // ── close button + toggle behaviour ──
       await t.tap("MenuButton")

@@ -1,9 +1,10 @@
 // WbwSetupPanelUI.ts — first-launch language setup panel (passive view).
 // Owns: "Choose your languages" panel: "I speak: English" / "I learn: Hungarian" (both shown as
-//       selected), a small muted "more languages soon" line, the Start button. Emits onConfirm.
+//       selected; this demo carries that one pair), a small muted line saying the pair can be changed
+//       later from the menu's Languages, the Start button. Emits onConfirm.
 //       The panel is sized around its contents.
 // Must NOT: decide what happens after confirm (WbwMain does), or position itself.
-// Stable names for tests: SetupPanel, SetupSpeakEnglish, SetupLearnHungarian, SetupConfirmButton.
+// Stable names for tests: SetupPanel, SetupSpeakEnglish, SetupLearnHungarian, SetupNote, SetupConfirmButton.
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 import {FlexAlign, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 import {button, flexBox, lineHeightCm, panel, retire, setToggleLater, text, textWidthCm, MUTED, TEXT_SOFT, useTone, headerRule, HEADER_RULE_H, TONE_LEARN} from "./WbwSharedUI"
@@ -26,8 +27,8 @@ export class WbwSetupPanelUI extends BaseScriptComponent {
   headingText: string = "Choose your languages"
 
   @input
-  @hint("Muted line about languages that are not available yet")
-  comingSoonText: string = "More languages soon: Deutsch, Español"
+  @hint("Muted line under the choices: the language pair is a setting the learner can change later")
+  languagesNoteText: string = "Change them any time in the menu: Languages"
   @ui.group_end
 
   private root: SceneObject | null = null
@@ -43,7 +44,7 @@ export class WbwSetupPanelUI extends BaseScriptComponent {
     const titleW = textWidthCm(this.headingText.length, "Headline1", d)
     const labelW = textWidthCm("I speak".length + 1, "Body", d)
     const choiceW = 12, rowH = 4.2
-    const soonW = textWidthCm(this.comingSoonText.length, "Caption", d)
+    const soonW = textWidthCm(this.languagesNoteText.length, "Caption", d)
     const soonH = lineHeightCm("Caption", d)
     const inner = Math.max(titleW, labelW + 1 + choiceW, soonW) + 0.5
     const W = inner + 2 * pad
@@ -65,8 +66,8 @@ export class WbwSetupPanelUI extends BaseScriptComponent {
     const hu = button(r2, "SetupLearnHungarian", choiceW, 3.8, "Hungarian", d, () => setToggleLater(hu.btn, true, this), {icon: ICON_CHECK, toggle: true})
     hu.btn.isOn = true
 
-    // not a choice yet: small, muted, no button
-    text(p.content, "SetupSoon", this.comingSoonText, "Caption", d, {h: soonH, color: MUTED, onPanel: false})
+    // a reminder, not a choice: small, muted, no button
+    text(p.content, "SetupNote", this.languagesNoteText, "Caption", d, {h: soonH, color: MUTED, onPanel: false})
     button(p.content, "SetupConfirmButton", 13, 4.4, "Start", d, () => this._onConfirm.invoke(), {icon: ICON_NEXT, primary: true})
   }
 

@@ -32,8 +32,9 @@ is the learning layer.
 | 11-24 | 20 | The learner found that street too dark and not fitting; swapped for a sunny Palermo square (Piazza Bologni), turned so the window bar looks across the square |
 | 11-24 | 21 | Photos still stood out next to the 3D café: replaced by a simple 3D street and park of our own, with things from the Street and Park word lists to spot outside; DC6 passes |
 | 11-25 | 21 | The outside things became pointable words from earlier outings (review before going in; saved cards in Learn); new test DC7; DC2/3/6/7 pass. Timeline page: the three outside trials merged into one card |
-| 11-26 | 23 | Learner feedback after trying it: saved words became one step at a time (how to look → category / time range → words); Practice opened behind the learner (now in view, and earlier-outing words always make a set); outside words could not be pointed at (SIK's 5 m ray, now 25 m); Use it live redesigned as real-life help (no Ready to order, the server notices you, "You could say" replies, table number read by looking, no coach hint / arrow / chime). Evening run in the preview: DC1–DC7 and TOUR_Story pass with no soft-check failures (DC7's reach check fixed, DC5 now also checks Practice opening in front); the server no longer greets while you look down at the counter. Screenshots and polish wait on a Lens Studio permission dialog |
+| 11-26 | 23 | Learner feedback after trying it: saved words became one step at a time (how to look → category / time range → words); Practice opened behind the learner (now in view, and earlier-outing words always make a set); outside words could not be pointed at (SIK's 5 m ray, now 25 m); Use it live redesigned as real-life help (no Ready to order, the server notices you, "You could say" replies, table number read by looking, no coach hint / arrow / chime). Evening run in the preview: DC1–DC7 and TOUR_Story pass with no soft-check failures (DC7's reach check fixed, DC5 now also checks Practice opening in front); the server no longer greets while you look down at the counter |
 | 11-25 | 22 | Calmer cards: every card and panel cut down to one thing to read (word card, phrase panel, labels, speak strip, table caption, saved words); the mode is named once, on the Menu chip; DC1–DC7 and the tour pass |
+| 11-27 | 23 | After the permission dialog was answered: one package the agent's tool had added broke compiling and was moved out of the project; DC3 and the tour pass with the server-notice change; the real mouse labels the post office (~14 m) and opens the tram stop's card (~6.6 m). Stage-23 screenshots (saved-words steps, "You could say", the table reply with its blank and filled, "8 = nyolc", Practice in front, an outside label in Learn) reviewed against the Specs UI sizes: the Menu chip is kept inside the view, the saved words open at 80 cm with a margin, Practice follows a downward gaze. DC1–DC7 and the tour pass; timeline stage 19 on the page |
 
 ## Problems we ran into and how they were solved
 
@@ -75,7 +76,14 @@ is the learning layer.
   package opened a "Loading Icon Atlas — requesting filesystem access (Trust and Load / Block)" window behind
   the minimized main window. Asset import and TypeScript compiling waited on it, so the preview stayed
   "not compiled" until someone answered it. Avoid PreviewInteractTool here; drive interactions through LEAF
-  (the `WbwTester` helpers) or `InjectPreviewGesture`. These packages are not committed.
+  (the `WbwTester` helpers) or `InjectPreviewGesture`. These packages are not committed. 27 Nov: the learner
+  chose Trust and Load; then `AiPreviewAgentInteract` broke compiling (27 errors: it imports
+  `InteractionKit.lspkg/…` and `UIKit.lspkg/…`, names this project doesn't have; ours are
+  `SpectaclesInteractionKit` / `SpectaclesUIKit`), so it was moved out of the repo to
+  `C:\LensProjects\_wbw-removed-packages\` (with its `.meta`), not deleted. Compiling has 0 errors again.
+- **Window captures land ~4 s after the request** when Lens Studio is minimized (the capture script restores it
+  first), so short-lived things (the 4 s "8 = nyolc" popup) can be gone. The screenshot scenario keeps such
+  things up longer; the log may print a line twice, so the capture watcher skips names it has already taken.
 - Smaller ones: an ES_ASSERT crash when many TypeScript files were reimported at once; creating materials by
   code failed ("Value is not a native object"), so materials are made by copying `.mat` files with new IDs (this
   leaves harmless "duplicate id" log warnings on reimport); Lens Studio signed out overnight once.
@@ -170,7 +178,12 @@ is the learning layer.
   "notice" compared only the flat direction, so standing at the counter looking *down* at the ingredients counted
   as facing him (the tour had to hold him back by code while the phrase was built). He now notices only when the
   learner looks up at his face (3D angle) and not while they are pointing at something; DC3 checks 2.5 s of
-  looking down. That change is type-checked but not yet run in the preview (see the dialog below).
+  looking down. *27 Nov:* DC3 and TOUR_Story pass with it (U1: he waits while the phrase is built; U6: he greets
+  once you look up). Real-mouse check (`InjectPreviewGesture` through SIK's mouse interactor, not test hooks):
+  aimed at the post office sign ~14 m away, the mouse brings up "posta / post office"; a click on the tram stop
+  (~6.6 m) opens its card, already "Saved ✓". The fountain (~16 m) is hidden behind the café wall from the start
+  spot (it is "a few steps along"); there the ray passed through the wall and labelled a park tree behind it, since
+  the stand-in café's walls do not block pointing. On the glasses the walls are real, so this was left as it is.
 
 ### The people
 - **The generated people looked like toddler cartoons.** Replaced with Microsoft Rocketbox avatars (MIT licence,
@@ -204,6 +217,15 @@ is the learning layer.
   The barista's caption floated over the menu board → beside his head it ran off the narrow view → now a subtitle
   in front of his chest. The practice board could only move toward a seated user (57 cm) → it may now sit up to
   15 cm past the table centre, 65 cm away.
+- 27 Nov stage-23 screenshot review (against the Specs UI sizes in the realistic-lens-scenes skill): the Menu
+  (demo) chip's left edge (hand icon) was cut off in every mode. The scene stores its own offset (-15 cm at 60 cm,
+  but the view only reaches ~15.5 cm there), so the code now keeps the whole chip 14.5° in from the edge; in Use it
+  live it rises a little so it stays clear of the server's caption, and that rise and the look-down rise never add
+  up (together they pushed it to the top edge). The saved-words viewer (38 cm) filled the whole view width at
+  72 cm → it opens at 80 cm and keeps a margin (text slightly smaller, still readable). Practice opened while
+  looking down at the counter put its title at the top edge (the board followed the gaze only to 30° down) → 45°.
+  The "You could say" replies lie on the counter tray by design, so the shots look down at the tray as the learner
+  does.
 
 ### Process
 - Screenshots and commits were sometimes forgotten → now written into the design brief's "Working rules".
@@ -407,6 +429,12 @@ station, menu board, seating from the counter, tables 2/5/7/10, the gallery wall
 back to the counter, ZÁRVA from inside. `*_17_tour_*`: 18 frames of the story tour after the placement fixes.
 Not covered: a true Scene-panel wide shot (its camera can't be steered by the agent).
 
+**After the learner tried it (stage 23, 27 Nov)**: `*_23_saved-words_*` is the Menu and the saved words one step at
+a time (how to look, categories, a category's words, time ranges, last 7 days, A to Z, the menu in Practice);
+`*_23_real-life-help_*` is an outside label in Learn (posta), "You could say" at steps 1 and 4, the table question,
+"A … asztalnál ülök." with its blank (at the counter and turned to the tables), table 8 read by looking, the filled
+reply and Practice opening in front. Taken by `SHOTS_MenuWords` and `SHOTS_Stage23` after the review fixes.
+
 ## Reflection notes for the demo (progress, easy, hard, what happened)
 
 Use these when presenting. Picture pairs are in `development-timeline/` (search the file name).
@@ -464,23 +492,22 @@ Use these when presenting. Picture pairs are in `development-timeline/` (search 
    gradient and a simple 3D street now surround it; on 25 Nov its things became pointable words from earlier
    outings).
 
-**Waiting for the learner (26 Nov evening):** Lens Studio shows a window "Loading Icon Atlas — requesting
-permission(s) to access: filesystem" (Trust and Load / Block), behind the minimized main window. The agent did not
-answer it (a permission decision is the learner's; recommendation: **Block**). Until it is answered Lens Studio
-cannot import or compile, so the preview says "TypeScript is not compiled".
-- Installed by PreviewInteractTool on 26 Nov, learner to decide whether to keep them (not committed):
-  `Packages/AiPreviewAgentInteract.lspkg`, `Packages/Icons.lspkg`, `Packages/Motion.lspkg` (+ their `.meta`) and
-  `Plugins/0e1758e5-…/b7e4c1a9-…/IconAtlas/` (the editor plugin that asks for the filesystem). The project file
-  (`Word_by_Word_SPECS_Hackhaton.esproj`) and `Assets/Scene.scene` were unchanged on disk; Lens Studio may hold the
-  package registration in memory until it saves.
-- Still needs the preview, after the dialog: rerun DC3 and TOUR_Story (server-notice change); check with the real
-  mouse (`InjectPreviewGesture`, not test hooks) that the street words outside (shop signs ~12–14 m, e.g. posta)
-  can be pointed at; run SHOTS_MenuWords and capture stage 23 (saved-words steps, the table question with the
-  blank reply, the "You could say" cards, Practice opening in front, an outside word label in Learn) as
-  `devpost/development-timeline/2026-11-26_HHMM_23_<name>.png`; review them against the calm-cards rules and
-  polish (to check: after walking toward the tables the filled table reply is placed 68 cm ahead, 7 cm below eye
-  level, and may cover the "8 = nyolc" popup; saved-words panel heights; the Menu chip overlapping anything);
-  then timeline stage 23 on the timeline page (`devpost/timeline/`) and republish the artifact.
+**Packages the agent's tool added (learner to decide; 27 Nov):** the "Loading Icon Atlas" dialog was answered
+with Trust and Load. Installed by PreviewInteractTool on 26 Nov, not committed:
+- `Packages/Icons.lspkg`, `Packages/Motion.lspkg` (+ `.meta`) and `Plugins/0e1758e5-…/b7e4c1a9-…/IconAtlas/` are
+  still in the project (untracked). Nothing in the app uses them; keep or delete.
+- `Packages/AiPreviewAgentInteract.lspkg` (+ `.meta`) broke compiling and was moved (not deleted) to
+  `C:\LensProjects\_wbw-removed-packages\`. Delete it there, or put it back only together with the kits it expects.
+- The project file and `Assets/Scene.scene` were not changed by them.
+
+**Stage 23 is done** (27 Nov): the server-notice change, the real-mouse check outside, the screenshots, the review
+fixes, timeline stage 19 on the page and the artifact (version 8). Small things the review left:
+- When the Menu is open, the Menu (demo) chip sits behind it, and over an open practice board the see-through menu
+  lets the board's words show through. Both are readable; hiding the chip would break "a second press closes the
+  menu" (DC1), so it was left.
+- The "8 = nyolc" popup is small from the counter (~4 m away), but it is readable.
+- In the preview the stand-in café's walls do not block pointing (a park tree behind the wall could be labelled).
+  This doesn't matter on the glasses.
 
 **Before submitting:**
 7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).

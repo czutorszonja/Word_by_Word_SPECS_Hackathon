@@ -33,6 +33,7 @@
     boardDistanceCm: false
     nearTableCm: false
     pairsPerSet: false
+    tableInViewDeg: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -46,6 +47,7 @@
       pairsPerSet: !<float> 4.000000
       boardAboveTableCm: !<float> 30.000000
       nearTableCm: !<float> 250.000000
+      tableInViewDeg: !<float> 40.000000
       boardDistanceCm: !<float> 55.000000
   ScriptTypes:
     -

@@ -41,7 +41,8 @@ const TOAST_FADE_SEC = 0.35, SUGGEST_PAUSE_SEC = 0.3
 const SUGGESTED_OPTION = "learn"
 /** The menu and the saved-words viewer follow the gaze at this distance / height (cm). */
 const MENU_DIST = 55, MENU_UP = -3
-const WORDS_DIST = 72, WORDS_UP = -2
+// 80 cm: at 72 cm the 38 cm viewer filled the whole width of the Specs view (27 Nov screenshots)
+const WORDS_DIST = 80, WORDS_UP = -2
 
 @component
 export class WbwMain extends BaseScriptComponent {

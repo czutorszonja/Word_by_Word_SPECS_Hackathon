@@ -14,6 +14,11 @@ import {camLook, camPos, camRightFlat, faceRotation} from "./WbwSpatial"
 const ICON_HAND = requireAsset("../Icons/back_hand.png") as Texture
 /** The button is a stand-in for raising the hand on the glasses. */
 const MENU_LABEL = "Menu (demo)"
+/** Half-width of the Specs view the chip must stay inside (deg): the 16° view minus a 1.5° margin. */
+const VIEW_HALF_W_DEG = 14.5
+/** Use it live: how much the chip rises (cm) at most when it is pushed in from the left edge. */
+const COMPACT_RISE_CM = 6
+const D2R = Math.PI / 180
 
 @component
 export class WbwHudUI extends BaseScriptComponent {
@@ -167,16 +172,29 @@ export class WbwHudUI extends BaseScriptComponent {
     // The offsets place a chip of chipWidthCm x chipHeightCm; a larger built chip keeps that chip's
     // left and bottom edge and grows to the right and upward.
     let right = this.chipOffsetRightCm, up = this.compact ? this.chipOffsetUpCm : this.offsetUpCm
+    let lookRise = 0
     if (this.compact) {
       // looking down at the phrase helper on the counter: rise above it (over the server's apron, no UI
       // there) so the chip never covers the start of the phrase; back to mid-left when looking up
       const t = Math.max(0, Math.min(1, (-look.y - 0.25) / 0.15))
-      up += t * 9
+      lookRise = t * 9
     }
     if (this.compactW > 0) {
       right += (this.compactW - this.chipWidthCm) / 2
       up += (this.compactH - Math.max(3.8, this.chipHeightCm)) / 2
     }
+    // keep the whole chip inside the narrow Specs view (27 Nov screenshots: its left side, the hand icon,
+    // was cut off at the edge); in Use it live the pushed-in chip rises a little so it stays clear of the
+    // server's caption, which starts just right of it at chest height
+    const halfView = this.followDistanceCm * Math.tan(VIEW_HALF_W_DEG * D2R)
+    const halfChip = (this.compactW > 0 ? this.compactW : this.chipWidthCm) / 2
+    const minRight = -halfView + halfChip
+    let pushRise = 0
+    if (right < minRight) {
+      if (this.compact) pushRise = Math.min(COMPACT_RISE_CM, (minRight - right) * 2)
+      right = minRight
+    }
+    up += Math.max(lookRise, pushRise) // the larger of the two, never both (both put it at the top edge)
     return camPos().add(look.uniformScale(this.followDistanceCm))
       .add(camRightFlat().uniformScale(right))
       .add(new vec3(0, up, 0))

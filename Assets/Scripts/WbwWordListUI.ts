@@ -84,7 +84,7 @@ export class WbwWordListUI extends BaseScriptComponent {
   @input
   @hint("Viewing distance the text is sized for (cm)")
   @widget(new SliderWidget(40, 100, 5))
-  viewDistanceCm: number = 72   // sized for where WbwMain places it (WORDS_DIST)
+  viewDistanceCm: number = 72   // text sized for 72 cm; WbwMain places the viewer at 80 (WORDS_DIST) so it keeps a margin in view
 
   @input
   @hint("Panel width (cm)")

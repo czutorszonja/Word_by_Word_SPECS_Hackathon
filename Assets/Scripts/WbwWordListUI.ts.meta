@@ -45,7 +45,7 @@
     -
       {}
   InputLines:
-    - '// @ui {"widget":"label", "label":"WbwWordListUI – saved words (by category, date added or A–Z)"}'
+    - '// @ui {"widget":"label", "label":"WbwWordListUI – saved words, one step at a time (category / date added / A–Z)"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input float viewDistanceCm = 72 {"hint":"Viewing distance the text is sized for (cm)", "widget":"slider", "min":40, "max":100, "step":5}'

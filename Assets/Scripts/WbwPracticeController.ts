@@ -212,7 +212,9 @@ export class WbwPracticeController extends BaseScriptComponent {
       this.placedAt = "table"
       this.boardTable = table
     } else {
-      placeFacingUser(this.board.getSceneObject(), inView(this.boardDistanceCm, 3)) // a little above the gaze, clear of the low HUD
+      // a little above the gaze, clear of the low HUD; follows the gaze down to 45° (27 Nov: opened while
+      // looking down at the counter, a 30° limit put the board above the gaze with its title at the top edge)
+      placeFacingUser(this.board.getSceneObject(), inView(this.boardDistanceCm, 3, 0, 45))
       this.placedAt = "front"
       this.boardTable = 0
     }

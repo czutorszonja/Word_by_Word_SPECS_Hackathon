@@ -43,7 +43,14 @@
     replyPauseSec: false
     seating: false
     server: false
+    serverNoticeCm: false
+    serverNoticeDeg: false
+    serverNoticeSec: false
+    serverNotices: false
     speakPrompt: false
+    tableLookCm: false
+    tableLookDeg: false
+    tableLookSec: false
     voiceDetection: false
   ScriptTypesHidden:
     {}
@@ -68,6 +75,13 @@
       maxTrayDistanceCm: !<float> 260.000000
       phraseDistanceCm: !<float> 60.000000
       phraseDropCm: !<float> 17.000000
+      serverNoticeCm: !<float> 260.000000
+      serverNoticeDeg: !<float> 30.000000
+      serverNoticeSec: 1.200000
+      serverNotices: true
+      tableLookDeg: !<float> 8.000000
+      tableLookSec: 0.500000
+      tableLookCm: !<float> 520.000000
       arrowInViewDeg: !<float> 24.000000
       playPhraseOnChange: true
       voiceDetection: true
@@ -94,6 +108,13 @@
     - '// @input float maxTrayDistanceCm = 260 {"hint":"Cards lie on the counter tray only while the user is within this distance of it (cm); further away they float in front of the user", "widget":"slider", "min":100, "max":500, "step":10}'
     - '// @input float phraseDistanceCm = 68 {"hint":"Distance of the phrase cards in front of the user when NOT on the counter (cm)", "widget":"slider", "min":40, "max":90, "step":1}'
     - '// @input float phraseDropCm = 7 {"hint":"How far below eye level the phrase cards sit (cm)", "widget":"slider", "min":0, "max":40, "step":1}'
+    - '// @input float serverNoticeCm = 260 {"hint":"The server starts talking once the learner is this close to him (cm)...", "widget":"slider", "min":100, "max":400, "step":10}'
+    - '// @input float serverNoticeDeg = 30 {"hint":"...faces him within this angle (deg)...", "widget":"slider", "min":10, "max":60, "step":1}'
+    - '// @input float serverNoticeSec = 1.2 {"hint":"...for this long (s)", "widget":"slider", "min":0, "max":4, "step":0.1}'
+    - '// @input bool serverNotices = true {"hint":"The server notices the learner by himself (near + facing). Off = the order starts only from code (tests)"}'
+    - "// @input float tableLookDeg = 8 {\"hint\":\"A table's number is read when the learner looks within this angle of it (deg)...\", \"widget\":\"slider\", \"min\":2, \"max\":20, \"step\":0.5}"
+    - '// @input float tableLookSec = 0.5 {"hint":"...for this long (s)", "widget":"slider", "min":0.1, "max":2, "step":0.05}'
+    - '// @input float tableLookCm = 520 {"hint":"Farthest a table number can be read by looking (cm)", "widget":"slider", "min":100, "max":800, "step":10}'
     - "// @input float arrowInViewDeg = 24 {\"hint\":\"Objects within this angle (deg) of the view direction count as 'in view' for the arrow\", \"widget\":\"slider\", \"min\":10, \"max\":45, \"step\":1}"
     - '// @input bool playPhraseOnChange = true {"hint":"Use this word, Add (+ és) and the pattern switch play the updated phrase once"}'
     - "// @input bool voiceDetection = true {\"hint\":\"Listen for the learner's voice to end a speak turn. Off = only the Said it button ends it (use for recordings)\"}"

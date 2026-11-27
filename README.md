@@ -1,10 +1,18 @@
 # Word by Word
 
-**Learn Hungarian words where you use them.** Word by Word is a Lens for Snap Spectacles that puts the
-Hungarian word on the real thing you are looking at, lets you hear it, save it and use it in a sentence
-straight away, then practise it while you wait for your coffee.
+**Learn a language where you use it.** Word by Word is a Lens for Snap Spectacles that puts the word in
+the language you are learning on the real thing you are looking at, lets you hear it, save it and use it
+in a sentence straight away, then practise it while you wait for your coffee.
 
-The demo takes place in a Budapest bakery-café. Point at the olives and you see *olívabogyó · olives*.
+It works for any language pair: an English speaker in Berlin would see German, a Spanish speaker in Rome
+Italian. You choose *I speak* and *I'm learning* when you start, and can change them any time from the
+menu.
+
+**The demo is in Hungarian.** It is set in a Budapest bakery-café, explained in English. Hungarian is
+the maker's own language, and one most people have never heard spoken, which makes it a good test: if
+the glasses can get you through a café order in Hungarian, they can do it in any language.
+
+Point at the olives and you see *olívabogyó · olives*.
 Tap, and you hear it. Save it, and a minute later, when the barista asks *"Mit kér bele?"* ("What would you
 like in it?"), the sentence you need is ready in front of you. Sit down, and the words you collected
 become a short matching game.
@@ -31,14 +39,15 @@ front of you. On glasses:
 The idea behind it is vocabulary-first learning, the way children learn: many words linked to real things
 and their sound, with grammar arriving through example sentences and real exchanges. It was inspired by
 the Hungarian *Napszótár* books (ten everyday words a day), Krashen's comprehensible input and Willis's
-lexical syllabus.
+lexical syllabus. None of this is specific to one language: the words, phrases and voices are content,
+and the Lens around them stays the same.
 
 ## What you can do
 
 ### Arrive
-You start on the pavement outside the café. A small "Café detected (demo)" note stands in for location
-recognition, and the app suggests what to do here: **Learn**, **Practice** or **Use it live**. Nothing
-starts by itself.
+You start on the pavement outside the café and choose your languages (*I speak English*, *I'm learning
+Hungarian* in the demo). A small "Café detected (demo)" note stands in for location recognition, and the
+app suggests what to do here: **Learn**, **Practice** or **Use it live**. Nothing starts by itself.
 
 Before you go in, the street and park around you still answer to pointing: the tram stop, the post office
 across the road, the fountain in the park. These are words you saved on earlier outings, so the street
@@ -48,11 +57,12 @@ doubles as a quick review.
 
 ### Learn
 - Three or four things in view get soft corner brackets, so you know what has a word.
-- **Point** at something and its Hungarian and English name appears beside it, silently.
+- **Point** at something and its name appears beside it, silently: the word you are learning, large, and
+  its meaning in your language under it.
 - **Pinch** and a calm word card opens with the word and its meaning, and plays the pronunciation.
   **Listen** replays it, **Save** keeps it, **Use it live →** takes it to the counter.
-- 36 café words: ingredients on the sandwich counter, pastries, drinks, the menu board, the door's
-  *NYITVA / ZÁRVA* sign and more. All are voiced by a Hungarian neural voice.
+- The demo has 36 café words: ingredients on the sandwich counter, pastries, drinks, the menu board,
+  the door's *NYITVA / ZÁRVA* (open / closed) sign and more, all voiced by a Hungarian neural voice.
 
 ### Use it live: real-life conversation help
 Use it live does not order for you. You order out loud, from a real person; the glasses only help.
@@ -62,7 +72,7 @@ Use it live does not order for you. You order out loud, from a real person; the 
    my sandwich."). One tap switches to leaving something out: *"Savanyú uborka nélkül, kérem."*
    **Listen** plays it.
 2. **Walk up to the counter.** When you face the barista he greets you. His words appear as a subtitle,
-   Hungarian with English underneath.
+   in his language with yours underneath.
 3. **"You could say".** Each reply is offered as a suggestion you can hear first, then say yourself. The
    microphone notices when you have spoken (in the preview, a **Said it** button stands in).
 4. **Your table number.** When he asks *"Hányas asztalnál ül?"*, the reply *"A … asztalnál ülök."* waits
@@ -72,8 +82,8 @@ Use it live does not order for you. You order out loud, from a real person; the 
 ![The barista's line as a subtitle: "Jó napot! Mit kér?"](docs/readme/use-it-live-subtitle.jpg)
 
 ### Practice
-At your table, open the menu and choose **Practice**: four Hungarian words with pictures and their four
-English meanings, shuffled. Match the pairs; each correct match plays the word. Today's words come first,
+At your table, open the menu and choose **Practice**: four words with pictures and their four meanings,
+shuffled. Match the pairs; each correct match plays the word. Today's words come first,
 and words from earlier outings fill up the set.
 
 ![The matching board at the table](docs/readme/practice-matching.jpg)
@@ -82,9 +92,14 @@ and words from earlier outings fill up the set.
 One step at a time: first choose how to look at them (**By category**, **By date added**, **A to Z**),
 then the category or time range, then the words. Tap any word to hear it.
 
+### Languages
+The menu's **Languages** shows the pair you chose, *I speak* and *I'm learning*, and lets you pick
+another, the way you would before a trip. The demo carries one word pack (English → Hungarian); the
+other languages are listed and say they are not in this demo, rather than pretending to switch.
+
 ### The menu
-On Specs, raising an open hand opens the menu next to your palm. In the preview a small
-**✋ Menu (demo)** button stands in for the gesture.
+On Specs, raising an open hand opens the menu next to your palm: Learn, Practice, Use it live, Words
+saved and Languages. In the preview a small **✋ Menu (demo)** button stands in for the gesture.
 
 ---
 
@@ -108,7 +123,7 @@ A spacious Budapest bakery-café built at real scale (centimetres):
 | Platform | Snap Spectacles, Lens Studio 5.23 |
 | Language | TypeScript (`BaseScriptComponent` components) |
 | Interaction | Spectacles Interaction Kit (hand ray, pinch, raised-hand menu), Spectacles UI Kit (panels, buttons, flex layout) |
-| Voice | 147 pre-made Hungarian clips (Microsoft neural voices: Noémi for the learner, Tamás for the barista), generated by `agent/tts/make_hu_voice.py`; a native speaker can replace any clip with a recording under the same name |
+| Voice | 147 pre-made Hungarian clips for the demo (Microsoft neural voices: Noémi for the learner, Tamás for the barista), generated by `agent/tts/make_hu_voice.py`; a native speaker can replace any clip with a recording under the same name |
 | Speaking | an on-device voice-activity detector (`WbwVoiceActivity.ts`) notices when the learner has spoken; no speech is sent anywhere |
 | Tests | LEAF integration tests that drive the real SIK interactions in the preview |
 
@@ -122,8 +137,8 @@ not do.
 | Orchestration | `WbwMain.ts` (start-up, arrival, menu, mode switching), `WbwSession.ts` (saved words, mode) |
 | Modes | `WbwLearnController.ts`, `WbwOrderController.ts` (Use it live), `WbwPracticeController.ts` |
 | Pointing | `WbwPointing.ts` (the single hover arbiter, pointer reach), `WbwNameLabelUI.ts` (labels beside objects) |
-| Sentences | `WbwPhraseHelperModel.ts` (Hungarian forms: *uborka → uborkát*, "és", "nélkül"), `WbwPhraseHelperUI.ts`, `WbwPhraseChoicesUI.ts` |
-| Views | `WbwWordCardUI.ts`, `WbwWordListUI.ts`, `WbwPracticeBoardUI.ts`, `WbwHudUI.ts`, `WbwModeMenuUI.ts`, `WbwSuggestionUI.ts`, `WbwSpeakPromptUI.ts`, `WbwServerCaptionUI.ts`, `WbwSharedUI.ts` (type scale, panels, buttons) |
+| Sentences | `WbwPhraseHelperModel.ts` (the demo language's grammar, e.g. Hungarian *uborka → uborkát*, "és", "nélkül"), `WbwPhraseHelperUI.ts`, `WbwPhraseChoicesUI.ts` |
+| Views | `WbwWordCardUI.ts`, `WbwWordListUI.ts`, `WbwLanguagesUI.ts`, `WbwSetupPanelUI.ts`, `WbwPracticeBoardUI.ts`, `WbwHudUI.ts`, `WbwModeMenuUI.ts`, `WbwSuggestionUI.ts`, `WbwSpeakPromptUI.ts`, `WbwServerCaptionUI.ts`, `WbwSharedUI.ts` (type scale, panels, buttons) |
 | Content | `WbwVocab.ts` (words, phrases, server lines, tables), `WbwAudioBank.ts` / `WbwAudioController.ts` |
 | The café | `WbwCafeBuilder.ts`, `WbwServerCharacter.ts`, `WbwHumanRig.ts`, `WbwDiner.ts`, `WbwDoor.ts`, `WbwSignageUI.ts` |
 
@@ -144,15 +159,25 @@ brief:
 
 | Scenario | Checks |
 |---|---|
-| `DC1_ModeMenu` | menu, mode switching, saved words kept, the step-by-step saved-words viewer |
+| `DC1_ModeMenu` | menu, mode switching, saved words kept, the step-by-step saved-words viewer, Languages |
 | `DC2_Learn` | brackets, silent hover labels, word card, listen, save |
 | `DC3_OrderingAtCounter` | preparing the sentence, the barista noticing you, every reply up to the table question |
 | `DC4_TableNumber` | reading a table number by looking, the matching reply, the end of the conversation |
 | `DC5_Practice` | the matching game at a table |
 | `DC6_Entrance` | arrival outside, the door, NYITVA / ZÁRVA |
 | `DC7_OutsideWords` | street and park words outside, pointer reach |
-| `TOUR_Story` | the whole demo story, from arrival to practice |
+| `TOUR_Story` | the whole story as one end-to-end check, from arrival to practice |
+| `DEMO_Video` | not a test: the demo video's shot list played hands-free in under three minutes (see below) |
 | `SHOTS_*` | scripted camera tours used for the screenshots |
+
+### Recording the demo
+
+`DEMO_Video` plays the whole visit like a person doing it, at a pace to talk over: the setup outside, the
+street words, walking in, learning and saving words at the counter, ordering from the barista with the
+prepared sentence, reading the table number, practising at the table, the saved words and the language
+settings. Run it alone from the LEAF panel with the Preview large and the mouse off the Preview; it hides
+the test tool's own overlay and prints `DEMO beat <name> at <seconds>` for each shot, so a voice-over can
+be timed to the log.
 
 ## Project documents
 

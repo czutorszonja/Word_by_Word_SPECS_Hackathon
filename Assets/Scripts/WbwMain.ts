@@ -1,7 +1,8 @@
 // WbwMain.ts — Word by Word orchestrator (entry point).
 // Owns: start-up sequence (build café → host the views that are not wired + the voice detector →
-//       setup panel → arrival: walk in → "Café detected (demo)" toast → suggestion panel; no mode
-//       starts by itself), the mode menu (opened from the "✋ Menu" stand-in), mode switching, the
+//       setup panel → arrival: walk up to the door → the offer "Looks like you're at Kifli Kávézó.
+//       Want help ordering?" (28 Nov: replaces the "Café detected (demo)" toast and the mode tiles);
+//       no mode starts by itself), the mode menu (opened from the "✋ Menu" stand-in), mode switching, the
 //       saved-words viewer and the language settings (both opened from the menu), the
 //       hand-off of a word card's "Use it live →" word, and the WbwSession instance. Exposes
 //       readable session and arrival state for tests.
@@ -25,6 +26,7 @@ import {CAFE_CATEGORY, EARLIER_WORDS, wordById} from "./WbwVocab"
 import {PICTURES} from "./WbwIllustrations"
 import {WORD_ICONS} from "./WbwWordIcons"
 import {WbwCafeBuilder} from "./WbwCafeBuilder"
+import {WbwDoor} from "./WbwDoor"
 import {WbwLearnController} from "./WbwLearnController"
 import {WbwOrderController} from "./WbwOrderController"
 import {WbwPracticeController} from "./WbwPracticeController"
@@ -109,12 +111,24 @@ export class WbwMain extends BaseScriptComponent {
   toastFallbackSec: number = 1.5
 
   @input
+  @hint("Starting outside: the offer appears when the learner comes this close to the café door (cm)...")
+  @widget(new SliderWidget(50, 400, 5))
+  offerAtDoorCm: number = 170
+
+  @input
+  @hint("...or this many seconds after Start if they stay outside (location recognition knows the café anyway)")
+  @widget(new SliderWidget(3, 60, 1))
+  offerFallbackSec: number = 15
+
+  @input
   @hint("Kiosk only: seconds on the suggestion panel after which the suggested option is picked by itself. 0 = never (nothing starts by itself)")
   @widget(new SliderWidget(0, 60, 1))
   suggestAutoPickSec: number = 0
   @ui.group_end
 
   private session = new WbwSession()
+  private door: WbwDoor | null = null
+  private doorChecked = false
   private raiseHand: WbwRaiseHand | null = null
   private walkStart: vec3 = vec3.zero()
   private walkT0 = 0
@@ -143,9 +157,9 @@ export class WbwMain extends BaseScriptComponent {
   arrivalPhase: string = "setup"
   /** True while the arrival suggestion panel is up. */
   get suggestionVisible(): boolean { return !!this.suggestion && this.suggestion.isVisible }
-  /** Option picked on the suggestion panel: "learn" | "practice" | "live" | "later" ("" = none). */
+  /** Option picked on the arrival offer: "live" (Yes, help me order) | "later" (Not now) ("" = none). */
   suggestionPick: string = ""
-  /** What made the toast appear: "walk" | "timeout", or "skip" when the arrival was skipped ("" = not yet). */
+  /** What brought up the arrival offer: "door" | "walk" | "timeout", or "skip" when the arrival was skipped ("" = not yet). */
   toastTrigger: string = ""
   /** Horizontal distance walked since Start, measured until the toast appears (cm). */
   walkedSinceStartCm: number = 0
@@ -283,13 +297,11 @@ export class WbwMain extends BaseScriptComponent {
       this.hud.show()
       this.hud.setSaved(this.session.savedCount)
       this.hud.setMode(MODE_LABEL[this.session.mode])
-      this.toast.show(this.toastText, this.toastSeconds)
-      placeFacingUser(this.toast.getSceneObject(), inView(TOAST_DIST, TOAST_UP))
       const ev = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
       ev.bind(() => {
         if (this.session.mode === "none" && this.firstMode !== "none") this.selectMode(this.firstMode as Mode)
       })
-      ev.reset(this.toastSeconds + 0.2)
+      ev.reset(0.2)
       return
     }
     // the HUD stays hidden until a pick
@@ -303,15 +315,23 @@ export class WbwMain extends BaseScriptComponent {
   private tickArrival(): void {
     if (this.arrivalPhase === "walkIn") {
       this.walkedSinceStartCm = horizDist(camPos(), this.walkStart)
-      const walked = this.walkedSinceStartCm >= this.toastAfterWalkCm
-      if (!walked && getTime() - this.walkT0 < this.toastFallbackSec) return
-      this.toastTrigger = walked ? "walk" : "timeout"
-      this.toast.show(this.toastText, this.toastSeconds)
-      placeFacingUser(this.toast.getSceneObject(), inView(TOAST_DIST, TOAST_UP))
-      this.toastFollowing = false
-      this.toastT0 = getTime()
-      this.arrivalPhase = "toast"
-      print(`WbwMain: arrival → toast (${this.toastTrigger}, walked ${Math.round(this.walkedSinceStartCm)} cm)`)
+      const waited = getTime() - this.walkT0
+      let trigger = ""
+      const door = this.cafe.startedOutside ? this.findDoor() : null
+      if (door) {
+        // outside: the glasses recognise the café as the learner reaches its door
+        const dp = door.getSceneObject().getTransform().getWorldPosition()
+        if (horizDist(camPos(), dp) <= this.offerAtDoorCm) trigger = "door"
+        else if (waited >= this.offerFallbackSec) trigger = "timeout"
+      } else if (this.walkedSinceStartCm >= this.toastAfterWalkCm) {
+        trigger = "walk"
+      } else if (waited >= this.toastFallbackSec) {
+        trigger = "timeout"
+      }
+      if (!trigger) return
+      this.toastTrigger = trigger
+      print(`WbwMain: arrival → offer (${trigger}, walked ${Math.round(this.walkedSinceStartCm)} cm)`)
+      this.showSuggestion()
     } else if (this.arrivalPhase === "toast") {
       // the toast keeps up with a walking learner instead of being left behind
       if (this.toast.isVisible) {
@@ -345,10 +365,10 @@ export class WbwMain extends BaseScriptComponent {
     placeFacingUser(this.suggestion.getSceneObject(), inView(SUGGEST_DIST, SUGGEST_UP))
     this.suggestFollowing = false
     this.suggestT0 = getTime()
-    print("WbwMain: arrival → suggestion (waiting for a pick)")
+    print("WbwMain: arrival → offer: want help ordering? (waiting for a pick)")
   }
 
-  /** A tile or Later on the suggestion panel. "later" leaves the mode at "none": the Menu has every mode. */
+  /** Yes (live) or Not now (later) on the arrival offer. "later" leaves the mode at "none": the Menu has every mode. */
   private onSuggestionPick(o: string): void {
     if (this.arrivalPhase !== "suggest") return
     this.suggestionPick = o
@@ -357,6 +377,25 @@ export class WbwMain extends BaseScriptComponent {
     print(`WbwMain: arrival → done (picked ${o})`)
     if (o === "live") this.session.setLiveEntry("menu", "")
     if (o === "learn" || o === "practice" || o === "live") this.selectMode(o as Mode)
+  }
+
+  /** The café door (WbwDoor under the café's entrance), or null. */
+  private findDoor(): WbwDoor | null {
+    if (this.doorChecked) return this.door
+    this.doorChecked = true
+    const root = this.cafe.entrance
+    if (!root) return null
+    const walk = (so: SceneObject): WbwDoor | null => {
+      const d = so.getComponent(WbwDoor.getTypeName()) as WbwDoor
+      if (d) return d
+      for (let i = 0; i < so.getChildrenCount(); i++) {
+        const r = walk(so.getChild(i))
+        if (r) return r
+      }
+      return null
+    }
+    this.door = walk(root)
+    return this.door
   }
 
   /** Ends the arrival for good (the suggestion never comes back): the panel goes, the HUD shows. */

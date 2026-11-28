@@ -1,10 +1,14 @@
 // WbwOrderController.ts — "Use it live": real-life conversation help at the counter. The phrase helper
 // is the learner's own sentence, prepared by pointing at things; the server starts talking when the
 // learner walks up to him (no "Ready to order" button: the glasses only help, the learner orders out
-// loud), his words show as a subtitle, and each answer is offered as "You could say" (steps 1–6,
-// 7 = done). Table numbers: looking at an empty table's number (or tapping it) shows "8 = nyolc" +
-// audio; at the table question this fills "A … asztalnál ülök." (26 Nov redesign: no coach hint,
-// chime or arrow sending the learner around like a game).
+// loud), his words show as a subtitle, and the learner answers out loud. 28 Nov (learner: "I keep
+// looking down at the card… too much talking"): everything sits in ONE conversation strip in the line
+// of sight to the server's face (his subtitle, then the reply, then the say-it strip), never on the
+// counter; there are three replies (what you'd like, what's in it, your table) and his "Jó étvágyat!"
+// ends it; and a suggested reply ("You could say") appears only when the learner hesitates — answer by
+// yourself and nothing is shown. Table numbers: looking at an empty table's number (or tapping it)
+// shows "8 = nyolc" + audio; at the table question this fills "A … asztalnál ülök.". The words of the
+// sentence the learner said are kept for Practice ("used today").
 // Owns: order state (step, answers said, chosen table); the phrase being built (one
 //       PhraseHelperModel: Use this word / Add (+ és) / pattern); when the server notices the learner
 //       (near the counter, facing him, for a moment); server line timing (audio → subtitle → answer
@@ -28,7 +32,7 @@ import {WbwAudioController} from "./WbwAudioController"
 import {WbwVoiceActivity} from "./WbwVoiceActivity"
 import {LiveEntry, WbwSession} from "./WbwSession"
 import {WbwLearnController} from "./WbwLearnController"
-import {ORDER_STEPS, OrderStep, WORDS, lineById, phraseById, tableByNum} from "./WbwVocab"
+import {ORDER_DONE, ORDER_STEPS, OrderStep, WORDS, lineById, phraseById, tableByNum} from "./WbwVocab"
 import {PhraseBuild, PhraseHelperModel, PhrasePattern, canListen, canUseInPhrase, checkAgainstVocab, missingClips} from "./WbwPhraseHelperModel"
 import {PICTURES} from "./WbwIllustrations"
 import {camLook, camLookFlat, camPos, camTransform, flat, horizDist, placeFacingUser} from "./WbwSpatial"
@@ -126,6 +130,55 @@ export class WbwOrderController extends BaseScriptComponent {
   arrowInViewDeg: number = 24
 
   @input
+  @hint("While the server talks, his subtitle, the reply and the say-it strip sit together in the line of sight to his face (28 Nov). Off = the old placement (cards on the counter tray)")
+  conversationInView: boolean = true
+
+  @input
+  @hint("Distance of the conversation strip from the learner (cm)")
+  @widget(new SliderWidget(50, 150, 1))
+  stripDistanceCm: number = 80
+
+  @input
+  @hint("How far below the server's face the top of the strip sits (deg): his face stays visible above it")
+  @widget(new SliderWidget(0, 25, 0.5))
+  stripBelowFaceDeg: number = 3.5
+
+  @input
+  @hint("Gap between the subtitle, the reply and the say-it strip (cm)")
+  @widget(new SliderWidget(0, 4, 0.1))
+  stripSpacingCm: number = 0.5
+
+  @input
+  @hint("Lowest the strip may reach below the server's face (deg; the Specs view reaches ~18° below its centre). A stack that would go lower lets his subtitle give way to the reply")
+  @widget(new SliderWidget(8, 30, 0.5))
+  stripMaxBelowDeg: number = 16.5
+
+  @input
+  @hint("Seconds of silence after the server's question before a suggested reply appears (answering out loud first shows nothing)")
+  @widget(new SliderWidget(0, 6, 0.1))
+  hesitationSec: number = 2
+
+  @input
+  @hint("Distance of the phrase helper in front of the learner while preparing the sentence (cm)")
+  @widget(new SliderWidget(45, 120, 1))
+  prepDistanceCm: number = 70
+
+  @input
+  @hint("While preparing, the helper's centre follows the gaze this far above it (deg): it sits over the ingredients being pointed at and their labels, never on them (a ray must reach the label's Use this word)…")
+  @widget(new SliderWidget(0, 30, 0.5))
+  prepAboveGazeDeg: number = 10.5
+
+  @input
+  @hint("…but no lower than this (deg, negative = below eye level)…")
+  @widget(new SliderWidget(-45, 0, 0.5))
+  prepLowestDeg: number = -30
+
+  @input
+  @hint("…and no higher than this: looking up at the server it stays under his face")
+  @widget(new SliderWidget(-40, 0, 0.5))
+  prepHighestDeg: number = -12
+
+  @input
   @hint("Use this word, Add (+ és) and the pattern switch play the updated phrase once")
   playPhraseOnChange: boolean = true
 
@@ -137,10 +190,10 @@ export class WbwOrderController extends BaseScriptComponent {
   // ── readable state for tests ──
   /** True while Use it live is the active mode. */
   active: boolean = false
-  /** 0 = prep / not started, 1..6 = that step of the order, 7 = done (walk to table + practise hint). */
+  /** 0 = prep / not started, 1..4 = that step of the order, 5 (ORDER_DONE) = done. */
   orderStep: number = 0
   /** Name of the current step: "" before Use it live was opened, then prep, greet, fillings, drink,
-   *  here_or_takeaway, table, enjoy, done. */
+   *  table, enjoy, done. */
   orderStepName: string = ""
   /** "" before Use it live was opened · "ready" in prep (the server has not noticed the learner yet) ·
    *  "server" while a server line plays · "user" while an answer surface waits · "table" while waiting
@@ -153,7 +206,7 @@ export class WbwOrderController extends BaseScriptComponent {
   chosenTable: number = 0
   /** Last table number card tapped (any time); 0 = none. */
   lastTableTapped: number = 0
-  /** Phrase ids currently offered as cards (empty in prep and at the fillings step). */
+  /** Phrase ids currently offered as cards (empty in prep, at the fillings step, and while the learner may still answer by themselves). */
   offeredPhraseIds: string[] = []
   /** Hungarian text of the last server line. */
   lastServerLine: string = ""
@@ -185,6 +238,10 @@ export class WbwOrderController extends BaseScriptComponent {
   chosenPhraseId: string = ""
   /** The phrase (Hungarian) at the moment the fillings answer was said. */
   fillingsSaid: string = ""
+  /** True while a question waits for the learner and nothing is shown yet (help appears after hesitationSec). */
+  hesitating: boolean = false
+  /** Word ids of the said sentence that were kept for Practice ("used today"). */
+  keptFromOrder: string[] = []
   /** The voice activity detector passed to init() (null = Said it only). */
   vad: WbwVoiceActivity | null = null
 
@@ -193,7 +250,7 @@ export class WbwOrderController extends BaseScriptComponent {
   private learn: WbwLearnController | null = null
   private stepDef: OrderStep | null = null
   private phrase = new PhraseHelperModel()
-  private speakTurn: {answerId: string; epoch: number} | null = null
+  private speakTurn: {answerId: string; epoch: number; silent: boolean} | null = null
   private tableCards: {[n: number]: WbwTableCardUI} = {}
   private captionHideAt = -1
   private arrowTarget: vec3 | null = null
@@ -204,6 +261,7 @@ export class WbwOrderController extends BaseScriptComponent {
   private lookT = 0
   private placedFrom: vec3 | null = null
   private placedNearTray = false
+  private prepFollowing = false
   /** Seconds the learner has been near and facing the server in prep (tests). */
   get noticeProgress(): number { return this.noticeT }
   /** How the last table number was read: "look" | "tap" ("" = none yet). */
@@ -260,7 +318,7 @@ export class WbwOrderController extends BaseScriptComponent {
       // only the word carried from a word card may pre-fill an empty phrase; nothing plays on entry
       this.seedPhrase(this.session.takeLiveEntry())
       this.mirrorPhrase()
-      if (this.orderStep === 0 || this.orderStep >= 7) this.enterPrep()
+      if (this.orderStep === 0 || this.orderStep >= ORDER_DONE) this.enterPrep()
       else this.runStep(this.orderStep)
     } else {
       this.closeSpeakTurn()
@@ -278,6 +336,7 @@ export class WbwOrderController extends BaseScriptComponent {
       this.hint.hideHint()
       this.arrowTarget = null
       this.offeredPhraseIds = []
+      this.hesitating = false
       if (this.waitingFor === "server") this.waitingFor = "user"
     }
   }
@@ -300,6 +359,8 @@ export class WbwOrderController extends BaseScriptComponent {
     this.answers = []
     this.chosenTable = 0
     this.offeredPhraseIds = []
+    this.hesitating = false
+    this.keptFromOrder = []
     this.phrases.hide()
     this.caption.hide()
     this.captionHideAt = -1
@@ -347,6 +408,7 @@ export class WbwOrderController extends BaseScriptComponent {
     this.phrases.hide()
     this.clearHighlight()
     this.offeredPhraseIds = []
+    this.hesitating = false
     if (step > ORDER_STEPS.length) {
       this.finish()
       return
@@ -357,13 +419,22 @@ export class WbwOrderController extends BaseScriptComponent {
     const line = lineById(def.line)!
     this.waitingFor = "server"
     this.lastServerLine = line.hu
+    // in the strip his subtitle shows alone first: the prep card must be gone before the column is laid
+    // out (else it would not fit with it and the subtitle would give way to a card that is about to go)
+    if (this.conversationInView) this.phraseHelper?.hide()
     this.showCaption(line.hu, line.en)
     this.server.setSpeaking(true)
+    this.placeSurface()
     // The phrase helper is the answer surface of the fillings step only: up while the server asks,
     // usable once the question has ended. Every other step has its own phrase cards.
-    if (def.helper) {
+    if (def.helper && !this.conversationInView) {
       const b = this.phrase.build()
       this.phraseHelper?.show(b, this.canHear(b), false)
+      this.placeSurface()
+    } else if (def.helper) {
+      // in the conversation strip his question shows alone; the learner's sentence takes its place
+      // once he has asked (showHelperTurn): both together did not fit under his face
+      this.phraseHelper?.hide()
       this.placeSurface()
     } else {
       this.phraseHelper?.hide()
@@ -405,7 +476,43 @@ export class WbwOrderController extends BaseScriptComponent {
       }
       return
     }
-    this.offer(def.choices)
+    if (def.choices.length === 0) {
+      // nothing to answer ("Jó étvágyat!"): the line ends the conversation, its subtitle lingers
+      this.finish()
+      return
+    }
+    this.awaitAnswer(def)
+  }
+
+  /** A question: the learner may answer out loud at once and nothing is shown. Only after hesitationSec
+   *  of silence does the ONE suggested reply appear, with the say-it strip (28 Nov). */
+  private awaitAnswer(def: OrderStep): void {
+    const id = def.advanceOn[0] ?? def.choices[0]
+    this.waitingFor = "user"
+    this.offeredPhraseIds = []
+    this.phrases.hide()
+    this.refreshHighlight()
+    this.refreshEditable()
+    if (this.hesitationSec <= 0) {
+      this.offer([id])
+      return
+    }
+    this.hesitating = true
+    this.beginSpeakTurn(id, true)
+    this.vad?.arm((src) => this.onSaid(src), 0)
+    const ep = this.epoch
+    const ev = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
+    ev.bind(() => {
+      if (ep !== this.epoch || !this.active || !this.hesitating) return
+      // still speaking when the time is up: let them finish
+      if (this.vad && this.vad.vadState === "speech") {
+        ev.reset(0.5)
+        return
+      }
+      this.hesitating = false
+      this.offer([id])
+    })
+    ev.reset(this.hesitationSec)
   }
 
   /** Fillings step, after "Mit kér bele?" has ended: the phrase helper is the one answer surface. */
@@ -415,8 +522,9 @@ export class WbwOrderController extends BaseScriptComponent {
     this.phrases.hide()
     const b = this.phrase.build()
     if (this.phraseHelper) {
-      if (this.phraseHelper.isVisible) this.phraseHelper.setPhrase(b, this.canHear(b))
-      else this.phraseHelper.show(b, this.canHear(b), false)
+      const compact = this.conversationInView // in the strip: the sentence only, no button row
+      if (this.phraseHelper.isVisible && this.phraseHelper.compact === compact) this.phraseHelper.setPhrase(b, this.canHear(b))
+      else this.phraseHelper.show(b, this.canHear(b), false, compact)
     }
     this.placeSurface()
     this.refreshHighlight()
@@ -446,6 +554,11 @@ export class WbwOrderController extends BaseScriptComponent {
     this.waitingFor = "user"
     this.offeredPhraseIds = list
     this.phrases.show(cards, SUGGEST)
+    // one suggestion: it can be said straight away (Said it shows); tapping it plays it first
+    if (list.length === 1 && this.stepDef && this.stepDef.name !== "table") {
+      this.beginSpeakTurn(list[0])
+      this.vad?.arm((src) => this.onSaid(src), 0)
+    }
     this.placeSurface()
     this.refreshHighlight()
     this.refreshEditable()
@@ -486,11 +599,13 @@ export class WbwOrderController extends BaseScriptComponent {
     this.vad?.setMicActive(false)
     this.learn?.setLiveSlots([], false)
     this.clearHighlight()
-    this.orderStep = 7
+    this.orderStep = ORDER_DONE
     this.orderStepName = "done"
+    this.hesitating = false
     this.waitingFor = "done"
     this.stepDef = null
     this.phrases.hide()
+    this.captionHideAt = getTime() + this.captionLingerSec
     // the conversation is over: nothing tells the learner where to go next (it is their café visit)
     this.arrowTarget = null
     this.hint.setArrow(false)
@@ -498,10 +613,11 @@ export class WbwOrderController extends BaseScriptComponent {
 
   // ── speak turns: one per answer. Showing, choosing, listening and editing never answer ──
   /** Open the turn for an answer: Said it shows now. Callers arm the mic with armVoice. */
-  private beginSpeakTurn(answerId: string): void {
-    this.speakTurn = {answerId: answerId, epoch: this.epoch}
+  private beginSpeakTurn(answerId: string, silent: boolean = false): void {
+    this.speakTurn = {answerId: answerId, epoch: this.epoch, silent: silent}
     this.speechDetected = false
     this.speechSource = ""
+    if (silent) return // the learner may answer by themselves: nothing on screen yet
     this.speakPrompt?.show()
     this.placePrompt()
   }
@@ -525,15 +641,18 @@ export class WbwOrderController extends BaseScriptComponent {
     if (!turn || turn.epoch !== this.epoch || !this.active) return
     const def = this.stepDef
     this.speakTurn = null
+    this.hesitating = false
     this.speechSource = source
     this.speechDetected = source === "mic"
     this.vad?.disarm()
-    this.speakPrompt?.showHeard()   // "Heard you ✓" stays for a moment, also across the step change
+    if (turn.silent) this.speakPrompt?.hide()
+    else this.speakPrompt?.showHeard()   // "Heard you ✓" stays for a moment, also across the step change
     this.server.acknowledge()       // the server nods: heard you
     if (def) {
       if (def.helper) {
         this.answers.push("fillings")
         this.fillingsSaid = this.phraseHu
+        this.keepUsedWords()
         this.next(def)
       } else {
         const id = turn.answerId
@@ -544,7 +663,6 @@ export class WbwOrderController extends BaseScriptComponent {
         } else {
           // answered, but the step goes on (e.g. greeting back): the cards stay, nothing is chosen
           this.phrases.setChosen("")
-          if (id === "elvitelre") this.hint.showHint("Demo path: this visit continues with “Itt eszem.” (I'll eat here.)", 5)
         }
       }
     }
@@ -554,9 +672,17 @@ export class WbwOrderController extends BaseScriptComponent {
   /** End an open turn without an answer. The "Heard you ✓" of an answer just given is left alone. */
   private closeSpeakTurn(): void {
     this.vad?.disarm()
+    this.hesitating = false
     if (!this.speakTurn) return
     this.speakTurn = null
     this.speakPrompt?.hide()
+  }
+
+  /** The sentence was said: its words are kept with the saved words, for Practice ("used today"). */
+  private keepUsedWords(): void {
+    for (const id of this.phraseSlotIds) {
+      if (this.session.save(id)) this.keptFromOrder.push(id)
+    }
   }
 
   // ── the phrase (prep and the fillings step). The model is the only authority on what a press does ──
@@ -688,7 +814,7 @@ export class WbwOrderController extends BaseScriptComponent {
         })
         ev.reset(1.2)
       }
-    } else if (this.orderStep < 5 || this.orderStep >= 7) {
+    } else {
       // outside the table step, tapping an empty table still teaches its number and sets
       // "my table" for Practice placement
       this.chosenTable = n
@@ -733,8 +859,26 @@ export class WbwOrderController extends BaseScriptComponent {
     return this.phraseTray ? this.phraseTray.getTransform().getWorldPosition().distance(camPos()) <= this.maxTrayDistanceCm : false
   }
 
-  /** Put the answer surface where the phrase row goes, and the say-it strip below it. */
+  /** The conversation is on: from the server's first line until the order is done. */
+  private get talking(): boolean {
+    return this.active && this.orderStep >= 1 && this.orderStep < ORDER_DONE
+  }
+
+  /** The server's face (world). */
+  private serverFace(): vec3 {
+    return this.server.getSceneObject().getTransform().getWorldPosition().add(new vec3(0, this.server.heightCm - 12, 0))
+  }
+
+  /** Put the answer surface where it belongs, and the say-it strip below it. While the server talks:
+   *  the conversation strip in the line of sight to his face. While preparing: in front, a little low. */
   private placeSurface(): void {
+    if (this.conversationInView) {
+      this.placedFrom = camPos()
+      this.placedNearTray = this.nearTray()
+      if (this.talking) this.placeStrip()
+      else this.placePrep()
+      return
+    }
     const s = this.surface()
     const nearTray = this.nearTray()
     this.placedFrom = camPos()
@@ -758,9 +902,84 @@ export class WbwOrderController extends BaseScriptComponent {
     this.placePrompt()
   }
 
+  /** Preparing the sentence: the helper in front of the learner, toward where they look (never lying on
+   *  the counter). Its height follows the gaze, prepAboveGazeDeg above it, between prepLowestDeg and
+   *  prepHighestDeg: looking down at the ingredients it sits just above them and their labels,
+   *  looking up at the server it sits under his face (28 Nov). */
+  private prepGoal(): vec3 {
+    const look = camLook()
+    const lookPitch = Math.asin(Math.max(-1, Math.min(1, look.y))) * 180 / Math.PI
+    const pitch = Math.max(this.prepLowestDeg, Math.min(this.prepHighestDeg, lookPitch + this.prepAboveGazeDeg)) * Math.PI / 180
+    const dir = camLookFlat().uniformScale(Math.cos(pitch)).add(new vec3(0, Math.sin(pitch), 0))
+    return camPos().add(dir.uniformScale(this.prepDistanceCm))
+  }
+
+  private placePrep(): void {
+    const s = this.surface()
+    if (!s) return
+    placeFacingUser(s.so, this.prepGoal())
+    this.prepFollowing = false
+    this.placePrompt()
+  }
+
+  /** In prep the helper glides after the gaze (gently, like the menu), so it is in view while pointing at
+   *  the ingredients and while walking up to the counter; small head moves leave it still. */
+  private tickPrepFollow(): void {
+    if (!this.conversationInView || !this.active || this.orderStep !== 0 || !this.phraseHelper || !this.phraseHelper.isVisible) {
+      this.prepFollowing = false
+      return
+    }
+    const so = this.phraseHelper.getSceneObject()
+    const t = so.getTransform()
+    const pos = t.getWorldPosition(), goal = this.prepGoal()
+    if (!this.prepFollowing && pos.distance(goal) < 14) return
+    this.prepFollowing = true
+    const next = vec3.lerp(pos, goal, Math.min(1, getDeltaTime() * 5))
+    placeFacingUser(so, next)
+    if (next.distance(goal) < 1.5) this.prepFollowing = false
+  }
+
+  /** The conversation strip: one column in the line of sight to the server's face, starting just below
+   *  his face — his subtitle, then the reply (phrase card or the learner's own sentence), then the
+   *  say-it strip. Looking at him is enough to see all of it (28 Nov). */
+  private placeStrip(): void {
+    const cam = camPos()
+    const toFace = this.serverFace().sub(cam)
+    const dir = toFace.length > 1 ? toFace.normalize() : camLook()
+    const fd = flat(dir)
+    const flatDir = fd.length > 1e-3 ? fd.normalize() : camLookFlat()
+    const d = this.stripDistanceCm
+    const right = flatDir.cross(vec3.up()).normalize()
+    const up = right.cross(dir).normalize()
+    const top = cam.add(dir.uniformScale(d)).sub(up.uniformScale(Math.tan(this.stripBelowFaceDeg * Math.PI / 180) * d))
+    let y = 0
+    const stack: {so: SceneObject; h: number}[] = []
+    if (this.caption.isVisible) stack.push({so: this.caption.getSceneObject(), h: this.caption.sizeCm.y})
+    const s = this.surface()
+    if (s) stack.push({so: s.so, h: s.size.y})
+    if (this.speakPrompt && this.speakTurn && !this.speakTurn.silent) stack.push({so: this.speakPrompt.getSceneObject(), h: this.speakPrompt.sizeCm.y})
+    // the whole column must stay inside the view below his face: if it would not, his subtitle (already
+    // heard and read) gives way to the reply
+    const room = (Math.tan(this.stripMaxBelowDeg * Math.PI / 180) - Math.tan(this.stripBelowFaceDeg * Math.PI / 180)) * d
+    const total = (list: {h: number}[]) => list.reduce((a, it) => a + it.h, 0) + Math.max(0, list.length - 1) * this.stripSpacingCm
+    if (stack.length > 1 && this.caption.isVisible && total(stack) > room) {
+      this.caption.hide()
+      this.captionHideAt = -1
+      stack.shift()
+    }
+    for (const it of stack) {
+      placeFacingUser(it.so, top.sub(up.uniformScale(y + it.h / 2)))
+      y += it.h + this.stripSpacingCm
+    }
+  }
+
   /** While a speak turn is open, the say-it strip sits directly below the answer surface, turned like it. */
   private placePrompt(): void {
-    if (!this.speakPrompt || !this.speakTurn) return
+    if (!this.speakPrompt || !this.speakTurn || this.speakTurn.silent) return
+    if (this.conversationInView && this.talking) {
+      this.placeStrip()
+      return
+    }
     const s = this.surface()
     if (!s) return
     const st = s.so.getTransform(), pt = this.speakPrompt.getSceneObject().getTransform()
@@ -771,10 +990,14 @@ export class WbwOrderController extends BaseScriptComponent {
 
   private showCaption(hu: string, en: string): void {
     this.caption.show(hu, en)
+    this.captionHideAt = -1
+    if (this.conversationInView) {
+      this.placeStrip()
+      return
+    }
     // in front of his chest like a subtitle: above his head it floated over the menu board's text,
     // beside his head it ran off the edge of the narrow view
     placeFacingUser(this.caption.getSceneObject(), this.server.getCaptionAnchor(), true)
-    this.captionHideAt = -1
   }
 
   /** Prep: the server notices a learner who stands near the counter and faces him for a moment. */
@@ -836,6 +1059,9 @@ export class WbwOrderController extends BaseScriptComponent {
   private tick(): void {
     this.tickNotice()
     this.tickTableLook()
+    // the strip stays in the line of sight to the server while the learner shifts or steps
+    if (this.conversationInView && this.talking && this.placedFrom && horizDist(camPos(), this.placedFrom) > 25) this.placeSurface()
+    this.tickPrepFollow()
     if (this.captionHideAt > 0 && getTime() > this.captionHideAt) {
       this.captionHideAt = -1
       if (this.waitingFor !== "table") this.caption.hide()
@@ -846,7 +1072,7 @@ export class WbwOrderController extends BaseScriptComponent {
       this.speakPrompt.setState(!v || !this.voiceDetection ? "off" : v.vadState, v ? v.pulse : 0, v ? v.nudgeSaidIt : false)
     }
     // edge-of-view arrow toward whatever needs attention
-    if (!this.arrowTarget || (!this.active && this.orderStep < 7)) {
+    if (!this.arrowTarget || (!this.active && this.orderStep < ORDER_DONE)) {
       if (this.hint.arrowVisible) this.hint.setArrow(false)
       return
     }

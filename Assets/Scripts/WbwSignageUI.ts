@@ -1,12 +1,13 @@
 // WbwSignageUI.ts — café lettering: pink-red neon "COFFEE", the wall menu board (drinks, cakes and
 //                   pastries with prices), the door's flip sign (NYITVA outside, ZÁRVA inside) and
-//                   the KÁVÉZÓ name over the entrance.
+//                   the café's name (CAFE_NAME) over the entrance.
 // Owns: world-space decor text only. Lives in a *UI.ts module so every Component.Text in
 //       the project stays inside UI modules (Hard Rule 3). The text itself is not interactive: the
 //       menu board's drink lines and the sign faces have authored Learnable_<id> hit boxes in the scene
 //       (MENU_LAYOUT below must match MenuBoard/Learnable_* positions).
 // Must NOT: hold state or react to the experience.
 import {obj} from "./WbwSharedUI"
+import {CAFE_NAME} from "./WbwVocab"
 
 const CHALK = new vec4(0.98, 0.97, 0.9, 1)
 /** Hand-lettered chalk font for the boards (Kalam, Google Fonts, OFL) — readable, not typed-looking. */
@@ -117,7 +118,7 @@ export class WbwSignageUI extends BaseScriptComponent {
     }
     if (this.facadeAnchor) {
       this.facadeAnchor.createComponent("Component.Canvas")
-      this.label(this.facadeAnchor, "FacadeName", "KÁVÉZÓ", 2.6, CHALK, new vec3(0, 3, 0.4))
+      this.label(this.facadeAnchor, "FacadeName", CAFE_NAME.toUpperCase(), 2.6, CHALK, new vec3(0, 3, 0.4))
       this.label(this.facadeAnchor, "FacadeSub", "Word by Word", 1.1, CHALK_SOFT, new vec3(0, -9, 0.4))
     }
   }

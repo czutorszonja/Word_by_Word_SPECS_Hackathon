@@ -28,8 +28,8 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    maxWidthCm: false
-    viewDistanceCm: false
+    cardWidthCm: false
+    readDistanceCm: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -39,8 +39,8 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - viewDistanceCm: !<float> 100.000000
-      maxWidthCm: !<float> 46.000000
+    - readDistanceCm: !<float> 75.000000
+      cardWidthCm: !<float> 32.000000
   ScriptTypes:
     -
       {}
@@ -48,6 +48,6 @@
     - '// @ui {"widget":"label", "label":"WbwPhraseHelperUI – the reusable phrase of Use it live"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
-    - '// @input float viewDistanceCm = 160 {"hint":"Distance the text is sized for (cm). The panel lies on the counter like the phrase cards", "widget":"slider", "min":60, "max":200, "step":5}'
-    - '// @input float maxWidthCm = 60 {"hint":"Panel width (cm). Fixed, so the frame never jumps when the phrase changes", "widget":"slider", "min":30, "max":70, "step":1}'
+    - '// @input float readDistanceCm = 75 {"hint":"Distance the text is sized for (cm): the card sits about this far away (in front while preparing, in the conversation strip at the counter)", "widget":"slider", "min":50, "max":200, "step":5}'
+    - '// @input float cardWidthCm = 32 {"hint":"Panel width (cm). Fixed, so the frame never jumps when the phrase changes", "widget":"slider", "min":24, "max":70, "step":1}'
     - '// @ui {"widget":"group_end"}'

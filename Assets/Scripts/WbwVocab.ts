@@ -99,6 +99,8 @@ export interface EarlierWord {
 
 /** Café words saved in this session show under this category. */
 export const CAFE_CATEGORY = "Café"
+/** The demo café's name: the sign over its door, and what the glasses say when the learner arrives. */
+export const CAFE_NAME = "Kifli Kávézó"
 /** Category order in the saved-words viewer. */
 export const CATEGORY_ORDER = [CAFE_CATEGORY, "Street", "Park"]
 
@@ -163,24 +165,27 @@ export const TABLES: TableInfo[] = [
   {num: 12, empty: true, hu: "tizenkettő", audio: "n_12", phraseId: "tizenkettes_asztal"},
 ]
 
-/** The scripted order (Use it live). Step numbers are 1-based and exposed for tests. */
+/** The scripted order (Use it live). Step numbers are 1-based and exposed for tests. Three replies
+ *  (28 Nov, learner: "too much talking"): what you'd like, what's in it, your table; then the server's
+ *  "Jó étvágyat!" ends it with nothing to answer. Done = ORDER_STEPS.length + 1. */
 export interface OrderStep {
   step: number
   name: string
   line: string            // ServerLine id
-  choices: string[]       // PhraseEntry ids offered as phrase cards (none for the helper step 2; step 5 offers the chosen table's phrase)
+  choices: string[]       // PhraseEntry ids: the ONE suggested reply, shown only if the learner hesitates (none for the
+                          // helper step, the table step offers the read table's phrase, none = the line ends the order)
   advanceOn: string[]     // phrase ids that complete the step
   multi: boolean          // unused: every step takes one answer now (always false)
   helper?: boolean        // the answer is the phrase helper, not phrase cards
 }
 export const ORDER_STEPS: OrderStep[] = [
-  {step: 1, name: "greet", line: "mit_ker", choices: ["jonapot", "szendvicset"], advanceOn: ["szendvicset"], multi: false},
+  {step: 1, name: "greet", line: "mit_ker", choices: ["szendvicset"], advanceOn: ["szendvicset"], multi: false},
   {step: 2, name: "fillings", line: "mit_ker_bele", choices: [], advanceOn: [], multi: false, helper: true},
-  {step: 3, name: "drink", line: "inni", choices: ["tejes_kave"], advanceOn: ["tejes_kave"], multi: false},
-  {step: 4, name: "here_or_takeaway", line: "itt_vagy_elvitel", choices: ["itt_eszem", "elvitelre"], advanceOn: ["itt_eszem"], multi: false},
-  {step: 5, name: "table", line: "hanyas_asztal", choices: [], advanceOn: ["negyes_asztal", "nyolcas_asztal", "tizenkettes_asztal"], multi: false},
-  {step: 6, name: "enjoy", line: "jo_etvagyat", choices: ["koszonom"], advanceOn: ["koszonom"], multi: false},
+  {step: 3, name: "table", line: "hanyas_asztal", choices: [], advanceOn: ["negyes_asztal", "nyolcas_asztal", "tizenkettes_asztal"], multi: false},
+  {step: 4, name: "enjoy", line: "jo_etvagyat", choices: [], advanceOn: [], multi: false},
 ]
+/** orderStep once the conversation is over. */
+export const ORDER_DONE = ORDER_STEPS.length + 1
 
 export function wordById(id: string): WordEntry | null {
   for (const w of WORDS) if (w.id === id) return w

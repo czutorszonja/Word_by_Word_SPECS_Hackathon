@@ -1,8 +1,9 @@
 // WbwPhraseHelperUI.ts — the reusable phrase of Use it live (passive view).
-// Owns: ONE compact panel in the Use it live tone (2026-11-25 readability pass: no mode chip or title —
-//       the HUD's chip names the mode — so the phrase is the first thing to read): the Hungarian phrase
+// Owns: ONE compact panel in the Use it live tone (2026-11-25 readability pass: no mode chip or title;
+//       28 Nov: a smaller, evenly padded card in front of the learner or in the conversation strip, the
+//       hint sharing the English line's place so no empty band is left): the Hungarian phrase
 //       on two fixed lines (line 1 "Kérek" + the ingredient slot, line 2 the tail "a szendvicsembe." or
-//       "nélkül, kérem."), the English line, a hint while the phrase is empty, Listen and the pattern pair
+//       "nélkül, kérem."), the English line (or, while the phrase is empty, the hint), Listen and the pattern pair
 //       ("Kérek …" / "… nélkül"). No "Ready to order" (26 Nov): the learner orders out loud from the real
 //       server; the glasses only help prepare and hear the sentence.
 //       The reusable part never moves: everything is left-aligned, "Kérek" and the tail keep their place,
@@ -27,8 +28,8 @@ const WANT = "Kérek …"
 const WITHOUT = "… nélkül"
 const HEAD_WANT = "Kérek"
 
-// layout (cm)
-const PAD_X = 1.4, PAD_Y = 1.0, GAP = 0.5, BTN_GAP = 1.3, HEAD_GAP = 0.45
+// layout (cm): the same padding on every side
+const PAD_X = 1.4, PAD_Y = 1.4, GAP = 0.6, BTN_GAP = 1.3, HEAD_GAP = 0.45
 const BTN_H = 3.8
 
 @component
@@ -37,14 +38,14 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
   @ui.separator
   @ui.group_start("Settings")
   @input
-  @hint("Distance the text is sized for (cm). The panel lies on the counter like the phrase cards")
-  @widget(new SliderWidget(60, 200, 5))
-  viewDistanceCm: number = 160   // learner feedback 2026-11-21: the phrase boxes were hard to read — bigger text
+  @hint("Distance the text is sized for (cm): the card sits about this far away (in front while preparing, in the conversation strip at the counter)")
+  @widget(new SliderWidget(50, 200, 5))
+  readDistanceCm: number = 75
 
   @input
   @hint("Panel width (cm). Fixed, so the frame never jumps when the phrase changes")
-  @widget(new SliderWidget(30, 70, 1))
-  maxWidthCm: number = 60
+  @widget(new SliderWidget(24, 70, 1))
+  cardWidthCm: number = 32
   @ui.group_end
 
   private root: SceneObject | null = null
@@ -79,6 +80,9 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
   showCount: number = 0
 
   get isVisible(): boolean { return this.root !== null && !isNull(this.root) && this.root.enabled }
+  /** True while the compact variant is shown: the sentence only, no Listen / pattern row (the
+   *  conversation strip at the counter, 28 Nov: the full card did not fit under the server's face). */
+  get compact(): boolean { return this.builtReady === true }
   /** Panel size of the variant last shown (the answer variant before any show). */
   get sizeCm(): vec2 {
     if (this.lastSize) return this.lastSize
@@ -86,9 +90,10 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
     return new vec2(m.W, m.H)
   }
 
-  /** Build (or update in place) and show. `prep` (before the server talks) looks the same today. */
-  show(b: PhraseBuild, canListen: boolean, prep: boolean = false): void {
-    if (!this.root || isNull(this.root) || this.builtReady === null) this.build(false)
+  /** Build (or update in place) and show. `prep` (before the server talks) looks the same today.
+   *  `compact`: the sentence only (Hungarian + English), for the conversation strip. */
+  show(b: PhraseBuild, canListen: boolean, prep: boolean = false, compact: boolean = false): void {
+    if (!this.root || isNull(this.root) || this.builtReady !== compact) this.build(compact)
     if (this.root) this.root.enabled = true
     this.readyShown = false
     this.setPhrase(b, canListen)
@@ -117,7 +122,10 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
       this.slotT.getSceneObject().getTransform().setLocalPosition(new vec3(-m.innerW / 2 + left + w / 2, 0, 0.05))
     }
     if (this.tailT && !isNull(this.tailT)) this.tailT.text = b.huParts.right.trim()
-    if (this.enT && !isNull(this.enT)) this.enT.text = b.en
+    if (this.enT && !isNull(this.enT)) {
+      this.enT.text = b.en
+      this.enT.getSceneObject().enabled = !b.empty
+    }
     if (this.hintSo && !isNull(this.hintSo)) this.hintSo.enabled = b.empty
     this.applyButtons()
   }
@@ -150,28 +158,29 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
   }
 
   /** Fixed size per variant: sized for the frame, never for the current phrase. */
-  private measure(withReady: boolean): {W: number; H: number; innerW: number; headW: number;
+  private measure(compact: boolean): {W: number; H: number; innerW: number; headW: number;
                                          line1H: number; line2H: number; enH: number; hintH: number; btnW: number; patW: number} {
-    const d = this.viewDistanceCm
-    const W = this.maxWidthCm, innerW = W - 2 * PAD_X
+    const d = this.readDistanceCm
+    const W = this.cardWidthCm, innerW = W - 2 * PAD_X
     const line1H = lineHeightCm("Headline2", d)
     const line2H = lineHeightCm("Headline2", d)
     const enH = lineHeightCm("Body", d)
     const hintH = lineHeightCm("Body", d)
     const headW = textWidthCm(HEAD_WANT.length, "Headline2", d) + 0.2
-    const btnW = Math.max(9, textWidthCm(LISTEN.length, "Button", d, false) + 4.2)
-    const patW = Math.max(8.5, textWidthCm(WANT.length, "Button", d, false) + 1.6)
-    let H = 2 * PAD_Y + line1H + line2H + GAP + enH + GAP + hintH + GAP + BTN_H
+    const btnW = Math.max(8, textWidthCm(LISTEN.length, "Button", d, false) + 4.2)
+    const patW = Math.max(7.5, textWidthCm(WANT.length, "Button", d, false) + 1.6)
+    // the hint takes the English line's place while the phrase is empty: one row for both
+    const H = 2 * PAD_Y + line1H + line2H + GAP + Math.max(enH, hintH) + (compact ? 0 : GAP + BTN_H)
     return {W, H, innerW, headW, line1H, line2H, enH, hintH, btnW, patW}
   }
 
-  private build(withReady: boolean): void {
+  private build(compact: boolean): void {
     if (this.root && !isNull(this.root)) retire(this.root, this)
-    const m = this.measure(withReady), d = this.viewDistanceCm
+    const m = this.measure(compact), d = this.readDistanceCm
     useTone(TONE_LIVE)
     const p = panel(this.sceneObject, "PhraseHelper", m.W, m.H, {padX: PAD_X, padY: PAD_Y, gap: GAP, justify: FlexJustify.Start, align: FlexAlign.Start})
     this.root = p.root
-    this.builtReady = withReady
+    this.builtReady = compact
     this.showCount++
 
     // the phrase: line 1 "Kérek" + slot (placed by hand so the slot can start at the left edge),
@@ -189,18 +198,28 @@ export class WbwPhraseHelperUI extends BaseScriptComponent {
     this.slotT = slotT
     this.tailT = tailT
 
-    const enT = text(p.content, "PhraseHelperEn", "", "Body", d, {w: m.innerW, h: m.enH, align: "left", color: TEXT_SOFT})
+    // the English line and the hint share one row (only one shows), so no empty band is left
+    const lineH = Math.max(m.enH, m.hintH)
+    const lines = obj(p.content, "PhraseHelperLines", new vec3(0, 0, 0.02))
+    register(p.content, item(lines, m.innerW, lineH))
+    const enT = text(lines, "PhraseHelperEn", "", "Body", d, {w: m.innerW, h: lineH, align: "left", color: TEXT_SOFT})
     enT.horizontalOverflow = HorizontalOverflow.Shrink
+    enT.getSceneObject().getTransform().setLocalPosition(new vec3(0, 0, 0.05))
     this.enT = enT
-    const hintT = text(p.content, "PhraseHelperHint", HINT, "Body", d, {w: m.innerW, h: m.hintH, align: "left", color: TEXT_SOFT})
+    const hintT = text(lines, "PhraseHelperHint", HINT, "Body", d, {w: m.innerW, h: lineH, align: "left", color: TEXT_SOFT})
     hintT.horizontalOverflow = HorizontalOverflow.Shrink
+    hintT.getSceneObject().getTransform().setLocalPosition(new vec3(0, 0, 0.05))
     this.hintSo = hintT.getSceneObject()
 
-    // buttons: Listen, then the pattern pair (a toggle pair; the controller decides, the view snaps back)
-    const row = flexBox(p.content, "Buttons", "row", m.innerW, BTN_H, {gap: BTN_GAP, justify: FlexJustify.Start, align: FlexAlign.Center})
-    this.listen = button(row, "PhraseHelperListenButton", m.btnW, BTN_H, LISTEN, d, () => this._onListen.invoke(), {icon: ICON_PLAY})
-    this.want = button(row, "PatternWantButton", m.patW, BTN_H, WANT, d, () => this.pickPattern("want"), {toggle: true})
-    this.without = button(row, "PatternWithoutButton", m.patW, BTN_H, WITHOUT, d, () => this.pickPattern("without"), {toggle: true})
+    // buttons: Listen, then the pattern pair (a toggle pair; the controller decides, the view snaps back).
+    // The compact variant (in the conversation) has none: the sentence was prepared, now it is said.
+    this.listen = this.want = this.without = null
+    if (!compact) {
+      const row = flexBox(p.content, "Buttons", "row", m.innerW, BTN_H, {gap: BTN_GAP, justify: FlexJustify.Start, align: FlexAlign.Center})
+      this.listen = button(row, "PhraseHelperListenButton", m.btnW, BTN_H, LISTEN, d, () => this._onListen.invoke(), {icon: ICON_PLAY})
+      this.want = button(row, "PatternWantButton", m.patW, BTN_H, WANT, d, () => this.pickPattern("want"), {toggle: true})
+      this.without = button(row, "PatternWithoutButton", m.patW, BTN_H, WITHOUT, d, () => this.pickPattern("without"), {toggle: true})
+    }
 
     this.lastSize = new vec2(m.W, m.H)
     // re-apply the stored phrase onto the new objects

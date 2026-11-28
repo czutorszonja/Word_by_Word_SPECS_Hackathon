@@ -17,7 +17,6 @@ const MENU_LABEL = "Menu (demo)"
 /** Half-width of the Specs view the chip must stay inside (deg): the 16° view minus a 1.5° margin. */
 const VIEW_HALF_W_DEG = 14.5
 /** Use it live: how much the chip rises (cm) at most when it is pushed in from the left edge. */
-const COMPACT_RISE_CM = 6
 const D2R = Math.PI / 180
 
 @component
@@ -86,7 +85,7 @@ export class WbwHudUI extends BaseScriptComponent {
     this.createEvent("UpdateEvent").bind(() => this.follow(false))
   }
 
-  /** Use it live: collapse to a small "Menu" chip (mode name above the button) at the low-left edge
+  /** Use it live: collapse to a small "Menu" chip (no mode name) at the low-left edge
    *  of the view so the HUD never covers the server, the caption or the phrase cards. Off restores
    *  the full strip. */
   setCompact(on: boolean): void {
@@ -105,7 +104,9 @@ export class WbwHudUI extends BaseScriptComponent {
     // Once a mode is picked it is named in a small chip above the button (2026-11-25: the ONE place the
     // mode is named, so the word card and the phrase panel no longer repeat it). The button stays plain.
     const chipGap = 0.4
-    const withChip = this.compact || this.hasMode
+    // 28 Nov: no mode name while talking to someone (compact = at the counter in Use it live): the help
+    // just appears next to the person, it is not "a mode"
+    const withChip = this.hasMode && !this.compact
     const chipH = withChip ? modeChipH(d) : 0
     const W = w + 0.6, H = h + 0.6 + (withChip ? chipH + chipGap : 0)
     const p = panel(this.sceneObject, "Hud", W, H, {padY: 0.3, gap: chipGap, justify: FlexJustify.Center, align: FlexAlign.Center}, true)
@@ -172,13 +173,10 @@ export class WbwHudUI extends BaseScriptComponent {
     // The offsets place a chip of chipWidthCm x chipHeightCm; a larger built chip keeps that chip's
     // left and bottom edge and grows to the right and upward.
     let right = this.chipOffsetRightCm, up = this.compact ? this.chipOffsetUpCm : this.offsetUpCm
-    let lookRise = 0
-    if (this.compact) {
-      // looking down at the phrase helper on the counter: rise above it (over the server's apron, no UI
-      // there) so the chip never covers the start of the phrase; back to mid-left when looking up
-      const t = Math.max(0, Math.min(1, (-look.y - 0.25) / 0.15))
-      lookRise = t * 9
-    }
+    // 28 Nov: no rise when looking down any more. It kept the chip off the phrase helper lying on the
+    // counter; the helper now floats in front and the conversation sits under the server's face, so
+    // rising only pushed the chip into that strip
+    const lookRise = 0
     if (this.compactW > 0) {
       right += (this.compactW - this.chipWidthCm) / 2
       up += (this.compactH - Math.max(3.8, this.chipHeightCm)) / 2
@@ -191,7 +189,8 @@ export class WbwHudUI extends BaseScriptComponent {
     const minRight = -halfView + halfChip
     let pushRise = 0
     if (right < minRight) {
-      if (this.compact) pushRise = Math.min(COMPACT_RISE_CM, (minRight - right) * 2)
+      // (28 Nov: no rise in Use it live any more: the caption no longer sits beside his chest, and the rise
+      //  pushed the chip onto the phrase card floating above the ingredients)
       right = minRight
     }
     up += Math.max(lookRise, pushRise) // the larger of the two, never both (both put it at the top edge)

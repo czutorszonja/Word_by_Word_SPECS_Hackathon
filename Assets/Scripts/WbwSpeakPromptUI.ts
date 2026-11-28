@@ -53,9 +53,9 @@ export class WbwSpeakPromptUI extends BaseScriptComponent {
   @ui.separator
   @ui.group_start("Settings")
   @input
-  @hint("Distance the strip's text is sized for (cm). It lies under the phrase cards / phrase helper on the counter (~125 cm away); sizing for less keeps it compact")
-  @widget(new SliderWidget(60, 140, 5))
-  viewDistanceCm: number = 140
+  @hint("Distance the strip's text is sized for (cm): the bottom of the conversation strip, about this far away")
+  @widget(new SliderWidget(50, 140, 5))
+  readDistanceCm: number = 80
 
   @input
   @hint("How much the mic dot grows with the learner's voice level (0 = it only brightens)")
@@ -171,7 +171,7 @@ export class WbwSpeakPromptUI extends BaseScriptComponent {
 
   /** Fixed strip: sized for the longest status line, so nothing moves when the state changes. */
   private measure(): StripLayout {
-    const d = this.viewDistanceCm
+    const d = this.readDistanceCm
     // 2026-11-25 readability pass: one larger line, no mode chip (the HUD's chip names the mode)
     const lineH = lineHeightCm("Headline2", d, false)
     const dotD = Math.max(0.9, lineH * 0.5)
@@ -188,7 +188,7 @@ export class WbwSpeakPromptUI extends BaseScriptComponent {
   /** Build the strip once; show() / hide() only enable / disable it afterwards. */
   private build(): void {
     if (this.root && !isNull(this.root)) return
-    const m = this.measure(), d = this.viewDistanceCm
+    const m = this.measure(), d = this.readDistanceCm
     useTone(TONE_LIVE)
     // a strip this low is drawn solid, so the line stays readable over the counter
     const p = panel(this.sceneObject, "SpeakPrompt", m.W, m.H, {padX: PAD_X, padY: PAD_Y, justify: FlexJustify.Center, align: FlexAlign.Center}, true)

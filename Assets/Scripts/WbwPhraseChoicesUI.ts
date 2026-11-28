@@ -35,7 +35,7 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
   @input
   @hint("Widest the card row should get (cm). Wider rows first wrap phrases to two lines, then use slightly smaller text")
   @widget(new SliderWidget(20, 90, 1))
-  maxRowWidthCm: number = 72
+  maxRowCm: number = 36   // 28 Nov: one suggested reply in the conversation strip, ~80 cm away
 
   @input
   @hint("Size of the small picture on each phrase card (cm)")
@@ -43,14 +43,14 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
   pictureSizeCm: number = 4
 
   @input
-  @hint("Distance the card text is sized for (cm). The cards lie ~125 cm away on the counter; sizing for less keeps them compact.")
-  @widget(new SliderWidget(60, 200, 5))
-  viewDistanceCm: number = 155   // learner feedback 2026-11-21: bigger cards and text
+  @hint("Distance the card text is sized for (cm): the conversation strip sits about this far away")
+  @widget(new SliderWidget(50, 200, 5))
+  readDistanceCm: number = 80
 
   @input
-  @hint("Smallest text sizing distance used to fit many cards in the row (cm); keeps the English line readable")
-  @widget(new SliderWidget(60, 180, 5))
-  minViewDistanceCm: number = 130
+  @hint("Smallest text sizing distance used to fit the row (cm); keeps the English line readable")
+  @widget(new SliderWidget(50, 180, 5))
+  minReadDistanceCm: number = 70
 
   @input
   @hint("Show pictures on phrase cards (the learner will decide after the first run)")
@@ -82,7 +82,7 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
     // One line each when the row fits; otherwise wrap to at most two lines; if the row is still too
     // wide (many cards), size the text for a closer distance — never below minViewDistanceCm.
     const measure = (d: number) => {
-      const picS = this.showPictures ? (this.pictureSizeCm * d) / this.viewDistanceCm : 0
+      const picS = this.showPictures ? (this.pictureSizeCm * d) / this.readDistanceCm : 0
       const extra = 2 * cardPadX + (picS > 0 ? picS + picGap : 0)
       // the generic width estimate runs ~20 % wide for these fonts on phrases; 0.95 keeps a safety margin.
       // A short word has few narrow letters to average out ("Köszönöm!" wrapped its "!"), so it gets more.
@@ -91,7 +91,7 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
       const enWs = cards.map((c) => (textWidthCm(c.en.length, "Caption", d, false, enBoost) + 0.3) * fit(c.en.length))
       const single = cards.map((c, i) => Math.max(3.5, huWs[i], enWs[i]))
       const rowOf = (ws: number[]) => ws.reduce((a, b) => a + b + extra, 0) + (cards.length - 1) * gap
-      const oneLine = rowOf(single) <= this.maxRowWidthCm
+      const oneLine = rowOf(single) <= this.maxRowCm
       const textWs = oneLine ? single : cards.map((c, i) =>
         Math.max(3.5, Math.min(huWs[i], huWs[i] / 2 + 0.6), Math.min(enWs[i], enWs[i] / 2 + 0.6)))
       let huLines = 1, enLines = 1
@@ -101,8 +101,8 @@ export class WbwPhraseChoicesUI extends BaseScriptComponent {
       })
       return {d, picS, extra, textWs, huLines, enLines, rowW: rowOf(textWs)}
     }
-    let m = measure(this.viewDistanceCm)
-    while (m.rowW > this.maxRowWidthCm && m.d - 5 >= this.minViewDistanceCm) m = measure(m.d - 5)
+    let m = measure(this.readDistanceCm)
+    while (m.rowW > this.maxRowCm && m.d - 5 >= this.minReadDistanceCm) m = measure(m.d - 5)
     const d = m.d, picS = m.picS, textWs = m.textWs, rowW = m.rowW
     const huH = m.huLines * lineHeightCm("Callout", d, false), enH = m.enLines * lineHeightCm("Caption", d, false, enBoost)
     const ch = 2 * cardPadY + huH + enH

@@ -44,9 +44,12 @@ export class SHOTS_Walkaround extends Scenario {
       await t.tap("SetupLearnHungarian")
       await t.tap("SetupConfirmButton")
       await waitFor(() => m.setupComplete && !m.setupPanel.isVisible, "setup complete")
-      await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLearnButton"), "arrival suggestion", 8000)
-      await t.tap("SuggestLearnButton")
-      await waitFor(() => m.currentMode === "learn", "Learn picked")
+      // the arrival offer comes at the door (or after offerFallbackSec outside): Not now, then Learn from the menu
+      await t.setHead(at(-715, 20), t.yawToward(at(-715, 20), posOf("Sign")), 0)
+      await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLaterButton"), "arrival offer", 20000)
+      await t.tap("SuggestLaterButton")
+      await waitFor(() => !m.suggestionVisible, "offer gone")
+      await t.switchModeViaMenu("ModeLearnButton", "learn")
       // from the far edge of the pavement, at an angle: the narrow Specs view only fits the name board, the door
       // and both street windows (which show the café inside) when the shop front is seen obliquely
       await shot("02-outside-facade", at(-1080, 545, 170), at(-553, 185, 145))

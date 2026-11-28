@@ -33,11 +33,11 @@ export class SHOTS_OutsideWords extends Scenario {
       await t.tap("SetupLearnHungarian")
       await t.tap("SetupConfirmButton")
       await waitFor(() => m.setupComplete && !m.setupPanel.isVisible, "setup complete")
-      // "Later" on the arrival suggestion: no mode yet, so the learner keeps looking around outside (review)
-      await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLaterButton"), "arrival suggestion", 20000)
+      // "Not now" on the arrival offer: no mode yet, so the learner keeps looking around outside (review)
+      await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLaterButton"), "arrival offer", 20000)
       await t.tap("SuggestLaterButton")
-      await waitFor(() => !m.suggestionVisible, "suggestion gone")
-      await sleep(3500) // the toast fades
+      await waitFor(() => !m.suggestionVisible, "offer gone")
+      await sleep(800)
       // the park is round the café's corner: a few steps along the pavement to see it
       for (const [id, name, x, z] of [["megallo", "left-tram-stop", -760, 20], ["posta", "behind-post-office", -760, 20],
         ["szokokut", "right-fountain", -800, 520]] as [string, string, number, number][]) {

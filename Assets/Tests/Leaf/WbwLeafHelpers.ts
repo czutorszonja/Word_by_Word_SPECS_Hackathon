@@ -18,6 +18,7 @@ import {findInteractablesByName} from "Leaf.lspkg/Interactors/InteractableUtils"
 import {findSceneObjectByName, findSceneObjectsByName, nextFrame, sleep, withTimeout} from "Leaf.lspkg/Utils/common/Utils"
 import {WbwMain} from "../../Scripts/WbwMain"
 import {WbwTableCardUI} from "../../Scripts/WbwTableCardUI"
+import {CAFE_NAME} from "../../Scripts/WbwVocab"
 
 const D2R = Math.PI / 180
 
@@ -299,8 +300,9 @@ export class WbwTester {
   }
 
   // ── flows shared by several scenarios ───────────────────────────────────
-  /** Setup panel → choose English/Hungarian → Start → "Café detected (demo)" toast → arrival
-   *  suggestion (nothing starts by itself) → pick Learn → head at the counter spot. */
+  /** Setup panel → choose English/Hungarian → Start → the arrival offer "Looks like you're at Kifli
+   *  Kávézó. Want help ordering?" (nothing starts by itself) → Not now → Menu → Learn → head at the
+   *  counter spot. (28 Nov: no toast; the offer has only Yes / Not now, Learn is in the menu.) */
   async completeSetup(): Promise<void> {
     await waitFor(() => this.main.setupPanel.isVisible && this.hasEnabledInteractable("SetupConfirmButton"), "setup panel visible", 15000)
     // lazily: WbwMain.start() has run by now, so the voice detector and SIK's mouse interactor exist
@@ -322,18 +324,22 @@ export class WbwTester {
     await this.tap("SetupConfirmButton")
     await waitFor(() => this.main.setupComplete, "setupComplete after SetupConfirmButton")
     await waitFor(() => !this.main.setupPanel.isVisible, "setup panel hidden")
-    await waitFor(() => this.toast.isVisible && this.toast.lastMessage === "Café detected (demo)", "toast 'Café detected (demo)'", 3000)
-    await waitFor(() => textOf("Message") === "Café detected (demo)", "toast Message text visible", 3000)
-    // the arrival suggestion replaces the automatic Learn start: nothing starts until the learner picks
-    await waitFor(() => this.main.suggestionVisible && this.hasEnabledInteractable("SuggestLearnButton"), "arrival suggestion panel", 8000)
+    // the arrival offer: nothing starts until the learner answers; no "Café detected" toast any more
+    await waitFor(() => this.main.suggestionVisible && this.hasEnabledInteractable("SuggestLaterButton"), "arrival offer", 8000)
+    if (this.toast.isVisible) throw new Error("no toast on arrival (the offer names the café)")
+    const place = textOf("SuggestPlace", this.main.suggestion!.getSceneObject())
+    if (place !== CAFE_NAME) throw new Error(`the offer names the café: expected '${CAFE_NAME}', got '${place}'`)
+    if (!this.hasEnabledInteractable("SuggestLiveButton")) throw new Error("the offer has Yes, help me order")
+    if (findEnabled("SuggestLearnButton") || findEnabled("SuggestPracticeButton")) throw new Error("the offer has no mode tiles")
     if (this.main.currentMode !== "none") throw new Error("no mode may start before the learner picks one")
     if (this.hud.isVisible) throw new Error("the HUD must stay hidden until a pick")
-    await this.tap("SuggestLearnButton")
-    await waitFor(() => this.main.currentMode === "learn" && !this.main.suggestionVisible, "Learn picked on the suggestion", 4000)
+    await this.tap("SuggestLaterButton")
+    await waitFor(() => this.main.currentMode === "none" && !this.main.suggestionVisible && this.hud.isVisible, "Not now: no mode, the HUD shows", 4000)
     await this.setHead(this.eyeAt(0, 0), 0, -15) // tests expect the counter spot
+    await this.switchModeViaMenu("ModeLearnButton", "learn")
     if (!this.learn.active) throw new Error("WbwLearnController.active is false after picking Learn")
     await waitFor(() => textOf("ModeLabel") === "Mode: Learn", "HUD ModeLabel 'Mode: Learn'", 3000)
-    log("setup complete → suggestion → Learn")
+    log("setup complete → offer: Not now → Menu → Learn")
   }
 
   /** Open the mode menu with the "Menu" stand-in and pick a mode button. */

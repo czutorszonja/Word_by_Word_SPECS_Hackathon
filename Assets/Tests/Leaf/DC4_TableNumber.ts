@@ -2,18 +2,20 @@
 // "After 'Hányas asztalnál ül?', the reply 'A … asztalnál ülök.' waits with its blank. I look round
 //  at the tables (nothing tells me to); occupied tables stay as they are, and when I look at the
 //  number on an empty table (4, 8 or 12) I see and hear it (e.g. '8 = nyolc'). Back at the counter I
-//  can answer with the matching phrase ('A nyolcas asztalnál ülök.'), and the server answers
-//  'Jó étvágyat!'. Nothing tells me where to go afterwards." (26 Nov: no coach hint, arrow or chime)
-// Drives: real SIK triggers through the whole order (prep and steps 1–4 shared with DC3), a real
+//  can answer with the matching phrase ('A nyolcas asztalnál ülök.'), and the server's 'Jó étvágyat!'
+//  ends the order (28 Nov: nothing to answer to it). Nothing tells me where to go afterwards."
+//  (26 Nov: no coach hint, arrow or chime)
+// Drives: real SIK triggers through the whole order (prep and steps 1–2 shared with DC3), a real
 //         head turn (camera yaw 180° → seating, a look at table 8's number, back to 0° → counter),
-//         PhraseCard_nyolcas_asztal and PhraseCard_koszonom, each answered with SaidItButton
-//         (choosing a card plays it; only saying it moves the order on).
+//         PhraseCard_nyolcas_asztal answered with SaidItButton (choosing a card plays it; only saying
+//         it moves the order on).
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
 import {sleep} from "Leaf.lspkg/Utils/common/Utils"
 import {findEnabled, log, tableCard, textOf, waitFor, WbwTester} from "./WbwLeafHelpers"
-import {checkServerTurn, orderUpToTable} from "./DC3_OrderingAtCounter"
+import {checkStrip, orderUpToTable, stripNow} from "./DC3_OrderingAtCounter"
+import {ORDER_DONE} from "../../Scripts/WbwVocab"
 
 @component
 export class DC4_TableNumber extends Scenario {
@@ -72,24 +74,27 @@ export class DC4_TableNumber extends Scenario {
 
       // ── turn back to the counter: only the matching phrase is offered ──
       await t.setHead(t.eyeAt(0, 0), 0, -15)
-      await t.waitForUserTurn(5, 10000)
+      await t.waitForUserTurn(3, 10000)
       expect(o.offeredPhraseIds.join(","), "only the phrase for table 8 is offered").toBe("nyolcas_asztal")
       expect(findEnabled("PhraseCard_negyes_asztal") === undefined, "table 4 phrase not offered").toBe(true)
       expect(findEnabled("PhraseCard_tizenkettes_asztal") === undefined, "table 12 phrase not offered").toBe(true)
       const card = findEnabled("PhraseCard_nyolcas_asztal")!
       expect(textOf("Hu", card), "table 8 phrase HU").toBe("A nyolcas asztalnál ülök.")
       expect(textOf("En", card), "table 8 phrase EN").toBe("I'm at table eight.")
+      checkStrip(t, "step 3 filled", stripNow(t))
       await t.tap("PhraseCard_nyolcas_asztal")
       await waitFor(() => a.lastVoiceKey === "p_nyolcas_asztal", "table phrase plays its audio")
       await t.sayIt()
 
-      // ── server: "Jó étvágyat!" → "Köszönöm!" ──
-      await checkServerTurn(t, 6, "Jó étvágyat!", "Enjoy your meal!", "s_jo_etvagyat")
-      expect(o.offeredPhraseIds.join(","), "step 6 offers Köszönöm").toBe("koszonom")
-      await t.tap("PhraseCard_koszonom")
-      await t.sayIt()
-      await waitFor(() => o.orderStep === 7 && o.waitingFor === "done", "order complete (step 7)", 15000)
-      expect(a.lastVoiceKey, "Köszönöm audio").toBe("p_koszonom")
+      // ── server: "Jó étvágyat!" ends the order: nothing to answer ──
+      await waitFor(() => o.orderStep === 4 && o.lastServerLine === "Jó étvágyat!", "step 4: 'Jó étvágyat!'", 15000)
+      expect(o.orderStepName, "step 4 name").toBe("enjoy")
+      expect(t.caption.currentHu, "his last line as a subtitle").toBe("Jó étvágyat!")
+      expect(t.caption.currentEn, "subtitle EN").toBe("Enjoy your meal!")
+      await waitFor(() => o.orderStep === ORDER_DONE && o.waitingFor === "done", `order complete (step ${ORDER_DONE})`, 15000)
+      expect(a.lastVoiceKey, "his line was the last thing heard").toBe("s_jo_etvagyat")
+      expect(t.phrases.isVisible, "no reply offered to 'Jó étvágyat!'").toBe(false)
+      expect(o.answers.join(","), "three replies").toBe("szendvicset,fillings,nyolcas_asztal")
       expect(t.hint.hintText, "no instruction after the order: it is the learner's visit").toBe("")
       expect(t.hint.arrowVisible, "no arrow after the order").toBe(false)
       log("DC4 done")

@@ -42,26 +42,20 @@ export class SHOTS_Stage23 extends Scenario {
       await t.waitAudioIdle()
       await t.startOrdering()
       await t.waitForUserTurn(1)
-      // the replies lie on the counter tray in front of the server: look down at them, as the learner does
-      const tray = o.phraseTray!.getTransform().getWorldPosition()
-      await t.lookAt(eye, tray)
+      // 28 Nov: the replies sit in the conversation strip under the server's face (no counter tray, three
+      // replies); this stage-23 scenario follows the current flow so it still runs (SHOTS_Stage25 has the new shots)
+      const face = o.server.getSceneObject().getTransform().getWorldPosition().add(new vec3(0, o.server.heightCm - 12, 0))
+      const tray = face
+      await t.lookAt(eye, face)
       await hold("you-could-say-step-1")
       await t.tap("PhraseCard_szendvicset")
       await t.sayIt()
       await t.waitForUserTurn(2)
       await waitFor(() => o.waitingForSpeech, "step 2 turn open", 5000)
       await t.sayIt()
-      await t.waitForUserTurn(3)
-      await t.tap("PhraseCard_tejes_kave")
-      await t.sayIt()
-      await t.waitForUserTurn(4)
-      await t.lookAt(eye, tray)
-      await hold("you-could-say-step-4")
-      await t.tap("PhraseCard_itt_eszem")
-      await t.sayIt()
 
       // ── the table question: the reply waits with its blank ──
-      await waitFor(() => o.orderStep === 5 && o.waitingFor === "table", "the order waits for a table", 15000)
+      await waitFor(() => o.orderStep === 3 && o.waitingFor === "table", "the order waits for a table", 15000)
       await sleep(1500) // the server's line finishes
       await t.setHead(eye, 0, -12) // looking at him: his question as a caption
       await hold("table-question-caption")
@@ -79,7 +73,7 @@ export class SHOTS_Stage23 extends Scenario {
       await hold("table-8-read-8-nyolc")
       card8.popupSeconds = popupSec
       await t.setHead(eye, 0, -15)
-      await t.waitForUserTurn(5, 10000)
+      await t.waitForUserTurn(3, 10000)
       await t.lookAt(eye, tray)
       await hold("table-reply-filled-nyolcas")
 

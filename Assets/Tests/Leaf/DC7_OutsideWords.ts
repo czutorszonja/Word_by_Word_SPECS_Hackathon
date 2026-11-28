@@ -6,7 +6,7 @@
 // card; café words (NYITVA on the door) stay quiet in review. After picking Learn, selecting an outside
 // thing opens its card already "Saved ✓" (saved on an earlier outing) and without the Use it live link.
 // Drives: real SIK triggers on SetupSpeakEnglish, SetupLearnHungarian, SetupConfirmButton, Learnable_megallo,
-//         SuggestLearnButton, Learnable_pad, WordCardCloseButton; pointer hover via WbwTester.pointHold /
+//         SuggestLaterButton (the arrival offer: Not now), MenuButton → ModeLearnButton, Learnable_pad, WordCardCloseButton; pointer hover via WbwTester.pointHold /
 //         pointer.hold. Head moves with WbwTester.setHead.
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
@@ -90,9 +90,11 @@ export class DC7_OutsideWords extends Scenario {
       await t.pointRelease()
 
       // ── Learn: an outside word opens its card, saved already, no Use it live ──
-      await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLearnButton"), "arrival suggestion", 20000)
-      await t.tap("SuggestLearnButton")
-      await waitFor(() => m.currentMode === "learn", "Learn picked")
+      // standing outside without going to the door: the offer comes after offerFallbackSec
+      await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLaterButton"), "arrival offer", 20000)
+      await t.tap("SuggestLaterButton")
+      await waitFor(() => !m.suggestionVisible && m.currentMode === "none", "Not now")
+      await t.switchModeViaMenu("ModeLearnButton", "learn")
       await lookAt(posOf("pad"))
       await t.tap("Learnable_pad")
       await waitFor(() => t.card.isVisible && t.card.currentWordId === "pad", "word card for pad")

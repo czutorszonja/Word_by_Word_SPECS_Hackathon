@@ -17,6 +17,7 @@ import {SHOTS_Walkaround} from "./SHOTS_Walkaround"
 import {SHOTS_OutsideWords} from "./SHOTS_OutsideWords"
 import {SHOTS_Stage23} from "./SHOTS_Stage23"
 import {SHOTS_Stage24} from "./SHOTS_Stage24"
+import {SHOTS_Stage25} from "./SHOTS_Stage25"
 import {DEMO_Video} from "./DEMO_Video"
 
 @component
@@ -38,5 +39,6 @@ export class LeafIndex extends BaseScriptComponent {
     {id: "SHOTS_OutsideWords", typename: SHOTS_OutsideWords.getTypeName()},
     {id: "SHOTS_Stage23", typename: SHOTS_Stage23.getTypeName()},
     {id: "SHOTS_Stage24", typename: SHOTS_Stage24.getTypeName()},
+    {id: "SHOTS_Stage25", typename: SHOTS_Stage25.getTypeName()},
   ]
 }

@@ -1,7 +1,7 @@
 // StoryTour.ts — LEAF scenario "TOUR_Story": the watchable story tour of Word by Word.
 // Storyboard: Look around → Point to reveal → Select to listen → Save → Open Use it live → Reuse the
 // same phrase, then the order with the server, the table number and seated Practice.
-// Four acts: 1 Arrival (setup → walk in → "Café detected (demo)" → suggestion → Learn) ·
+// Four acts: 1 Arrival (setup → walk in → "Looks like you're at Kifli Kávézó. Want help ordering?" → Not now → Menu → Learn) ·
 //            2 Learn (quiet markers, silent hover label with one bracket and a pointer dot, steady
 //              card that plays once, Listen again, Save → "Saved ✓", four words, select the label,
 //              "Use it live →") ·
@@ -27,7 +27,7 @@ import {findInteractableByName} from "Leaf.lspkg/Interactors/InteractableUtils"
 import {findSceneObjectsByName, nextFrame, sleep} from "Leaf.lspkg/Utils/common/Utils"
 import {Interactable} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Interactable/Interactable"
 import {child, findEnabled, horiz, log, tableCard, textOf, waitFor, WbwTester} from "./WbwLeafHelpers"
-import {wordById} from "../../Scripts/WbwVocab"
+import {CAFE_NAME, ORDER_DONE, wordById} from "../../Scripts/WbwVocab"
 
 // ── pacing ────────────────────────────────────────────────────────────────
 /** Pace of a recording take. */
@@ -311,44 +311,43 @@ export class StoryTour extends Scenario {
         log("cut to the entrance spot (0, 520)")
         await tour.start(tour.local(0, 520), 0, -4)
       }
-      soft(S.arrivalPhase() === "walkIn" || S.arrivalPhase() === "toast", `arrivalPhase walkIn/toast (got '${S.arrivalPhase()}')`)
+      soft(["walkIn", "suggest"].indexOf(S.arrivalPhase()) >= 0, `arrivalPhase walkIn/suggest (got '${S.arrivalPhase()}')`)
 
-      tour.beat("A3", "walk in down the centre aisle; 'Café detected (demo)'")
+      tour.beat("A3", "walk in down the centre aisle")
       await tour.glide({x: 0, z: 355, yaw: 5, pitch: -4}, 1.8, "linear")
       await tour.glide({x: 0, z: 190, yaw: -2, pitch: -5}, 1.8, "out")
       await tour.look(0, -5, 0.3)
-      await waitFor(() => t.toast.lastMessage === "Café detected (demo)", "toast 'Café detected (demo)'", 4000)
-      log(`toastTrigger = '${S.toastTrigger()}' (walk expected in the tour, timeout in DC runs)`)
 
-      tour.beat("A4", "the app suggests what to do here")
-      await waitFor(() => S.suggestionVisible() && t.hasEnabledInteractable("SuggestLearnButton"), "arrival suggestion panel", 9000)
-      for (const b of ["SuggestLearnButton", "SuggestPracticeButton", "SuggestLiveButton", "SuggestLaterButton"]) {
-        expect(t.hasEnabledInteractable(b), `${b} enabled`).toBe(true)
-      }
-      expect(textOf("Label", findEnabled("SuggestLearnButton")), "Learn tile label").toBe("Learn")
-      expect(textOf("Label", findEnabled("SuggestPracticeButton")), "Practice tile label").toBe("Practice")
-      expect(textOf("Label", findEnabled("SuggestLiveButton")), "Use it live tile label").toBe("Use it live")
-      expect(m.currentMode, "nothing auto-starts while the suggestion is up").toBe("none")
+      tour.beat("A4", "the glasses recognise the café: 'Looks like you're at Kifli Kávézó. Want help ordering?'")
+      await waitFor(() => S.suggestionVisible() && t.hasEnabledInteractable("SuggestLiveButton"), "the arrival offer", 9000)
+      log(`toastTrigger = '${S.toastTrigger()}' (walk expected in the tour, timeout in DC runs)`)
+      expect(t.toast.isVisible, "no 'Café detected' toast: the offer names the café").toBe(false)
+      for (const b of ["SuggestLiveButton", "SuggestLaterButton"]) expect(t.hasEnabledInteractable(b), `${b} enabled`).toBe(true)
+      expect(findEnabled("SuggestLearnButton") === undefined && findEnabled("SuggestPracticeButton") === undefined, "no mode tiles: Learn and Practice are in the menu").toBe(true)
+      expect(textOf("SuggestPlace", findEnabled("SuggestionPanel")), "the café's name").toBe(CAFE_NAME)
+      expect(textOf("SuggestTitle", findEnabled("SuggestionPanel")), "the question").toBe("Want help ordering?")
+      expect(textOf("Label", findEnabled("SuggestLiveButton")), "Yes label").toBe("Yes, help me order")
+      expect(textOf("Label", findEnabled("SuggestLaterButton")), "Not now label").toBe("Not now")
+      expect(m.currentMode, "nothing auto-starts while the offer is up").toBe("none")
       expect(a.voicePlayCount, "no voice clip during arrival").toBe(voice0)
       soft(!t.hud.isVisible, "HUD hidden until a pick")
       soft(S.arrivalPhase() === "suggest", `arrivalPhase 'suggest' (got '${S.arrivalPhase()}')`)
       await pause(READ_LONG)
 
-      tour.beat("A5", "point at the tiles: the description explains each")
-      const desc0 = S.descriptionText()
-      await tour.point("SuggestLearnButton", 1.0)
-      const descLearn = S.descriptionText()
-      await tour.point("SuggestPracticeButton", 0.8)
-      const descPractice = S.descriptionText()
-      await tour.point("SuggestLiveButton", 0.8)
-      soft(descLearn !== desc0 && descPractice !== descLearn, `description changes per tile ('${desc0}' / '${descLearn}' / '${descPractice}')`)
+      tour.beat("A5", "Not now: look around first (Learn is in the menu)")
+      await tour.point("SuggestLaterButton", 0.8)
       await tour.unpoint()
-      await pause(0.3)
+      await tour.tap("SuggestLaterButton")
+      await waitFor(() => m.currentMode === "none" && !S.suggestionVisible() && t.hud.isVisible, "Not now: no mode, the HUD shows", 4000)
+      soft(S.suggestionPick() === "later", `suggestionPick 'later' (got '${S.suggestionPick()}')`)
+      await pause(0.6)
 
-      tour.beat("A6", "choose Learn")
-      await tour.tap("SuggestLearnButton")
-      await waitFor(() => m.currentMode === "learn" && !S.suggestionVisible(), "Learn picked on the suggestion", 4000)
-      soft(S.suggestionPick() === "learn", `suggestionPick 'learn' (got '${S.suggestionPick()}')`)
+      tour.beat("A6", "Menu → Learn")
+      await tour.tap("MenuButton")
+      await waitFor(() => m.menuOpen, "menu open")
+      await pause(0.6)
+      await tour.tap("ModeLearnButton")
+      await waitFor(() => m.currentMode === "learn" && !m.menuOpen, "Learn picked in the menu", 4000)
       expect(m.currentModeLabel, "mode label").toBe("Learn")
       expect(a.voicePlayCount, "no voice clip up to the pick").toBe(voice0)
       await waitFor(() => textOf("SavedBadge") === "Saved: 0", "HUD 'Saved: 0' after the pick", 3000)
@@ -511,7 +510,7 @@ export class StoryTour extends Scenario {
       expect(S.orderStepName(), "prep step name").toBe("prep")
       expect(t.caption.isVisible, "the server stays quiet in prep (no caption)").toBe(false)
       expect(a.voicePlayCount, "nothing plays when Use it live opens").toBe(voiceBeforeLive)
-      expect(textOf("ChipLabel", findEnabled("HudModeChip")), "the HUD chip names the mode (the phrase panel has none)").toBe("Use it live")
+      expect(findEnabled("HudModeChip") === undefined, "no mode name on the HUD at the counter (28 Nov)").toBe(true)
       expect(S.phraseSlotIds(), "carried word").toBe("uborka_friss")
       expect(S.phrasePattern(), "pattern").toBe("want")
       expect(S.phraseHu(), "phrase HU").toBe("Kérek uborkát a szendvicsembe.")
@@ -519,7 +518,6 @@ export class StoryTour extends Scenario {
       expect(S.phraseAudioKey(), "phrase audio").toBe("p_kerek_uborka_friss")
       expect(findEnabled("ReadyToOrderButton") === undefined, "no Ready to order button: the glasses only help").toBe(true)
       expect(S.waitingForSpeech(), "showing the helper opens no speak turn").toBe(false)
-      soft(findEnabled("HudModeChip") !== undefined, "the compact HUD names the mode (HudModeChip)")
       await pause(READ_LONG)
 
       if (OPTIONAL_BEATS) {
@@ -608,13 +606,9 @@ export class StoryTour extends Scenario {
       expect(S.phraseHelperVisible(), "the helper steps aside during step 1").toBe(false)
       expect(S.phraseHu(), "prepared phrase kept for step 2").toBe("Kérek szalámit és paradicsomot a szendvicsembe.")
 
-      if (OPTIONAL_BEATS) {
-        tour.beat("U7a", "'Jó napot!' back: said, but does not advance")
-        await tour.answerTurn(1, "jonapot", "p_jonapot", false)
-        expect(o.orderStep, "greeting back does not advance").toBe(1)
-        await tour.lookUpAtServer(0.7)
-      }
-      tour.beat("U7", "step 1: 'Egy szendvicset kérek.' → say it")
+      tour.beat("U7", "step 1: nothing shows at first; after a pause, ONE suggestion: 'Egy szendvicset kérek.' → say it")
+      await waitFor(() => o.hesitating, "a silent turn after his question (the learner may just answer)", 10000)
+      soft(!t.phrases.isVisible, "no suggestion while the learner may answer by themselves")
       await tour.answerTurn(1, "szendvicset", "p_szendvicset_kerek")
       await tour.lookUpAtServer(0.7)
 
@@ -629,23 +623,17 @@ export class StoryTour extends Scenario {
       expect(S.phraseHelperVisible(), "helper is the answer surface").toBe(true)
       expect(S.phraseHu(), "prepared phrase kept").toBe("Kérek szalámit és paradicsomot a szendvicsembe.")
       await waitFor(() => S.waitingForSpeech(), "waiting for speech right after the question (phrase ready)", 3000)
-      await tour.lookAt("PhraseHelper", 0.7, 0, -2, {yaw: 0, pitch: -28})
+      soft(o.phraseHelper!.compact, "in the strip the sentence shows compact")
       await pause(1.4)
       const answers2 = o.answers.length
       await tour.sayIt(2)
       soft(o.answers.length === answers2 + 1 && o.answers[o.answers.length - 1] === "fillings", `answers +1 'fillings' (got ${o.answers.join(",")})`)
       await tour.lookUpAtServer(0.7)
 
-      tour.beat("U9", "step 3: coffee")
-      await tour.answerTurn(3, "tejes_kave", "p_tejes_kave")
-      await tour.lookUpAtServer(0.7)
+      soft(m.savedWords.indexOf("szalami") >= 0 && m.savedWords.indexOf("paradicsom") >= 0, `the sentence's words are with the saved words for Practice (newly kept: '${o.keptFromOrder.join(",")}')`)
 
-      tour.beat("U10", "step 4: 'Itt eszem.'")
-      await tour.answerTurn(4, "itt_eszem", "p_itt_eszem")
-      await tour.lookUpAtServer(0.7)
-
-      tour.beat("U11", "step 5 'Hányas asztalnál ül?': the reply waits with its blank")
-      await waitFor(() => o.orderStep === 5 && o.waitingFor === "table", "the order waits for a table", 15000)
+      tour.beat("U11", "step 3 'Hányas asztalnál ül?': the reply waits with its blank")
+      await waitFor(() => o.orderStep === 3 && o.waitingFor === "table", "the order waits for a table", 15000)
       expect(t.hint.arrowVisible, "no edge arrow (real life: nothing sends me round)").toBe(false)
       expect(t.hint.hintText, "no coach hint at the table question").toBe("")
       expect(findEnabled("PhraseCard_table_blank") !== undefined, "'A … asztalnál ülök.' waits with its blank").toBe(true)
@@ -678,14 +666,14 @@ export class StoryTour extends Scenario {
 
       tour.beat("U15", "back to the counter: 'A nyolcas asztalnál ülök.'")
       await tour.glide({x: 0, z: 0, yaw: 0, pitch: -2}, 2.8, "inOut", "right")
-      await t.waitForUserTurn(5, 10000)
+      await t.waitForUserTurn(3, 10000)
       expect(o.offeredPhraseIds.join(","), "only the table-8 phrase").toBe("nyolcas_asztal")
-      await tour.answerTurn(5, "nyolcas_asztal", "p_nyolcas_asztal")
+      await tour.answerTurn(3, "nyolcas_asztal", "p_nyolcas_asztal")
       await tour.lookUpAtServer(0.7)
 
-      tour.beat("U16", "step 6 'Jó étvágyat!' → 'Köszönöm!'")
-      await tour.answerTurn(6, "koszonom", "p_koszonom")
-      await waitFor(() => o.orderStep === 7 && o.waitingFor === "done", "order complete", 8000)
+      tour.beat("U16", "step 4 'Jó étvágyat!' ends the order: nothing to answer")
+      await waitFor(() => o.orderStep === ORDER_DONE && o.waitingFor === "done", "order complete", 12000)
+      expect(o.answers.join(","), "three replies").toBe("szendvicset,fillings,nyolcas_asztal")
       expect(t.hint.hintText, "no instruction after the order: it is my visit").toBe("")
       await tour.lookUpAtServer(0.7)
       await pause(2.0)

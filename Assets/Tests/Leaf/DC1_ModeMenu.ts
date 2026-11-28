@@ -2,7 +2,7 @@
 // "Clicking the ✋ Menu stand-in opens a menu with Learn, Practice and Use it live. I can pick
 //  any mode, see which one is active, and reopen the menu to switch modes without losing my
 //  saved words."
-// Drives: real SIK triggers on SetupConfirmButton, SuggestLearnButton, Learnable_olivabogyo,
+// Drives: real SIK triggers on SetupConfirmButton, SuggestLaterButton (the arrival offer: Not now) → MenuButton → ModeLearnButton, Learnable_olivabogyo,
 //         WordCardSaveButton, WordCardCloseButton, MenuButton, ModeLearnButton / ModePracticeButton /
 //         ModeUseLiveButton, ModeMenuCloseButton, the saved-words steps (WordsView*, WordsCategory_*, WordsPeriod_*, WordsBackButton)
 //         and the language settings (LanguagesButton, LanguagesLearn, Language_de, Language_hu, LanguagesCloseButton).

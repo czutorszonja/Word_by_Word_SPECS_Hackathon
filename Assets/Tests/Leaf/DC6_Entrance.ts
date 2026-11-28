@@ -4,12 +4,14 @@
 // sign from outside names NYITVA and selecting it opens the card with its clip; walking up to the door
 // opens it; once inside the door closes again and pointing at the sign names ZÁRVA.
 // Drives: real SIK triggers on SetupSpeakEnglish, SetupLearnHungarian, SetupConfirmButton,
-//         SuggestLearnButton, Learnable_nyitva, Learnable_zarva, WordCardCloseButton; pointer hover via
+//         SuggestLaterButton (the arrival offer at the door: Not now), MenuButton → ModeLearnButton, Learnable_nyitva, Learnable_zarva, WordCardCloseButton; pointer hover via
 //         WbwTester.pointHold. Head moves with WbwTester.setHead (world yaw from yawToward).
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
+import {sleep} from "Leaf.lspkg/Utils/common/Utils"
 import {findEnabled, log, textOf, waitFor, WbwTester} from "./WbwLeafHelpers"
 import {WbwDoor} from "../../Scripts/WbwDoor"
+import {CAFE_NAME} from "../../Scripts/WbwVocab"
 
 const D2R = Math.PI / 180
 
@@ -40,19 +42,32 @@ export class DC6_Entrance extends Scenario {
       const dist = Math.hypot(toSign.x, toSign.z)
       expect(dist > 150 && dist < 300, `standing outside, a few steps from the door (${dist.toFixed(0)} cm)`).toBe(true)
 
-      // ── finish the setup out here and pick Learn ──
+      // ── finish the setup out here: nothing is offered while the learner stands back ──
       await t.tap("SetupSpeakEnglish")
       await t.tap("SetupLearnHungarian")
       await t.tap("SetupConfirmButton")
       await waitFor(() => m.setupComplete && !m.setupPanel.isVisible, "setup complete")
-      await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLearnButton"), "arrival suggestion", 8000)
-      await t.tap("SuggestLearnButton")
-      await waitFor(() => m.currentMode === "learn", "Learn picked")
+      await sleep(1500)
+      expect(m.suggestionVisible, "no offer while standing back from the door").toBe(false)
+      expect(t.toast.isVisible, "no 'Café detected' toast any more").toBe(false)
+
+      // ── a step toward the door: "Looks like you're at Kifli Kávézó. Want help ordering?" ──
+      await lookAt(at(-715, 20), signPos())
+      await waitFor(() => m.suggestionVisible && t.hasEnabledInteractable("SuggestLiveButton"), "the offer as the learner reaches the door", 4000)
+      expect(m.toastTrigger, "brought up by the door").toBe("door")
+      expect(textOf("SuggestPlace", m.suggestion!.getSceneObject()), "the offer names the café").toBe(CAFE_NAME)
+      expect(textOf("SuggestTitle", m.suggestion!.getSceneObject()), "the question").toBe("Want help ordering?")
+      expect(findEnabled("SuggestLearnButton") === undefined && findEnabled("SuggestPracticeButton") === undefined, "no mode tiles on the offer").toBe(true)
+      expect(textOf("FacadeName"), "the sign over the door names the café").toBe(CAFE_NAME.toUpperCase())
+      await t.tap("SuggestLaterButton")
+      await waitFor(() => !m.suggestionVisible && m.currentMode === "none" && t.hud.isVisible, "Not now: no mode, the HUD shows")
+      await t.switchModeViaMenu("ModeLearnButton", "learn")
 
       // ── NYITVA from the street ──
       await lookAt(at(-760, 20), signPos())
       const door = findEnabled("Door")!.getComponent(WbwDoor.getTypeName()) as WbwDoor
-      expect(door !== null && door.isClosed, "the door is closed while the user stands back").toBe(true)
+      expect(door !== null, "the door").toBe(true)
+      await waitFor(() => door.isClosed, "the door is closed while the user stands back", 4000)
       await t.pointHold("nyitva")
       expect(textOf("NameLabelHu", findEnabled("NameLabel")), "the outside face names NYITVA").toBe("nyitva")
       expect(textOf("NameLabelEn", findEnabled("NameLabel")), "English: open").toBe("open")

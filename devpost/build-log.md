@@ -36,6 +36,7 @@ is the learning layer.
 | 11-25 | 22 | Calmer cards: every card and panel cut down to one thing to read (word card, phrase panel, labels, speak strip, table caption, saved words); the mode is named once, on the Menu chip; DC1–DC7 and the tour pass |
 | 11-27 | 23 | After the permission dialog was answered: one package the agent's tool had added broke compiling and was moved out of the project; DC3 and the tour pass with the server-notice change; the real mouse labels the post office (~14 m) and opens the tram stop's card (~6.6 m). Stage-23 screenshots (saved-words steps, "You could say", the table reply with its blank and filled, "8 = nyolc", Practice in front, an outside label in Learn) reviewed against the Specs UI sizes: the Menu chip is kept inside the view, the saved words open at 80 cm with a margin, Practice follows a downward gaze. DC1–DC7 and the tour pass; timeline stage 19 on the page |
 | 11-27 | 24 | Word by Word is not a Hungarian app (learner): a Languages screen in the menu (I speak English / I'm learning Hungarian · Magyar; other languages listed and say they are not in this demo yet), Words saved and Languages share one menu row so it fits the view, the setup note points to Languages. DEMO_Video: a hands-free demo run to record, 172 s, tuned in the preview (path to table 8, the ending, pauses). Found while recording: "Köszönöm!" wrapped, the practice board covered the viewers. DC1–DC7, TOUR_Story and DEMO_Video pass |
+| 11-28 | 25 | The learner watched DEMO_Video: "I keep looking down at the card when I am ordering… too much talking… it wasn't obvious the Specs recognised a café… it feels like a game". The café visit redesigned: at the door "Looks like you're at Kifli Kávézó. Want help ordering?" (no toast, no mode tiles; the sign says KIFLI KÁVÉZÓ); three replies; the whole conversation in one strip under the server's face; help only after a 2 s pause; the sentence's words kept for Practice; no mode name while talking. Tuned in the preview so his face and the strip fit the Specs view together; the prep card floats above the ingredients. Tests and DEMO_Video rewritten (138.1 s); DC1–DC7, TOUR_Story and DEMO_Video pass |
 
 ## Problems we ran into and how they were solved
 
@@ -92,6 +93,12 @@ is the learning layer.
   (`importExternalFileAsync`) first.
 - **`requireAsset` needs a literal path:** a helper that passed the path in a variable inside try/catch always
   returned null, so the Languages button first showed no icon.
+- **A new @input keeps its first value** (28 Nov): when Lens Studio first compiles a new input it stores the
+  default on the scene's component, and later changes to the default in code are ignored (the tuned strip drop,
+  gap and prep lift had no effect at all; two runs gave identical frames). Tuned inputs were renamed so the new
+  values apply (`stripBelowFaceDeg`, `stripSpacingCm`, `prepAboveGazeDeg`, `prepLowestDeg`, `prepHighestDeg`).
+- **Editing a script while a LEAF scenario runs resets the preview** (Lens Studio recompiles on save), killing
+  the run with no PASSED/FAILED. Edit Assets only between runs; files outside `Assets/` (docs) are safe.
 - Smaller ones: an ES_ASSERT crash when many TypeScript files were reimported at once; creating materials by
   code failed ("Value is not a native object"), so materials are made by copying `.mat` files with new IDs (this
   leaves harmless "duplicate id" log warnings on reimport); Lens Studio signed out overnight once.
@@ -241,6 +248,18 @@ is the learning layer.
   takes 5 % off for long phrases (narrow letters average out), which a short word with wide letters doesn't get →
   short words get 10 % more. The finished practice board (65 cm) covered Words saved and Languages (80 cm) → it
   tucks away while either is open.
+- 28 Nov stage-25 review (the café-visit redesign, judged in the Specs view while facing the barista): the first
+  strip (top 9° under his face, subtitle + reply + say-it) ran off the bottom: the full sentence card is ~14 cm
+  tall, the room under his face ~15 cm. Fixes: in the strip the sentence shows compact (no Listen / pattern
+  buttons: prepared, now said); his question shows alone, and the reply takes the subtitle's place when all three
+  would not fit; the top sits 3.5° under his face with 0.5 cm gaps. The prep card was placed once (at the door,
+  where Yes was pressed) and then out of view at the counter → it follows the gaze gently, ~10° above it, between
+  12° and 30° below eye level: over the ingredients and their labels, never on them (on the glasses a ray must
+  reach the label's Use this word), under his face when looking up. Its extra 9 cm drop had put it right on the
+  gaze. The Menu chip still rose when looking down (to clear the old counter phrase) and when clamped at the edge
+  (to clear the old chest caption): both rises pushed it onto the new cards, so both are gone. When his greeting
+  started, the full prep card was still up for a moment, so the fit rule hid his subtitle (DC3 caught it): the card
+  now goes first.
 
 ### Process
 - **The demo run (DEMO_Video, 27 Nov).** The guessed walk to table 8 went straight through table 2's right-hand
@@ -252,6 +271,12 @@ is the learning layer.
   the run hides it again at every beat. Timing: 200.8 s → 172.1 s, from shorter pauses, the tour's moves at 0.85
   of TOUR_Story's pace and no fountain. Runs differ by up to ~4 s, and capturing the window every few seconds
   slows the preview a little (178.7 s), so record without the frame capture running.
+- **The demo run, 28 Nov (stage 25).** New story: setup and a street word outside, the offer at the door → Yes,
+  the sentence built by pointing at the counter, the conversation under the barista's face (his greeting, a pause,
+  ONE suggestion said; the prepared sentence; table 8 read by a glance; "Jó étvágyat!"), Practice at table 8 with
+  the words just used, Learn from the seat (the menu board's tejeskávé, saved), Words saved, Languages, standing
+  up. The tour helper's answerTurn looks down at the card before tapping it; the demo now points at the reply with
+  the head still on him. 138.1 s without frame capture. Beats: outside 0.0 s, arrive 13.9, prepare 27.3, order 42.1, table 58.2, practice 76.8, learn 106.0, words 115.6, languages 125.0, end 134.0, done 138.1 s.
 - Screenshots and commits were sometimes forgotten → now written into the design brief's "Working rules".
 - Parallel helper agents sped up model building but caused the GPU overload above; they now run only while
   Lens Studio is closed.
@@ -465,6 +490,12 @@ in this demo yet" (taken by `SHOTS_Stage24`); `*_24_demo-video_*` is six frames 
 word and the suggestion outside, walking in, the sentence ready at the counter, table 8 read by a glance, Practice
 seated at table 8, and the Deutsch note.
 
+**The café-visit redesign (stage 25, 28 Nov)**: `*_25_cafe-visit_*` is the KIFLI KÁVÉZÓ sign, the offer at the
+door, the sentence card above the ingredients (empty and built), the server speaking (his subtitle under his face),
+the one suggestion after a pause, the learner's own sentence in the strip, the table reply with its blank, table
+8 read and the filled reply (taken by
+`SHOTS_Stage25`); `*_25_demo-video_*` is frames of the new `DEMO_Video`.
+
 ## Reflection notes for the demo (progress, easy, hard, what happened)
 
 Use these when presenting. Picture pairs are in `development-timeline/` (search the file name).
@@ -545,7 +576,12 @@ the screenshots. Beats in the run without capture: outside 0.0 s, street 9.4, ar
 To record: run DEMO_Video alone from the LEAF panel, Preview large, mouse off the Preview, Preview mic off, and
 stop at "DEMO done" (the camera then jumps back to the start pose).
 
+**Stage 25 is done** (28 Nov): the café-visit redesign verified and tuned in the preview, the tests and the
+demo run rewritten (138.1 s), DC1–DC7, TOUR_Story and DEMO_Video passing. Left as is: the hesitation is a fixed
+2 s; the strip is placed toward his face, so a learner who looks far off to the side sees it at the edge; the
+TOUR still looks down at the reply cards before tapping them (a test, not the recording).
+
 **Before submitting:**
 7. The learner records more human voice clips, same file names (`audio-recording-list.md`, 145 clips).
-8. Record the demo video (DEMO_Video, about 2:52) right after a sign-in refresh (every ~50 min; the log says "Next OAuth
+8. Record the demo video (DEMO_Video, about 138.1 s) right after a sign-in refresh (every ~50 min; the log says "Next OAuth
    token refresh"), make the repo public, submit.
